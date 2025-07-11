@@ -1,0 +1,26 @@
+id	name	level	incomePerSec	mergeCount	spriteName	unlockDesc
+1	평범소녀	1	1	2	girl_lv1	기본
+2	귀여운소녀	2	2	2	girl_lv2	Lv1 합성
+3	도도소녀	3	4	2	girl_lv3	Lv2 합성
+4	활발소녀	4	8	2	girl_lv4	Lv3 합성
+5	차분소녀	5	16	2	girl_lv5	Lv4 합성
+6	엉뚱소녀	6	32	2	girl_lv6	Lv5 합성
+7	상냥소녀	7	64	2	girl_lv7	Lv6 합성
+8	공부소녀	8	128	2	girl_lv8	Lv7 합성
+9	운동소녀	9	256	2	girl_lv9	Lv8 합성
+10	럭셔리소녀	10	512	2	girl_lv10	Lv9 합성
+11	요리소녀	11	1024	2	girl_lv11	Lv10 합성
+12	아방소녀	12	2048	2	girl_lv12	Lv11 합성
+13	섹시소녀	13	4096	2	girl_lv13	Lv12 합성
+14	츤데레소녀	14	8192	2	girl_lv14	Lv13 합성
+15	모범소녀	15	16384	2	girl_lv15	Lv14 합성
+16	음침소녀	16	32768	2	girl_lv16	Lv15 합성
+17	사차원소녀	17	65536	2	girl_lv17	Lv16 합성
+18	큐티소녀	18	131072	2	girl_lv18	Lv17 합성
+19	프린세스소녀	19	262144	2	girl_lv19	Lv18 합성
+20	아이돌소녀	20	524288	2	girl_lv20	Lv19 합성
+21	마법소녀	21	1048576	2	girl_lv21	Lv20 합성
+22	닌자소녀	22	2097152	2	girl_lv22	Lv21 합성
+23	천재소녀	23	4194304	2	girl_lv23	Lv22 합성
+24	초인소녀	24	8388608	2	girl_lv24	Lv23 합성
+25	궁극소녀	25	16777216	100	girl_lv25	Lv24 합성 (최고레벨)

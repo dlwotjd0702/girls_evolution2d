@@ -8,9 +8,9 @@
 
 ```
 Scripts/
-  ├─ UI/                # 게임 UI 관리 (GameUIManager, PrestigeUIController 등)
+  ├─ UI/                # 게임 UI 관리 (GameUIManager, PrestigeUIController, GPGSUIController 등)
   ├─ Save_Datas/        # 세이브 데이터 관리 (SaveManager, SaveData)
-  ├─ Mainsystem/        # 핵심 시스템 (PrestigeManager, UpgradeManager, GirlMergeManager 등)
+  ├─ Mainsystem/        # 핵심 시스템 (PrestigeManager, UpgradeManager, GirlMergeManager, GPGSManager 등)
   ├─ Interface/         # 인터페이스(ISaveable)
   ├─ Gold/              # 골드 관련 시스템 (IdleGoldManager, ClickGoldManager 등)
   └─ Girl/              # 캐릭터, 진화 데이터 (GirlCharacter, GirlFieldManager 등)
@@ -29,7 +29,28 @@ Scripts/
 - 새로운 기능 추가 시, 관련 폴더에 스크립트를 분류해 주세요.
 - 커밋 메시지는 명확하게 작성해 주세요.
 
+## Google Play Games Services (GPGS) 설정
+
+### GPGS 기능
+- **업적 시스템**: 첫 소녀 획득, 진화, 골드 수집 등
+- **리더보드**: 골드 수량, 소녀 수 등
+- **자동 로그인**: 게임 시작 시 자동 로그인
+- **사용자 정보**: 표시명, 이메일 등
+
+### 설정 방법
+1. Google Play Console에서 앱 생성
+2. GPGS API 활성화
+3. 업적 및 리더보드 설정
+4. `GPGSConfig` ScriptableObject에서 Web Client ID 설정
+5. Unity에서 Android 빌드 설정
+
+### 주요 스크립트
+- `GPGSManager.cs`: GPGS 핵심 관리
+- `GPGSUIController.cs`: GPGS UI 컨트롤
+- `GPGSConfig.cs`: GPGS 설정 관리
+
 ## 참고사항
 
 - 본 프로젝트는 3D에서 2D로 전환된 상태입니다.
+- GPGS 기능은 Android 플랫폼에서만 작동합니다.
 - 추가 문의나 요청 사항은 이슈로 등록하거나, 직접 연락해 주세요. 

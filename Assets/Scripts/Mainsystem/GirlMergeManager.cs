@@ -1,12 +1,12 @@
-﻿using UnityEngine;
-using GirlsEvolution2D.MainSystem;
+﻿using GirlsEvolution2D.MainSystem;
+using UnityEngine;
 
 public class GirlMergeManager : MonoBehaviour
 {
+    [Header("DI (GameSystem에서 주입)")]
     public CurrencyManager currencyManager;
-    public GirlEvolutionDB evolutionDB;
-    public GirlSpawner spawner;
-    public UpgradeManager upgradeManager;
+    public GirlDataManager DataManager;
+    public GirlFieldManager fieldManager;
     private GirlCharacter firstSelected = null;
 
     public void OnGirlClicked(GirlCharacter girl)
@@ -15,45 +15,36 @@ public class GirlMergeManager : MonoBehaviour
         {
             firstSelected = girl;
             girl.SetSelected(true);
+            return;
+        }
+
+        if (firstSelected != girl && firstSelected.level == girl.level)
+        {
+            Vector3 newPos = (firstSelected.transform.position + girl.transform.position) * 0.5f;
+            int nextLevel = girl.level + 1;
+
+            // 삭제
+            fieldManager.RemoveGirl(firstSelected);
+            fieldManager.RemoveGirl(girl);
+
+            // 새 캐릭터 생성
+            fieldManager.ManualSpawnGirl(nextLevel, newPos);
+
+            // 합성 보상: 강화 보정 없이 해당 레벨 수익만 지급
+            GirlData nextData = DataManager?.GetDataByLevel(nextLevel);
+            if (nextData != null && currencyManager != null)
+            {
+                currencyManager.AddGold(nextData.incomePerSec);
+            }
+
+            // 외부 싱글턴 (GPGS 등) 호출 (필요시)
+            if (GPGSManager.Instance != null && GPGSManager.Instance.IsAuthenticated)
+                GPGSManager.Instance.IncrementAchievement("CgkI8JqQ8-4YEAIQAg", 1, 100);
         }
         else
         {
-            if (firstSelected != girl && firstSelected.level == girl.level)
-            {
-                Vector3 newPos = (firstSelected.transform.position + girl.transform.position) * 0.5f;
-                int nextLevel = girl.level + 1;
-                Destroy(firstSelected.gameObject);
-                Destroy(girl.gameObject);
-
-                GirlEvolutionData nextData = evolutionDB.GetDataByLevel(nextLevel);
-                spawner.SpawnGirl(nextLevel, newPos);
-
-                // 합성 성공 시 보상
-                if (nextData != null)
-                {
-                    double bonus = nextData.incomePerSec;
-                    
-                    // 업그레이드 효과 적용
-                    if (upgradeManager != null)
-                    {
-                        bonus *= upgradeManager.GetMergeBonusUpgrade() + 1; // 기본 1배 + 업그레이드 배수
-                    }
-                    
-                    currencyManager.AddGold(bonus);
-                    
-                    // GPGS 업적 업데이트
-                    if (GPGSManager.Instance != null && GPGSManager.Instance.IsAuthenticated)
-                    {
-                        // 진화 업적 진행도 업데이트
-                        GPGSManager.Instance.IncrementAchievement("CgkI8JqQ8-4YEAIQAg", 1, 100);
-                    }
-                }
-            }
-            else
-            {
-                firstSelected.SetSelected(false);
-            }
-            firstSelected = null;
+            firstSelected.SetSelected(false);
         }
+        firstSelected = null;
     }
 }

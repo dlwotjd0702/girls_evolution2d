@@ -1,40 +1,32 @@
-﻿using System;
-using UnityEngine;
-using GirlsEvolution2D.MainSystem;
+﻿using UnityEngine;
+using System;
 
 public class CurrencyManager : MonoBehaviour, ISaveable
 {
-    public double gold { get; private set; }
-    public Action<double> onGoldChanged;
+    [Header("골드")]
+    [SerializeField] private double gold = 0;
+    public event Action<double> onGoldChanged;
+
+    public double GetGold() => gold;
 
     public void AddGold(double amount)
     {
         gold += amount;
+        if (gold < 0) gold = 0;
         onGoldChanged?.Invoke(gold);
-        
-        // GPGS 점수 제출
-        if (GPGSManager.Instance != null && GPGSManager.Instance.IsAuthenticated)
-        {
-            GPGSManager.Instance.SubmitScore("CgkI8JqQ8-4YEAIQBA", (long)gold);
-        }
     }
 
     public bool SpendGold(double amount)
     {
-        if (gold >= amount)
-        {
-            gold -= amount;
-            onGoldChanged?.Invoke(gold);
-            return true;
-        }
-        return false;
+        if (gold < amount) return false;
+        gold -= amount;
+        onGoldChanged?.Invoke(gold);
+        return true;
     }
-
-    public double GetGold() => gold;
 
     public void SetGold(double value)
     {
-        gold = value;
+        gold = value < 0 ? 0 : value;
         onGoldChanged?.Invoke(gold);
     }
 
@@ -44,12 +36,10 @@ public class CurrencyManager : MonoBehaviour, ISaveable
         if (data == null) return;
         gold = data.gold;
         onGoldChanged?.Invoke(gold);
-        Debug.Log($"[CurrencyManager] 골드 복원 완료: {gold}");
     }
 
     public void CollectSaveData(SaveData data)
     {
         data.gold = gold;
-        Debug.Log($"[CurrencyManager] 골드 저장: {gold}");
     }
 }

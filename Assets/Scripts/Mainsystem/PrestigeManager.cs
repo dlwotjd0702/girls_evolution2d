@@ -3,23 +3,22 @@ using UnityEngine;
 
 public class PrestigeManager : MonoBehaviour, ISaveable
 {
-    [Header("참조")]
-    public GirlFieldManager girlFieldManager;
-    public CurrencyManager currencyManager;
+    public GirlFieldManager girlFieldManager; // DI: GameSystem에서 할당
+    public CurrencyManager currencyManager;   // DI: GameSystem에서 할당
 
-    [Header("환생 관련 데이터")]
-    public int prestigePoint = 0;           // 환생석 등
-    public int totalPrestigeCount = 0;      // 누적 환생 횟수
-
-    [Header("최고 레벨 (진화 테이블 최대)")]
+    [Header("환생 데이터")]
+    public int prestigePoint = 0;
+    public int totalPrestigeCount = 0;
     public int topLevel = 25;
 
-    public System.Action onPrestigeAvailable; // 환생 가능 상태 알림
+    public System.Action onPrestigeAvailable;
 
     private bool isPrestigeAvailable = false;
 
     void Update()
     {
+        if (girlFieldManager == null) return;
+
         bool found = false;
         foreach (var girl in girlFieldManager.girlList)
         {
@@ -39,6 +38,8 @@ public class PrestigeManager : MonoBehaviour, ISaveable
 
     public void DoPrestige()
     {
+        if (girlFieldManager == null || currencyManager == null) return;
+
         int reward = 0;
         foreach (var girl in girlFieldManager.girlList)
             if (girl.level == topLevel)

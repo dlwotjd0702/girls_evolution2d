@@ -1,37 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class GirlSpriteAddressableLoader : MonoBehaviour
 {
     public string spritesLabel = "GirlSprites";
-    public List<Sprite> girlSprites = new List<Sprite>();
+    private Dictionary<string, Sprite> spriteDict = new Dictionary<string, Sprite>();
+    public bool IsLoaded { get; private set; } = false;
+
+    // 외부에서 스프라이트 딕셔너리 읽을 수 있게 public property
+    public Dictionary<string, Sprite> SpriteDict => spriteDict;
+
+    private async void Awake()
+    {
+        await LoadAllGirlSpritesAsync();
+        IsLoaded = true;
+        Debug.Log("[GirlSpriteAddressableLoader] 스프라이트 로드 완료");
+    }
 
     public async Task LoadAllGirlSpritesAsync()
     {
-        girlSprites.Clear();
-        var handle = Addressables.LoadAssetsAsync<Sprite>(
-            spritesLabel, null, false);
-
+        spriteDict.Clear();
+        var handle = Addressables.LoadAssetsAsync<Sprite>(spritesLabel, null, false);
         await handle.Task;
-
-        if (handle.Status == AsyncOperationStatus.Succeeded)
+        if (handle.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
         {
-            // 이름 기준 정렬 (0, 1, 2, ...)
-            girlSprites = handle.Result.OrderBy(s => int.Parse(s.name)).ToList();
-            Debug.Log($"[Addressables] {girlSprites.Count} sprites loaded (sorted by name).");
+            foreach (var s in handle.Result)
+            {
+                var match = Regex.Match(s.name, @"\d+");
+                var key = match.Success ? match.Value : s.name;
+                if (!spriteDict.ContainsKey(key))
+                    spriteDict[key] = s;
+            }
         }
         else
         {
             Debug.LogError("[Addressables] Sprite Load Failed");
         }
-    }
-
-    async void Start()
-    {
-        await LoadAllGirlSpritesAsync();
     }
 }

@@ -1,60 +1,78 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class GirlFieldManager : MonoBehaviour, ISaveable
+public class GirlFieldManager : MonoBehaviour
 {
-    public List<GirlCharacter> girlList = new List<GirlCharacter>();
-    public GameObject girlPrefab;
-    public Transform girlRoot; // 미소녀 오브젝트 부모
-    public GirlEvolutionDB evolutionDB;
+    [Header("DI (GameSystem에서 주입)")]
+    public GirlDataManager dataManager;
+    public GirlSpriteAddressableLoader spriteLoader;
     public GirlMergeManager mergeManager;
+    public UpgradeManager upgradeManager;
 
-    public void ApplyLoadedData(SaveData data)
+    [Header("생성/관리")]
+    public GameObject girlPrefab;
+    public Transform girlRoot;
+    public List<GirlCharacter> girlList = new List<GirlCharacter>();
+
+    [Header("오토스폰")]
+    public bool autoSpawnEnabled = false;
+    private float spawnTimer = 0f;
+
+    void Update()
     {
-        foreach (var girl in girlList)
-            Destroy(girl.gameObject);
-        girlList.Clear();
+        if (!autoSpawnEnabled || dataManager == null) return;
 
-        if (data == null || data.girls == null) return;
-
-        foreach (var info in data.girls)
+        // 강화에 따른 쿨타임
+        float interval = upgradeManager != null ? upgradeManager.GetSpawnInterval() : 2f;
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer >= interval)
         {
-            Vector2 pos = new Vector2(info.posX, info.posY);
-            SpawnGirl(info.level, pos);
+            spawnTimer = 0f;
+            int spawnCount = upgradeManager != null ? upgradeManager.GetSpawnCount() : 1;
+            for (int i = 0; i < spawnCount; i++)
+            {
+                Vector2 randPos = new Vector2(Random.Range(-4, 4), Random.Range(-2, 2));
+                SpawnGirl(1, randPos);
+            }
         }
-        Debug.Log($"[GirlFieldManager] 미소녀 {girlList.Count}명 복원");
+    }
+    
+    public void SpawnTestGirls()
+    {
+        for (int level = 1; level <= 25; level++)
+        {
+            SpawnGirl(level, new Vector2(0 , 0));
+        }
     }
 
-    public void CollectSaveData(SaveData data)
+    // 수동 호출용
+    public void ManualSpawnGirl(int level, Vector2 pos)
     {
-        data.girls.Clear();
-        foreach (var girl in girlList)
-        {
-            Vector2 pos = girl.transform.position;
-            data.girls.Add(new GirlSaveInfo(girl.level, pos.x, pos.y));
-        }
-        Debug.Log($"[GirlFieldManager] 미소녀 {girlList.Count}명 저장");
+        SpawnGirl(level, pos);
     }
 
-    public void SpawnGirl(int level, Vector2 pos)
+    // 내부: 스프라이트/데이터/머지매니저 자동연결
+    private void SpawnGirl(int level, Vector2 pos)
     {
-        GirlEvolutionData evoData = evolutionDB.GetDataByLevel(level);
-        if (evoData == null) return;
+        if (dataManager == null) return;
+        GirlData data = dataManager.GetDataByLevel(level);
+        if (data == null) return;
+
+        Sprite sprite = null;
+        if (spriteLoader != null && !string.IsNullOrEmpty(data.spriteName))
+            spriteLoader.SpriteDict.TryGetValue(data.spriteName, out sprite);
 
         var go = Instantiate(girlPrefab, pos, Quaternion.identity, girlRoot);
         var girl = go.GetComponent<GirlCharacter>();
-        girl.Init(evoData, null); // sprite 등은 필요시 추가
-        
-        // mergeManager 참조 설정
+        girl.Init(data, sprite);
         if (mergeManager != null)
             girl.mergeManager = mergeManager;
-            
         girlList.Add(girl);
     }
-    
-    // GirlManager 역할도 수행
+
     public void RemoveGirl(GirlCharacter girl)
     {
         girlList.Remove(girl);
+        Destroy(girl.gameObject);
     }
 }

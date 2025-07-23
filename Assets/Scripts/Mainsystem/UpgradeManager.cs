@@ -20,7 +20,7 @@ public class UpgradeManager : MonoBehaviour, ISaveable
 
     // 오토스폰 쿨타임 (ex: 2초 기준 → 업1당 20% 감소, 최소 0.3초)
     public float GetSpawnInterval()
-        => Mathf.Max(5f, 10f * Mathf.Pow(0.8f, spawnUpgrade));
+        => Mathf.Max(2f, 5f * Mathf.Pow(0.8f, spawnUpgrade));
     // 한 번에 생성 수 (ex: 1 + 강화 단계)
     public int GetSpawnCount()
         => 1 + spawnCountUpgrade;

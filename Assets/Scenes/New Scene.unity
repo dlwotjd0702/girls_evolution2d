@@ -985,7 +985,8 @@ MonoBehaviour:
   girlPrefab: {fileID: 5044868183835509814, guid: 7a0fae85c47ecc04b93e7ad11dea561b, type: 3}
   girlRoot: {fileID: 1578764356}
   girlList: []
-  autoSpawnEnabled: 0
+  autoSpawnEnabled: 1
+  spawnTimer: 0
 --- !u!4 &1578764356
 Transform:
   m_ObjectHideFlags: 0

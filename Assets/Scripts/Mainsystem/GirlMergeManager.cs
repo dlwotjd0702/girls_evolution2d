@@ -1,5 +1,6 @@
 ﻿using GirlsEvolution2D.MainSystem;
 using UnityEngine;
+using System.Collections;
 
 public class GirlMergeManager : MonoBehaviour
 {
@@ -7,44 +8,99 @@ public class GirlMergeManager : MonoBehaviour
     public CurrencyManager currencyManager;
     public GirlDataManager DataManager;
     public GirlFieldManager fieldManager;
-    private GirlCharacter firstSelected = null;
 
-    public void OnGirlClicked(GirlCharacter girl)
+    private GirlCharacter draggingGirl = null;
+    private GirlCharacter highlightedTarget = null;
+
+    public void SetDraggingGirl(GirlCharacter girl) => draggingGirl = girl;
+
+    public void ClearDraggingGirl()
     {
-        if (firstSelected == null)
+        draggingGirl = null;
+        if (highlightedTarget) highlightedTarget.Highlight(false);
+        highlightedTarget = null;
+    }
+
+    public void UpdateMergeHighlight(GirlCharacter dragging)
+    {
+        GirlCharacter bestTarget = null;
+        float bestDist = 0.7f;
+        foreach (var g in fieldManager.girlList)
         {
-            firstSelected = girl;
-            girl.SetSelected(true);
-            return;
-        }
-
-        if (firstSelected != girl && firstSelected.level == girl.level)
-        {
-            Vector3 newPos = (firstSelected.transform.position + girl.transform.position) * 0.5f;
-            int nextLevel = girl.level + 1;
-
-            // 삭제
-            fieldManager.RemoveGirl(firstSelected);
-            fieldManager.RemoveGirl(girl);
-
-            // 새 캐릭터 생성
-            fieldManager.ManualSpawnGirl(nextLevel, newPos);
-
-            // 합성 보상: 강화 보정 없이 해당 레벨 수익만 지급
-            GirlData nextData = DataManager?.GetDataByLevel(nextLevel);
-            if (nextData != null && currencyManager != null)
+            if (g == dragging) continue;
+            if (g.level != dragging.level) continue;
+            float dist = Vector2.Distance(g.transform.position, dragging.transform.position);
+            if (dist < bestDist)
             {
-                currencyManager.AddGold(nextData.incomePerSec);
+                bestDist = dist;
+                bestTarget = g;
             }
+        }
+        if (highlightedTarget && highlightedTarget != bestTarget)
+            highlightedTarget.Highlight(false);
 
-            // 외부 싱글턴 (GPGS 등) 호출 (필요시)
-            if (GPGSManager.Instance != null && GPGSManager.Instance.IsAuthenticated)
-                GPGSManager.Instance.IncrementAchievement("CgkI8JqQ8-4YEAIQAg", 1, 100);
-        }
-        else
+        highlightedTarget = bestTarget;
+        if (highlightedTarget != null)
+            highlightedTarget.Highlight(true);
+    }
+
+    public void TryMergeByDrag(GirlCharacter dragging)
+    {
+        if (highlightedTarget != null)
+            StartCoroutine(MergeRoutine(dragging, highlightedTarget));
+    }
+
+    public void AddIncomeGold(GirlCharacter girl)
+    {
+        if (currencyManager != null && girl.data != null)
+            currencyManager.AddGold(girl.data.incomePerSec);
+    }
+
+    IEnumerator MergeRoutine(GirlCharacter a, GirlCharacter b)
+    {
+        Vector3 center = (a.transform.position + b.transform.position) * 0.5f;
+        int nextLevel = a.level + 1;
+
+        a.enabled = false;
+        b.enabled = false;
+
+        yield return StartCoroutine(MergeAnimation(a, b, center));
+
+        fieldManager.RemoveGirl(a);
+        fieldManager.RemoveGirl(b);
+        fieldManager.ManualSpawnGirl(nextLevel, center);
+
+        GirlData nextData = DataManager?.GetDataByLevel(nextLevel);
+        if (nextData != null && currencyManager != null)
+            currencyManager.AddGold(nextData.incomePerSec);
+
+        if (GPGSManager.Instance != null && GPGSManager.Instance.IsAuthenticated)
+            GPGSManager.Instance.IncrementAchievement("CgkI8JqQ8-4YEAIQAg", 1, 100);
+    }
+
+    IEnumerator MergeAnimation(GirlCharacter a, GirlCharacter b, Vector3 center)
+    {
+        float spread = 0.45f;
+        Vector3 aOrigin = a.transform.position;
+        Vector3 bOrigin = b.transform.position;
+        Vector3 aSpread = center + (aOrigin - center).normalized * spread;
+        Vector3 bSpread = center + (bOrigin - center).normalized * spread;
+
+        float t = 0;
+        while (t < 0.25f)
         {
-            firstSelected.SetSelected(false);
+            t += Time.deltaTime * 2.0f;
+            a.transform.position = Vector3.Lerp(aOrigin, aSpread, t / 0.25f);
+            b.transform.position = Vector3.Lerp(bOrigin, bSpread, t / 0.25f);
+            yield return null;
         }
-        firstSelected = null;
+        t = 0;
+        while (t < 0.35f)
+        {
+            t += Time.deltaTime * 2.0f;
+            a.transform.position = Vector3.Lerp(aSpread, center, t / 0.35f);
+            b.transform.position = Vector3.Lerp(bSpread, center, t / 0.35f);
+            yield return null;
+        }
     }
 }

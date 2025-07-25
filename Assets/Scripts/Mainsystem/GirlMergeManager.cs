@@ -74,8 +74,8 @@ public class GirlMergeManager : MonoBehaviour
         if (nextData != null && currencyManager != null)
             currencyManager.AddGold(nextData.incomePerSec);
 
-        if (GPGSManager.Instance != null && GPGSManager.Instance.IsAuthenticated)
-            GPGSManager.Instance.IncrementAchievement("CgkI8JqQ8-4YEAIQAg", 1, 100);
+       // if (GPGSManager.Instance != null && GPGSManager.Instance.IsAuthenticated)
+       //     GPGSManager.Instance.IncrementAchievement("CgkI8JqQ8-4YEAIQAg", 1, 100);
     }
 
     IEnumerator MergeAnimation(GirlCharacter a, GirlCharacter b, Vector3 center)

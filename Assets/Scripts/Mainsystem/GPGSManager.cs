@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using System;
@@ -293,4 +293,4 @@ namespace GirlsEvolution2D.MainSystem
             #endif
         }
     }
-} 
+} */

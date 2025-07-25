@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using GirlsEvolution2D.MainSystem;
@@ -179,4 +179,4 @@ namespace GirlsEvolution2D.UI
                 GPGSManager.Instance.IncrementAchievement("CgkI8JqQ8-4YEAIQAg", currentEvolutions, totalEvolutions);
         }
     }
-} 
+} */

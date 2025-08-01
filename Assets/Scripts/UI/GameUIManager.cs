@@ -64,9 +64,6 @@ public class GameUIManager : MonoBehaviour
             upgradePanel.SetActive(!upgradePanel.activeSelf);
     }
 
-    public void OnClickIncomeUpgrade()         => upgradeManager?.UpgradeIncome();
-    public void OnClickAutoIncomeUpgrade()     => upgradeManager?.UpgradeAutoIncome();
-    public void OnClickClickIncomeUpgrade()    => upgradeManager?.UpgradeClickIncome();
-    public void OnClickSpawnUpgrade()          => upgradeManager?.UpgradeSpawn();
+
 
 }

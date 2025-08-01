@@ -22,10 +22,9 @@ public class ClickGoldManager : MonoBehaviour
     void AddClickGold()
     {
         if (currencyManager == null || upgradeManager == null) return;
-
         double clickGold = clickGoldBase * upgradeManager.GetClickIncomeMultiplier();
 
-        // 확장: 미소녀 수 등 룰에 따라 추가 보상 가능
+        // 예시: 미소녀 수에 따라 보너스 추가 가능
         // if (girlFieldManager != null)
         //     clickGold *= girlFieldManager.girlList.Count;
 

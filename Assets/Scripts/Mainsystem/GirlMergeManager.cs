@@ -1,6 +1,8 @@
 ﻿using GirlsEvolution2D.MainSystem;
 using UnityEngine;
 using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class GirlMergeManager : MonoBehaviour
 {
@@ -13,7 +15,6 @@ public class GirlMergeManager : MonoBehaviour
     private GirlCharacter highlightedTarget = null;
 
     public void SetDraggingGirl(GirlCharacter girl) => draggingGirl = girl;
-
     public void ClearDraggingGirl()
     {
         draggingGirl = null;
@@ -24,12 +25,16 @@ public class GirlMergeManager : MonoBehaviour
     public void UpdateMergeHighlight(GirlCharacter dragging)
     {
         GirlCharacter bestTarget = null;
-        float bestDist = 0.7f;
+        float bestDist = 180f;
+
         foreach (var g in fieldManager.girlList)
         {
             if (g == dragging) continue;
             if (g.level != dragging.level) continue;
-            float dist = Vector2.Distance(g.transform.position, dragging.transform.position);
+            float dist = Vector2.Distance(
+                ((RectTransform)g.transform).localPosition,
+                ((RectTransform)dragging.transform).localPosition
+            );
             if (dist < bestDist)
             {
                 bestDist = dist;
@@ -56,9 +61,43 @@ public class GirlMergeManager : MonoBehaviour
             currencyManager.AddGold(girl.data.incomePerSec);
     }
 
+    // **자동합성 - 필드 내 같은레벨 2쌍 찾기**
+    public void TryAutoMerge()
+    {
+        var list = fieldManager.girlList;
+        int n = list.Count;
+        float bestDist = float.MaxValue;
+        GirlCharacter first = null, second = null;
+
+        // 가장 가까운 같은 레벨 쌍 찾기
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                if (list[i].level != list[j].level) continue;
+                float dist = Vector2.Distance(
+                    ((RectTransform)list[i].transform).localPosition,
+                    ((RectTransform)list[j].transform).localPosition
+                );
+                if (dist < bestDist)
+                {
+                    bestDist = dist;
+                    first = list[i];
+                    second = list[j];
+                }
+            }
+        }
+
+        // "가장 가까운 한 쌍"만 합성
+        if (first != null && second != null)
+        {
+            StartCoroutine(MergeRoutine(first, second));
+        }
+    }
+
     IEnumerator MergeRoutine(GirlCharacter a, GirlCharacter b)
     {
-        Vector3 center = (a.transform.position + b.transform.position) * 0.5f;
+        Vector3 center = (((RectTransform)a.transform).localPosition + ((RectTransform)b.transform).localPosition) * 0.5f;
         int nextLevel = a.level + 1;
 
         a.enabled = false;
@@ -73,16 +112,13 @@ public class GirlMergeManager : MonoBehaviour
         GirlData nextData = DataManager?.GetDataByLevel(nextLevel);
         if (nextData != null && currencyManager != null)
             currencyManager.AddGold(nextData.incomePerSec);
-
-       // if (GPGSManager.Instance != null && GPGSManager.Instance.IsAuthenticated)
-       //     GPGSManager.Instance.IncrementAchievement("CgkI8JqQ8-4YEAIQAg", 1, 100);
     }
 
     IEnumerator MergeAnimation(GirlCharacter a, GirlCharacter b, Vector3 center)
     {
-        float spread = 0.45f;
-        Vector3 aOrigin = a.transform.position;
-        Vector3 bOrigin = b.transform.position;
+        float spread = 90f;
+        Vector3 aOrigin = ((RectTransform)a.transform).localPosition;
+        Vector3 bOrigin = ((RectTransform)b.transform).localPosition;
         Vector3 aSpread = center + (aOrigin - center).normalized * spread;
         Vector3 bSpread = center + (bOrigin - center).normalized * spread;
 
@@ -90,16 +126,16 @@ public class GirlMergeManager : MonoBehaviour
         while (t < 0.25f)
         {
             t += Time.deltaTime * 2.0f;
-            a.transform.position = Vector3.Lerp(aOrigin, aSpread, t / 0.25f);
-            b.transform.position = Vector3.Lerp(bOrigin, bSpread, t / 0.25f);
+            ((RectTransform)a.transform).localPosition = Vector3.Lerp(aOrigin, aSpread, t / 0.25f);
+            ((RectTransform)b.transform).localPosition = Vector3.Lerp(bOrigin, bSpread, t / 0.25f);
             yield return null;
         }
         t = 0;
         while (t < 0.35f)
         {
             t += Time.deltaTime * 2.0f;
-            a.transform.position = Vector3.Lerp(aSpread, center, t / 0.35f);
-            b.transform.position = Vector3.Lerp(bSpread, center, t / 0.35f);
+            ((RectTransform)a.transform).localPosition = Vector3.Lerp(aSpread, center, t / 0.35f);
+            ((RectTransform)b.transform).localPosition = Vector3.Lerp(bSpread, center, t / 0.35f);
             yield return null;
         }
     }

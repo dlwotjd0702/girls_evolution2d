@@ -22,13 +22,7 @@ public class IdleGoldManager : MonoBehaviour
             double totalIncome = 0;
             foreach (var girl in girlFieldManager.girlList)
                 totalIncome += girl.data.incomePerSec;
-
-            // 업그레이드 효과 적용
-            if (upgradeManager != null)
-            {
-                totalIncome *= upgradeManager.GetIncomeMultiplier();
-                totalIncome *= upgradeManager.GetAutoIncomeMultiplier();
-            }
+          
 
             currencyManager.AddGold(totalIncome);
         }

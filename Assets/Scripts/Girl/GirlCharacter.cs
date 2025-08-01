@@ -1,191 +1,224 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using DG.Tweening;
+using System.Collections;
 
-public class GirlCharacter : MonoBehaviour
+public class GirlCharacter : MonoBehaviour,
+    IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
+    // 외부 연동
     public int level;
     public string displayName;
     public GirlMergeManager mergeManager;
     public GirlData data;
 
-    private SpriteRenderer spriteRenderer;
-    private PolygonCollider2D polyCollider;
-
-    // 점프/이동 파라미터
-    public float jumpPower = 0.38f;
-    public float moveDistance = 0.5f;
-    public float squatScaleY = 0.76f, squatScaleX = 1.18f;
-    public float jumpDuration = 0.32f;
-    public float jumpIntervalMin = 7f, jumpIntervalMax = 15f;
-    public float minX = -2.5f, maxX = 2.5f, minY = -4.8f, maxY = 4.8f;
-
+    // UI/이펙트
+    private Image imageUI;
     private Vector3 baseScale;
+    private Color originColor;
+    private RectTransform rectT;
+    private Tween jumpTween;
+
+    // 점프/움직임
+    private float jumpPower = 120f;
+    private float moveDistance = 200f;
+    private float jumpDuration = 0.38f;
+    private float jumpIntervalMin = 2.25f;
+    private float jumpIntervalMax = 4.5f;
+    private float minX = -410f, maxX = 410f, minY = -780f, maxY = 780f;
+
+    // 상태/플래그
     private Vector3 targetPosition;
-    private float nextJumpTime = 0f, jumpElapsed = 0f;
     private bool isJumping = false, isDragging = false, highlightOn = false, wasDragged = false;
     private Vector3 dragOffset;
-    private Color originColor;
+    private int currentDirectionX = 1; // 1(왼쪽), -1(오른쪽)
+
+    private IEnumerator autoRoutine;
+
+    // ---- 풀 입출(초기화/정리) ----
+    public void OnGetFromPool()
+    {
+        KillAllTweens();
+        if (imageUI != null)
+            imageUI.color = originColor;
+        isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
+        gameObject.SetActive(true);
+        // 점프 루프 시작(풀에서 나올 때만)
+        if (autoRoutine != null) StopCoroutine(autoRoutine);
+        autoRoutine = JumpBounceLoop();
+        StartCoroutine(autoRoutine);
+    }
+
+    public void OnReturnToPool()
+    {
+        KillAllTweens();
+        if (imageUI != null)
+            imageUI.color = originColor;
+        isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
+        if (autoRoutine != null) StopCoroutine(autoRoutine);
+        gameObject.SetActive(false);
+    }
+
+    public void KillAllTweens()
+    {
+        transform.DOKill();
+        if (rectT != null) rectT.DOKill();
+        if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
+    }
 
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        polyCollider = GetComponent<PolygonCollider2D>();
-        originColor = spriteRenderer.color;
+        imageUI = GetComponent<Image>();
+        if (imageUI == null)
+            imageUI = GetComponentInChildren<Image>();
+        originColor = imageUI ? imageUI.color : Color.white;
+        rectT = GetComponent<RectTransform>();
+        baseScale = transform.localScale;
+        currentDirectionX = 1;
     }
-
-    void Start()
-    {
-        targetPosition = transform.position;
-        ScheduleNextJump();
-        // baseScale = transform.localScale; // 이제 Init에서 처리
-    }
-
-    void Update()
-    {
-        if (isDragging) return;
-
-        if (!isJumping)
-        {
-            if (Time.time >= nextJumpTime)
-            {
-                float dirX = Random.value < 0.5f ? -1f : 1f;
-                float dirY = Random.value < 0.5f ? -1f : 1f;
-                float moveX = dirX * Random.Range(moveDistance * 0.8f, moveDistance * 1.2f);
-                float moveY = dirY * Random.Range(moveDistance * 0.5f, moveDistance * 1.5f);
-
-                float newX = Mathf.Clamp(transform.position.x + moveX, minX, maxX);
-                float newY = Mathf.Clamp(transform.position.y + moveY, minY, maxY);
-                targetPosition = new Vector3(newX, newY, transform.position.z);
-
-                transform.localRotation = dirX > 0 ? Quaternion.Euler(0, 180, 0) : Quaternion.identity;
-                isJumping = true; jumpElapsed = 0f;
-            }
-            else
-            {
-                transform.localScale = baseScale;
-                transform.position = targetPosition;
-            }
-        }
-        else
-        {
-            jumpElapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(jumpElapsed / jumpDuration);
-
-            float curve = Mathf.Sin(t * Mathf.PI);
-            float scaleY = Mathf.Lerp(squatScaleY, 1f, curve);
-            float scaleX = Mathf.Lerp(squatScaleX, 1f, curve);
-            float jumpPhase = Mathf.Clamp01((t - 0.18f) / 0.68f);
-            float jumpOffset = Mathf.Sin(jumpPhase * Mathf.PI) * jumpPower;
-
-            Vector3 from = transform.position;
-            Vector3 to = targetPosition;
-            float moveT = Mathf.SmoothStep(0, 1, t);
-            Vector3 movePos = Vector3.Lerp(from, to, moveT);
-
-            transform.localScale = new Vector3(baseScale.x * scaleX, baseScale.y * scaleY, baseScale.z);
-            transform.position = movePos + Vector3.up * jumpOffset;
-
-            if (jumpElapsed >= jumpDuration)
-            {
-                isJumping = false;
-                transform.localScale = baseScale;
-                transform.position = targetPosition;
-                ScheduleNextJump();
-            }
-        }
-    }
-
-    void ScheduleNextJump() => nextJumpTime = Time.time + Random.Range(jumpIntervalMin, jumpIntervalMax);
 
     public void Init(GirlData data, Sprite sprite)
     {
         this.data = data;
         this.level = data.level;
         this.displayName = data.name;
-        if (spriteRenderer && sprite) spriteRenderer.sprite = sprite;
-        if (polyCollider && sprite) UpdateColliderToSprite(polyCollider, sprite);
-
-        // ★ 반드시 현재 스케일을 baseScale로 저장!
+        if (imageUI && sprite) imageUI.sprite = sprite;
+        Highlight(false);
         baseScale = transform.localScale;
+        targetPosition = rectT.localPosition;
+        // (방향 초기화는 필요X, 그대로 유지)
     }
-    void UpdateColliderToSprite(PolygonCollider2D col, Sprite sprite)
+
+    void Start()
     {
-        col.pathCount = sprite.GetPhysicsShapeCount();
-        var path = new List<Vector2>();
-        for (int i = 0; i < col.pathCount; i++)
+        if (autoRoutine == null)
         {
-            path.Clear();
-            sprite.GetPhysicsShape(i, path);
-            col.SetPath(i, path.ToArray());
+            autoRoutine = JumpBounceLoop();
+            StartCoroutine(autoRoutine);
         }
     }
 
-    // --------- 드래그 & 클릭 ---------
-    void OnMouseDown()
+    // ----- 점프/골드 루프 -----
+    private IEnumerator JumpBounceLoop()
+    {
+        while (true)
+        {
+            while (isDragging) yield return null;
+
+            float jumpDelay = Random.Range(jumpIntervalMin, jumpIntervalMax);
+            yield return new WaitForSeconds(jumpDelay);
+
+            while (isDragging) yield return null;
+
+            StartJump();
+            while (isJumping || isDragging) yield return null;
+
+            float bounceDelay = Random.Range(jumpIntervalMin, jumpIntervalMax);
+            yield return new WaitForSeconds(bounceDelay);
+
+            while (isDragging) yield return null;
+
+            if (mergeManager != null) mergeManager.AddIncomeGold(this);
+            BounceAnim();
+        }
+    }
+
+    void StartJump()
+    {
+        isJumping = true;
+        // 랜덤 방향
+        float dirX = Random.value < 0.5f ? -1f : 1f;
+        float dirY = Random.value < 0.5f ? -1f : 1f;
+        float moveX = dirX * Random.Range(moveDistance * 0.8f, moveDistance * 1.2f);
+        float moveY = dirY * Random.Range(moveDistance * 0.5f, moveDistance * 1.5f);
+
+        float newX = Mathf.Clamp(rectT.localPosition.x + moveX, minX, maxX);
+        float newY = Mathf.Clamp(rectT.localPosition.y + moveY, minY, maxY);
+        targetPosition = new Vector3(newX, newY, rectT.localPosition.z);
+
+        // **좌우반전(로컬 스케일 X만, Y/기타는 그대로)**
+        currentDirectionX = (dirX > 0 ? -1 : 1); // 오른쪽=-1, 왼쪽=1
+        Vector3 scale = baseScale;
+        scale.x *= currentDirectionX;
+        transform.localScale = scale;
+
+        // DOTween 점프
+        if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
+        jumpTween = rectT.DOLocalJump(
+            targetPosition,
+            jumpPower,
+            1,
+            jumpDuration
+        ).SetEase(Ease.OutQuad)
+         .OnComplete(() =>
+         {
+             isJumping = false;
+         });
+    }
+
+    // ----- 드래그/클릭 -----
+    public void OnPointerDown(PointerEventData eventData)
     {
         isDragging = true; wasDragged = false;
-        dragOffset = transform.position - ScreenToWorld(Input.mousePosition);
+        if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
+
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rectT.parent as RectTransform, eventData.position, eventData.pressEventCamera, out localPoint);
+        dragOffset = (Vector3)localPoint - rectT.localPosition;
         mergeManager?.SetDraggingGirl(this);
     }
-    void OnMouseDrag()
+    public void OnBeginDrag(PointerEventData eventData) { isDragging = true; }
+    public void OnDrag(PointerEventData eventData)
     {
         if (isDragging)
         {
-            Vector3 worldPos = ScreenToWorld(Input.mousePosition);
-            worldPos.z = 0;
-            transform.position = worldPos + dragOffset;
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                rectT.parent as RectTransform, eventData.position, eventData.pressEventCamera, out localPoint);
+            rectT.localPosition = (Vector3)localPoint - dragOffset;
             mergeManager?.UpdateMergeHighlight(this);
             wasDragged = true;
         }
     }
-    void OnMouseUp()
+    public void OnEndDrag(PointerEventData eventData)
     {
-        if (isDragging)
+        isDragging = false;
+        mergeManager?.TryMergeByDrag(this);
+        mergeManager?.ClearDraggingGirl();
+        Highlight(false);
+        targetPosition = rectT.localPosition;
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!wasDragged)
         {
-            isDragging = false;
-            mergeManager?.TryMergeByDrag(this);
-            mergeManager?.ClearDraggingGirl();
-            Highlight(false);
-            targetPosition = transform.position;
-
-            if (!wasDragged)
-            {
-                // 클릭시 골드+애니
-                mergeManager?.AddIncomeGold(this);
-                StopAllCoroutines();
-                StartCoroutine(BounceAnim());
-            }
+            mergeManager?.AddIncomeGold(this);
+            BounceAnim();
         }
     }
 
-    // --------- 연출 ---------
+    // ----- 연출 -----
     public void Highlight(bool on)
     {
         highlightOn = on;
-        spriteRenderer.color = on ? Color.yellow : originColor;
+        if (imageUI) imageUI.color = on ? Color.yellow : originColor;
     }
 
-    IEnumerator BounceAnim()
+    void BounceAnim()
     {
-        float duration = 0.16f;
-        float peak = 1.25f;
-        float t = 0;
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float p = t / duration;
-            float s = Mathf.Lerp(1, peak, p < 0.5f ? p * 2 : 2 - p * 2);
-            transform.localScale = baseScale * s;
-            yield return null;
-        }
-        transform.localScale = baseScale;
-    }
-
-    Vector3 ScreenToWorld(Vector3 screenPos)
-    {
-        var v = Camera.main.ScreenToWorldPoint(screenPos);
-        v.z = 0;
-        return v;
+        transform.DOKill();
+        // 바운스 때도 “현재 방향” 유지
+        Vector3 scaled = baseScale * 1.22f;
+        scaled.x *= currentDirectionX;
+        transform.DOScale(scaled, 0.11f)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() =>
+            {
+                Vector3 baseDir = baseScale;
+                baseDir.x *= currentDirectionX;
+                transform.DOScale(baseDir, 0.10f).SetEase(Ease.InQuad);
+            });
     }
 }

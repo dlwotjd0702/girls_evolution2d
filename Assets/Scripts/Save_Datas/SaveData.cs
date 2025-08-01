@@ -13,15 +13,14 @@ public class SaveData
     // 필드의 미소녀 상태
     public List<GirlSaveInfo> girls = new List<GirlSaveInfo>();
 
-    // 업그레이드 단계 (UpgradeManager와 완벽 일치)
-    public int incomeUpgrade;
-    public int autoIncomeUpgrade;
-    public int clickIncomeUpgrade;
-    public int spawnUpgrade;
-    public int spawnCountUpgrade; // 추가: 한번에 생성 수 (UpgradeManager 변화 반영)
-
     // 기타 확장 필드
     public string savedAt;
+    public int manualSpawnMaxUpgrade;
+    public int manualSpawnSpeedUpgrade;
+    public int autoMergeUpgrade;
+    public int autoSpawnUpgrade;
+    public int maxFieldCountUpgrade;
+    public int clickBonusUpgrade;
 
     // 저장 시각 기록용
     public void SetSaveTime()

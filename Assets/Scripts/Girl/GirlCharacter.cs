@@ -8,7 +8,7 @@ public class GirlCharacter : MonoBehaviour,
     IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     // 외부 연동
-    public int level;
+    public int Level;
     public string displayName;
     public GirlMergeManager mergeManager;
     public GirlData data;
@@ -81,7 +81,7 @@ public class GirlCharacter : MonoBehaviour,
     public void Init(GirlData data, Sprite sprite)
     {
         this.data = data;
-        this.level = data.level;
+        this.Level = data.level;
         this.displayName = data.name;
         if (imageUI && sprite) imageUI.sprite = sprite;
         Highlight(false);
@@ -90,13 +90,12 @@ public class GirlCharacter : MonoBehaviour,
         // (방향 초기화는 필요X, 그대로 유지)
     }
 
-    void Start()
+    void OnEnable()
     {
-        if (autoRoutine == null)
-        {
+            if(autoRoutine!=null)StopCoroutine(autoRoutine);
             autoRoutine = JumpBounceLoop();
             StartCoroutine(autoRoutine);
-        }
+        
     }
 
     // ----- 점프/골드 루프 -----

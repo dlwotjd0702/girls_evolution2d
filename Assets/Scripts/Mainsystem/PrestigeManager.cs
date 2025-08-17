@@ -22,7 +22,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         bool found = false;
         foreach (var girl in girlFieldManager.girlList)
         {
-            if (girl.level == topLevel)
+            if (girl.Level == topLevel)
             {
                 found = true;
                 break;
@@ -42,7 +42,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
 
         int reward = 0;
         foreach (var girl in girlFieldManager.girlList)
-            if (girl.level == topLevel)
+            if (girl.Level == topLevel)
                 reward++;
 
         prestigePoint += reward;

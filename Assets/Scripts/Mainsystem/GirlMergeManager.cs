@@ -1,5 +1,4 @@
-﻿using GirlsEvolution2D.MainSystem;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
@@ -30,7 +29,7 @@ public class GirlMergeManager : MonoBehaviour
         foreach (var g in fieldManager.girlList)
         {
             if (g == dragging) continue;
-            if (g.level != dragging.level) continue;
+            if (g.Level != dragging.Level) continue;
             float dist = Vector2.Distance(
                 ((RectTransform)g.transform).localPosition,
                 ((RectTransform)dragging.transform).localPosition
@@ -74,7 +73,7 @@ public class GirlMergeManager : MonoBehaviour
         {
             for (int j = i + 1; j < n; j++)
             {
-                if (list[i].level != list[j].level) continue;
+                if (list[i].Level != list[j].Level) continue;
                 float dist = Vector2.Distance(
                     ((RectTransform)list[i].transform).localPosition,
                     ((RectTransform)list[j].transform).localPosition
@@ -98,7 +97,7 @@ public class GirlMergeManager : MonoBehaviour
     IEnumerator MergeRoutine(GirlCharacter a, GirlCharacter b)
     {
         Vector3 center = (((RectTransform)a.transform).localPosition + ((RectTransform)b.transform).localPosition) * 0.5f;
-        int nextLevel = a.level + 1;
+        int nextLevel = a.Level + 1;
 
         a.enabled = false;
         b.enabled = false;

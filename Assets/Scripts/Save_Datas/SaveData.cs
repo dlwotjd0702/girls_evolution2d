@@ -9,6 +9,8 @@ public class SaveData
     public int gem;
     public int prestigePoint;
     public int totalPrestigeCount;
+    public int currentTierIndex; 
+    public int unlockedTierMask;
 
     // 필드의 미소녀 상태
     public List<GirlSaveInfo> girls = new List<GirlSaveInfo>();

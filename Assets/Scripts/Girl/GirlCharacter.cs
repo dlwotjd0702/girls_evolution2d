@@ -13,6 +13,10 @@ public class GirlCharacter : MonoBehaviour,
     public GirlMergeManager mergeManager;
     public GirlData data;
 
+    // 최종(25) 전용 랭크/모드
+    public int FinalRank { get; private set; } = 0; // 25 추가 획득 시 ++
+    public bool IsFinal => Level >= TierRules.MaxLevel; // 25
+
     // UI/이펙트
     private Image imageUI;
     private Vector3 baseScale;
@@ -44,10 +48,14 @@ public class GirlCharacter : MonoBehaviour,
             imageUI.color = originColor;
         isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
         gameObject.SetActive(true);
-        // 점프 루프 시작(풀에서 나올 때만)
+
+        // 25는 자동 점프 루프 비활성화
         if (autoRoutine != null) StopCoroutine(autoRoutine);
-        autoRoutine = JumpBounceLoop();
-        StartCoroutine(autoRoutine);
+        if (!IsFinal)
+        {
+            autoRoutine = JumpBounceLoop();
+            StartCoroutine(autoRoutine);
+        }
     }
 
     public void OnReturnToPool()
@@ -87,18 +95,19 @@ public class GirlCharacter : MonoBehaviour,
         Highlight(false);
         baseScale = transform.localScale;
         targetPosition = rectT.localPosition;
-        // (방향 초기화는 필요X, 그대로 유지)
     }
 
     void OnEnable()
     {
-            if(autoRoutine!=null)StopCoroutine(autoRoutine);
+        if (autoRoutine != null) StopCoroutine(autoRoutine);
+        if (!IsFinal)
+        {
             autoRoutine = JumpBounceLoop();
             StartCoroutine(autoRoutine);
-        
+        }
     }
 
-    // ----- 점프/골드 루프 -----
+    // ----- 점프/골드 루프 (25는 미사용) -----
     private IEnumerator JumpBounceLoop()
     {
         while (true)
@@ -125,8 +134,9 @@ public class GirlCharacter : MonoBehaviour,
 
     void StartJump()
     {
+        if (IsFinal) return; // 25는 점프 금지
+
         isJumping = true;
-        // 랜덤 방향
         float dirX = Random.value < 0.5f ? -1f : 1f;
         float dirY = Random.value < 0.5f ? -1f : 1f;
         float moveX = dirX * Random.Range(moveDistance * 0.8f, moveDistance * 1.2f);
@@ -136,13 +146,11 @@ public class GirlCharacter : MonoBehaviour,
         float newY = Mathf.Clamp(rectT.localPosition.y + moveY, minY, maxY);
         targetPosition = new Vector3(newX, newY, rectT.localPosition.z);
 
-        // **좌우반전(로컬 스케일 X만, Y/기타는 그대로)**
         currentDirectionX = (dirX > 0 ? -1 : 1); // 오른쪽=-1, 왼쪽=1
         Vector3 scale = baseScale;
         scale.x *= currentDirectionX;
         transform.localScale = scale;
 
-        // DOTween 점프
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
         jumpTween = rectT.DOLocalJump(
             targetPosition,
@@ -150,15 +158,13 @@ public class GirlCharacter : MonoBehaviour,
             1,
             jumpDuration
         ).SetEase(Ease.OutQuad)
-         .OnComplete(() =>
-         {
-             isJumping = false;
-         });
+         .OnComplete(() => { isJumping = false; });
     }
 
     // ----- 드래그/클릭 -----
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (IsFinal) return; // 25는 드래그 시작도 무시
         isDragging = true; wasDragged = false;
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
 
@@ -168,9 +174,14 @@ public class GirlCharacter : MonoBehaviour,
         dragOffset = (Vector3)localPoint - rectT.localPosition;
         mergeManager?.SetDraggingGirl(this);
     }
-    public void OnBeginDrag(PointerEventData eventData) { isDragging = true; }
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (IsFinal) return;
+        isDragging = true;
+    }
     public void OnDrag(PointerEventData eventData)
     {
+        if (IsFinal) return;
         if (isDragging)
         {
             Vector2 localPoint;
@@ -183,6 +194,7 @@ public class GirlCharacter : MonoBehaviour,
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (IsFinal) return;
         isDragging = false;
         mergeManager?.TryMergeByDrag(this);
         mergeManager?.ClearDraggingGirl();
@@ -193,8 +205,9 @@ public class GirlCharacter : MonoBehaviour,
     {
         if (!wasDragged)
         {
+            // 25 포함: 클릭 수익 지급
             mergeManager?.AddIncomeGold(this);
-            BounceAnim();
+            Pulse(); // 25도 시각 반응
         }
     }
 
@@ -207,8 +220,8 @@ public class GirlCharacter : MonoBehaviour,
 
     void BounceAnim()
     {
+        if (IsFinal) return; // 25 자동 바운스는 사용 안 함(클릭만)
         transform.DOKill();
-        // 바운스 때도 “현재 방향” 유지
         Vector3 scaled = baseScale * 1.22f;
         scaled.x *= currentDirectionX;
         transform.DOScale(scaled, 0.11f)
@@ -219,5 +232,58 @@ public class GirlCharacter : MonoBehaviour,
                 baseDir.x *= currentDirectionX;
                 transform.DOScale(baseDir, 0.10f).SetEase(Ease.InQuad);
             });
+    }
+
+    // 25 클릭용 펄스
+    public void Pulse()
+    {
+        transform.DOKill();
+        var s0 = transform.localScale;
+        var s1 = s0 * 1.06f;
+        Sequence seq = DOTween.Sequence();
+        seq.Append(transform.DOScale(s1, 0.08f).SetEase(Ease.OutCubic));
+        seq.Append(transform.DOScale(s0, 0.09f).SetEase(Ease.InCubic));
+    }
+
+    // 25 모드 진입: 가운데 고정 + 화면 채움
+    public void EnableFinalMode(RectTransform container, float coverage = 0.95f)
+    {
+        if (!rectT) rectT = GetComponent<RectTransform>();
+        if (!imageUI) imageUI = GetComponentInChildren<Image>();
+        if (imageUI) imageUI.preserveAspect = true;
+
+        // 중앙 고정
+        rectT.anchorMin = rectT.anchorMax = new Vector2(0.5f, 0.5f);
+        rectT.pivot = new Vector2(0.5f, 0.5f);
+        rectT.anchoredPosition = Vector2.zero;
+
+        // 컨테이너 크기에 맞춰 sizeDelta 지정(비율)
+        if (container)
+        {
+            var w = container.rect.width * coverage;
+            var h = container.rect.height * coverage;
+            rectT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
+            rectT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
+            transform.localScale = Vector3.one; // 사이즈로 제어
+        }
+
+        // 이동/드래그 완전 차단
+        if (autoRoutine != null) StopCoroutine(autoRoutine);
+        isJumping = false; isDragging = false;
+    }
+
+    // 수익 계산(25 스택 반영)
+    public double GetIncome()
+    {
+        double baseIncome = (data != null) ? data.incomePerSec : 0;
+        if (IsFinal) return baseIncome * (1 + FinalRank);
+        return baseIncome;
+    }
+
+    public void IncrementFinalRank()
+    {
+        FinalRank++;
+        // 랭크업 이펙트(가벼운 펄스)
+        Pulse();
     }
 }

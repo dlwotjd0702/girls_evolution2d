@@ -56,11 +56,10 @@ public class GirlMergeManager : MonoBehaviour
 
     public void AddIncomeGold(GirlCharacter girl)
     {
-        if (currencyManager != null && girl.data != null)
-            currencyManager.AddGold(girl.data.incomePerSec);
+        if (currencyManager != null && girl != null)
+            currencyManager.AddGold(girl.GetIncome());
     }
 
-    // **자동합성 - 필드 내 같은레벨 2쌍 찾기**
     public void TryAutoMerge()
     {
         var list = fieldManager.girlList;
@@ -68,7 +67,6 @@ public class GirlMergeManager : MonoBehaviour
         float bestDist = float.MaxValue;
         GirlCharacter first = null, second = null;
 
-        // 가장 가까운 같은 레벨 쌍 찾기
         for (int i = 0; i < n; i++)
         {
             for (int j = i + 1; j < n; j++)
@@ -87,7 +85,6 @@ public class GirlMergeManager : MonoBehaviour
             }
         }
 
-        // "가장 가까운 한 쌍"만 합성
         if (first != null && second != null)
         {
             StartCoroutine(MergeRoutine(first, second));
@@ -106,8 +103,17 @@ public class GirlMergeManager : MonoBehaviour
 
         fieldManager.RemoveGirl(a);
         fieldManager.RemoveGirl(b);
-        fieldManager.ManualSpawnGirl(nextLevel, center);
 
+        if (nextLevel >= TierRules.MaxLevel) // 25 스택 처리
+        {
+            fieldManager.AcquireLevel25(); // 생성/스택/표현을 FieldManager에 위임
+        }
+        else
+        {
+            fieldManager.ManualSpawnGirl(nextLevel, center);
+        }
+
+        // 보상(다음 레벨 기준)
         GirlData nextData = DataManager?.GetDataByLevel(nextLevel);
         if (nextData != null && currencyManager != null)
             currencyManager.AddGold(nextData.incomePerSec);

@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿// … 파일 상단 using 그대로 …
 using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class GirlFieldManager : MonoBehaviour
+public class GirlFieldManager : MonoBehaviour, ISaveable
 {
-    // ── 기존 참조들 ──
+    // ── 참조 ──
     public GirlDataManager dataManager;
     public GirlSpriteAddressableLoader spriteLoader;
     public GirlMergeManager mergeManager;
@@ -12,18 +15,37 @@ public class GirlFieldManager : MonoBehaviour
     public Transform girlRoot;
     public List<GirlCharacter> girlList = new List<GirlCharacter>();
 
-    // ── 계층 연동(버튼에서 직접 호출하는 방식) ──
+    // ── 티어 ──
     [Header("Tier")]
     [SerializeField] private TierManager tierManager;
 
     [Header("Optional parents (for organization)")]
-    [SerializeField] private Transform activeParent; // 현재 계층 보이는 부모
-    [SerializeField] private Transform hiddenParent; // 숨김용 부모
+    [SerializeField] private Transform activeParent; // 현재 계층 표시용
+    [SerializeField] private Transform hiddenParent; // 숨김용
 
-    // 소환 게이지 관리
+    // ── 첫 발견 관리 ──
+    private readonly HashSet<int> discoveredLevels = new HashSet<int>(); // 1~25
+    private bool _isRestoring = false; // 로드 중엔 첫발견 연출 X
+    private Coroutine _restoreRoutine;
+
+    // ── 소환 게이지 ──
     public int curSpawnCharge = 0;
     private float chargeTimer = 0f;
     private float autoSpawnTimer = 0f;
+
+    // ── 첫 발견 연출 튜닝 ──
+    [Header("Discovery FX")]
+    [SerializeField] private float ldCenterScale = 2.0f;     // 일반 레벨 중앙 배율
+    [SerializeField] private float ldCenterScaleFinalMul = 2.0f; // 25는 위 배율에 추가 곱(= 최종 4배)
+    [SerializeField] private float ldPopOvershoot = 0.12f;
+    [SerializeField] private float ldPopInTime = 0.12f;
+    [SerializeField] private float ldHoldTime = 0.15f;
+    [SerializeField] private float moveDuration = 0.55f;
+    [SerializeField, Range(0f,1f)] private float swapToSDFraction = 0.18f;
+
+    // ── 계층 버튼(단일) ──
+    [Header("Tier UI")]
+    [SerializeField] private Button tierSwitchButton;
 
     void Start()
     {
@@ -31,13 +53,13 @@ public class GirlFieldManager : MonoBehaviour
         UpdateSpawnButtonUI();
         StartCoroutine(AutoMergeRoutine());
 
-        // 시작 시 한 번 초기화: 현 계층만 보이게(리스트에 있는 애들만 대상)
         if (tierManager != null) ShowOnlyTier(tierManager.CurrentTierIndex);
+
+        SetTierButton(false); // 기본 숨김
     }
 
     void Update()
     {
-        // 1. 게이지 자동충전
         if (curSpawnCharge < GetMaxSpawnCharge())
         {
             chargeTimer += Time.deltaTime;
@@ -48,7 +70,6 @@ public class GirlFieldManager : MonoBehaviour
                 UpdateSpawnButtonUI();
             }
         }
-        // 2. 자동 소환 (게이지 있으면 자동으로 소환)
         if (upgradeManager != null && upgradeManager.autoSpawnUpgrade > 0)
         {
             autoSpawnTimer += Time.deltaTime;
@@ -60,38 +81,60 @@ public class GirlFieldManager : MonoBehaviour
         }
     }
 
-    // 수동 소환 버튼에서 호출
     public void OnClickSpawnButton()
     {
         if (curSpawnCharge > 0 && girlList.Count < GetMaxFieldCount())
         {
             curSpawnCharge--;
-            SpawnGirl(1, GetRandomSpawnPos());
+            SpawnGirl(1, (Vector3)GetRandomSpawnPos());
             UpdateSpawnButtonUI();
         }
     }
 
-    // 자동 소환 처리
     private void TryAutoSpawn()
     {
         if (curSpawnCharge > 0 && girlList.Count < GetMaxFieldCount())
         {
             curSpawnCharge--;
-            SpawnGirl(1, GetRandomSpawnPos());
+            SpawnGirl(1, (Vector3)GetRandomSpawnPos());
             UpdateSpawnButtonUI();
         }
     }
 
-    // --- 소환/필드 설정 ---
     public void SpawnTestGirls()
     {
         for (int level = 1; level <= 25; level++)
-            SpawnGirl(level, Vector2.zero);
+            SpawnGirl(level, (Vector3)GetRandomSpawnPos());
     }
 
     public void ManualSpawnGirl(int level, Vector3 pos)
     {
         SpawnGirl(level, pos);
+    }
+
+    // 25 획득(합성 등): 있으면 스택↑, 없으면 생성
+    public void AcquireLevel25()
+    {
+        var exist = GetFinalGirl();
+        if (exist != null)
+        {
+            exist.IncrementFinalRank();
+            ConfigureLevel25(exist);
+        }
+        else
+        {
+            // 새로 생성(중앙)
+            SpawnGirl(TierRules.MaxLevel, Vector3.zero);
+        }
+        NotifySpawnedLevel(TierRules.MaxLevel);
+    }
+
+    private GirlCharacter GetFinalGirl()
+    {
+        for (int i = 0; i < girlList.Count; i++)
+            if (girlList[i] != null && girlList[i].Level >= TierRules.MaxLevel)
+                return girlList[i];
+        return null;
     }
 
     private void SpawnGirl(int level, Vector3 pos)
@@ -100,24 +143,171 @@ public class GirlFieldManager : MonoBehaviour
         GirlData data = dataManager.GetDataByLevel(level);
         if (data == null) return;
 
-        Sprite sprite = null;
-        if (spriteLoader != null && !string.IsNullOrEmpty(data.spriteName))
-            spriteLoader.SpriteDict.TryGetValue(data.spriteName, out sprite);
+        // 25 이미 있으면 스택만 올리고 리턴
+        if (level >= TierRules.MaxLevel)
+        {
+            var exist = GetFinalGirl();
+            if (exist != null)
+            {
+                exist.IncrementFinalRank();
+                ConfigureLevel25(exist);
+                NotifySpawnedLevel(level);
+                return;
+            }
+        }
 
+        // (안전) (0,0,0)은 랜덤 대체, 단 25는 중앙 유지
+        if (pos == Vector3.zero && level < TierRules.MaxLevel)
+        {
+            Vector2 rnd = GetRandomSpawnPos();
+            pos = new Vector3(rnd.x, rnd.y, 0f);
+        }
+
+        // 첫 발견 판단
+        bool isFirstDiscover = !_isRestoring && !discoveredLevels.Contains(level);
+
+        // 다른 계층이면 중앙 연출 생략
+        int itemTier = TierRules.TierIndexFromLevel(level);
+        if (!_isRestoring && tierManager != null && itemTier != tierManager.CurrentTierIndex)
+            isFirstDiscover = false;
+
+        // 스프라이트
+        Sprite sprite = null;
+        if (spriteLoader != null)
+            sprite = spriteLoader.GetSpriteForData(data, preferLD: isFirstDiscover);
+
+        // 프리팹/위치
         var go = SimpleUIPool.Instance.Get(girlRoot);
         var rect = go.transform as RectTransform;
         if (rect != null) rect.localPosition = pos;
         else go.transform.localPosition = pos;
 
         var girl = go.GetComponent<GirlCharacter>();
-        girl.OnGetFromPool(); // (상태리셋)
+        girl.OnGetFromPool();
         girl.Init(data, sprite);
         girl.mergeManager = mergeManager;
 
         girlFieldAdd(girl);
 
-        // ▶ 스폰된 애는 현 계층인지 확인해 즉시 보이기/숨기기
+        // 25면 중앙 고정/풀 사이즈 설정
+        if (level >= TierRules.MaxLevel)
+            ConfigureLevel25(girl);
+
+        // 가시성 반영
         ApplyVisibilityFor(girl);
+
+        // 첫 발견 연출
+        if (isFirstDiscover && spriteLoader != null)
+        {
+            discoveredLevels.Add(level);
+
+            Vector3 finalPos = rect != null ? rect.localPosition : go.transform.localPosition;
+
+            if (!spriteLoader.IsLoadedLD)
+                StartCoroutine(EnsureLDAndPlayDiscovery(girl, data, finalPos));
+            else
+                StartCoroutine(PlayDiscoveryOnce(girl, data, finalPos));
+        }
+
+        // 9레벨 이상 → 언락/버튼 ON
+        NotifySpawnedLevel(level);
+    }
+
+    // 25 전용 화면 채우기/고정
+    private void ConfigureLevel25(GirlCharacter girl)
+    {
+        var container = (activeParent as RectTransform) ?? (girlRoot as RectTransform) ?? (transform as RectTransform);
+        girl.EnableFinalMode(container, 0.95f);
+        // 위치 최종 보정(중앙)
+        var rt = (RectTransform)girl.transform;
+        rt.localPosition = Vector3.zero;
+    }
+
+    // 9레벨 이상 “등장했을 때만” 호출해서 언락 + 버튼 ON
+    public void NotifySpawnedLevel(int level)
+    {
+        if (level >= 9)
+        {
+            tierManager?.TryUnlockByLevel(level);
+            SetTierButton(true);
+        }
+    }
+
+    private void SetTierButton(bool on)
+    {
+        if (tierSwitchButton != null)
+        {
+            tierSwitchButton.gameObject.SetActive(on);
+            tierSwitchButton.interactable = on;
+        }
+    }
+
+    private IEnumerator EnsureLDAndPlayDiscovery(GirlCharacter girl, GirlData data, Vector3 targetPos)
+    {
+        var task = spriteLoader.EnsureLDLoadedAsync();
+        while (!task.IsCompleted) yield return null;
+        yield return PlayDiscoveryOnce(girl, data, targetPos);
+    }
+
+    // 첫 발견: (일반=2배, 25=4배) 중앙 팝업 → 이동·축소 중 SD 스왑
+    private IEnumerator PlayDiscoveryOnce(GirlCharacter girl, GirlData data, Vector3 targetPos)
+    {
+        if (girl == null || data == null) yield break;
+
+        var rect = (RectTransform)girl.transform;
+
+        var sd = spriteLoader.GetSpriteForData(data, preferLD: false);
+        var ld = spriteLoader.GetSpriteForData(data, preferLD: true) ?? sd;
+
+        var img = girl.GetComponentInChildren<Image>();
+        if (img != null && ld != null) img.sprite = ld;
+
+        girl.KillAllTweens();
+        girl.StopAllCoroutines();
+
+        // 25면 배율 두 배
+        float baseScaleMul = ldCenterScale * (girl.Level >= TierRules.MaxLevel ? ldCenterScaleFinalMul : 1f);
+
+        Vector3 originalScale = girl.transform.localScale;
+        float centerBase = Mathf.Max(0.0001f, baseScaleMul);
+
+        rect.localPosition = Vector3.zero;
+        girl.transform.localScale = originalScale * (centerBase * (1f - ldPopOvershoot));
+        if (img != null) img.color = new Color(1, 1, 1, 0);
+
+        Sequence pop = DOTween.Sequence();
+        if (img != null) pop.Join(img.DOFade(1f, ldPopInTime));
+        pop.Join(girl.transform.DOScale(originalScale * (centerBase * (1f + ldPopOvershoot)), ldPopInTime)
+            .SetEase(Ease.OutBack, overshoot: 1.4f));
+        pop.Append(girl.transform.DOScale(originalScale * centerBase, 0.08f).SetEase(Ease.OutCubic));
+        yield return pop.WaitForCompletion();
+
+        yield return new WaitForSeconds(ldHoldTime);
+
+        // 25는 원위치가 중앙(고정)이라 이동 없이 SD로만 스왑하고 종료
+        if (girl.Level >= TierRules.MaxLevel)
+        {
+            if (img != null && sd != null) img.sprite = sd;
+            // 25는 즉시 최종 모드 유지
+            ConfigureLevel25(girl);
+            girl.OnGetFromPool(); // 루프는 25라서 시작 안 됨
+            rect.localPosition = Vector3.zero;
+            yield break;
+        }
+
+        // 일반 레벨은 자리로 이동
+        Sequence seq = DOTween.Sequence();
+        seq.Join(rect.DOLocalMove(targetPos, moveDuration).SetEase(Ease.OutCubic));
+        seq.Join(girl.transform.DOScale(originalScale, moveDuration).SetEase(Ease.OutCubic));
+
+        float swapAtTime = Mathf.Clamp01(swapToSDFraction) * moveDuration;
+        if (img != null && sd != null)
+            seq.InsertCallback(swapAtTime, () => { if (img != null) img.sprite = sd; });
+
+        yield return seq.WaitForCompletion();
+
+        girl.OnGetFromPool();
+        rect.localPosition = targetPos;
     }
 
     private void girlFieldAdd(GirlCharacter girl)
@@ -133,7 +323,6 @@ public class GirlFieldManager : MonoBehaviour
         SimpleUIPool.Instance.Return(girl.gameObject);
     }
 
-    // 랜덤 소환 위치
     private Vector2 GetRandomSpawnPos()
     {
         float x = Random.Range(-350f, 350f);
@@ -141,7 +330,6 @@ public class GirlFieldManager : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    // 업그레이드 연동
     private int GetMaxSpawnCharge() =>
         upgradeManager != null ? upgradeManager.GetMaxManualSpawnCount() : 3;
     private float GetSpawnChargeInterval() =>
@@ -149,13 +337,8 @@ public class GirlFieldManager : MonoBehaviour
     private int GetMaxFieldCount() =>
         upgradeManager != null ? upgradeManager.GetMaxFieldCount() : 8;
 
-    // UI 연동 함수(버튼, 텍스트 등)
-    private void UpdateSpawnButtonUI()
-    {
-        // 실제 UI 연동 필요시 구현
-    }
+    private void UpdateSpawnButtonUI() { }
 
-    // 자동합성 루프 (업그레이드 해금 시)
     private IEnumerator AutoMergeRoutine()
     {
         while (true)
@@ -166,7 +349,6 @@ public class GirlFieldManager : MonoBehaviour
         }
     }
 
-   
     public void SwitchTierNextUnlockedCycle()
     {
         if (tierManager == null) return;
@@ -174,16 +356,12 @@ public class GirlFieldManager : MonoBehaviour
         int prev = tierManager.CurrentTierIndex;
         int target = -1;
 
-        // 1) 현재+1 ~ 3 중에서 "언락된" 다음 계층 찾기
         for (int i = prev + 1; i < 4; i++)
         {
             if (tierManager.Unlocked[i]) { target = i; break; }
         }
-
-        // 2) 위에서 못 찾았으면 0층으로 랩
         if (target == -1) target = 0;
 
-        // (안전) 0층이 잠겨있을 일은 없지만, 혹시 몰라 첫 언락층을 다시 탐색
         if (!tierManager.Unlocked[target])
         {
             for (int i = 0; i < 4; i++)
@@ -191,17 +369,12 @@ public class GirlFieldManager : MonoBehaviour
                 if (tierManager.Unlocked[i]) { target = i; break; }
             }
         }
-
-        // 변화 없으면 리턴
         if (target == prev) return;
 
-        // 상태 업데이트 + 두 계층만 토글
         tierManager.SwitchTo(target);
         ToggleTwoTiers(prev, target);
     }
 
-
-    // 이전 계층만 숨기고, 타겟 계층만 보이기
     private void ToggleTwoTiers(int prevTier, int targetTier)
     {
         for (int i = 0; i < girlList.Count; i++)
@@ -209,16 +382,14 @@ public class GirlFieldManager : MonoBehaviour
             var g = girlList[i];
             if (g == null) continue;
 
-            int level = g.Level; // 프로젝트에 맞게 g.level / g.Data.level 이면 수정
+            int level = g.Level;
             int itemTier = TierRules.TierIndexFromLevel(level);
 
             if (itemTier == prevTier) HideGirl(g);
             else if (itemTier == targetTier) ShowGirl(g);
-            // 그 외의 계층(예: 0->2로 건너뛸 때 1층)은 기존 상태 유지(이미 숨김일 것)
         }
     }
 
-    // 시작 시 1회: 해당 계층만 보이고 나머지는 숨김
     private void ShowOnlyTier(int tierIndex)
     {
         for (int i = 0; i < girlList.Count; i++)
@@ -233,7 +404,6 @@ public class GirlFieldManager : MonoBehaviour
         }
     }
 
-    // 새로 생성된 개체 1개만 즉시 반영
     private void ApplyVisibilityFor(GirlCharacter girl)
     {
         if (tierManager == null || girl == null) return;
@@ -248,8 +418,6 @@ public class GirlFieldManager : MonoBehaviour
         g.gameObject.SetActive(true);
         if (activeParent != null && g.transform.parent != activeParent)
             g.transform.SetParent(activeParent, true);
-        // 입력/콜라이더를 쓰면 여기서 enable
-        // if (g.TryGetComponent<Collider2D>(out var col)) col.enabled = true;
     }
 
     private void HideGirl(GirlCharacter g)
@@ -258,9 +426,104 @@ public class GirlFieldManager : MonoBehaviour
         g.gameObject.SetActive(false);
         if (hiddenParent != null && g.transform.parent != hiddenParent)
             g.transform.SetParent(hiddenParent, true);
-        // if (g.TryGetComponent<Collider2D>(out var col)) col.enabled = false;
     }
 
-    // IdleGold 등에서 전체를 읽어야 하면 공개
     public IReadOnlyList<GirlCharacter> AllGirls => girlList;
+
+    // ───── ISaveable ─────
+    public void CollectSaveData(SaveData data)
+    {
+        int mask = 0;
+        foreach (var lv in discoveredLevels)
+        {
+            int bit = Mathf.Clamp(lv - 1, 0, 31);
+            mask |= (1 << bit);
+        }
+        data.discoveredMask = mask;
+
+        girlList.RemoveAll(g => g == null);
+        data.girls.Clear();
+        for (int i = 0; i < girlList.Count; i++)
+        {
+            var g = girlList[i];
+            data.girls.Add(new GirlSaveInfo(g.Level));
+        }
+    }
+
+    public void ApplyLoadedData(SaveData data)
+    {
+        if (_restoreRoutine != null) StopCoroutine(_restoreRoutine);
+        _restoreRoutine = StartCoroutine(RestoreWhenReady(data));
+    }
+
+    private IEnumerator RestoreWhenReady(SaveData data)
+    {
+        if (GameSystem.Instance != null && !GameSystem.Instance.AssetsReady)
+        {
+            bool ready = false;
+            void OnReady() => ready = true;
+            GameSystem.Instance.AssetsReadyEvent += OnReady;
+
+            yield return new WaitUntil(() =>
+                ready ||
+                ((spriteLoader == null || spriteLoader.IsReady) &&
+                 (dataManager == null || dataManager.IsLoaded))
+            );
+
+            if (GameSystem.Instance != null)
+                GameSystem.Instance.AssetsReadyEvent -= OnReady;
+        }
+        else
+        {
+            yield return new WaitUntil(() =>
+                (spriteLoader == null || spriteLoader.IsReady) &&
+                (dataManager == null || dataManager.IsLoaded)
+            );
+        }
+
+        discoveredLevels.Clear();
+        int mask = data.discoveredMask;
+        for (int lv = 1; lv <= TierRules.MaxLevel; lv++)
+        {
+            int bit = lv - 1;
+            if ((mask & (1 << bit)) != 0)
+                discoveredLevels.Add(lv);
+        }
+
+        var snapshot = new List<GirlCharacter>(girlList);
+        foreach (var g in snapshot)
+        {
+            if (g == null) continue;
+            RemoveGirl(g);
+        }
+        girlList.Clear();
+
+        _isRestoring = true;
+        if (data.girls != null)
+        {
+            for (int i = 0; i < data.girls.Count; i++)
+            {
+                int level = Mathf.Clamp(data.girls[i].level, 1, TierRules.MaxLevel);
+                Vector2 rnd = GetRandomSpawnPos();
+                Vector3 pos = (level >= TierRules.MaxLevel) ? Vector3.zero : new Vector3(rnd.x, rnd.y, 0f);
+                SpawnGirl(level, pos);
+            }
+        }
+        _isRestoring = false;
+
+        if (tierManager != null)
+            ShowOnlyTier(tierManager.CurrentTierIndex);
+
+        bool show = false;
+        if (tierManager != null)
+            show = tierManager.Unlocked[1] || tierManager.Unlocked[2] || tierManager.Unlocked[3];
+        if (!show && data.girls != null)
+        {
+            for (int i = 0; i < data.girls.Count; i++)
+                if (data.girls[i].level >= 9) { show = true; break; }
+        }
+        SetTierButton(show);
+
+        _restoreRoutine = null;
+    }
 }

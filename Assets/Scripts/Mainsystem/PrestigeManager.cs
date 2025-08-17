@@ -9,25 +9,34 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     [Header("환생 데이터")]
     public int prestigePoint = 0;
     public int totalPrestigeCount = 0;
-    public int topLevel = 25;
+    public int topLevel = 25; // Start에서 TierRules.MaxLevel로 동기화
 
     public System.Action onPrestigeAvailable;
 
     private bool isPrestigeAvailable = false;
+
+    private void Start()
+    {
+        if (topLevel <= 0 || topLevel != TierRules.MaxLevel)
+            topLevel = TierRules.MaxLevel;
+    }
 
     void Update()
     {
         if (girlFieldManager == null) return;
 
         bool found = false;
-        foreach (var girl in girlFieldManager.girlList)
+        var list = girlFieldManager.girlList;
+        for (int i = 0; i < list.Count; i++)
         {
-            if (girl.Level == topLevel)
+            var g = list[i];
+            if (g != null && g.Level == topLevel)
             {
                 found = true;
                 break;
             }
         }
+
         if (found != isPrestigeAvailable)
         {
             isPrestigeAvailable = found;
@@ -41,15 +50,24 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         if (girlFieldManager == null || currencyManager == null) return;
 
         int reward = 0;
-        foreach (var girl in girlFieldManager.girlList)
-            if (girl.Level == topLevel)
+        var list = girlFieldManager.girlList;
+        for (int i = 0; i < list.Count; i++)
+        {
+            var g = list[i];
+            if (g != null && g.Level == topLevel)
                 reward++;
+        }
 
         prestigePoint += reward;
         totalPrestigeCount++;
 
-        foreach (var girl in girlFieldManager.girlList)
-            Destroy(girl.gameObject);
+        // 풀 반환으로 비우기
+        var snapshot = new List<GirlCharacter>(girlFieldManager.girlList);
+        foreach (var g in snapshot)
+        {
+            if (g == null) continue;
+            girlFieldManager.RemoveGirl(g);
+        }
         girlFieldManager.girlList.Clear();
 
         currencyManager.SetGold(0);

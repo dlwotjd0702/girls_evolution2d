@@ -6,7 +6,7 @@ public class TierManager : MonoBehaviour, ISaveable
     [field: SerializeField, Range(0,3)]
     public int CurrentTierIndex { get; private set; } = 0;
 
-    public readonly bool[] Unlocked = new bool[4] { true, true, false, false };
+    public readonly bool[] Unlocked = new bool[4] { true, false, false, false };
 
     public event Action<int> OnTierChanged;
     public event Action<int> OnTierUnlocked;

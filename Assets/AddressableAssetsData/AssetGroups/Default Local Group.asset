@@ -17,155 +17,305 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: dd41f8350e8007e418f1ace37432dcfe
   m_SerializeEntries:
-  - m_GUID: 079cccaa62a29a3469a1d214f8774904
-    m_Address: "Assets/\uB2CC\uC790SD2/21.png"
+  - m_GUID: 01fda4bd21478b34b99006c527728096
+    m_Address: 9
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 062724429570cea458905d7b684bf530
+    m_Address: 10
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 079cccaa62a29a3469a1d214f8774904
+    m_Address: 21
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 08b76df47fa64924e8fb2ccb861b0023
+    m_Address: 8
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 08b785501fd5b6349938adb3de6f6a62
-    m_Address: "Assets/\uB2CC\uC790SD2/20.png"
+    m_Address: 20
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0ebb32ab5a7eb904aae336d230cd10d3
+    m_Address: 2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 117a919f5ffe29846bfe857d849e67b1
+    m_Address: 5
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12587dea6683fdb42b1450246f2dc9ad
+    m_Address: 4
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 13b99220abbd41d4092f06a03734f38a
+    m_Address: 19
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1a374d43e17228d4cb062c5368c3f19d
-    m_Address: "Assets/\uB2CC\uC790SD2/2.png"
+    m_Address: 2
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1cce91298131dde4b8fbe395c4b7a93c
+    m_Address: 1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d28678d000de484387fe6baca5cc01e
+    m_Address: 23
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d0caf1d2af9b764c810bab6d5b15f03
+    m_Address: 6
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d1e9eefc2dda57488102ad00a2852de
-    m_Address: "Assets/\uB2CC\uC790SD2/3.png"
+    m_Address: 3
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3ddd5e032fc86444fb4580745f7aae42
-    m_Address: "Assets/\uB2CC\uC790SD2/15.png"
+    m_Address: 15
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3fa5717fcbc73354cb8a2511cb5611fe
+    m_Address: 14
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4225ace12a84a0e489f633cda6ff80db
+    m_Address: 25
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 49cd7fee2114d8f428c0c7a6f4ff152a
-    m_Address: "Assets/\uB2CC\uC790SD2/11.png"
+    m_Address: 11
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 508acb2301c3d9744adbde542a680d8b
+    m_Address: 22
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b066c12d14aa9f44bec7ab581afce3f
+    m_Address: 16
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 69851cc03ed12394dae7745a2e3f02ae
-    m_Address: "Assets/\uB2CC\uC790SD2/8.png"
+    m_Address: 8
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6d90caf3569605f49b9447d7e0de4523
-    m_Address: "Assets/\uB2CC\uC790SD2/4.png"
+    m_Address: 4
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e2f1899d6f0e134a822d0e8a58c4aaf
+    m_Address: 24
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6eeb2d19495d3754581d58ac3b6403b7
-    m_Address: "Assets/\uB2CC\uC790SD2/14.png"
+    m_Address: 14
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 70627d11c9423f9478f1f8c642261f93
-    m_Address: "Assets/\uB2CC\uC790SD2/18.png"
+    m_Address: 18
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70c429ab05965ac43b1544b3040f9d09
+    m_Address: 3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7e94e9a735fc55f4ab77fd3bf09bced1
-    m_Address: "Assets/\uB2CC\uC790SD2/25.png"
+    m_Address: 25
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 833ede10b9b8d8a4188e326a71817866
-    m_Address: "Assets/\uB2CC\uC790SD2/12.png"
+    m_Address: 12
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8579e1905abff2147b44e7eb7b3f68c0
-    m_Address: "Assets/\uB2CC\uC790SD2/23.png"
+    m_Address: 23
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 885e5f8b77819e34493f4e2dcf09dea5
-    m_Address: "Assets/\uB2CC\uC790SD2/6.png"
+    m_Address: 6
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8ba69fa3534b021459ed9788a45e8656
-    m_Address: "Assets/\uB2CC\uC790SD2/24.png"
+    m_Address: 24
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9498c44b631c7fd4db75292073cf21ce
-    m_Address: "Assets/\uB2CC\uC790SD2/1.png"
+    m_Address: 1
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 94c3362ad9505c940a58f0540a048a05
-    m_Address: "Assets/\uB2CC\uC790SD2/5.png"
+    m_Address: 5
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9dda72c749143494e957294375286dc6
-    m_Address: "Assets/\uB2CC\uC790SD2/13.png"
+    m_Address: 13
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1d707add3ea5a743a0566b81aa1f12d
-    m_Address: "Assets/\uB2CC\uC790SD2/7.png"
+    m_Address: 7
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ba7dd68317671f24ab2a3223819f8049
-    m_Address: "Assets/\uB2CC\uC790SD2/17.png"
+    m_Address: 17
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c18efc6b064067947975df2dcacbbc48
+    m_Address: 13
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3d7aa4c91f76b948ba2d298fbeb1d45
+    m_Address: 11
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c41720d7b1f5de342a641a020c63f59d
-    m_Address: "Assets/\uB2CC\uC790SD2/16.png"
+    m_Address: 16
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c682b9bea544de141a0426b4fe8ae814
-    m_Address: "Assets/\uB2CC\uC790SD2/9.png"
+    m_Address: 9
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c913ccd216f0e4b4d98924766cf0ce7e
-    m_Address: "Assets/\uB2CC\uC790SD2/22.png"
+    m_Address: 22
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: caa6878888bdcea4dbae9c87e9e7a6b6
+    m_Address: 18
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc5a1f7510bb1044ea1367b70f001217
+    m_Address: 7
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cf0236af1deecc6419bee23d39303b97
+    m_Address: 20
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5f28931fb329e844858ac00513fbf20
+    m_Address: 15
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7d4fedee6812bc40b5253821930d4c1
+    m_Address: 12
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0f307701b3cedb4bb01ddfe528f60fd
+    m_Address: 21
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f1a8f4edbb92d1f4886d5bf960dca662
-    m_Address: "Assets/\uB2CC\uC790SD2/19.png"
+    m_Address: 19
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fb49daea3632f604ea6ddafcde96fd03
-    m_Address: "Assets/\uB2CC\uC790SD2/10.png"
+    m_Address: 10
     m_ReadOnly: 0
     m_SerializedLabels:
-    - GirlSprites
+    - SD
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe9f509375844434e8954374791201d1
+    m_Address: 17
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - LD
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 79784cf8af41ed4488cf479416d2c58c, type: 2}

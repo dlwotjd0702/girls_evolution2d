@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: dd41f8350e8007e418f1ace37432dcfe
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 34bd77ad8be492a88e15e71cf847b621
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -89,6 +89,8 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - GirlSprites
+    - LD
+    - SD
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 805e4cbb38185cd459108bc103bcc990, type: 2}

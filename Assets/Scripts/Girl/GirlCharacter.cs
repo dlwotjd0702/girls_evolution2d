@@ -43,13 +43,15 @@ public class GirlCharacter : MonoBehaviour,
     // ---- 풀 입출(초기화/정리) ----
     public void OnGetFromPool()
     {
+        // ✅ 풀에서 나올 때 항상 활성화 보장
+        enabled = true;
+
         KillAllTweens();
         if (imageUI != null)
             imageUI.color = originColor;
         isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
         gameObject.SetActive(true);
 
-        // 25는 자동 점프 루프 비활성화
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         if (!IsFinal)
         {
@@ -66,6 +68,8 @@ public class GirlCharacter : MonoBehaviour,
         isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         gameObject.SetActive(false);
+        // 비활성화로 두고 싶다면 여기서 enabled=false; 를 하되,
+        // OnGetFromPool에서 다시 true로 되돌리므로 안전.
     }
 
     public void KillAllTweens()
@@ -164,7 +168,7 @@ public class GirlCharacter : MonoBehaviour,
     // ----- 드래그/클릭 -----
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (IsFinal) return; // 25는 드래그 시작도 무시
+        if (IsFinal) return; // 25는 드래그 금지
         isDragging = true; wasDragged = false;
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
 
@@ -205,9 +209,8 @@ public class GirlCharacter : MonoBehaviour,
     {
         if (!wasDragged)
         {
-            // 25 포함: 클릭 수익 지급
-            mergeManager?.AddIncomeGold(this);
-            Pulse(); // 25도 시각 반응
+            mergeManager?.AddIncomeGold(this); // 25 포함 클릭 수익
+            Pulse();
         }
     }
 
@@ -220,7 +223,7 @@ public class GirlCharacter : MonoBehaviour,
 
     void BounceAnim()
     {
-        if (IsFinal) return; // 25 자동 바운스는 사용 안 함(클릭만)
+        if (IsFinal) return; // 25 자동 바운스는 X (클릭만 Pulse)
         transform.DOKill();
         Vector3 scaled = baseScale * 1.22f;
         scaled.x *= currentDirectionX;
@@ -252,27 +255,23 @@ public class GirlCharacter : MonoBehaviour,
         if (!imageUI) imageUI = GetComponentInChildren<Image>();
         if (imageUI) imageUI.preserveAspect = true;
 
-        // 중앙 고정
         rectT.anchorMin = rectT.anchorMax = new Vector2(0.5f, 0.5f);
         rectT.pivot = new Vector2(0.5f, 0.5f);
         rectT.anchoredPosition = Vector2.zero;
 
-        // 컨테이너 크기에 맞춰 sizeDelta 지정(비율)
         if (container)
         {
             var w = container.rect.width * coverage;
             var h = container.rect.height * coverage;
             rectT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
             rectT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
-            transform.localScale = Vector3.one; // 사이즈로 제어
+            transform.localScale = Vector3.one;
         }
 
-        // 이동/드래그 완전 차단
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         isJumping = false; isDragging = false;
     }
 
-    // 수익 계산(25 스택 반영)
     public double GetIncome()
     {
         double baseIncome = (data != null) ? data.incomePerSec : 0;
@@ -283,7 +282,6 @@ public class GirlCharacter : MonoBehaviour,
     public void IncrementFinalRank()
     {
         FinalRank++;
-        // 랭크업 이펙트(가벼운 펄스)
         Pulse();
     }
 }

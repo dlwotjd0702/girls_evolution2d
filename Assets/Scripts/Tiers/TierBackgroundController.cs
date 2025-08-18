@@ -26,9 +26,6 @@ public class TierBackgroundControllerAscend : MonoBehaviour
     [Tooltip("다음층이 아래에서 살짝 올라오게 할 오프셋(px, 음수 권장)")]
     [SerializeField] private float nextStartYOffset = -40f;
 
-    // (선택) 전환 중 입력 막고 싶으면 오버레이 CanvasGroup 연결
-    [Header("Optional")]
-    [SerializeField] private CanvasGroup inputBlocker; // blocksRaycasts=true인 CG
 
     bool useA = true;     // 현재 화면에 보이는 쪽
     int  lastTier = 0;
@@ -68,7 +65,6 @@ public class TierBackgroundControllerAscend : MonoBehaviour
         if (toTier == lastTier) return;
 
         seq?.Kill();
-        BlockInput(true);
 
         var cur = useA ? imgA : imgB;
         var nxt = useA ? imgB : imgA;
@@ -114,7 +110,6 @@ public class TierBackgroundControllerAscend : MonoBehaviour
 
             useA = !useA;
             lastTier = toTier;
-            BlockInput(false);
         });
     }
 
@@ -135,11 +130,5 @@ public class TierBackgroundControllerAscend : MonoBehaviour
         return tierSprites[tier];
     }
 
-    void BlockInput(bool on)
-    {
-        if (!inputBlocker) return;
-        inputBlocker.blocksRaycasts = on;
-        inputBlocker.interactable   = on;
-        inputBlocker.alpha          = on ? 0f : 0f; // 보이진 않게
-    }
+  
 }

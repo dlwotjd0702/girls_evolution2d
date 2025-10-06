@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿// IdleGoldManager.cs (교체)
+using UnityEngine;
 
 public class IdleGoldManager : MonoBehaviour
 {
@@ -16,15 +17,21 @@ public class IdleGoldManager : MonoBehaviour
         if (girlFieldManager == null || currencyManager == null) return;
 
         timer += Time.deltaTime;
-        if (timer >= tickInterval)
-        {
-            timer = 0;
-            double totalIncome = 0;
-            foreach (var girl in girlFieldManager.girlList)
-                totalIncome += girl.data.incomePerSec;
-          
+        if (timer < tickInterval) return;
+        timer = 0f;
 
-            currencyManager.AddGold(totalIncome);
+        double total = 0;
+        var list = girlFieldManager.girlList;
+        for (int i = 0; i < list.Count; i++)
+        {
+            var g = list[i];
+            if (g == null || g.data == null) continue;
+            total += g.GetIncome(); // ← 25레벨 랭크/배수 포함
         }
+
+        // (선택) 업그레이드 배수 적용 지점 통일하려면 여기서 곱해도 됨.
+        // if (upgradeManager != null) total *= upgradeManager.GetIdleIncomeMultiplier();
+
+        if (total > 0) currencyManager.AddGold(total);
     }
 }

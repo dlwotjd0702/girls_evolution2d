@@ -110,9 +110,12 @@ public class GameSystem : MonoBehaviour
         AssetsReadyEvent?.Invoke();
     }
 
+ 
     private void OnDestroy()
     {
         if (Instance == this) Instance = null;
         AssetsReadyEvent = null;
+        // ▼ 추가
+        spriteLoader?.UnloadAll();
     }
 }

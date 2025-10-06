@@ -14,33 +14,44 @@ public class GameUIManager : MonoBehaviour
     public PrestigeManager prestigeManager;
     public UpgradeManager upgradeManager;
 
-    void Start()
+    // ─────────────────────────────────────────────────────────
+    // 구독은 OnEnable / 해제는 OnDisable 로 일원화
+    // (씬 리로드/비활성-재활성 시 중복 구독 방지)
+    // ─────────────────────────────────────────────────────────
+    void OnEnable()
     {
-        // 골드 UI 초기화 및 콜백 연결
         if (currencyManager != null)
         {
+            currencyManager.onGoldChanged -= UpdateGoldUI;
             currencyManager.onGoldChanged += UpdateGoldUI;
             UpdateGoldUI(currencyManager.GetGold());
         }
-        // 환생 UI 및 콜백 연결
+
         if (prestigeManager != null)
         {
-            prestigeManager.onPrestigeAvailable += () => prestigeButton?.SetActive(true);
-            prestigeButton?.SetActive(false);
-            UpdatePrestigeUI();
+            prestigeManager.onPrestigeAvailable -= OnPrestigeAvailable;
+            prestigeManager.onPrestigeAvailable += OnPrestigeAvailable;
         }
-        // 업그레이드 패널 감춤
+
+        prestigeButton?.SetActive(false);
+        UpdatePrestigeUI();
         upgradePanel?.SetActive(false);
     }
 
+    void OnDisable()
+    {
+        if (currencyManager != null)
+            currencyManager.onGoldChanged -= UpdateGoldUI;
+
+        if (prestigeManager != null)
+            prestigeManager.onPrestigeAvailable -= OnPrestigeAvailable;
+    }
+
+    // ───────────────── UI 업데이트 ─────────────────
     void UpdateGoldUI(double gold)
     {
         if (!goldText) return;
-        if (gold >= 1e12) goldText.text = $"{gold / 1e12:F1}T";
-        else if (gold >= 1e9) goldText.text = $"{gold / 1e9:F1}B";
-        else if (gold >= 1e6) goldText.text = $"{gold / 1e6:F1}M";
-        else if (gold >= 1e3) goldText.text = $"{gold / 1e3:F1}K";
-        else goldText.text = $"{gold:N0}";
+        goldText.text = FormatAbbrev(gold);
     }
 
     void UpdatePrestigeUI()
@@ -49,13 +60,19 @@ public class GameUIManager : MonoBehaviour
             prestigePointText.text = $"환생석: {prestigeManager.GetPrestigePoint()}";
     }
 
-    // ----- UI 버튼용 명령 전달 -----
+    void OnPrestigeAvailable()
+    {
+        if (prestigeButton) prestigeButton.SetActive(true);
+    }
 
+    // ───────────────── 버튼 핸들러 ─────────────────
     public void OnClickPrestige()
     {
         prestigeManager?.DoPrestige();
         prestigeButton?.SetActive(false);
         UpdatePrestigeUI();
+        // 환생 후 골드도 0으로 바뀌므로 즉시 갱신
+        if (currencyManager != null) UpdateGoldUI(currencyManager.GetGold());
     }
 
     public void OnClickUpgradePanel()
@@ -64,6 +81,14 @@ public class GameUIManager : MonoBehaviour
             upgradePanel.SetActive(!upgradePanel.activeSelf);
     }
 
-
-
+    // ───────────────── 헬퍼 ─────────────────
+    static string FormatAbbrev(double v)
+    {
+        double av = System.Math.Abs(v);
+        if (av >= 1e12) return $"{v / 1e12:0.#}T";
+        if (av >= 1e9)  return $"{v / 1e9:0.#}B";
+        if (av >= 1e6)  return $"{v / 1e6:0.#}M";
+        if (av >= 1e3)  return $"{v / 1e3:0.#}K";
+        return $"{v:N0}";
+    }
 }

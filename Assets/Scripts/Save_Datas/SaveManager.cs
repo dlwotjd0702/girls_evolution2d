@@ -29,7 +29,7 @@ public class SaveManager : MonoBehaviour
         if (pause) SaveGame();
     }
 
-    void OnApplicationQuit()
+    void OnApplicationQuit()               
     {
         SaveGame();
     }

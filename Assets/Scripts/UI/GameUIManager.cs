@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameUIManager : MonoBehaviour
@@ -9,15 +10,20 @@ public class GameUIManager : MonoBehaviour
     public GameObject upgradePanel;
     public GameObject prestigeButton;
 
+    [Header("Tier / Next Floor")]
+    public TierManager tierManager;
+    [Tooltip("다음 층으로 이동하는 버튼(2층 언락 시 노출)")]
+    public GameObject nextFloorButton;
+    [Tooltip("다음 층 버튼 이미지(스프라이트 교체용)")]
+    public Image nextFloorButtonImage;
+    [Tooltip("층 테마 버튼 스프라이트: [0]=1층, [1]=2층, [2]=3층, [3]=마지막층")]
+    public Sprite[] nextFloorButtonSprites = new Sprite[4];
+
     [Header("Manager DI")]
     public CurrencyManager currencyManager;
     public PrestigeManager prestigeManager;
     public UpgradeManager upgradeManager;
 
-    // ─────────────────────────────────────────────────────────
-    // 구독은 OnEnable / 해제는 OnDisable 로 일원화
-    // (씬 리로드/비활성-재활성 시 중복 구독 방지)
-    // ─────────────────────────────────────────────────────────
     void OnEnable()
     {
         if (currencyManager != null)
@@ -33,9 +39,19 @@ public class GameUIManager : MonoBehaviour
             prestigeManager.onPrestigeAvailable += OnPrestigeAvailable;
         }
 
+        if (tierManager != null)
+        {
+            tierManager.OnTierUnlocked -= OnTierEvent;
+            tierManager.OnTierUnlocked += OnTierEvent;
+            tierManager.OnTierChanged  -= OnTierEvent;
+            tierManager.OnTierChanged  += OnTierEvent;
+        }
+
         prestigeButton?.SetActive(false);
         UpdatePrestigeUI();
         upgradePanel?.SetActive(false);
+
+        UpdateNextFloorButton(); // 초기 상태 갱신
     }
 
     void OnDisable()
@@ -45,6 +61,12 @@ public class GameUIManager : MonoBehaviour
 
         if (prestigeManager != null)
             prestigeManager.onPrestigeAvailable -= OnPrestigeAvailable;
+
+        if (tierManager != null)
+        {
+            tierManager.OnTierUnlocked -= OnTierEvent;
+            tierManager.OnTierChanged  -= OnTierEvent;
+        }
     }
 
     // ───────────────── UI 업데이트 ─────────────────
@@ -65,13 +87,47 @@ public class GameUIManager : MonoBehaviour
         if (prestigeButton) prestigeButton.SetActive(true);
     }
 
+    // ───────────────── Next Floor 버튼 표시/스프라이트 ─────────────────
+    void OnTierEvent(int _) => UpdateNextFloorButton();
+
+    void UpdateNextFloorButton()
+    {
+        if (!nextFloorButton) return;
+
+        // 규칙: 2층(=tier 1) 언락 시부터 버튼 표시
+        bool show = (tierManager != null && tierManager.IsUnlocked(1));
+        nextFloorButton.SetActive(show);
+        if (!show) return;
+
+        // 목적지 층 계산 후, 그 층의 테마 스프라이트를 버튼에 표시
+        if (tierManager != null)
+        {
+            int targetTier = tierManager.ComputeNextTierByRule(); // 규칙 기반 다음 층
+            var sp = GetTierButtonSprite(targetTier);
+            if (nextFloorButtonImage && sp) nextFloorButtonImage.sprite = sp;
+        }
+    }
+
+    Sprite GetTierButtonSprite(int tier)
+    {
+        if (nextFloorButtonSprites == null || nextFloorButtonSprites.Length == 0) return null;
+        tier = Mathf.Clamp(tier, 0, nextFloorButtonSprites.Length - 1);
+        return nextFloorButtonSprites[tier];
+    }
+
+    public void OnClickNextFloor()
+    {
+        tierManager?.GoNextTierByRule();
+        // 배경 전환은 TierBackgroundControllerAscend가 OnTierChanged로 자동 재생
+        // 버튼 스프라이트는 OnTierChanged 이벤트로 다시 갱신됨
+    }
+
     // ───────────────── 버튼 핸들러 ─────────────────
     public void OnClickPrestige()
     {
         prestigeManager?.DoPrestige();
         prestigeButton?.SetActive(false);
         UpdatePrestigeUI();
-        // 환생 후 골드도 0으로 바뀌므로 즉시 갱신
         if (currencyManager != null) UpdateGoldUI(currencyManager.GetGold());
     }
 

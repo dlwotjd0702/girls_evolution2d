@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TierManager : MonoBehaviour, ISaveable
 {
+    // 0=1층, 1=2층, 2=3층, 3=마지막층
     [field: SerializeField, Range(0,3)]
     public int CurrentTierIndex { get; private set; } = 0;
 
@@ -13,77 +12,6 @@ public class TierManager : MonoBehaviour, ISaveable
 
     public event Action<int> OnTierChanged;
     public event Action<int> OnTierUnlocked;
-
-    [Header("UI")]
-    [SerializeField] private Dropdown tierDropdown;     // 드롭다운(0~3 중 언락만, 현재층 제외)
-    [SerializeField] private string captionDefault = "계층 이동"; // 캡션 텍스트
-    private readonly List<int> _optionMap = new List<int>(4); // 옵션 인덱스 → tier 인덱스(0~3)
-
-    void Awake()
-    {
-        if (tierDropdown != null)
-        {
-            tierDropdown.onValueChanged.RemoveAllListeners();
-            tierDropdown.onValueChanged.AddListener(OnDropdownSelected);
-        }
-    }
-
-    void Start()
-    {
-        RefreshCaptionOnly(); // 시작 시 캡션만 정리(옵션은 열 때마다 갱신)
-    }
-
-    // ─────────────────────────
-    // 드롭다운 "열기 직전" 준비용 (EventTrigger: PointerDown 등에 연결)
-    // ─────────────────────────
-    public void PrepareDropdownForOpen()
-    {
-        if (tierDropdown == null) return;
-
-        var opts = tierDropdown.options;
-        opts.Clear();
-        _optionMap.Clear();
-
-        // 0~3 중 언락된 층만, 현재층 제외해서 옵션 구성
-        for (int t = 0; t <= 3; t++)
-        {
-            if (!Unlocked[t]) continue;
-            if (t == CurrentTierIndex) continue;
-
-            opts.Add(new Dropdown.OptionData($"{t}층"));
-            _optionMap.Add(t);
-        }
-
-        bool hasAny = _optionMap.Count > 0;
-        tierDropdown.interactable = hasAny;
-        tierDropdown.gameObject.SetActive(hasAny);
-
-        // 드롭다운을 "버튼처럼" 쓸 거라 캡션은 고정 텍스트 유지
-        tierDropdown.SetValueWithoutNotify(0);
-
-        // 옵션이 전혀 없으면(= 언락된 다른 층이 없음) 드롭다운 숨김
-        if (!hasAny)
-            tierDropdown.gameObject.SetActive(false);
-    }
-
-    // 선택 시 호출: 매핑된 실제 tier로 전환
-    private void OnDropdownSelected(int optionIndex)
-    {
-        if (optionIndex < 0 || optionIndex >= _optionMap.Count) return;
-        int targetTier = _optionMap[optionIndex];
-        SwitchTo(targetTier);
-
-        // 선택 후 캡션만 다시 기본 텍스트로 유지
-        RefreshCaptionOnly();
-    }
-
-    private void RefreshCaptionOnly()
-    {
-        if (tierDropdown == null) return;
-        // Dropdown 캡션 라벨에 기본 텍스트(예: "계층 이동") 유지
-        var caption = tierDropdown.captionText;
-        if (caption != null) caption.text = captionDefault;
-    }
 
     // ─────────────────────────
     // 계층 전환 / 언락
@@ -112,9 +40,34 @@ public class TierManager : MonoBehaviour, ISaveable
                 changed = true;
             }
         }
-        // 드롭다운은 열 때마다 준비하므로 여기선 캡션만 유지하면 됨
-        RefreshCaptionOnly();
         return changed;
+    }
+
+    // ─────────────────────────
+    // 규칙 기반 "상층" 계산/이동
+    // 0(1층)→ 1(2층) 언락 시 1, 아니면 0
+    // 1(2층)→ 2(3층) 언락 시 2, 아니면 0
+    // 2(3층)→ 3(마지막층) 언락 시 3, 아니면 0
+    // 3(마지막층)→ 0(1층)
+    // ─────────────────────────
+    public bool IsUnlocked(int tier) => (uint)tier < 4u && Unlocked[tier];
+
+    public int ComputeNextTierByRule()
+    {
+        switch (CurrentTierIndex)
+        {
+            case 0: return IsUnlocked(1) ? 1 : 0;
+            case 1: return IsUnlocked(2) ? 2 : 0;
+            case 2: return IsUnlocked(3) ? 3 : 0;
+            case 3: return 0;
+            default: return 0;
+        }
+    }
+
+    public void GoNextTierByRule()
+    {
+        int next = ComputeNextTierByRule();
+        SwitchTo(next);
     }
 
     // ─────────────────────────
@@ -139,8 +92,5 @@ public class TierManager : MonoBehaviour, ISaveable
 
         Unlocked[0] = true; // 안전장치
         OnTierChanged?.Invoke(CurrentTierIndex);
-
-        // 복원 직후에도 캡션만 유지(옵션은 열 때 새로)
-        RefreshCaptionOnly();
     }
 }

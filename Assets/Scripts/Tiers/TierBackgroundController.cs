@@ -26,6 +26,9 @@ public class TierBackgroundControllerAscend : MonoBehaviour
     [Tooltip("다음층이 아래에서 살짝 올라오게 할 오프셋(px, 음수 권장)")]
     [SerializeField] private float nextStartYOffset = -40f;
 
+    [Header("Init")]
+    [Tooltip("OnEnable 시 현재 층 배경을 즉시 동기화할지")]
+    [SerializeField] private bool syncOnEnable = true;
 
     bool useA = true;     // 현재 화면에 보이는 쪽
     int  lastTier = 0;
@@ -33,35 +36,76 @@ public class TierBackgroundControllerAscend : MonoBehaviour
 
     void OnEnable()
     {
-        if (tierManager) tierManager.OnTierChanged += PlayTo;
+        // 필수 링크 가드
+        if (!imgA || !imgB)
+        {
+            Debug.LogWarning("[TierBG] Image 레퍼런스가 비어있습니다.");
+            return;
+        }
+
+        if (tierManager)
+        {
+            tierManager.OnTierChanged += PlayTo;
+        }
+
+        if (syncOnEnable)
+        {
+            int cur = (tierManager ? tierManager.CurrentTierIndex : 0);
+            SyncImmediate(cur);
+        }
     }
+
     void OnDisable()
     {
         if (tierManager) tierManager.OnTierChanged -= PlayTo;
-        seq?.Kill();
+        if (seq != null && seq.IsActive()) seq.Kill();
     }
 
     void Start()
     {
-        lastTier = tierManager ? tierManager.CurrentTierIndex : 0;
-        var s = SafeSprite(lastTier);
+        // Start에서도 한 번 더 보수적으로 초기화 (씬 로딩 순서 케이스용)
+        if (!imgA || !imgB) return;
 
-        imgA.sprite = s; imgA.color = Color.white;
-        imgB.sprite = s; imgB.color = new Color(1,1,1,0);
+        lastTier = tierManager ? tierManager.CurrentTierIndex : 0;
+        SyncImmediate(lastTier);
+    }
+
+    /// <summary>
+    /// 현재 층의 스프라이트 상태로 즉시 동기화(전환 없이).
+    /// 씬 진입/스프라이트 교체 직후 호출하면 깔끔함.
+    /// </summary>
+    public void SyncImmediate(int tier)
+    {
+        var s = SafeSprite(tier);
+        if (!s)
+        {
+            Debug.LogWarning($"[TierBG] Tier {tier} 스프라이트가 없습니다.");
+            return;
+        }
+
+        seq?.Kill();
+
+        // A를 화면, B를 백버퍼로 초기화
+        useA = true;
+        lastTier = tier;
 
         ResetRT(imgA.rectTransform);
         ResetRT(imgB.rectTransform);
+
+        imgA.sprite = s; imgA.color = Color.white;
+        imgB.sprite = s; imgB.color = new Color(1,1,1,0);
     }
 
-    // ─────────────────────────────────────────────
-    // 버튼에서 GirlFieldManager.SwitchTierTo(..) 호출 뒤
-    // background.PlayTo(targetTier) 호출해도 되고,
-    // tierManager를 연결해두면 OnTierChanged로 자동 실행됨.
-    // ─────────────────────────────────────────────
+    /// <summary>
+    /// TierManager.OnTierChanged(int)와 동일 시그니처.
+    /// 직접 호출해도 무방.
+    /// </summary>
     public void PlayTo(int toTier)
     {
+        if (!imgA || !imgB) return;
+
         var nextSprite = SafeSprite(toTier);
-        if (!nextSprite) return;
+        if (!nextSprite) { Debug.LogWarning($"[TierBG] Tier {toTier} 스프라이트가 없습니다."); return; }
         if (toTier == lastTier) return;
 
         seq?.Kill();
@@ -88,7 +132,7 @@ public class TierBackgroundControllerAscend : MonoBehaviour
         nxt.color = new Color(1,1,1,0);
 
         // 트윈 구성
-        seq = DOTween.Sequence().SetUpdate(unscaledTime);
+        seq = DOTween.Sequence().SetAutoKill(true).SetUpdate(unscaledTime);
 
         // 현재층 아웃
         seq.Join(cur.rectTransform.DOScale(outEndScale, duration).SetEase(ease));
@@ -99,6 +143,9 @@ public class TierBackgroundControllerAscend : MonoBehaviour
         seq.Join(nxt.rectTransform.DOScale(1f, duration).SetEase(ease));
         seq.Join(nxt.rectTransform.DOAnchorPosY(0f, duration).SetEase(ease));
         seq.Join(nxt.DOFade(1f, duration).SetEase(ease));
+
+        // (선택) 트윈 수명 오브젝트에 링크 — 객체 파괴 시 자동 Kill
+        seq.SetLink(gameObject);
 
         seq.OnComplete(() =>
         {
@@ -118,6 +165,10 @@ public class TierBackgroundControllerAscend : MonoBehaviour
     {
         if (!rt) return;
         rt.pivot = new Vector2(0.5f, 0.5f); // 중앙 기준 스케일 권장
+        rt.anchorMin = Vector2.zero;        // 풀스크린 고정
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = Vector2.zero;
+        rt.offsetMax = Vector2.zero;
         rt.anchoredPosition = Vector2.zero;
         rt.localScale = Vector3.one;
         rt.localRotation = Quaternion.identity;
@@ -129,6 +180,4 @@ public class TierBackgroundControllerAscend : MonoBehaviour
         tier = Mathf.Clamp(tier, 0, tierSprites.Length - 1);
         return tierSprites[tier];
     }
-
-  
 }

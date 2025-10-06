@@ -42,7 +42,24 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private float moveDuration = 0.55f;
     [SerializeField, Range(0f,1f)] private float swapToSDFraction = 0.18f;
 
-    // ── 드롭다운을 쓴다면 여기에 참조 추가 가능 (생략) ──
+    // ── 내부 ──
+    private int _lastTierShown = 0;
+
+    void OnEnable()
+    {
+        if (tierManager != null)
+        {
+            _lastTierShown = tierManager.CurrentTierIndex;
+            tierManager.OnTierChanged  -= OnTierChangedExternal;
+            tierManager.OnTierChanged  += OnTierChangedExternal;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (tierManager != null)
+            tierManager.OnTierChanged -= OnTierChangedExternal;
+    }
 
     void Start()
     {
@@ -50,7 +67,11 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         UpdateSpawnButtonUI();
         StartCoroutine(AutoMergeRoutine());
 
-        if (tierManager != null) ShowOnlyTier(tierManager.CurrentTierIndex);
+        if (tierManager != null)
+        {
+            _lastTierShown = tierManager.CurrentTierIndex;
+            ShowOnlyTier(_lastTierShown);
+        }
     }
 
     void Update()
@@ -98,7 +119,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     public void SpawnTestGirls()
     {
-        for (int level = 1; level <= 25; level++)
+        for (int level = 1; level <= TierRules.MaxLevel; level++)
             SpawnGirl(level, (Vector3)GetRandomSpawnPos());
     }
 
@@ -158,9 +179,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         else go.transform.localPosition = pos;
 
         var girl = go.GetComponent<GirlCharacter>();
-
-        // ✅ 풀에서 방금 가져온 스크립트 활성 보정 (혹시 Disabled로 재사용되는 경우 방지)
-        girl.enabled = true;
+        girl.enabled = true; // 풀 재사용 방지
 
         girl.OnGetFromPool();
         girl.Init(data, sprite);
@@ -198,10 +217,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     public void NotifySpawnedLevel(int level)
     {
         if (level >= 9)
-        {
             tierManager?.TryUnlockByLevel(level);
-            // (드롭다운 쓰면 여기서 Refresh 호출)
-        }
     }
 
     private IEnumerator EnsureLDAndPlayDiscovery(GirlCharacter girl, GirlData data, Vector3 targetPos)
@@ -305,7 +321,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
     }
 
-    // ── 티어 토글/표시 함수들은 기존 그대로 ──
+    // ── 티어 토글/표시 함수들 ──
     private void ToggleTwoTiers(int prevTier, int targetTier)
     {
         for (int i = 0; i < girlList.Count; i++)
@@ -359,7 +375,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             g.transform.SetParent(hiddenParent, true);
     }
 
-    public IReadOnlyList<GirlCharacter> AllGirls => girlList;
+    // ── Tier 이벤트 핸들러 ──
+    private void OnTierChangedExternal(int newTier)
+    {
+        ToggleTwoTiers(_lastTierShown, newTier);
+        _lastTierShown = newTier;
+    }
 
     // ───── ISaveable ─────
     public void CollectSaveData(SaveData data)
@@ -413,13 +434,14 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         // 첫 발견 복원
-        discoveredLevels.Clear();
+        var discovered = discoveredLevels;
+        discovered.Clear();
         int mask = data.discoveredMask;
         for (int lv = 1; lv <= TierRules.MaxLevel; lv++)
         {
             int bit = lv - 1;
             if ((mask & (1 << bit)) != 0)
-                discoveredLevels.Add(lv);
+                discovered.Add(lv);
         }
 
         // 기존 필드 정리
@@ -446,6 +468,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         _isRestoring = false;
 
         if (tierManager != null)
-            ShowOnlyTier(tierManager.CurrentTierIndex);
+        {
+            _lastTierShown = tierManager.CurrentTierIndex;
+            ShowOnlyTier(_lastTierShown);
+        }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class GirlMergeManager : MonoBehaviour
 {
     [Header("DI (GameSystem에서 주입)")]
-    public CurrencyManager currencyManager;
+    public EconomyManager economy;
     public GirlDataManager DataManager;
     public GirlFieldManager fieldManager;
 
@@ -13,6 +12,7 @@ public class GirlMergeManager : MonoBehaviour
     private GirlCharacter highlightedTarget = null;
 
     public void SetDraggingGirl(GirlCharacter girl) => draggingGirl = girl;
+
     public void ClearDraggingGirl()
     {
         draggingGirl = null;
@@ -39,6 +39,7 @@ public class GirlMergeManager : MonoBehaviour
                 bestTarget = g;
             }
         }
+
         if (highlightedTarget && highlightedTarget != bestTarget)
             highlightedTarget.Highlight(false);
 
@@ -55,8 +56,8 @@ public class GirlMergeManager : MonoBehaviour
 
     public void AddIncomeGold(GirlCharacter girl)
     {
-        if (currencyManager != null && girl != null)
-            currencyManager.AddGold(girl.GetIncome());
+        if (economy != null && girl != null)
+            economy.AddGold(girl.GetIncome());
     }
 
     public void TryAutoMerge()
@@ -85,9 +86,7 @@ public class GirlMergeManager : MonoBehaviour
         }
 
         if (first != null && second != null)
-        {
             StartCoroutine(MergeRoutine(first, second));
-        }
     }
 
     IEnumerator MergeRoutine(GirlCharacter a, GirlCharacter b)
@@ -96,19 +95,17 @@ public class GirlMergeManager : MonoBehaviour
         int nextLevel = a.Level + 1;
 
         // 합성 중 입력 막기
-        a.enabled = false;
-        b.enabled = false;
+        a.enabled = false; b.enabled = false;
 
         yield return StartCoroutine(MergeAnimation(a, b, center));
 
-        // ✅ 풀 반환 전에 반드시 다시 활성화 (풀 재사용 시 Disabled 문제 방지)
-        a.enabled = true;
-        b.enabled = true;
+        // 풀 반환 전에 재활성
+        a.enabled = true; b.enabled = true;
 
         fieldManager.RemoveGirl(a);
         fieldManager.RemoveGirl(b);
 
-        if (nextLevel >= TierRules.MaxLevel) // 25 스택 처리
+        if (nextLevel >= TierRules.MaxLevel)
         {
             fieldManager.AcquireLevel25();
         }
@@ -118,8 +115,8 @@ public class GirlMergeManager : MonoBehaviour
         }
 
         GirlData nextData = DataManager?.GetDataByLevel(nextLevel);
-        if (nextData != null && currencyManager != null)
-            currencyManager.AddGold(nextData.incomePerSec);
+        if (nextData != null && economy != null)
+            economy.AddGold(nextData.incomePerSec);
     }
 
     IEnumerator MergeAnimation(GirlCharacter a, GirlCharacter b, Vector3 center)

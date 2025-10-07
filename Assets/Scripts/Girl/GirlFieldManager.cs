@@ -10,7 +10,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     public GirlDataManager dataManager;
     public GirlSpriteAddressableLoader spriteLoader;
     public GirlMergeManager mergeManager;
-    public UpgradeManager upgradeManager;
+    public EconomyManager economy;
     public Transform girlRoot;
     public List<GirlCharacter> girlList = new List<GirlCharacter>();
 
@@ -86,12 +86,13 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
                 UpdateSpawnButtonUI();
             }
         }
-        if (upgradeManager != null && upgradeManager.autoSpawnUpgrade > 0)
+
+        if (economy != null && economy.autoSpawnUpgrade > 0)
         {
             autoSpawnTimer += Time.deltaTime;
-            if (autoSpawnTimer >= upgradeManager.GetAutoSpawnInterval())
+            if (autoSpawnTimer >= economy.GetAutoSpawnInterval())
             {
-                autoSpawnTimer -= upgradeManager.GetAutoSpawnInterval();
+                autoSpawnTimer -= economy.GetAutoSpawnInterval();
                 TryAutoSpawn();
             }
         }
@@ -123,10 +124,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             SpawnGirl(level, (Vector3)GetRandomSpawnPos());
     }
 
-    public void ManualSpawnGirl(int level, Vector3 pos)
-    {
-        SpawnGirl(level, pos);
-    }
+    public void ManualSpawnGirl(int level, Vector3 pos) => SpawnGirl(level, pos);
 
     // 25 획득(합성 등): 있으면 스택↑, 없으면 생성
     public void AcquireLevel25()
@@ -179,7 +177,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         else go.transform.localPosition = pos;
 
         var girl = go.GetComponent<GirlCharacter>();
-        girl.enabled = true; // 풀 재사용 방지
+        girl.enabled = true;
 
         girl.OnGetFromPool();
         girl.Init(data, sprite);
@@ -302,12 +300,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         return new Vector2(x, y);
     }
 
-    private int GetMaxSpawnCharge() =>
-        upgradeManager != null ? upgradeManager.GetMaxManualSpawnCount() : 3;
-    private float GetSpawnChargeInterval() =>
-        upgradeManager != null ? upgradeManager.GetManualSpawnInterval() : 10f;
-    private int GetMaxFieldCount() =>
-        upgradeManager != null ? upgradeManager.GetMaxFieldCount() : 8;
+    private int GetMaxSpawnCharge()      => economy != null ? economy.GetMaxManualSpawnCount() : 3;
+    private float GetSpawnChargeInterval()=> economy != null ? economy.GetManualSpawnInterval() : 10f;
+    private int GetMaxFieldCount()       => economy != null ? economy.GetMaxFieldCount() : 8;
 
     private void UpdateSpawnButtonUI() { }
 
@@ -316,21 +311,20 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            if (upgradeManager != null && upgradeManager.IsAutoMergeActive())
+            if (economy != null && economy.IsAutoMergeActive())
                 mergeManager.TryAutoMerge();
         }
     }
 
-    // ── 티어 토글/표시 함수들 ──
+    // ── 티어 토글/표시 ──
     private void ToggleTwoTiers(int prevTier, int targetTier)
     {
         for (int i = 0; i < girlList.Count; i++)
         {
             var g = girlList[i];
-            if (g == null) continue;
+            if (!g) continue;
 
-            int level = g.Level;
-            int itemTier = TierRules.TierIndexFromLevel(level);
+            int itemTier = TierRules.TierIndexFromLevel(g.Level);
 
             if (itemTier == prevTier) HideGirl(g);
             else if (itemTier == targetTier) ShowGirl(g);
@@ -342,10 +336,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         for (int i = 0; i < girlList.Count; i++)
         {
             var g = girlList[i];
-            if (g == null) continue;
+            if (!g) continue;
 
-            int level = g.Level;
-            int itemTier = TierRules.TierIndexFromLevel(level);
+            int itemTier = TierRules.TierIndexFromLevel(g.Level);
             if (itemTier == tierIndex) ShowGirl(g);
             else HideGirl(g);
         }
@@ -353,7 +346,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private void ApplyVisibilityFor(GirlCharacter girl)
     {
-        if (tierManager == null || girl == null) return;
+        if (!tierManager || !girl) return;
         int itemTier = TierRules.TierIndexFromLevel(girl.Level);
         if (itemTier == tierManager.CurrentTierIndex) ShowGirl(girl);
         else HideGirl(girl);
@@ -361,21 +354,20 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private void ShowGirl(GirlCharacter g)
     {
-        if (g == null) return;
+        if (!g) return;
         g.gameObject.SetActive(true);
-        if (activeParent != null && g.transform.parent != activeParent)
+        if (activeParent && g.transform.parent != activeParent)
             g.transform.SetParent(activeParent, true);
     }
 
     private void HideGirl(GirlCharacter g)
     {
-        if (g == null) return;
+        if (!g) return;
         g.gameObject.SetActive(false);
-        if (hiddenParent != null && g.transform.parent != hiddenParent)
+        if (hiddenParent && g.transform.parent != hiddenParent)
             g.transform.SetParent(hiddenParent, true);
     }
 
-    // ── Tier 이벤트 핸들러 ──
     private void OnTierChangedExternal(int newTier)
     {
         ToggleTwoTiers(_lastTierShown, newTier);
@@ -448,7 +440,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         var snapshot = new List<GirlCharacter>(girlList);
         foreach (var g in snapshot)
         {
-            if (g == null) continue;
+            if (!g) continue;
             RemoveGirl(g);
         }
         girlList.Clear();

@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Git LFS for large asset files
+NotoSansKR-Regular SDF.asset filter=lfs diff=lfs merge=lfs -text

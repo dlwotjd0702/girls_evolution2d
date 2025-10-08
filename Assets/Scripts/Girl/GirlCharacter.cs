@@ -1,10 +1,14 @@
-// GirlCharacter.cs  (스케일 기준 = 3)
+// ============================
+// GirlCharacter.cs
+// - 라스트 이후 "새 개체 생성 X, 레벨만 증가"를 위해 FinalRank 제거
+// - 수익 = 25레벨 기준 income * (1 + (Level-25))
+// - 기본 스케일 3 기준
+// ============================
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System.Collections;
-using URandom = UnityEngine.Random;
 
 public class GirlCharacter : MonoBehaviour,
     IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
@@ -15,16 +19,15 @@ public class GirlCharacter : MonoBehaviour,
     public GirlMergeManager mergeManager;
     public GirlData data;
 
-    // ── 스케일 기준 ──
-    [SerializeField] private float baseScaleFactor = 3f;  // ✅ 항상 3을 기준으로
-    private Vector3 baseScale;
+    // 25 이상은 라스트 모드
+    public bool IsFinal => Level >= TierRules.MaxLevel;
 
-    // 최종(25) 전용 랭크/모드
-    public int FinalRank { get; private set; } = 0; // 25 추가 획득 시 ++
-    public bool IsFinal => Level >= TierRules.MaxLevel; // 25
+    // 스케일 기준
+    [SerializeField] private float defaultScale = 3f;
 
     // UI/이펙트
     private Image imageUI;
+    private Vector3 baseScale;
     private Color originColor;
     private RectTransform rectT;
     private Tween jumpTween;
@@ -42,33 +45,20 @@ public class GirlCharacter : MonoBehaviour,
     private bool isJumping = false, isDragging = false, highlightOn = false, wasDragged = false;
     private Vector3 dragOffset;
     private int currentDirectionX = 1; // 1(왼쪽), -1(오른쪽)
-
     private IEnumerator autoRoutine;
-
-    void Awake()
-    {
-        imageUI = GetComponent<Image>();
-        if (imageUI == null) imageUI = GetComponentInChildren<Image>();
-        originColor = imageUI ? imageUI.color : Color.white;
-
-        rectT = GetComponent<RectTransform>();
-
-        // ✅ 스케일을 무조건 3 배수로 시작
-        baseScale = Vector3.one * Mathf.Max(0.01f, baseScaleFactor);
-        ApplyFacingScale(); // 방향 반영해서 스케일 적용
-    }
 
     // ---- 풀 입출(초기화/정리) ----
     public void OnGetFromPool()
     {
         enabled = true;
-
         KillAllTweens();
         if (imageUI != null) imageUI.color = originColor;
         isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
         gameObject.SetActive(true);
 
-        ApplyFacingScale();
+        // 기본 스케일 3 기준
+        transform.localScale = Vector3.one * defaultScale;
+        baseScale = transform.localScale;
 
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         if (!IsFinal)
@@ -94,21 +84,27 @@ public class GirlCharacter : MonoBehaviour,
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
     }
 
+    void Awake()
+    {
+        imageUI = GetComponent<Image>() ?? GetComponentInChildren<Image>();
+        originColor = imageUI ? imageUI.color : Color.white;
+        rectT = GetComponent<RectTransform>();
+        currentDirectionX = 1;
+    }
+
     public void Init(GirlData data, Sprite sprite)
     {
         this.data = data;
         this.Level = data.level;
         this.displayName = data.name;
-
         if (imageUI && sprite) imageUI.sprite = sprite;
-
         Highlight(false);
 
-        // 시작 스케일을 항상 3 기준으로
-        baseScale = Vector3.one * Mathf.Max(0.01f, baseScaleFactor);
-        ApplyFacingScale();
+        // 스케일 3 기준
+        transform.localScale = Vector3.one * defaultScale;
+        baseScale = transform.localScale;
 
-        if (rectT) targetPosition = rectT.localPosition;
+        targetPosition = rectT.localPosition;
     }
 
     void OnEnable()
@@ -121,14 +117,13 @@ public class GirlCharacter : MonoBehaviour,
         }
     }
 
-    // ----- 점프/골드 루프 (25는 미사용) -----
     private IEnumerator JumpBounceLoop()
     {
         while (true)
         {
             while (isDragging) yield return null;
 
-            float jumpDelay = URandom.Range(jumpIntervalMin, jumpIntervalMax);
+            float jumpDelay = UnityEngine.Random.Range(jumpIntervalMin, jumpIntervalMax);
             yield return new WaitForSeconds(jumpDelay);
 
             while (isDragging) yield return null;
@@ -136,48 +131,45 @@ public class GirlCharacter : MonoBehaviour,
             StartJump();
             while (isJumping || isDragging) yield return null;
 
-            float bounceDelay = URandom.Range(jumpIntervalMin, jumpIntervalMax);
+            float bounceDelay = UnityEngine.Random.Range(jumpIntervalMin, jumpIntervalMax);
             yield return new WaitForSeconds(bounceDelay);
 
             while (isDragging) yield return null;
 
-            if (mergeManager != null) mergeManager.AddIncomeGold(this);
+            mergeManager?.AddIncomeGold(this);
             BounceAnim();
         }
     }
 
     void StartJump()
     {
-        if (IsFinal) return; // 25는 점프 금지
+        if (IsFinal) return;
 
         isJumping = true;
-        float dirX = URandom.value < 0.5f ? -1f : 1f;
-        float dirY = URandom.value < 0.5f ? -1f : 1f;
-        float moveX = dirX * URandom.Range(moveDistance * 0.8f, moveDistance * 1.2f);
-        float moveY = dirY * URandom.Range(moveDistance * 0.5f, moveDistance * 1.5f);
+        float dirX = UnityEngine.Random.value < 0.5f ? -1f : 1f;
+        float dirY = UnityEngine.Random.value < 0.5f ? -1f : 1f;
+        float moveX = dirX * UnityEngine.Random.Range(moveDistance * 0.8f, moveDistance * 1.2f);
+        float moveY = dirY * UnityEngine.Random.Range(moveDistance * 0.5f, moveDistance * 1.5f);
 
         float newX = Mathf.Clamp(rectT.localPosition.x + moveX, minX, maxX);
         float newY = Mathf.Clamp(rectT.localPosition.y + moveY, minY, maxY);
         targetPosition = new Vector3(newX, newY, rectT.localPosition.z);
 
-        // 좌우 반전
         currentDirectionX = (dirX > 0 ? -1 : 1); // 오른쪽=-1, 왼쪽=1
-        ApplyFacingScale();
+        Vector3 scale = baseScale;
+        scale.x *= currentDirectionX;
+        transform.localScale = scale;
 
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
-        jumpTween = rectT.DOLocalJump(
-            targetPosition,
-            jumpPower,
-            1,
-            jumpDuration
-        ).SetEase(Ease.OutQuad)
-         .OnComplete(() => { isJumping = false; });
+        jumpTween = rectT.DOLocalJump(targetPosition, jumpPower, 1, jumpDuration)
+                     .SetEase(Ease.OutQuad)
+                     .OnComplete(() => { isJumping = false; });
     }
 
     // ----- 드래그/클릭 -----
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (IsFinal) return; // 25는 드래그 금지
+        if (IsFinal) return;
         isDragging = true; wasDragged = false;
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
 
@@ -187,11 +179,13 @@ public class GirlCharacter : MonoBehaviour,
         dragOffset = (Vector3)localPoint - rectT.localPosition;
         mergeManager?.SetDraggingGirl(this);
     }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (IsFinal) return;
         isDragging = true;
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         if (IsFinal) return;
@@ -205,6 +199,7 @@ public class GirlCharacter : MonoBehaviour,
             wasDragged = true;
         }
     }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         if (IsFinal) return;
@@ -214,6 +209,7 @@ public class GirlCharacter : MonoBehaviour,
         Highlight(false);
         targetPosition = rectT.localPosition;
     }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!wasDragged)
@@ -234,22 +230,17 @@ public class GirlCharacter : MonoBehaviour,
     {
         if (IsFinal) return; // 25 자동 바운스는 X (클릭만 Pulse)
         transform.DOKill();
-
         Vector3 scaled = baseScale * 1.22f;
         scaled.x *= currentDirectionX;
-
-        Vector3 baseDir = baseScale;
-        baseDir.x *= currentDirectionX;
-
-        transform.DOScale(scaled, 0.11f)
-            .SetEase(Ease.OutQuad)
-            .OnComplete(() =>
-            {
-                transform.DOScale(baseDir, 0.10f).SetEase(Ease.InQuad);
-            });
+        transform.DOScale(scaled, 0.11f).SetEase(Ease.OutQuad)
+                 .OnComplete(() =>
+                 {
+                     Vector3 baseDir = baseScale;
+                     baseDir.x *= currentDirectionX;
+                     transform.DOScale(baseDir, 0.10f).SetEase(Ease.InQuad);
+                 });
     }
 
-    // 25 클릭용 펄스
     public void Pulse()
     {
         transform.DOKill();
@@ -260,7 +251,7 @@ public class GirlCharacter : MonoBehaviour,
         seq.Append(transform.DOScale(s0, 0.09f).SetEase(Ease.InCubic));
     }
 
-    // 25 모드 진입: 가운데 고정 + 화면 채움(애니메이션 없음)
+    // 25 모드 진입: 가운데 고정 + 화면 채움
     public void EnableFinalMode(RectTransform container, float coverage = 0.95f)
     {
         if (!rectT) rectT = GetComponent<RectTransform>();
@@ -277,7 +268,7 @@ public class GirlCharacter : MonoBehaviour,
             var h = container.rect.height * coverage;
             rectT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
             rectT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
-            transform.localScale = Vector3.one; // 컨테이너 크기로 맞춤
+            transform.localScale = Vector3.one; // 화면 채움
         }
 
         if (autoRoutine != null) StopCoroutine(autoRoutine);
@@ -287,21 +278,14 @@ public class GirlCharacter : MonoBehaviour,
     public double GetIncome()
     {
         double baseIncome = (data != null) ? data.incomePerSec : 0;
-        if (IsFinal) return baseIncome * (1 + FinalRank);
-        return baseIncome;
+        int extra = Mathf.Max(0, Level - TierRules.MaxLevel); // 25→0, 26→1 …
+        return baseIncome * (1 + extra);
     }
 
-    public void IncrementFinalRank()
+    // 라스트 스택: 레벨만 올림
+    public void IncrementFinalLevel()
     {
-        FinalRank++;
+        Level++;
         Pulse();
-    }
-
-    // ── util ──
-    private void ApplyFacingScale()
-    {
-        Vector3 s = baseScale;
-        s.x *= currentDirectionX; // 좌우 반전 반영
-        transform.localScale = s;
     }
 }

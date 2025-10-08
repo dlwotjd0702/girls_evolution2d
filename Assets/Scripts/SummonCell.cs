@@ -6,18 +6,15 @@ using UnityEngine.UI;
 public class SummonCell : MonoBehaviour
 {
     [Header("UI Refs (in prefab)")]
-    [SerializeField] private Image iconImage;
+    [SerializeField] private Image    iconImage;
     [SerializeField] private TMP_Text nameLabel;
     [SerializeField] private TMP_Text costLabel;
-    [SerializeField] private Button summonButton;
+    [SerializeField] private Button   summonButton;
 
-    // 패널(상위 캔버스)에 있는 공용 Reason Label을 "외부에서 주입"
-    // SummonPanelController가 할당해줌
-    public TMP_Text reasonLabel; // <- 컴파일 에러 해결 포인트 ①
+    // 선택: 외부에서 주입받아 쓸 수 있게 그대로 둠(지금은 패널에서 직접 표시)
+    [NonSerialized] public TMP_Text reasonLabel;
 
     private Action _onClick;
-    private int _level;
-    private double _cost;
 
     void Reset()
     {
@@ -30,41 +27,28 @@ public class SummonCell : MonoBehaviour
             summonButton.onClick.AddListener(() => _onClick?.Invoke());
     }
 
-    /// <summary>
-    /// 셀 데이터 바인딩
-    /// </summary>
-    public void Setup(int level, string nameText, double cost, Sprite icon, Action onClick) // ← 에러 해결 포인트 ② (icon 파라미터 포함)
+    public void Setup(int level, string nameText, double cost, Sprite icon, Action onClick)
     {
-        _level = level;
-        _cost = cost;
         _onClick = onClick;
 
         if (nameLabel) nameLabel.text = nameText;
         if (costLabel) costLabel.text = FormatAbbrev(cost);
         if (iconImage) iconImage.sprite = icon;
+
+        // 요구: 항상 활성 상태 유지
+        if (summonButton) summonButton.interactable = true;
     }
 
-    /// <summary>
-    /// 버튼 활성/비활성
-    /// </summary>
-    public void SetInteractable(bool interactable)
+    // 비용 라벨 갱신용
+    public void UpdateCost(double newCost)
     {
-        if (summonButton) summonButton.interactable = interactable;
-
-        // 비활성 사유는 SetReason에서 처리 (외부 공용 라벨)
-        if (!interactable)
-        {
-            // 필요시 여기서도 시각적 처리 가능(회색처리 등)
-        }
+        if (costLabel) costLabel.text = FormatAbbrev(newCost);
     }
 
-    /// <summary>
-    /// 비활성 사유 표시 (공용 reasonLabel 사용)
-    /// </summary>
-    public void SetReason(bool noSpace, bool noGold) // ← 에러 해결 포인트 ③ (2개 bool 받는 오버로드)
+    // (패널에서 ReasonLabel 직접 관리하므로 현재 미사용)
+    public void SetReason(bool noSpace, bool noGold)
     {
         if (!reasonLabel) return;
-
         if (noSpace)       reasonLabel.text = "필드가 가득 찼습니다.";
         else if (noGold)   reasonLabel.text = "골드가 부족합니다.";
         else               reasonLabel.text = string.Empty;

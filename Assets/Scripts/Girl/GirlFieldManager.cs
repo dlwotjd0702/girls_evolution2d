@@ -1,4 +1,8 @@
-﻿// GirlFieldManager.cs
+﻿// ============================
+// GirlFieldManager.cs
+// - 25 최초 1회만 Spawn, 이후엔 기존 25의 Level++
+// - ReasonLabel 변경 없음(패널에서만 관리)
+// ============================
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -96,12 +100,14 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             }
         }
 
-        if (economy != null && economy.GetAutoSpawnInterval() < float.MaxValue)
+        // 자동소환은 Economy의 autoSpawn 세팅으로 독립 동작
+        float autoInterval = (economy != null) ? economy.GetAutoSpawnInterval() : float.MaxValue;
+        if (autoInterval < float.MaxValue)
         {
             autoSpawnTimer += Time.unscaledDeltaTime;
-            if (autoSpawnTimer >= economy.GetAutoSpawnInterval())
+            if (autoSpawnTimer >= autoInterval)
             {
-                autoSpawnTimer -= economy.GetAutoSpawnInterval();
+                autoSpawnTimer -= autoInterval;
                 TryAutoSpawn();
             }
         }
@@ -135,18 +141,18 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     public void ManualSpawnGirl(int level, Vector3 pos) => SpawnGirl(level, pos);
 
-    // 25 획득(합성 등): 있으면 스택↑, 없으면 생성
+    // 25 획득: 최초 1회만 생성, 그 이후엔 기존 25의 Level 증가
     public void AcquireLevel25()
     {
         var exist = GetFinalGirl();
         if (exist != null)
         {
-            exist.IncrementFinalRank();
-            ConfigureLevel25(exist);
+            exist.IncrementFinalLevel();   // Level++
+            ConfigureLevel25(exist);      // 중앙 고정/화면 채움 유지
         }
         else
         {
-            SpawnGirl(TierRules.MaxLevel, Vector3.zero);
+            SpawnGirl(TierRules.MaxLevel, Vector3.zero); // 첫 생성만
         }
         NotifySpawnedLevel(TierRules.MaxLevel);
     }
@@ -154,15 +160,18 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     private GirlCharacter GetFinalGirl()
     {
         for (int i = 0; i < girlList.Count; i++)
-            if (girlList[i] != null && girlList[i].Level >= TierRules.MaxLevel)
-                return girlList[i];
+        {
+            var g = girlList[i];
+            if (g != null && g.Level >= TierRules.MaxLevel)
+                return g;
+        }
         return null;
     }
 
     private void SpawnGirl(int level, Vector3 pos)
     {
         if (dataManager == null) return;
-        GirlData data = dataManager.GetDataByLevel(level);
+        GirlData data = dataManager.GetDataByLevel(Mathf.Clamp(level, 1, TierRules.MaxLevel));
         if (data == null) return;
 
         if (level < TierRules.MaxLevel && pos == Vector3.zero)
@@ -285,8 +294,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         Sequence pop = DOTween.Sequence();
         if (img != null) pop.Join(img.DOFade(1f, ldPopInTime));
-        pop.Join(girl.transform.DOScale(originalScale * (centerBase * (1f + ldPopOvershoot)), ldPopInTime)
-            .SetEase(Ease.OutBack, overshoot: 1.4f));
+        pop.Join(girl.transform.DOScale(originalScale * (centerBase * (1f + ldPopOvershoot)), ldPopInTime).SetEase(Ease.OutBack, overshoot: 1.4f));
         pop.Append(girl.transform.DOScale(originalScale * centerBase, 0.08f).SetEase(Ease.OutCubic));
         yield return pop.WaitForCompletion();
 
@@ -335,9 +343,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         return new Vector2(x, y);
     }
 
-    private int GetMaxSpawnCharge()      => economy != null ? economy.GetMaxManualSpawnCount() : 3;
+    private int GetMaxSpawnCharge()       => economy != null ? economy.GetMaxManualSpawnCount() : 3;
     private float GetSpawnChargeInterval()=> economy != null ? economy.GetManualSpawnInterval() : 10f;
-    private int GetMaxFieldCount()       => economy != null ? economy.GetMaxFieldCount() : 8;
+    private int GetMaxFieldCount()        => economy != null ? economy.GetMaxFieldCount() : 8;
 
     private void UpdateSpawnButtonUI() { }
 

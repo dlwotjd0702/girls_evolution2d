@@ -13,12 +13,14 @@ public class GameSystem : MonoBehaviour
     [Header("GameLoop")]
     public GirlFieldManager fieldManager;
     public GirlMergeManager mergeManager;
+    public PrestigeManager prestigeManager;
 
-    [Header("Economy (통합본)")]
+    [Header("Economy")]
     public EconomyManager economy;
 
     [Header("UI")]
-    public GameUIManager gameUIManager; // economy 버전이면 연결
+    public GameUIManager gameUIManager;
+    public SummonPanelController summonPanel; // 선택
 
     public bool AssetsReady { get; private set; } = false;
     public event Action AssetsReadyEvent;
@@ -27,46 +29,53 @@ public class GameSystem : MonoBehaviour
     {
         Instance = this;
 
-        // DI
+        // GirlField
         if (fieldManager != null)
         {
-            if (fieldManager.dataManager == null)    fieldManager.dataManager = girlDataManager;
-            if (fieldManager.spriteLoader == null)   fieldManager.spriteLoader = spriteLoader;
-            if (fieldManager.mergeManager == null)   fieldManager.mergeManager = mergeManager;
-            if (fieldManager.economy == null)        fieldManager.economy = economy;
+            if (fieldManager.dataManager == null)  fieldManager.dataManager = girlDataManager;
+            if (fieldManager.spriteLoader == null) fieldManager.spriteLoader = spriteLoader;
+            if (fieldManager.mergeManager == null) fieldManager.mergeManager = mergeManager;
+            if (fieldManager.economy == null)      fieldManager.economy = economy;
         }
 
+        // Merge
         if (mergeManager != null)
         {
-            if (mergeManager.DataManager == null) mergeManager.DataManager = girlDataManager;
+            if (mergeManager.DataManager == null)  mergeManager.DataManager = girlDataManager;
             if (mergeManager.fieldManager == null) mergeManager.fieldManager = fieldManager;
-            if (mergeManager.economy == null) mergeManager.economy = economy;
+            if (mergeManager.economy == null)      mergeManager.economy = economy;
         }
 
-        if (economy != null)
+        // Prestige
+        if (prestigeManager != null)
         {
-            // 내부 프라이빗 직주입(실패해도 무시)
-            var f = typeof(EconomyManager).GetField("fieldManager", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            var m = typeof(EconomyManager).GetField("mergeManager", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (f != null && (EconomyManager)f.GetValue(economy) == null) f.SetValue(economy, fieldManager);
-            if (m != null && (EconomyManager)m.GetValue(economy) == null) m.SetValue(economy, mergeManager);
+            if (prestigeManager.girlFieldManager == null) prestigeManager.girlFieldManager = fieldManager;
+            if (prestigeManager.economy == null)          prestigeManager.economy = economy;
+            if (prestigeManager.tierManager == null)       prestigeManager.tierManager = FindObjectOfType<TierManager>(true);
+            if (prestigeManager.topLevel <= 0)             prestigeManager.topLevel = TierRules.MaxLevel;
         }
 
+        // UI
         if (gameUIManager != null)
         {
-            // economy 버전 GameUIManager를 사용 중이라면 여기서 연결
-            var prop = gameUIManager.GetType().GetField("economy");
-            if (prop != null && prop.GetValue(gameUIManager) == null) prop.SetValue(gameUIManager, economy);
+            if (gameUIManager.economy == null)         gameUIManager.economy = economy;
+            if (gameUIManager.prestigeManager == null) gameUIManager.prestigeManager = prestigeManager;
         }
     }
 
     private async void Start()
     {
-        try { if (girlDataManager != null) await girlDataManager.LoadAsync(); }
-        catch (Exception e) { Debug.LogError($"[GameSystem] Data Load 실패: {e}"); }
+        try
+        {
+            if (girlDataManager != null) await girlDataManager.LoadAsync(); // CSV/TSV 자동 판별
+        }
+        catch (Exception e) { Debug.LogError($"[GameSystem] GirlDataManager.LoadAsync 실패: {e}"); }
 
-        try { if (spriteLoader != null) await spriteLoader.LoadAllGirlSpritesAsync(); }
-        catch (Exception e) { Debug.LogError($"[GameSystem] Sprite Load 실패: {e}"); }
+        try
+        {
+            if (spriteLoader != null) await spriteLoader.LoadAllGirlSpritesAsync(); // SD→LD 순차 로드
+        }
+        catch (Exception e) { Debug.LogError($"[GameSystem] spriteLoader.LoadAllGirlSpritesAsync 실패: {e}"); }
 
         AssetsReady = true;
         AssetsReadyEvent?.Invoke();

@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿// GirlFieldManager.cs
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using URandom = UnityEngine.Random;
 
 public class GirlFieldManager : MonoBehaviour, ISaveable
 {
@@ -45,6 +48,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     // ── 내부 ──
     private int _lastTierShown = 0;
 
+    // ── SummonPanel 의존: 현재까지 달성한 최고 레벨 ──
+    public int CurrentMaxLevel { get; private set; } = 1;
+    public event Action<int> OnMaxLevelChanged;
+
     void OnEnable()
     {
         if (tierManager != null)
@@ -72,13 +79,15 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             _lastTierShown = tierManager.CurrentTierIndex;
             ShowOnlyTier(_lastTierShown);
         }
+
+        RecomputeMaxLevelAndNotify();
     }
 
     void Update()
     {
         if (curSpawnCharge < GetMaxSpawnCharge())
         {
-            chargeTimer += Time.deltaTime;
+            chargeTimer += Time.unscaledDeltaTime;
             if (chargeTimer >= GetSpawnChargeInterval())
             {
                 chargeTimer -= GetSpawnChargeInterval();
@@ -87,9 +96,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             }
         }
 
-        if (economy != null && economy.autoSpawnUpgrade > 0)
+        if (economy != null && economy.GetAutoSpawnInterval() < float.MaxValue)
         {
-            autoSpawnTimer += Time.deltaTime;
+            autoSpawnTimer += Time.unscaledDeltaTime;
             if (autoSpawnTimer >= economy.GetAutoSpawnInterval())
             {
                 autoSpawnTimer -= economy.GetAutoSpawnInterval();
@@ -214,8 +223,34 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     public void NotifySpawnedLevel(int level)
     {
+        UpdateMaxLevel(level);
+
         if (level >= 9)
             tierManager?.TryUnlockByLevel(level);
+    }
+
+    private void UpdateMaxLevel(int achievedLevel)
+    {
+        if (achievedLevel > CurrentMaxLevel)
+        {
+            CurrentMaxLevel = achievedLevel;
+            OnMaxLevelChanged?.Invoke(CurrentMaxLevel);
+        }
+    }
+
+    private void RecomputeMaxLevelAndNotify()
+    {
+        int maxLv = 1;
+        for (int i = 0; i < girlList.Count; i++)
+        {
+            if (!girlList[i]) continue;
+            if (girlList[i].Level > maxLv) maxLv = girlList[i].Level;
+        }
+        if (maxLv != CurrentMaxLevel)
+        {
+            CurrentMaxLevel = maxLv;
+            OnMaxLevelChanged?.Invoke(CurrentMaxLevel);
+        }
     }
 
     private IEnumerator EnsureLDAndPlayDiscovery(GirlCharacter girl, GirlData data, Vector3 targetPos)
@@ -295,8 +330,8 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private Vector2 GetRandomSpawnPos()
     {
-        float x = Random.Range(-350f, 350f);
-        float y = Random.Range(-600f, 600f);
+        float x = URandom.Range(-350f, 350f);
+        float y = URandom.Range(-600f, 600f);
         return new Vector2(x, y);
     }
 
@@ -464,5 +499,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             _lastTierShown = tierManager.CurrentTierIndex;
             ShowOnlyTier(_lastTierShown);
         }
+
+        RecomputeMaxLevelAndNotify();
     }
 }

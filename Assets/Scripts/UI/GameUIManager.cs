@@ -11,18 +11,23 @@ public class GameUIManager : MonoBehaviour
 
     [Header("Manager DI")]
     public EconomyManager economy;
+    public PrestigeManager prestigeManager;
 
     void OnEnable()
     {
         if (economy != null)
         {
-            economy.onGoldChanged -= UpdateGoldUI;
-            economy.onGoldChanged += UpdateGoldUI;
+            economy.OnGoldChanged -= UpdateGoldUI;
+            economy.OnGoldChanged += UpdateGoldUI;
             UpdateGoldUI(economy.GetGold());
-
-            economy.onPrestigeAvailable -= OnPrestigeAvailable;
-            economy.onPrestigeAvailable += OnPrestigeAvailable;
         }
+
+        if (prestigeManager != null)
+        {
+            prestigeManager.onPrestigeAvailable -= OnPrestigeAvailable;
+            prestigeManager.onPrestigeAvailable += OnPrestigeAvailable;
+        }
+
         prestigeButton?.SetActive(false);
         UpdatePrestigeUI();
         upgradePanel?.SetActive(false);
@@ -30,11 +35,8 @@ public class GameUIManager : MonoBehaviour
 
     void OnDisable()
     {
-        if (economy != null)
-        {
-            economy.onGoldChanged -= UpdateGoldUI;
-            economy.onPrestigeAvailable -= OnPrestigeAvailable;
-        }
+        if (economy != null) economy.OnGoldChanged -= UpdateGoldUI;
+        if (prestigeManager != null) prestigeManager.onPrestigeAvailable -= OnPrestigeAvailable;
     }
 
     void UpdateGoldUI(double gold)
@@ -45,15 +47,18 @@ public class GameUIManager : MonoBehaviour
 
     void UpdatePrestigeUI()
     {
-        if (prestigePointText && economy != null)
-            prestigePointText.text = $"환생석: {economy.GetPrestigePoint()}";
+        if (prestigePointText && prestigeManager != null)
+            prestigePointText.text = $"환생석: {prestigeManager.GetPrestigePoint()}";
     }
 
-    void OnPrestigeAvailable() => prestigeButton?.SetActive(true);
+    void OnPrestigeAvailable()
+    {
+        if (prestigeButton) prestigeButton.SetActive(true);
+    }
 
     public void OnClickPrestige()
     {
-        economy?.DoPrestige();
+        prestigeManager?.DoPrestige();
         prestigeButton?.SetActive(false);
         UpdatePrestigeUI();
         if (economy != null) UpdateGoldUI(economy.GetGold());

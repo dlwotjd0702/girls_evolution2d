@@ -1,185 +1,87 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class EconomyManager : MonoBehaviour, ISaveable
+public class EconomyManager : MonoBehaviour
 {
-    [Header("Refs")]
-    [SerializeField] private GirlFieldManager fieldManager; // GameSystem에서 주입
-    [SerializeField] private GirlMergeManager mergeManager; // (선택) 자동합성 트리거
-
-    // ───────────────── Currency ─────────────────
     [Header("Gold")]
     [SerializeField] private double gold = 0;
-    public event Action<double> onGoldChanged;
-    public double GetGold() => gold;
-    public void SetGold(double value) { gold = Math.Max(0, value); onGoldChanged?.Invoke(gold); }
-    public void AddGold(double amount) { if (amount <= 0) return; gold += amount; onGoldChanged?.Invoke(gold); }
-    public bool SpendGold(double amount)
+    public event Action<double> OnGoldChanged;
+
+    [Header("Idle Income")]
+    [SerializeField] private bool idleEnabled = true;
+    [SerializeField] private double idlePerSecondBase = 0;
+    [SerializeField] private double idleMultiplier = 1.0;
+    private float idleTimer = 0f;
+
+    [Header("Click Income")]
+    [SerializeField] private double clickBase = 1;
+    [SerializeField] private double clickMultiplier = 1.0;
+
+    [Header("Spawn/Field Config")]
+    [SerializeField] private int manualSpawnMax = 3;
+    [SerializeField] private float manualSpawnInterval = 10f;
+    [SerializeField] private int fieldMaxCount = 8;
+
+    [Header("Automation")]
+    public int autoSpawnUpgrade = 0; // 0 = 비활성 (프로젝트에 없던 케이스 대비해 명시)
+    [SerializeField] private float autoSpawnIntervalBase = 6f;
+    [SerializeField] private float autoSpawnIntervalPerLevel = -0.6f; // 레벨당 감소
+    [SerializeField] private bool autoMergeEnabled = false;
+
+    public bool HasAutoSpawn => autoSpawnUpgrade > 0;
+
+    public void AddGold(double amount)
     {
-        if (amount <= 0) return true;
-        if (gold < amount) return false;
-        gold -= amount; onGoldChanged?.Invoke(gold); return true;
+        gold += amount;
+        OnGoldChanged?.Invoke(gold);
     }
 
-    // ───────────────── Click / Idle ─────────────────
-    [Header("Click / Idle")]
-    [SerializeField] private bool handleGlobalClick = false; // 빈 화면 클릭만 처리(캐릭 클릭은 GirlCharacter에서)
-    [SerializeField] private float clickGoldBase = 1f;       // 클릭당 기본 수익
-    [SerializeField] private float idleTickInterval = 1f;    // 초당 틱
-    private float _idleTimer;
+    public bool SpendGold(double cost)
+    {
+        if (gold < cost) return false;
+        gold -= cost;
+        OnGoldChanged?.Invoke(gold);
+        return true;
+    }
+
+    public double GetGold() => gold;
+    public void SetGold(double v) { gold = Math.Max(0, v); OnGoldChanged?.Invoke(gold); }
 
     void Update()
     {
-        if (handleGlobalClick && Input.GetMouseButtonDown(0) && !IsPointerOverUI())
-            AddClickGold();
-
-        _idleTimer += Time.deltaTime;
-        if (_idleTimer >= idleTickInterval)
+        if (!idleEnabled) return;
+        idleTimer += Time.unscaledDeltaTime;
+        if (idleTimer >= 1f)
         {
-            _idleTimer -= idleTickInterval;
-            TickIdleIncome();
+            idleTimer -= 1f;
+            var amt = idlePerSecondBase * idleMultiplier;
+            if (amt > 0) AddGold(amt);
         }
     }
 
-    bool IsPointerOverUI()
+    public void AddClickGold(double baseAmount = -1)
     {
-        if (EventSystem.current == null) return false;
-        return EventSystem.current.IsPointerOverGameObject();
+        var amt = (baseAmount >= 0 ? baseAmount : clickBase) * clickMultiplier;
+        if (amt > 0) AddGold(amt);
     }
 
-    public void AddClickGold()
+    // ── API: GirlFieldManager가 사용 ──
+    public int   GetMaxManualSpawnCount()  => manualSpawnMax;
+    public float GetManualSpawnInterval()  => manualSpawnInterval;
+    public int   GetMaxFieldCount()        => fieldMaxCount;
+
+    public bool IsAutoMergeActive() => autoMergeEnabled;
+
+    public float GetAutoSpawnInterval()
     {
-        double g = clickGoldBase * GetClickIncomeMultiplier();
-        if (g > 0) AddGold(g);
+        if (autoSpawnUpgrade <= 0) return float.MaxValue;
+        var t = autoSpawnIntervalBase + autoSpawnIntervalPerLevel * (autoSpawnUpgrade - 1);
+        return Mathf.Clamp(t, 1.0f, 999f);
     }
 
-    public void TickIdleIncome()
-    {
-        if (!fieldManager) return;
-        double total = 0;
-        var list = fieldManager.girlList;
-        for (int i = 0; i < list.Count; i++)
-        {
-            var g = list[i];
-            if (!g) continue;
-            total += g.GetIncome();
-        }
-        if (total > 0) AddGold(total /* * GetIdleIncomeMultiplier() */);
-    }
-
-    // ───────────────── Upgrades ─────────────────
-    [Header("Upgrades")]
-    public int clickBonusUpgrade;
-    public int maxFieldCountUpgrade;
-    public int manualSpawnMaxUpgrade;
-    public int manualSpawnSpeedUpgrade;
-    public int autoMergeUpgrade;
-    public int autoSpawnUpgrade;
-
-    // 기존 시그니처들 유지
-    public double GetClickIncomeMultiplier() => 1.0 + clickBonusUpgrade * 1.0;
-    public int    GetMaxFieldCount()         => 8 + maxFieldCountUpgrade;
-    public int    GetMaxManualSpawnCount()   => 3 + manualSpawnMaxUpgrade;
-    public float  GetManualSpawnInterval()   => Mathf.Max(2f, 10f * Mathf.Pow(0.85f, manualSpawnSpeedUpgrade));
-    public bool   IsAutoMergeActive()        => autoMergeUpgrade > 0;
-    public float  GetAutoMergeSpeed()        => 1f + 0.5f * autoMergeUpgrade;
-    public float  GetAutoSpawnInterval()     => Mathf.Max(1f, 8f * Mathf.Pow(0.85f, autoSpawnUpgrade));
-
-    public double GetUpgradeCost(int currentLevel) => Mathf.RoundToInt(25 * Mathf.Pow(1.7f, currentLevel));
-    bool TryUpgrade(ref int field, int max = int.MaxValue)
-    {
-        if (field >= max) return false;
-        double cost = GetUpgradeCost(field);
-        if (!SpendGold(cost)) return false;
-        field++; return true;
-    }
-    // 필요 시 호출용 샘플
-    public bool UpgradeClickBonus()       => TryUpgrade(ref clickBonusUpgrade, 10);
-    public bool UpgradeMaxFieldCount()    => TryUpgrade(ref maxFieldCountUpgrade, 8);
-    public bool UpgradeManualSpawnMax()   => TryUpgrade(ref manualSpawnMaxUpgrade, 7);
-    public bool UpgradeManualSpawnSpeed() => TryUpgrade(ref manualSpawnSpeedUpgrade, 8);
-    public bool UpgradeAutoMerge()        => TryUpgrade(ref autoMergeUpgrade, 1);
-    public bool UpgradeAutoSpawn()        => TryUpgrade(ref autoSpawnUpgrade, 8);
-
-    // ───────────────── Prestige ─────────────────
-    [Header("Prestige")]
-    public int prestigePoint = 0;
-    public int totalPrestigeCount = 0;
-    public int topLevel = TierRules.MaxLevel;
-
-    public Action onPrestigeAvailable;
-    bool _prestigeAvailable;
-
-    void LateUpdate()
-    {
-        if (!fieldManager) return;
-        bool found = false;
-        var list = fieldManager.girlList;
-        for (int i = 0; i < list.Count; i++)
-        {
-            var g = list[i];
-            if (g && g.Level >= topLevel) { found = true; break; }
-        }
-        if (found != _prestigeAvailable)
-        {
-            _prestigeAvailable = found;
-            if (_prestigeAvailable) onPrestigeAvailable?.Invoke();
-        }
-    }
-
-    public void DoPrestige()
-    {
-        if (!fieldManager) return;
-
-        int reward = 0;
-        var snap = new List<GirlCharacter>(fieldManager.girlList);
-        for (int i = 0; i < snap.Count; i++)
-            if (snap[i] && snap[i].Level >= topLevel) reward++;
-
-        prestigePoint += reward;
-        totalPrestigeCount++;
-
-        foreach (var g in snap) if (g) fieldManager.RemoveGirl(g);
-        fieldManager.girlList.Clear();
-        SetGold(0);
-        _prestigeAvailable = false;
-    }
-
-    public int GetPrestigePoint()      => prestigePoint;
-    public int GetTotalPrestigeCount() => totalPrestigeCount;
-
-    // ───────────────── Save/Load ─────────────────
-    public void ApplyLoadedData(SaveData data)
-    {
-        if (data == null) return;
-
-        gold = Math.Max(0, data.gold); onGoldChanged?.Invoke(gold);
-
-        clickBonusUpgrade       = data.clickBonusUpgrade;
-        maxFieldCountUpgrade    = data.maxFieldCountUpgrade;
-        manualSpawnMaxUpgrade   = data.manualSpawnMaxUpgrade;
-        manualSpawnSpeedUpgrade = data.manualSpawnSpeedUpgrade;
-        autoMergeUpgrade        = data.autoMergeUpgrade;
-        autoSpawnUpgrade        = data.autoSpawnUpgrade;
-
-        prestigePoint      = data.prestigePoint;
-        totalPrestigeCount = data.totalPrestigeCount;
-    }
-
-    public void CollectSaveData(SaveData data)
-    {
-        data.gold = gold;
-
-        data.clickBonusUpgrade       = clickBonusUpgrade;
-        data.maxFieldCountUpgrade    = maxFieldCountUpgrade;
-        data.manualSpawnMaxUpgrade   = manualSpawnMaxUpgrade;
-        data.manualSpawnSpeedUpgrade = manualSpawnSpeedUpgrade;
-        data.autoMergeUpgrade        = autoMergeUpgrade;
-        data.autoSpawnUpgrade        = autoSpawnUpgrade;
-
-        data.prestigePoint      = prestigePoint;
-        data.totalPrestigeCount = totalPrestigeCount;
-    }
+    // 선택: 외부에서 수치 조정용 세터
+    public void SetIdle(double basePerSec, double mult = 1.0) { idlePerSecondBase = basePerSec; idleMultiplier = mult; }
+    public void SetClick(double baseClick, double mult = 1.0) { clickBase = baseClick; clickMultiplier = mult; }
+    public void SetSpawnConfig(int maxManual, float interval, int maxField) { manualSpawnMax = maxManual; manualSpawnInterval = interval; fieldMaxCount = maxField; }
+    public void EnableAutoMerge(bool on) => autoMergeEnabled = on;
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Threading;
@@ -8,10 +7,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-/// <summary>
-/// CSV/TSV 자동 판별, 쿼트/개행 지원, 유효성/중복 검증, Addressables 해제 보장.
-/// 의존성: Unity 기본 + Addressables만.
-/// </summary>
 public class GirlDataManager
 {
     private List<GirlData> dataList = new();
@@ -37,10 +32,8 @@ public class GirlDataManager
         try
         {
             string text = handle.Result.text ?? string.Empty;
-            // 구분자 자동 판별(탭 있으면 TSV)
             char delimiter = text.IndexOf('\t') >= 0 ? '\t' : ',';
 
-            // 파싱
             using var reader = new DelimitedReader(text, delimiter);
             if (!reader.ReadRow(out var header))
             {
@@ -48,14 +41,13 @@ public class GirlDataManager
                 return;
             }
 
-            // 헤더 인덱스 매핑(대소문자/스페이스 무시)
-            int idx_id          = FindCol(header, "id");
-            int idx_name        = FindCol(header, "name");
-            int idx_level       = FindCol(header, "level");
-            int idx_income      = FindCol(header, "incomepersec", "income", "income_per_sec");
-            int idx_merge       = FindCol(header, "mergecount", "merge_count");
-            int idx_sprite      = FindCol(header, "spritename", "sprite", "sprite_name");
-            int idx_unlock      = FindCol(header, "unlockdesc", "desc", "unlock_desc");
+            int idx_id     = FindCol(header, "id");
+            int idx_name   = FindCol(header, "name");
+            int idx_level  = FindCol(header, "level");
+            int idx_income = FindCol(header, "incomepersec", "income", "income_per_sec");
+            int idx_merge  = FindCol(header, "mergecount", "merge_count");
+            int idx_sprite = FindCol(header, "spritename", "sprite", "sprite_name");
+            int idx_unlock = FindCol(header, "unlockdesc", "desc", "unlock_desc");
 
             if (idx_id < 0 || idx_name < 0 || idx_level < 0 || idx_income < 0 || idx_merge < 0 || idx_sprite < 0 || idx_unlock < 0)
             {
@@ -63,15 +55,19 @@ public class GirlDataManager
                 return;
             }
 
-            int row = 2; // 헤더 다음
+            int row = 2;
             while (reader.ReadRow(out var cols))
             {
                 ct.ThrowIfCancellationRequested();
 
-                // 안전 접근 헬퍼
+                // 빈 행 스킵
+                bool allEmpty = true;
+                for (int i = 0; i < cols.Count; i++)
+                    if (!string.IsNullOrWhiteSpace(cols[i])) { allEmpty = false; break; }
+                if (allEmpty) { row++; continue; }
+
                 string Get(int i) => (i >= 0 && i < cols.Count) ? cols[i] : string.Empty;
 
-                // 파싱(InvariantCulture)
                 if (!int.TryParse(Get(idx_id), NumberStyles.Integer, CultureInfo.InvariantCulture, out int id))
                 { Warn(row, "id parse 실패"); row++; continue; }
 
@@ -89,12 +85,10 @@ public class GirlDataManager
                 string spriteName = Get(idx_sprite)?.Trim();
                 string unlockDesc = Get(idx_unlock) ?? string.Empty;
 
-                // 유효성
                 if (level < 1 || level > TierRules.MaxLevel) { Warn(row, $"level 범위(1~{TierRules.MaxLevel}) 초과: {level}"); row++; continue; }
                 if (income < 0) { Warn(row, $"incomePerSec 음수: {income}"); row++; continue; }
                 if (mergeCount <= 0) { Warn(row, $"mergeCount 비정상: {mergeCount}"); row++; continue; }
 
-                // 중복 레벨 감지
                 if (dataByLevel.ContainsKey(level))
                 { Debug.LogError($"[GirlDataManager] 중복 level {level} (row {row}) — 스킵"); row++; continue; }
 
@@ -120,7 +114,7 @@ public class GirlDataManager
         }
         finally
         {
-            Addressables.Release(handle); // 반드시 해제
+            Addressables.Release(handle);
         }
     }
 
@@ -132,7 +126,6 @@ public class GirlDataManager
 
     public IReadOnlyList<GirlData> All => dataList;
 
-    // ───── helpers ─────
     static void Warn(int row, string msg) => Debug.LogWarning($"[GirlDataManager] row {row}: {msg}");
 
     static int FindCol(IReadOnlyList<string> header, params string[] names)
@@ -141,9 +134,7 @@ public class GirlDataManager
         {
             var h = NormalizeHeader(header[i]);
             for (int j = 0; j < names.Length; j++)
-            {
                 if (h == NormalizeHeader(names[j])) return i;
-            }
         }
         return -1;
     }
@@ -155,19 +146,13 @@ public class GirlDataManager
         for (int i = 0; i < s.Length; i++)
         {
             char c = char.ToLowerInvariant(s[i]);
-            if (c != ' ' && c != '_' ) sb.Append(c);
+            if (c != ' ' && c != '_') sb.Append(c);
         }
         return sb.ToString();
     }
 }
 
-/// <summary>
-/// 간단하지만 견고한 CSV/TSV 리더:
-/// - 구분자: 생성자에서 지정(, 또는 \t)
-/// - 쿼트(") 지원(이중 쿼트 "" → " 로 언이스케이프)
-/// - 필드 내 개행 허용(쿼트 안에서만)
-/// </summary>
-internal sealed class DelimitedReader : IDisposable
+internal sealed class DelimitedReader : System.IDisposable
 {
     private readonly string _text;
     private readonly char _delim;
@@ -180,8 +165,7 @@ internal sealed class DelimitedReader : IDisposable
         _delim = delimiter;
         _pos = 0;
         _len = _text.Length;
-        // UTF-8 BOM 제거
-        if (_len >= 1 && _text[0] == '\uFEFF') _pos = 1;
+        if (_len >= 1 && _text[0] == '\uFEFF') _pos = 1; // BOM
     }
 
     public bool ReadRow(out List<string> cols)
@@ -201,44 +185,27 @@ internal sealed class DelimitedReader : IDisposable
             {
                 if (c == '"')
                 {
-                    // 이중 쿼트 "" → " 로 처리가능
                     if (_pos < _len && _text[_pos] == '"') { sb.Append('"'); _pos++; }
                     else inQuotes = false;
                 }
-                else
-                {
-                    sb.Append(c);
-                }
+                else sb.Append(c);
             }
             else
             {
-                if (c == '"')
-                {
-                    inQuotes = true;
-                }
-                else if (c == _delim)
-                {
-                    cols.Add(sb.ToString());
-                    sb.Length = 0;
-                }
+                if (c == '"') inQuotes = true;
+                else if (c == _delim) { cols.Add(sb.ToString()); sb.Length = 0; }
                 else if (c == '\r' || c == '\n')
                 {
-                    // 행 종료 (CRLF 처리)
                     if (c == '\r' && _pos < _len && _text[_pos] == '\n') _pos++;
                     cols.Add(sb.ToString());
                     return true;
                 }
-                else
-                {
-                    sb.Append(c);
-                }
+                else sb.Append(c);
             }
         }
-
-        // 파일 끝
         cols.Add(sb.ToString());
         return true;
     }
 
-    public void Dispose() { /* nothing */ }
+    public void Dispose() { }
 }

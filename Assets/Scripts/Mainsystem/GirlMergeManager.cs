@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GirlMergeManager : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class GirlMergeManager : MonoBehaviour
     private GirlCharacter highlightedTarget = null;
 
     public void SetDraggingGirl(GirlCharacter girl) => draggingGirl = girl;
-
     public void ClearDraggingGirl()
     {
         draggingGirl = null;
@@ -39,7 +39,6 @@ public class GirlMergeManager : MonoBehaviour
                 bestTarget = g;
             }
         }
-
         if (highlightedTarget && highlightedTarget != bestTarget)
             highlightedTarget.Highlight(false);
 
@@ -86,7 +85,9 @@ public class GirlMergeManager : MonoBehaviour
         }
 
         if (first != null && second != null)
+        {
             StartCoroutine(MergeRoutine(first, second));
+        }
     }
 
     IEnumerator MergeRoutine(GirlCharacter a, GirlCharacter b)
@@ -94,18 +95,18 @@ public class GirlMergeManager : MonoBehaviour
         Vector3 center = (((RectTransform)a.transform).localPosition + ((RectTransform)b.transform).localPosition) * 0.5f;
         int nextLevel = a.Level + 1;
 
-        // 합성 중 입력 막기
-        a.enabled = false; b.enabled = false;
+        a.enabled = false;
+        b.enabled = false;
 
         yield return StartCoroutine(MergeAnimation(a, b, center));
 
-        // 풀 반환 전에 재활성
-        a.enabled = true; b.enabled = true;
+        a.enabled = true;
+        b.enabled = true;
 
         fieldManager.RemoveGirl(a);
         fieldManager.RemoveGirl(b);
 
-        if (nextLevel >= TierRules.MaxLevel)
+        if (nextLevel >= TierRules.MaxLevel) // 25 스택 처리
         {
             fieldManager.AcquireLevel25();
         }

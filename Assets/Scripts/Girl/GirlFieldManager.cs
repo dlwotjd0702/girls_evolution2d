@@ -1,7 +1,8 @@
 ﻿// ============================
 // GirlFieldManager.cs
+// - 수동 소환 버튼/차지 UI
+// - 오토소환/오토합성: Unlock→토글 노출→강화(쿨타임↓)
 // - 25 최초 1회만 Spawn, 이후엔 기존 25의 Level++
-// - ReasonLabel 변경 없음(패널에서만 관리)
 // ============================
 using System;
 using System.Collections;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using URandom = UnityEngine.Random;
 
 public class GirlFieldManager : MonoBehaviour, ISaveable
@@ -34,12 +36,37 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     private bool _isRestoring = false;
     private Coroutine _restoreRoutine;
 
-    // ── 소환 게이지 ──
+    // ── 수동 소환 게이지 ──
     public int curSpawnCharge = 0;
     private float chargeTimer = 0f;
-    private float autoSpawnTimer = 0f;
 
-    // ── 첫 발견 연출 튜닝 ──
+    // ── 오토 소환 ──
+    private float autoSpawnTimer = 0f;
+    [Header("Auto Spawn Settings")]
+    [SerializeField] private int  autoSpawnLevel = 0;         // 0=미구매, 1+=강화
+    [SerializeField] private bool autoSpawnOn    = false;
+    [SerializeField] private float autoSpawnBaseInterval = 6.0f;
+    [SerializeField] private float autoSpawnPerLevelMul  = 0.90f;
+    [SerializeField] private float autoSpawnMinInterval  = 0.8f;
+    [Header("Auto Spawn Costs")]
+    [SerializeField] private double autoSpawnUnlockCost      = 500;
+    [SerializeField] private double autoSpawnUpgradeBaseCost = 600;
+    [SerializeField] private double autoSpawnUpgradeGrowth   = 2.2;
+
+    // ── 오토 합성 ──
+    private float autoMergeTimer = 0f;
+    [Header("Auto Merge Settings")]
+    [SerializeField] private int  autoMergeLevel = 0;         // 0=미구매, 1+=강화
+    [SerializeField] private bool autoMergeOn    = false;
+    [SerializeField] private float autoMergeBaseInterval = 4.0f;
+    [SerializeField] private float autoMergePerLevelMul  = 0.90f;
+    [SerializeField] private float autoMergeMinInterval  = 0.5f;
+    [Header("Auto Merge Costs")]
+    [SerializeField] private double autoMergeUnlockCost      = 200;
+    [SerializeField] private double autoMergeUpgradeBaseCost = 250;
+    [SerializeField] private double autoMergeUpgradeGrowth   = 2.0;
+
+    // ── 소환 연출 튜닝 ──
     [Header("Discovery FX")]
     [SerializeField] private float ldCenterScale = 2.0f;
     [SerializeField] private float ldCenterScaleFinalMul = 2.0f; // 25는 2배 더 → 총 4배
@@ -55,6 +82,14 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     // ── SummonPanel 의존: 현재까지 달성한 최고 레벨 ──
     public int CurrentMaxLevel { get; private set; } = 1;
     public event Action<int> OnMaxLevelChanged;
+
+    // ── 수동 소환 버튼/차지 UI 바인딩 ── (남은초 텍스트 없음)
+    [Header("Spawn Button UI")]
+    [SerializeField] private Button          spawnButton;      // (선택) 인스펙터 OnClick=OnClickSpawnButton
+    [SerializeField] private Image           chargeFillImage;  // Image Type=Filled (Radial 권장)
+    [SerializeField] private TextMeshProUGUI chargeCountText;  // "cur/max"
+
+    // ─────────────────────────────────────────────────────────────────────
 
     void OnEnable()
     {
@@ -76,7 +111,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         curSpawnCharge = GetMaxSpawnCharge();
         UpdateSpawnButtonUI();
-        StartCoroutine(AutoMergeRoutine());
 
         if (tierManager != null)
         {
@@ -89,6 +123,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     void Update()
     {
+        // ── 수동 차지 충전 ──
         if (curSpawnCharge < GetMaxSpawnCharge())
         {
             chargeTimer += Time.unscaledDeltaTime;
@@ -100,19 +135,32 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             }
         }
 
-        // 자동소환은 Economy의 autoSpawn 세팅으로 독립 동작
-        float autoInterval = (economy != null) ? economy.GetAutoSpawnInterval() : float.MaxValue;
-        if (autoInterval < float.MaxValue)
+        // ── 오토 소환 ──
+        float autoS = GetAutoSpawnInterval();
+        if (autoS < float.MaxValue && autoSpawnOn)
         {
             autoSpawnTimer += Time.unscaledDeltaTime;
-            if (autoSpawnTimer >= autoInterval)
+            if (autoSpawnTimer >= autoS)
             {
-                autoSpawnTimer -= autoInterval;
+                autoSpawnTimer -= autoS;
                 TryAutoSpawn();
+            }
+        }
+
+        // ── 오토 합성 ──
+        float autoM = GetAutoMergeInterval();
+        if (autoM < float.MaxValue && autoMergeOn && mergeManager != null)
+        {
+            autoMergeTimer += Time.unscaledDeltaTime;
+            if (autoMergeTimer >= autoM)
+            {
+                autoMergeTimer -= autoM;
+                mergeManager.TryAutoMerge();
             }
         }
     }
 
+    // ───────────── UI/수동 소환 ─────────────
     public void OnClickSpawnButton()
     {
         if (curSpawnCharge > 0 && girlList.Count < GetMaxFieldCount())
@@ -133,6 +181,69 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
     }
 
+    // ───────────── 오토소환 API (상점에서 호출) ─────────────
+    public int  GetAutoSpawnLevel() => autoSpawnLevel;
+    public bool IsAutoSpawnOn()     => autoSpawnLevel > 0 && autoSpawnOn;
+
+    public float GetAutoSpawnInterval()
+    {
+        if (autoSpawnLevel <= 0 || !autoSpawnOn) return float.MaxValue;
+        int lv = Mathf.Max(1, autoSpawnLevel);
+        float t = autoSpawnBaseInterval * Mathf.Pow(autoSpawnPerLevelMul, lv - 1);
+        return Mathf.Clamp(t, autoSpawnMinInterval, 999f);
+    }
+
+    public double GetAutoSpawnNextCost()
+    {
+        if (autoSpawnLevel <= 0) return autoSpawnUnlockCost;
+        int nextLv = autoSpawnLevel + 1;
+        return autoSpawnUpgradeBaseCost * Math.Pow(autoSpawnUpgradeGrowth, nextLv - 2);
+    }
+
+    public bool TryBuyAutoSpawn(EconomyManager eco)
+    {
+        if (!eco) return false;
+        double cost = GetAutoSpawnNextCost();
+        if (!eco.SpendGold(cost)) return false;
+
+        if (autoSpawnLevel <= 0) { autoSpawnLevel = 1; autoSpawnOn = true; }
+        else autoSpawnLevel++;
+        return true;
+    }
+    public void SetAutoSpawnOn(bool on) { if (autoSpawnLevel <= 0) return; autoSpawnOn = on; }
+
+    // ───────────── 오토합성 API (상점에서 호출) ─────────────
+    public int  GetAutoMergeLevel() => autoMergeLevel;
+    public bool IsAutoMergeOn()     => autoMergeLevel > 0 && autoMergeOn;
+
+    public float GetAutoMergeInterval()
+    {
+        if (autoMergeLevel <= 0 || !autoMergeOn) return float.MaxValue;
+        int lv = Mathf.Max(1, autoMergeLevel);
+        float t = autoMergeBaseInterval * Mathf.Pow(autoMergePerLevelMul, lv - 1);
+        return Mathf.Clamp(t, autoMergeMinInterval, 999f);
+    }
+
+    public double GetAutoMergeNextCost()
+    {
+        if (autoMergeLevel <= 0) return autoMergeUnlockCost;
+        int nextLv = autoMergeLevel + 1;
+        return autoMergeUpgradeBaseCost * Math.Pow(autoMergeUpgradeGrowth, nextLv - 2);
+    }
+
+    public bool TryBuyAutoMerge(EconomyManager eco)
+    {
+        if (!eco) return false;
+        double cost = GetAutoMergeNextCost();
+        if (!eco.SpendGold(cost)) return false;
+
+        if (autoMergeLevel <= 0) { autoMergeLevel = 1; autoMergeOn = true; }
+        else autoMergeLevel++;
+        return true;
+    }
+    public void SetAutoMergeOn(bool on) { if (autoMergeLevel <= 0) return; autoMergeOn = on; }
+
+    // ───────────── 생성/발견/티어 ─────────────
     public void SpawnTestGirls()
     {
         for (int level = 1; level <= TierRules.MaxLevel; level++)
@@ -343,20 +454,26 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         return new Vector2(x, y);
     }
 
-    private int GetMaxSpawnCharge()       => economy != null ? economy.GetMaxManualSpawnCount() : 3;
-    private float GetSpawnChargeInterval()=> economy != null ? economy.GetManualSpawnInterval() : 10f;
-    private int GetMaxFieldCount()        => economy != null ? economy.GetMaxFieldCount() : 8;
+    private int GetMaxSpawnCharge()        => economy != null ? economy.GetMaxManualSpawnCount() : 3;
+    private float GetSpawnChargeInterval() => economy != null ? economy.GetManualSpawnInterval() : 10f;
+    private int GetMaxFieldCount()         => economy != null ? economy.GetMaxFieldCount() : 8;
 
-    private void UpdateSpawnButtonUI() { }
-
-    private IEnumerator AutoMergeRoutine()
+    // ▼ 수동 소환 버튼/차지 UI 갱신
+    private void UpdateSpawnButtonUI()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.5f);
-            if (economy != null && economy.IsAutoMergeActive())
-                mergeManager.TryAutoMerge();
-        }
+        int max = GetMaxSpawnCharge();
+        curSpawnCharge = Mathf.Clamp(curSpawnCharge, 0, max);
+
+        if (chargeCountText)
+            chargeCountText.text = $"{curSpawnCharge}/{max}";
+
+        float interval = Mathf.Max(0.0001f, GetSpawnChargeInterval());
+        float fill = (curSpawnCharge >= max) ? 1f : Mathf.Clamp01(chargeTimer / interval);
+        if (chargeFillImage)
+            chargeFillImage.fillAmount = fill;
+
+        if (spawnButton)
+            spawnButton.interactable = (curSpawnCharge > 0) && (girlList.Count < GetMaxFieldCount());
     }
 
     // ── 티어 토글/표시 ──
@@ -420,6 +537,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     // ───── ISaveable ─────
     public void CollectSaveData(SaveData data)
     {
+        // 발견 마스크
         int mask = 0;
         foreach (var lv in discoveredLevels)
         {
@@ -428,6 +546,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
         data.discoveredMask = mask;
 
+        // 필드 캐릭터 레벨 목록
         girlList.RemoveAll(g => g == null);
         data.girls.Clear();
         for (int i = 0; i < girlList.Count; i++)
@@ -435,6 +554,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             var g = girlList[i];
             data.girls.Add(new GirlSaveInfo(g.Level));
         }
+
+        // 자동화 상태 저장
+        data.autoSpawnUpgrade = Mathf.Max(0, autoSpawnLevel);
+        data.autoSpawnOn      = autoSpawnOn;
+        data.autoMergeUpgrade = Mathf.Max(0, autoMergeLevel);
+        data.autoMergeOn      = autoMergeOn;
     }
 
     public void ApplyLoadedData(SaveData data)
@@ -445,6 +570,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private IEnumerator RestoreWhenReady(SaveData data)
     {
+        // 에셋 준비 대기
         if (GameSystem.Instance != null && !GameSystem.Instance.AssetsReady)
         {
             bool ready = false;
@@ -488,7 +614,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
         girlList.Clear();
 
-        // 복원
+        // 필드 복원
         _isRestoring = true;
         if (data.girls != null)
         {
@@ -501,6 +627,13 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             }
         }
         _isRestoring = false;
+
+        // 자동화 상태 복원
+        autoSpawnLevel = Mathf.Max(0, data.autoSpawnUpgrade);
+        autoSpawnOn    = data.autoSpawnOn && autoSpawnLevel > 0;
+
+        autoMergeLevel = Mathf.Max(0, data.autoMergeUpgrade);
+        autoMergeOn    = data.autoMergeOn && autoMergeLevel > 0;
 
         if (tierManager != null)
         {

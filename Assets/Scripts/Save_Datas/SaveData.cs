@@ -4,8 +4,12 @@ using System.Collections.Generic;
 [Serializable]
 public class SaveData
 {
-    // 데이터 버전 (필드 변경 추적용)
+    // 데이터 버전(역호환 유지)
     public int dataVersion = 2;
+
+    // ───── 자동화 토글 상태 ─────
+    public bool autoMergeOn;   // 오토합성 토글
+    public bool autoSpawnOn;   // 오토소환 토글
 
     // ───── Economy ─────
     public double gold;
@@ -28,13 +32,17 @@ public class SaveData
     public int prestigePoint;
     public int totalPrestigeCount;
 
-    // ───── 업그레이드 상태 (기존 호환; Economy 통합 후에도 유지) ─────
+    // ───── 업그레이드 상태 (기존 호환) ─────
     public int manualSpawnMaxUpgrade;
     public int manualSpawnSpeedUpgrade;
-    public int autoMergeUpgrade;
-    public int autoSpawnUpgrade;
+    public int autoMergeUpgrade;  // 오토합성 강화 레벨
+    public int autoSpawnUpgrade;  // 오토소환 강화 레벨
     public int maxFieldCountUpgrade;
     public int clickBonusUpgrade;
+
+    // ▼ 레벨별 소환 구매 누적 (소환 패널의 ‘영구 가격 상승’ 유지)
+    // index = level-1, value = 해당 레벨에서의 누적 구매 횟수
+    public int[] summonBuyCounts;
 
     // ───── 메타 ─────
     public string savedAt;

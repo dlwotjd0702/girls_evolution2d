@@ -4,10 +4,10 @@ using System.Collections.Generic;
 [Serializable]
 public class SaveData
 {
-    // 데이터 버전(역호환 유지)
-    public int dataVersion = 2;
+    // 데이터 버전
+    public int dataVersion = 3;
 
-    // ───── 자동화 토글 상태 ─────
+    // ───── 토글 (자동) ─────
     public bool autoMergeOn;   // 오토합성 토글
     public bool autoSpawnOn;   // 오토소환 토글
 
@@ -16,49 +16,41 @@ public class SaveData
 
     // ───── Tier ─────
     public int currentTierIndex;   // 현재 층(0~3)
-    public int unlockedTierMask;   // 언락된 층 비트마스크 (bit = tier)
+    public int unlockedTierMask;   // 언락 비트마스크
 
     // ───── 도감/발견 ─────
-    // 레벨 첫 발견 여부(1~25) bit = level-1
     public int discoveredMask;
-
-    // 필드의 소녀 상태: 위치는 저장하지 않고 레벨만 저장
     public List<GirlSaveInfo> girls = new List<GirlSaveInfo>();
-
-    // 현재 플레이에서 도달한 최대 레벨 (소환 패널 계산 등에서 사용)
     public int maxLevelReached = 1;
 
-    // ───── Prestige ───── (기존 호환)
+    // ───── Prestige ─────
     public int prestigePoint;
     public int totalPrestigeCount;
 
-    // ───── 업그레이드 상태 (기존 호환) ─────
+    // ───── 업그레이드(골드 기반) ─────
     public int manualSpawnMaxUpgrade;
     public int manualSpawnSpeedUpgrade;
-    public int autoMergeUpgrade;  // 오토합성 강화 레벨
-    public int autoSpawnUpgrade;  // 오토소환 강화 레벨
+    public int autoMergeUpgrade;      // 0이면 미구매(오토항목은 0→1이 '구매')
+    public int autoSpawnUpgrade;      // 0이면 미구매
     public int maxFieldCountUpgrade;
     public int clickBonusUpgrade;
 
-    // ▼ 레벨별 소환 구매 누적 (소환 패널의 ‘영구 가격 상승’ 유지)
-    // index = level-1, value = 해당 레벨에서의 누적 구매 횟수
-    public int[] summonBuyCounts;
+    // 신규: 오프라인 보상/상한
+    public int offlineRewardUpgrade;  // 배율 상승
+    public int offlineMaxTimeUpgrade; // 상한(시간) 증가
+
+    // ───── 소환 가격 영구 인상용 누적 카운트 ─────
+    // index: level-1 (0..24)
+    public int[] summonPurchaseCounts = new int[25];
 
     // ───── 메타 ─────
     public string savedAt;
-    public void SetSaveTime()
-    {
-        savedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-    }
+    public void SetSaveTime() => savedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 }
 
 [Serializable]
 public class GirlSaveInfo
 {
     public int level;
-
-    public GirlSaveInfo(int level)
-    {
-        this.level = level;
-    }
+    public GirlSaveInfo(int level) { this.level = level; }
 }

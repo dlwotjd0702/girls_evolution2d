@@ -1,16 +1,10 @@
-﻿// ============================
-// GirlFieldManager.cs
-// - 수동 소환 버튼/차지 UI
-// - 오토소환/오토합성: Unlock→토글 노출→강화(쿨타임↓)
-// - 25 최초 1회만 Spawn, 이후엔 기존 25의 Level++
-// ============================
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using URandom = UnityEngine.Random;
 
 public class GirlFieldManager : MonoBehaviour, ISaveable
@@ -23,73 +17,40 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     public Transform girlRoot;
     public List<GirlCharacter> girlList = new List<GirlCharacter>();
 
-    // ── 티어 ──
     [Header("Tier")]
     [SerializeField] private TierManager tierManager;
+    [SerializeField] private Transform activeParent;
+    [SerializeField] private Transform hiddenParent;
 
-    [Header("Optional parents (for organization)")]
-    [SerializeField] private Transform activeParent; // 현재 계층 표시용
-    [SerializeField] private Transform hiddenParent; // 숨김용
-
-    // ── 첫 발견 관리 ──
-    private readonly HashSet<int> discoveredLevels = new HashSet<int>(); // 1~25
+    private readonly HashSet<int> discoveredLevels = new HashSet<int>();
     private bool _isRestoring = false;
     private Coroutine _restoreRoutine;
 
-    // ── 수동 소환 게이지 ──
-    public int curSpawnCharge = 0;
+    // ── 소환 차지 ──
+    public int  curSpawnCharge = 0;
     private float chargeTimer = 0f;
 
-    // ── 오토 소환 ──
+    // ── 자동 타이머 ──
     private float autoSpawnTimer = 0f;
-    [Header("Auto Spawn Settings")]
-    [SerializeField] private int  autoSpawnLevel = 0;         // 0=미구매, 1+=강화
-    [SerializeField] private bool autoSpawnOn    = false;
-    [SerializeField] private float autoSpawnBaseInterval = 6.0f;
-    [SerializeField] private float autoSpawnPerLevelMul  = 0.90f;
-    [SerializeField] private float autoSpawnMinInterval  = 0.8f;
-    [Header("Auto Spawn Costs")]
-    [SerializeField] private double autoSpawnUnlockCost      = 500;
-    [SerializeField] private double autoSpawnUpgradeBaseCost = 600;
-    [SerializeField] private double autoSpawnUpgradeGrowth   = 2.2;
-
-    // ── 오토 합성 ──
     private float autoMergeTimer = 0f;
-    [Header("Auto Merge Settings")]
-    [SerializeField] private int  autoMergeLevel = 0;         // 0=미구매, 1+=강화
-    [SerializeField] private bool autoMergeOn    = false;
-    [SerializeField] private float autoMergeBaseInterval = 4.0f;
-    [SerializeField] private float autoMergePerLevelMul  = 0.90f;
-    [SerializeField] private float autoMergeMinInterval  = 0.5f;
-    [Header("Auto Merge Costs")]
-    [SerializeField] private double autoMergeUnlockCost      = 200;
-    [SerializeField] private double autoMergeUpgradeBaseCost = 250;
-    [SerializeField] private double autoMergeUpgradeGrowth   = 2.0;
 
-    // ── 소환 연출 튜닝 ──
     [Header("Discovery FX")]
     [SerializeField] private float ldCenterScale = 2.0f;
-    [SerializeField] private float ldCenterScaleFinalMul = 2.0f; // 25는 2배 더 → 총 4배
+    [SerializeField] private float ldCenterScaleFinalMul = 2.0f;
     [SerializeField] private float ldPopOvershoot = 0.12f;
     [SerializeField] private float ldPopInTime = 0.12f;
     [SerializeField] private float ldHoldTime = 0.15f;
     [SerializeField] private float moveDuration = 0.55f;
     [SerializeField, Range(0f,1f)] private float swapToSDFraction = 0.18f;
 
-    // ── 내부 ──
     private int _lastTierShown = 0;
-
-    // ── SummonPanel 의존: 현재까지 달성한 최고 레벨 ──
     public int CurrentMaxLevel { get; private set; } = 1;
     public event Action<int> OnMaxLevelChanged;
 
-    // ── 수동 소환 버튼/차지 UI 바인딩 ── (남은초 텍스트 없음)
     [Header("Spawn Button UI")]
-    [SerializeField] private Button          spawnButton;      // (선택) 인스펙터 OnClick=OnClickSpawnButton
-    [SerializeField] private Image           chargeFillImage;  // Image Type=Filled (Radial 권장)
+    [SerializeField] private Button          spawnButton;
+    [SerializeField] private Image           chargeFillImage;  // Image Type = Filled
     [SerializeField] private TextMeshProUGUI chargeCountText;  // "cur/max"
-
-    // ─────────────────────────────────────────────────────────────────────
 
     void OnEnable()
     {
@@ -99,17 +60,27 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             tierManager.OnTierChanged  -= OnTierChangedExternal;
             tierManager.OnTierChanged  += OnTierChangedExternal;
         }
+
+        if (spawnButton != null)
+        {
+            spawnButton.onClick.RemoveAllListeners();
+            spawnButton.onClick.AddListener(OnClickSpawnButton);
+        }
     }
 
     void OnDisable()
     {
         if (tierManager != null)
             tierManager.OnTierChanged -= OnTierChangedExternal;
+
+        if (spawnButton != null)
+            spawnButton.onClick.RemoveListener(OnClickSpawnButton);
     }
 
     void Start()
     {
         curSpawnCharge = GetMaxSpawnCharge();
+        chargeTimer = 0f;
         UpdateSpawnButtonUI();
 
         if (tierManager != null)
@@ -123,21 +94,32 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     void Update()
     {
+        int maxCharge = GetMaxSpawnCharge();
+        float interval = GetSpawnChargeInterval();
+
         // ── 수동 차지 충전 ──
-        if (curSpawnCharge < GetMaxSpawnCharge())
+        if (curSpawnCharge < maxCharge)
         {
             chargeTimer += Time.unscaledDeltaTime;
-            if (chargeTimer >= GetSpawnChargeInterval())
+            if (chargeTimer >= interval)
             {
-                chargeTimer -= GetSpawnChargeInterval();
-                curSpawnCharge++;
-                UpdateSpawnButtonUI();
+                // 여러 프레임 초과 누적도 대비
+                while (chargeTimer >= interval && curSpawnCharge < maxCharge)
+                {
+                    chargeTimer -= interval;
+                    curSpawnCharge++;
+                }
             }
         }
+        else
+        {
+            // 최대치면 타이머 고정(표시 1.0 유지)
+            chargeTimer = 0f;
+        }
 
-        // ── 오토 소환 ──
-        float autoS = GetAutoSpawnInterval();
-        if (autoS < float.MaxValue && autoSpawnOn)
+        // ── 자동 소환 ──
+        float autoS = (economy != null) ? economy.GetAutoSpawnInterval() : float.MaxValue;
+        if (autoS < float.MaxValue)
         {
             autoSpawnTimer += Time.unscaledDeltaTime;
             if (autoSpawnTimer >= autoS)
@@ -147,9 +129,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             }
         }
 
-        // ── 오토 합성 ──
-        float autoM = GetAutoMergeInterval();
-        if (autoM < float.MaxValue && autoMergeOn && mergeManager != null)
+        // ── 자동 합성 ──
+        float autoM = (economy != null) ? economy.GetAutoMergeInterval() : float.MaxValue;
+        if (autoM < float.MaxValue && mergeManager != null)
         {
             autoMergeTimer += Time.unscaledDeltaTime;
             if (autoMergeTimer >= autoM)
@@ -158,15 +140,19 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
                 mergeManager.TryAutoMerge();
             }
         }
+
+        // ✅ 매 프레임 UI 갱신해서 fill 애니메이션 보이도록
+        UpdateSpawnButtonUI();
     }
 
-    // ───────────── UI/수동 소환 ─────────────
     public void OnClickSpawnButton()
     {
         if (curSpawnCharge > 0 && girlList.Count < GetMaxFieldCount())
         {
-            curSpawnCharge--;
+            curSpawnCharge = Mathf.Max(0, curSpawnCharge - 1);
             SpawnGirl(1, (Vector3)GetRandomSpawnPos());
+            // 차지 하나 소모했으니 타이머 리셋해서 다음 게이지가 0부터 차오르도록
+            chargeTimer = 0f;
             UpdateSpawnButtonUI();
         }
     }
@@ -175,96 +161,25 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         if (curSpawnCharge > 0 && girlList.Count < GetMaxFieldCount())
         {
-            curSpawnCharge--;
+            curSpawnCharge = Mathf.Max(0, curSpawnCharge - 1);
             SpawnGirl(1, (Vector3)GetRandomSpawnPos());
+            chargeTimer = 0f;
             UpdateSpawnButtonUI();
         }
     }
 
-    // ───────────── 오토소환 API (상점에서 호출) ─────────────
-    public int  GetAutoSpawnLevel() => autoSpawnLevel;
-    public bool IsAutoSpawnOn()     => autoSpawnLevel > 0 && autoSpawnOn;
-
-    public float GetAutoSpawnInterval()
-    {
-        if (autoSpawnLevel <= 0 || !autoSpawnOn) return float.MaxValue;
-        int lv = Mathf.Max(1, autoSpawnLevel);
-        float t = autoSpawnBaseInterval * Mathf.Pow(autoSpawnPerLevelMul, lv - 1);
-        return Mathf.Clamp(t, autoSpawnMinInterval, 999f);
-    }
-
-    public double GetAutoSpawnNextCost()
-    {
-        if (autoSpawnLevel <= 0) return autoSpawnUnlockCost;
-        int nextLv = autoSpawnLevel + 1;
-        return autoSpawnUpgradeBaseCost * Math.Pow(autoSpawnUpgradeGrowth, nextLv - 2);
-    }
-
-    public bool TryBuyAutoSpawn(EconomyManager eco)
-    {
-        if (!eco) return false;
-        double cost = GetAutoSpawnNextCost();
-        if (!eco.SpendGold(cost)) return false;
-
-        if (autoSpawnLevel <= 0) { autoSpawnLevel = 1; autoSpawnOn = true; }
-        else autoSpawnLevel++;
-        return true;
-    }
-    public void SetAutoSpawnOn(bool on) { if (autoSpawnLevel <= 0) return; autoSpawnOn = on; }
-
-    // ───────────── 오토합성 API (상점에서 호출) ─────────────
-    public int  GetAutoMergeLevel() => autoMergeLevel;
-    public bool IsAutoMergeOn()     => autoMergeLevel > 0 && autoMergeOn;
-
-    public float GetAutoMergeInterval()
-    {
-        if (autoMergeLevel <= 0 || !autoMergeOn) return float.MaxValue;
-        int lv = Mathf.Max(1, autoMergeLevel);
-        float t = autoMergeBaseInterval * Mathf.Pow(autoMergePerLevelMul, lv - 1);
-        return Mathf.Clamp(t, autoMergeMinInterval, 999f);
-    }
-
-    public double GetAutoMergeNextCost()
-    {
-        if (autoMergeLevel <= 0) return autoMergeUnlockCost;
-        int nextLv = autoMergeLevel + 1;
-        return autoMergeUpgradeBaseCost * Math.Pow(autoMergeUpgradeGrowth, nextLv - 2);
-    }
-
-    public bool TryBuyAutoMerge(EconomyManager eco)
-    {
-        if (!eco) return false;
-        double cost = GetAutoMergeNextCost();
-        if (!eco.SpendGold(cost)) return false;
-
-        if (autoMergeLevel <= 0) { autoMergeLevel = 1; autoMergeOn = true; }
-        else autoMergeLevel++;
-        return true;
-    }
-    public void SetAutoMergeOn(bool on) { if (autoMergeLevel <= 0) return; autoMergeOn = on; }
-
-    // ───────────── 생성/발견/티어 ─────────────
     public void SpawnTestGirls()
     {
         for (int level = 1; level <= TierRules.MaxLevel; level++)
             SpawnGirl(level, (Vector3)GetRandomSpawnPos());
     }
-
     public void ManualSpawnGirl(int level, Vector3 pos) => SpawnGirl(level, pos);
 
-    // 25 획득: 최초 1회만 생성, 그 이후엔 기존 25의 Level 증가
     public void AcquireLevel25()
     {
         var exist = GetFinalGirl();
-        if (exist != null)
-        {
-            exist.IncrementFinalLevel();   // Level++
-            ConfigureLevel25(exist);      // 중앙 고정/화면 채움 유지
-        }
-        else
-        {
-            SpawnGirl(TierRules.MaxLevel, Vector3.zero); // 첫 생성만
-        }
+        if (exist != null) { exist.IncrementFinalLevel(); ConfigureLevel25(exist); }
+        else               { SpawnGirl(TierRules.MaxLevel, Vector3.zero); }
         NotifySpawnedLevel(TierRules.MaxLevel);
     }
 
@@ -273,8 +188,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         for (int i = 0; i < girlList.Count; i++)
         {
             var g = girlList[i];
-            if (g != null && g.Level >= TierRules.MaxLevel)
-                return g;
+            if (g != null && g.Level >= TierRules.MaxLevel) return g;
         }
         return null;
     }
@@ -302,8 +216,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         var go = SimpleUIPool.Instance.Get(girlRoot);
         var rect = go.transform as RectTransform;
-        if (rect != null) rect.localPosition = pos;
-        else go.transform.localPosition = pos;
+        if (rect != null) rect.localPosition = pos; else go.transform.localPosition = pos;
 
         var girl = go.GetComponent<GirlCharacter>();
         girl.enabled = true;
@@ -314,9 +227,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         girlFieldAdd(girl);
 
-        if (level >= TierRules.MaxLevel)
-            ConfigureLevel25(girl);
-
+        if (level >= TierRules.MaxLevel) ConfigureLevel25(girl);
         ApplyVisibilityFor(girl);
 
         if (isFirstDiscover && spriteLoader != null)
@@ -324,10 +235,8 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             discoveredLevels.Add(level);
             Vector3 finalPos = rect != null ? rect.localPosition : go.transform.localPosition;
 
-            if (!spriteLoader.IsLoadedLD)
-                StartCoroutine(EnsureLDAndPlayDiscovery(girl, data, finalPos));
-            else
-                StartCoroutine(PlayDiscoveryOnce(girl, data, finalPos));
+            if (!spriteLoader.IsLoadedLD) StartCoroutine(EnsureLDAndPlayDiscovery(girl, data, finalPos));
+            else                           StartCoroutine(PlayDiscoveryOnce(girl, data, finalPos));
         }
 
         NotifySpawnedLevel(level);
@@ -344,9 +253,8 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     public void NotifySpawnedLevel(int level)
     {
         UpdateMaxLevel(level);
-
-        if (level >= 9)
-            tierManager?.TryUnlockByLevel(level);
+        if (level >= 9 && tierManager != null)
+            tierManager.TryUnlockByLevel(level);
     }
 
     private void UpdateMaxLevel(int achievedLevel)
@@ -363,7 +271,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         int maxLv = 1;
         for (int i = 0; i < girlList.Count; i++)
         {
-            if (!girlList[i]) continue;
+            if (girlList[i] == null) continue;
             if (girlList[i].Level > maxLv) maxLv = girlList[i].Level;
         }
         if (maxLv != CurrentMaxLevel)
@@ -458,31 +366,27 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     private float GetSpawnChargeInterval() => economy != null ? economy.GetManualSpawnInterval() : 10f;
     private int GetMaxFieldCount()         => economy != null ? economy.GetMaxFieldCount() : 8;
 
-    // ▼ 수동 소환 버튼/차지 UI 갱신
     private void UpdateSpawnButtonUI()
     {
         int max = GetMaxSpawnCharge();
         curSpawnCharge = Mathf.Clamp(curSpawnCharge, 0, max);
 
-        if (chargeCountText)
-            chargeCountText.text = $"{curSpawnCharge}/{max}";
+        if (chargeCountText != null) chargeCountText.text = $"{curSpawnCharge}/{max}";
 
         float interval = Mathf.Max(0.0001f, GetSpawnChargeInterval());
         float fill = (curSpawnCharge >= max) ? 1f : Mathf.Clamp01(chargeTimer / interval);
-        if (chargeFillImage)
-            chargeFillImage.fillAmount = fill;
+        if (chargeFillImage != null) chargeFillImage.fillAmount = fill;
 
-        if (spawnButton)
+        if (spawnButton != null)
             spawnButton.interactable = (curSpawnCharge > 0) && (girlList.Count < GetMaxFieldCount());
     }
 
-    // ── 티어 토글/표시 ──
     private void ToggleTwoTiers(int prevTier, int targetTier)
     {
         for (int i = 0; i < girlList.Count; i++)
         {
             var g = girlList[i];
-            if (!g) continue;
+            if (g == null) continue;
 
             int itemTier = TierRules.TierIndexFromLevel(g.Level);
 
@@ -496,7 +400,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         for (int i = 0; i < girlList.Count; i++)
         {
             var g = girlList[i];
-            if (!g) continue;
+            if (g == null) continue;
 
             int itemTier = TierRules.TierIndexFromLevel(g.Level);
             if (itemTier == tierIndex) ShowGirl(g);
@@ -506,7 +410,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private void ApplyVisibilityFor(GirlCharacter girl)
     {
-        if (!tierManager || !girl) return;
+        if (tierManager == null || girl == null) return;
         int itemTier = TierRules.TierIndexFromLevel(girl.Level);
         if (itemTier == tierManager.CurrentTierIndex) ShowGirl(girl);
         else HideGirl(girl);
@@ -514,17 +418,17 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private void ShowGirl(GirlCharacter g)
     {
-        if (!g) return;
+        if (g == null) return;
         g.gameObject.SetActive(true);
-        if (activeParent && g.transform.parent != activeParent)
+        if (activeParent != null && g.transform.parent != activeParent)
             g.transform.SetParent(activeParent, true);
     }
 
     private void HideGirl(GirlCharacter g)
     {
-        if (!g) return;
+        if (g == null) return;
         g.gameObject.SetActive(false);
-        if (hiddenParent && g.transform.parent != hiddenParent)
+        if (hiddenParent != null && g.transform.parent != hiddenParent)
             g.transform.SetParent(hiddenParent, true);
     }
 
@@ -537,7 +441,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     // ───── ISaveable ─────
     public void CollectSaveData(SaveData data)
     {
-        // 발견 마스크
         int mask = 0;
         foreach (var lv in discoveredLevels)
         {
@@ -546,7 +449,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
         data.discoveredMask = mask;
 
-        // 필드 캐릭터 레벨 목록
         girlList.RemoveAll(g => g == null);
         data.girls.Clear();
         for (int i = 0; i < girlList.Count; i++)
@@ -554,12 +456,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             var g = girlList[i];
             data.girls.Add(new GirlSaveInfo(g.Level));
         }
-
-        // 자동화 상태 저장
-        data.autoSpawnUpgrade = Mathf.Max(0, autoSpawnLevel);
-        data.autoSpawnOn      = autoSpawnOn;
-        data.autoMergeUpgrade = Mathf.Max(0, autoMergeLevel);
-        data.autoMergeOn      = autoMergeOn;
     }
 
     public void ApplyLoadedData(SaveData data)
@@ -570,7 +466,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private IEnumerator RestoreWhenReady(SaveData data)
     {
-        // 에셋 준비 대기
         if (GameSystem.Instance != null && !GameSystem.Instance.AssetsReady)
         {
             bool ready = false;
@@ -609,12 +504,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         var snapshot = new List<GirlCharacter>(girlList);
         foreach (var g in snapshot)
         {
-            if (!g) continue;
+            if (g == null) continue;
             RemoveGirl(g);
         }
         girlList.Clear();
 
-        // 필드 복원
+        // 복원
         _isRestoring = true;
         if (data.girls != null)
         {
@@ -627,13 +522,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             }
         }
         _isRestoring = false;
-
-        // 자동화 상태 복원
-        autoSpawnLevel = Mathf.Max(0, data.autoSpawnUpgrade);
-        autoSpawnOn    = data.autoSpawnOn && autoSpawnLevel > 0;
-
-        autoMergeLevel = Mathf.Max(0, data.autoMergeUpgrade);
-        autoMergeOn    = data.autoMergeOn && autoMergeLevel > 0;
 
         if (tierManager != null)
         {

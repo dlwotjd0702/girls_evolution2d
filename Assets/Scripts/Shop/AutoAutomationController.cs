@@ -13,9 +13,9 @@ public class AutoAutomationController : MonoBehaviour
     public EconomyManager economy;
 
     [Header("Texts (TMP)")]
-    public TextMeshProUGUI levelText;   // "잠김" / "Lv.X"
-    public TextMeshProUGUI valueText;   // 쿨타임 "0.0s" 또는 "-"
-    public TextMeshProUGUI costText;    // 다음 비용(구매/강화). MAX면 "-"
+    public TextMeshProUGUI combinedLabel; // "오토 합성 • 3.2s" / "오토 소환 • 잠김"
+    public TextMeshProUGUI levelText;     // "Lv. x / y"
+    public TextMeshProUGUI costText;      // 다음 비용(N0), MAX면 "-"
 
     [Header("Buy/Upgrade (Icon Only)")]
     public Button buyOrUpgradeButton;
@@ -25,15 +25,15 @@ public class AutoAutomationController : MonoBehaviour
     public Sprite maxIconSprite;      // Cap
 
     [Header("Toggle (Single Button + Icon)")]
-    public Button toggleButton;           // 하나의 온/오프 토글 버튼
-    public Image  toggleIconTarget;       // 토글 아이콘이 바뀜
-    public Sprite toggleOnSprite;         // 켜진 상태 아이콘
-    public Sprite toggleOffSprite;        // 꺼진 상태 아이콘
+    public Button toggleButton;       // 한 개 버튼으로 온/오프
+    public Image  toggleIconTarget;   // 온/오프 이미지 교체
+    public Sprite toggleOnSprite;
+    public Sprite toggleOffSprite;
 
-    [Header("Reason Label")]
+    [Header("Reason Label)")]
     public TextMeshProUGUI reasonLabel;
     public float reasonShowSeconds = 1.15f;
-    private Coroutine _reasonRoutine;
+    Coroutine _reasonRoutine;
 
     void Awake()
     {
@@ -47,23 +47,21 @@ public class AutoAutomationController : MonoBehaviour
 
     void OnEnable()
     {
-        if (economy != null)
+        if (economy!=null)
         {
             economy.OnGoldChanged    += HandleGoldChanged;
             economy.OnUpgradeChanged += HandleUpgradeChanged;
         }
         Refresh();
     }
-
     void OnDisable()
     {
-        if (economy != null)
+        if (economy!=null)
         {
             economy.OnGoldChanged    -= HandleGoldChanged;
             economy.OnUpgradeChanged -= HandleUpgradeChanged;
         }
     }
-
     void HandleGoldChanged(double _) => Refresh();
     void HandleUpgradeChanged() => Refresh();
 
@@ -78,18 +76,25 @@ public class AutoAutomationController : MonoBehaviour
         bool on  = (type==AutoType.AutoMerge) ? economy.IsAutoMergeOn()
                                               : economy.IsAutoSpawnOn();
 
-        // 레벨/쿨타임/비용
-        if (levelText) levelText.text = (lv<=0) ? "잠김" : $"Lv.{lv}";
+        // 통합 라벨
+        string title = (type==AutoType.AutoMerge) ? "오토 합성" : "오토 소환";
+        string value;
+        if (lv <= 0) value = "잠김";
+        else
+        {
+            float iv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeInterval()
+                                                  : economy.GetAutoSpawnInterval();
+            value = (iv >= float.MaxValue*0.5f) ? "-" : $"{iv:0.0}s";
+        }
+        if (combinedLabel) combinedLabel.text = $"{title}  •  {value}";
 
-        float iv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeInterval()
-                                              : economy.GetAutoSpawnInterval();
-        if (valueText) valueText.text = (iv >= float.MaxValue*0.5f) ? "-" : $"{iv:0.0}s";
-
+        // 레벨/코스트
+        if (levelText) levelText.text = FormatLvCap(lv, cap);
         double nextCost = (type==AutoType.AutoMerge) ? economy.GetAutoMergeNextCost()
                                                      : economy.GetAutoSpawnNextCost();
         if (costText) costText.text = double.IsInfinity(nextCost) ? "-" : $"{nextCost:N0}";
 
-        // 구매/강화 버튼 아이콘 & 상호작용
+        // 아이콘 & 상호작용
         if (buyIconTarget)
         {
             if      (lv <= 0)        buyIconTarget.sprite = buyIconSprite;
@@ -98,9 +103,8 @@ public class AutoAutomationController : MonoBehaviour
         }
         if (buyOrUpgradeButton) buyOrUpgradeButton.interactable = (lv < cap);
 
-        // 토글 버튼 (Lv>=1에서만 보임) & 아이콘
-        if (toggleButton) toggleButton.gameObject.SetActive(lv > 0);
-        if (toggleIconTarget) toggleIconTarget.sprite = on ? toggleOnSprite : toggleOffSprite;
+        if (toggleButton)      toggleButton.gameObject.SetActive(lv > 0);
+        if (toggleIconTarget)  toggleIconTarget.sprite = on ? toggleOnSprite : toggleOffSprite;
     }
 
     void OnClickBuyOrUpgrade()
@@ -133,8 +137,8 @@ public class AutoAutomationController : MonoBehaviour
     {
         if (!economy) { ShowReason("시스템 미준비"); return; }
 
-        int  lv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeUpgradeLevel()
-                                             : economy.GetAutoSpawnUpgradeLevel();
+        int lv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeUpgradeLevel()
+                                            : economy.GetAutoSpawnUpgradeLevel();
         if (lv <= 0) { ShowReason("먼저 구매로 언락하세요."); return; }
 
         bool on = (type==AutoType.AutoMerge) ? economy.IsAutoMergeOn()
@@ -147,6 +151,14 @@ public class AutoAutomationController : MonoBehaviour
         Refresh();
     }
 
+    // "Lv. 현재 / 최대" 포맷
+    string FormatLvCap(int lv, int cap)
+    {
+        if (cap <= 0) return $"Lv. {lv}";
+        lv = Mathf.Clamp(lv, 0, cap);
+        return $"Lv. {lv} / {cap}";
+    }
+
     // Reason helpers
     void ShowReason(string msg)
     {
@@ -156,16 +168,6 @@ public class AutoAutomationController : MonoBehaviour
         reasonLabel.gameObject.SetActive(true);
         _reasonRoutine = StartCoroutine(HideAfter(reasonShowSeconds));
     }
-    System.Collections.IEnumerator HideAfter(float sec)
-    {
-        yield return new WaitForSecondsRealtime(sec);
-        HideReason();
-    }
-    void HideReason()
-    {
-        if (!reasonLabel) return;
-        if (_reasonRoutine != null) { StopCoroutine(_reasonRoutine); _reasonRoutine = null; }
-        reasonLabel.text = "";
-        reasonLabel.gameObject.SetActive(false);
-    }
+    System.Collections.IEnumerator HideAfter(float sec){ yield return new WaitForSecondsRealtime(sec); HideReason(); }
+    void HideReason(){ if(!reasonLabel) return; if(_reasonRoutine!=null){ StopCoroutine(_reasonRoutine); _reasonRoutine=null; } reasonLabel.text=""; reasonLabel.gameObject.SetActive(false); }
 }

@@ -22,15 +22,15 @@ public class ShopPanelController : MonoBehaviour
         public ShopItemType type;
 
         [Header("Texts (TMP)")]
-        public TextMeshProUGUI levelText;  // "Lv.X"
-        public TextMeshProUGUI valueText;  // 현재 스탯
-        public TextMeshProUGUI costText;   // 비용 (추가)
+        public TextMeshProUGUI combinedLabel; // 타이틀+밸류 통합
+        public TextMeshProUGUI levelText;     // "Lv. x / y"
+        public TextMeshProUGUI costText;      // 다음 비용(N0), MAX면 "-"
 
         [Header("Upgrade (Icon Only)")]
-        public Button buyOrUpgradeButton;
+        public Button buyOrUpgradeButton; // 텍스트 없이 이미지 아이콘만
         public Image  iconTarget;
         public Sprite upgradeIconSprite;
-        public Sprite maxIconSprite;     // MAX일 때 아이콘
+        public Sprite maxIconSprite;      // MAX 도달 시
     }
 
     [Header("Refs")]
@@ -47,9 +47,13 @@ public class ShopPanelController : MonoBehaviour
     void Awake()
     {
         if (economy == null) economy = FindObjectOfType<EconomyManager>();
+
         foreach (var e in entries)
-            if (e.buyOrUpgradeButton != null)
-                e.buyOrUpgradeButton.onClick.AddListener(() => OnClickUpgrade(e));
+        {
+            var entry = e; // 클로저 캡처 안전
+            if (entry.buyOrUpgradeButton != null)
+                entry.buyOrUpgradeButton.onClick.AddListener(() => OnClickUpgrade(entry));
+        }
 
         if (reasonLabel != null) reasonLabel.gameObject.SetActive(false);
     }
@@ -72,28 +76,29 @@ public class ShopPanelController : MonoBehaviour
         }
         HideReasonImmediate();
     }
-    void HandleGoldChanged(double _) => RefreshAll();
-    void HandleUpgradeChanged() => RefreshAll();
 
-    // ── 클릭: 전부 "강화"만 ──
+    void HandleGoldChanged(double _) => RefreshAll();
+    void HandleUpgradeChanged()       => RefreshAll();
+
+    // 클릭: 전부 "강화"만
     void OnClickUpgrade(EntryUI e)
     {
         if (economy == null) { ShowReasonTemp("시스템 미준비"); return; }
 
-        int lv = GetLevel(e.type);
+        int lv  = GetLevel(e.type);
         int cap = GetCap(e.type);
         if (lv >= cap) { ShowReasonTemp("최대 레벨입니다."); return; }
 
         bool ok = false;
-        double need = GetNextCost(e.type); // 표시용/검증용
+        double need = GetNextCost(e.type);
 
         switch (e.type)
         {
-            case ShopItemType.ManualSpawnMax:   ok = economy.TryBuySpawnMaxUpgrade();     break;
-            case ShopItemType.ManualSpawnSpeed: ok = economy.TryBuySpawnSpeedUpgrade();   break;
-            case ShopItemType.FieldMax:         ok = economy.TryBuyFieldMaxUpgrade();     break;
-            case ShopItemType.ClickBonus:       ok = economy.TryBuyClickBonusUpgrade();   break;
-            case ShopItemType.OfflineReward:    ok = economy.TryBuyOfflineRewardUpgrade();break;
+            case ShopItemType.ManualSpawnMax:   ok = economy.TryBuySpawnMaxUpgrade();       break;
+            case ShopItemType.ManualSpawnSpeed: ok = economy.TryBuySpawnSpeedUpgrade();     break;
+            case ShopItemType.FieldMax:         ok = economy.TryBuyFieldMaxUpgrade();       break;
+            case ShopItemType.ClickBonus:       ok = economy.TryBuyClickBonusUpgrade();     break;
+            case ShopItemType.OfflineReward:    ok = economy.TryBuyOfflineRewardUpgrade();  break;
             case ShopItemType.OfflineMaxTime:   ok = economy.TryBuyOfflineMaxTimeUpgrade(); break;
         }
 
@@ -108,7 +113,7 @@ public class ShopPanelController : MonoBehaviour
         HideReasonImmediate();
     }
 
-    // ── 갱신 ──
+    // ─── 갱신 ───
     public void RefreshAll()
     {
         foreach (var e in entries) RefreshEntry(e);
@@ -118,35 +123,48 @@ public class ShopPanelController : MonoBehaviour
     {
         if (economy == null || e == null) return;
 
-        int lv  = GetLevel(e.type);
-        int cap = GetCap(e.type);
+        int  lv    = GetLevel(e.type);
+        int  cap   = GetCap(e.type);
         bool isMax = (lv >= cap);
         double nextCost = GetNextCost(e.type);
 
-        if (e.levelText != null) e.levelText.text = $"Lv.{lv}";
-        if (e.valueText != null) e.valueText.text = GetDisplayValue(e.type);
-        if (e.costText  != null) e.costText.text  = double.IsInfinity(nextCost) ? "-" : $"{nextCost:N0}";
+        if (e.combinedLabel != null) e.combinedLabel.text = ComposeCombined(e.type);
+        if (e.levelText     != null) e.levelText.text     = FormatLvCap(lv, cap);
+        if (e.costText      != null) e.costText.text      = double.IsInfinity(nextCost) ? "-" : $"{nextCost:N0}";
 
         if (e.iconTarget != null)
             e.iconTarget.sprite = isMax ? e.maxIconSprite : e.upgradeIconSprite;
 
         if (e.buyOrUpgradeButton != null)
-            e.buyOrUpgradeButton.interactable = !isMax; // 골드 부족이어도 비활성화 X, "MAX"일 때만 비활성
+            e.buyOrUpgradeButton.interactable = !isMax; // MAX에서만 비활성
     }
 
-    // 값 표기(스탯만)
-    string GetDisplayValue(ShopItemType t)
+    // 통합 라벨: "타이틀  •  밸류"
+    string ComposeCombined(ShopItemType t)
     {
-        switch (t)
+        string title = t switch
         {
-            case ShopItemType.ManualSpawnMax:   return $"최대 {economy.GetMaxManualSpawnCount()}칸";
-            case ShopItemType.ManualSpawnSpeed: return $"쿨 {economy.GetManualSpawnInterval():0.0}s";
-            case ShopItemType.FieldMax:         return $"필드 {economy.GetMaxFieldCount()}칸";
-            case ShopItemType.ClickBonus:       return $"클릭 x{economy.GetClickBonusMultiplier():0.0}";
-            case ShopItemType.OfflineReward:    return $"오프라인 x{economy.GetOfflineRewardMultiplier():0.00}";
-            case ShopItemType.OfflineMaxTime:   return $"상한 {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h";
-        }
-        return "-";
+            ShopItemType.ManualSpawnMax   => "수동 소환 최대치",
+            ShopItemType.ManualSpawnSpeed => "수동 소환 쿨다운",
+            ShopItemType.FieldMax         => "필드 최대 슬롯",
+            ShopItemType.ClickBonus       => "클릭 보너스",
+            ShopItemType.OfflineReward    => "오프라인 보상 배율",
+            ShopItemType.OfflineMaxTime   => "오프라인 최대 시간",
+            _ => "업그레이드"
+        };
+
+        string value = t switch
+        {
+            ShopItemType.ManualSpawnMax   => $"최대 {economy.GetMaxManualSpawnCount()}칸",
+            ShopItemType.ManualSpawnSpeed => $"쿨 {economy.GetManualSpawnInterval():0.0}s",
+            ShopItemType.FieldMax         => $"필드 {economy.GetMaxFieldCount()}칸",
+            ShopItemType.ClickBonus       => $"클릭 x{economy.GetClickBonusMultiplier():0.0}",
+            ShopItemType.OfflineReward    => $"오프라인 x{economy.GetOfflineRewardMultiplier():0.00}",
+            ShopItemType.OfflineMaxTime   => $"상한 {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h",
+            _ => "-"
+        };
+
+        return $"{title}  •  {value}";
     }
 
     // 레벨/캡/코스트
@@ -180,6 +198,14 @@ public class ShopPanelController : MonoBehaviour
         ShopItemType.OfflineMaxTime   => economy.GetOfflineMaxTimeUpgradeCost(economy.GetOfflineMaxTimeUpgradeLevel()),
         _ => double.PositiveInfinity
     };
+
+    // "Lv. 현재 / 최대" 포맷
+    string FormatLvCap(int lv, int cap)
+    {
+        if (cap <= 0) return $"Lv. {lv}";
+        lv = Mathf.Clamp(lv, 0, cap);
+        return $"Lv. {lv} / {cap}";
+    }
 
     // Reason helpers
     void ShowReasonTemp(string msg)

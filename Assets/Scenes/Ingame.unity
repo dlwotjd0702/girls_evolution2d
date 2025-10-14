@@ -2356,6 +2356,7 @@ MonoBehaviour:
   outEndScale: 0.1
   riseY: 160
   nextStartYOffset: -40
+  fieldRoot: {fileID: 1678820776}
   syncOnEnable: 1
 --- !u!1 &628066439
 GameObject:
@@ -5471,6 +5472,7 @@ MonoBehaviour:
   tierManager: {fileID: 566766857}
   activeParent: {fileID: 1678820776}
   hiddenParent: {fileID: 1697064514}
+  reparentForVisibility: 0
   curSpawnCharge: 0
   ldCenterScale: 2
   ldCenterScaleFinalMul: 2

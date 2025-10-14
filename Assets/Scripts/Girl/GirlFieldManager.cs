@@ -22,6 +22,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private Transform activeParent;
     [SerializeField] private Transform hiddenParent;
 
+    [Header("Visibility")]
+    [Tooltip("가시성 전환 시 계층 정리를 위해 부모를 바꿀지 여부(기본: 비활성). On이면 월드 좌표/스케일 안전 복원 처리함.")]
+    [SerializeField] private bool reparentForVisibility = false;
+
     private readonly HashSet<int> discoveredLevels = new HashSet<int>();
     private bool _isRestoring = false;
     private Coroutine _restoreRoutine;
@@ -103,18 +107,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             chargeTimer += Time.unscaledDeltaTime;
             if (chargeTimer >= interval)
             {
-                // 여러 프레임 초과 누적도 대비
                 while (chargeTimer >= interval && curSpawnCharge < maxCharge)
                 {
-                    chargeTimer -= interval;   // ✅ 다음 차지를 위한 "잔여 진행도" 유지
+                    chargeTimer -= interval;   // 잔여 진행도 유지
                     curSpawnCharge++;
                 }
             }
-        }
-        else
-        {
-            // ✅ 최대치에서는 더 이상 타이머를 0으로 초기화하지 않음
-            // (UI는 cur==max일 때 fill=1로 강제 표시하므로, 잔여값 보존해도 표시상 문제 없음)
         }
 
         // ── 자동 소환 ──
@@ -141,7 +139,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             }
         }
 
-        // ✅ 매 프레임 UI 갱신해서 fill 애니메이션 보이도록
+        // UI 갱신
         UpdateSpawnButtonUI();
     }
 
@@ -151,8 +149,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         {
             curSpawnCharge = Mathf.Max(0, curSpawnCharge - 1);
             SpawnGirl(1, (Vector3)GetRandomSpawnPos());
-            // ❌ chargeTimer 리셋 금지: 부분 진행도 유지해야 fill이 초기화처럼 보이지 않음
-            // chargeTimer = 0f;
             UpdateSpawnButtonUI();
         }
     }
@@ -163,8 +159,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         {
             curSpawnCharge = Mathf.Max(0, curSpawnCharge - 1);
             SpawnGirl(1, (Vector3)GetRandomSpawnPos());
-            // ❌ 리셋 금지
-            // chargeTimer = 0f;
             UpdateSpawnButtonUI();
         }
     }
@@ -217,6 +211,11 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         var go = SimpleUIPool.Instance.Get(girlRoot);
         var rect = go.transform as RectTransform;
+
+        // ⬇⬇ 풀에서 나올 때 스케일/회전 초기화 (부모 스케일 애니메이션 영향 최소화)
+        go.transform.localScale = Vector3.one;
+        go.transform.localRotation = Quaternion.identity;
+
         if (rect != null) rect.localPosition = pos; else go.transform.localPosition = pos;
 
         var girl = go.GetComponent<GirlCharacter>();
@@ -391,6 +390,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
             int itemTier = TierRules.TierIndexFromLevel(g.Level);
 
+            // 가시성만 토글 (기본), 필요 시 안전 리페어런팅
             if (itemTier == prevTier) HideGirl(g);
             else if (itemTier == targetTier) ShowGirl(g);
         }
@@ -419,18 +419,39 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private void ShowGirl(GirlCharacter g)
     {
-        if (g == null) return;
+        if (!g) return;
         g.gameObject.SetActive(true);
-        if (activeParent != null && g.transform.parent != activeParent)
-            g.transform.SetParent(activeParent, true);
+
+        if (reparentForVisibility && activeParent && g.transform.parent != activeParent)
+        {
+            // 안전 리페어런팅: 부모 스케일 애니메이션 영향 차단
+            var t = g.transform;
+            var worldPos = t.position;
+            var worldRot = t.rotation;
+
+            t.SetParent(activeParent, false); // 부모 기준 스케일 채택
+            t.position = worldPos;            // 월드 좌표 복원
+            t.rotation = worldRot;
+            t.localScale = Vector3.one;       // 로컬 스케일 정규화
+        }
     }
 
     private void HideGirl(GirlCharacter g)
     {
-        if (g == null) return;
+        if (!g) return;
         g.gameObject.SetActive(false);
-        if (hiddenParent != null && g.transform.parent != hiddenParent)
-            g.transform.SetParent(hiddenParent, true);
+
+        if (reparentForVisibility && hiddenParent && g.transform.parent != hiddenParent)
+        {
+            var t = g.transform;
+            var worldPos = t.position;
+            var worldRot = t.rotation;
+
+            t.SetParent(hiddenParent, false);
+            t.position = worldPos;
+            t.rotation = worldRot;
+            t.localScale = Vector3.one;
+        }
     }
 
     private void OnTierChangedExternal(int newTier)

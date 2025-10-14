@@ -47,6 +47,12 @@ public class TierManager : MonoBehaviour, ISaveable
     [Tooltip("다음층이 아래에서 약간 올라오게 할 오프셋(px, 음수 권장)")]
     [SerializeField] private float nextStartYOffset = -40f;
 
+    // ───────────── 필드 스케일 동기화 (Transform) ─────────────
+    [Header("Field Root (Scale Sync)")]
+    [Tooltip("배경 전환과 함께 스케일만 동기화할 Transform (UI/비-UI 모두 OK)")]
+    [SerializeField] private Transform fieldRoot;
+    private Vector3 _fieldOrigScale = Vector3.one;
+
     [Header("Init")]
     [SerializeField] private bool syncOnEnable = true;
 
@@ -65,6 +71,7 @@ public class TierManager : MonoBehaviour, ISaveable
     void Awake()
     {
         if (ascendIcon) ascendIcon.preserveAspect = true;
+        if (fieldRoot) _fieldOrigScale = fieldRoot.localScale;
     }
 
     void OnEnable()
@@ -131,6 +138,13 @@ public class TierManager : MonoBehaviour, ISaveable
 
         bgA.sprite = s; bgA.color = Color.white;
         bgB.sprite = s; bgB.color = new Color(1,1,1,0);
+
+        // 필드 루트는 앵커/피벗/포지션 건드리지 않음 — 스케일만 원복
+        if (fieldRoot)
+        {
+            fieldRoot.DOKill();
+            _fieldOrigScale = fieldRoot.localScale; // 현재 것을 '원래값'으로 간주
+        }
     }
 
     void PlayBGTo(int toTier)
@@ -164,13 +178,24 @@ public class TierManager : MonoBehaviour, ISaveable
 
         seq = DOTween.Sequence().SetAutoKill(true).SetUpdate(unscaledTime);
 
+        // BG: 현재층 아웃
         seq.Join(cur.rectTransform.DOScale(outEndScale, duration).SetEase(ease));
         seq.Join(cur.rectTransform.DOAnchorPosY(riseY, duration).SetEase(ease));
         seq.Join(cur.DOFade(0f, duration).SetEase(ease));
 
+        // BG: 다음층 인
         seq.Join(nxt.rectTransform.DOScale(1f, duration).SetEase(ease));
         seq.Join(nxt.rectTransform.DOAnchorPosY(0f, duration).SetEase(ease));
         seq.Join(nxt.DOFade(1f, duration).SetEase(ease));
+
+        // FIELD: 스케일만 동기화 (앵커/포지션 불변)
+        if (fieldRoot)
+        {
+            fieldRoot.DOKill();
+            var startScale = _fieldOrigScale * inStartScale; // 원래 스케일 기준으로 확대 시작
+            fieldRoot.localScale = startScale;
+            seq.Join(fieldRoot.DOScale(_fieldOrigScale, duration).SetEase(ease));
+        }
 
         seq.SetLink(gameObject);
 
@@ -180,6 +205,9 @@ public class TierManager : MonoBehaviour, ISaveable
             nxt.color = Color.white;
             nxt.rectTransform.localScale = Vector3.one;
             nxt.rectTransform.anchoredPosition = Vector2.zero;
+
+            // 필드 스케일 원복(안전)
+            if (fieldRoot) fieldRoot.localScale = _fieldOrigScale;
 
             useA = !useA;
             lastTier = toTier;
@@ -295,7 +323,7 @@ public class TierManager : MonoBehaviour, ISaveable
 }
 
 // ─────────────────────────────
-// 규칙 테이블 (다른 코드에서 참조하므로 유지)
+// 규칙 테이블
 // ─────────────────────────────
 public static class TierRules
 {

@@ -15,10 +15,7 @@ public class SummonPanelController : MonoBehaviour
     [Header("UI")]
     [SerializeField] private RectTransform   content;       // ScrollView Content
     [SerializeField] private GameObject      cellPrefab;    // SummonCell 프리팹(GameObject)
-    [SerializeField] private TextMeshProUGUI reasonLabel;   // 공용 사유 라벨(캔버스)
-
-    [Header("Cost Base")]
-    [SerializeField] private double baseCost = 10; // 레벨1 기준 기본가
+    [SerializeField] private TextMeshProUGUI reasonLabel;   // 공용 사유 라벨
 
     [Header("Refresh")]
     [SerializeField] private float interactableRefreshInterval = 0.25f;
@@ -29,12 +26,10 @@ public class SummonPanelController : MonoBehaviour
     private readonly Dictionary<int, SummonCell> cells = new();
     private float _t;
     private Coroutine _reasonRoutine;
-
     private Action<int> _maxLevelChangedHandler;
 
     void Awake()
     {
-        // 가능하면 자동 DI
         var gs = GameSystem.Instance;
         if (gs != null)
         {
@@ -43,14 +38,12 @@ public class SummonPanelController : MonoBehaviour
             if (spriteLoader == null) spriteLoader = gs.spriteLoader;
             if (economy == null)      economy      = gs.economy;
         }
-
         if (reasonLabel) reasonLabel.gameObject.SetActive(false);
     }
 
     void OnEnable()
     {
         TryBuildIfReady();
-
         if (fieldManager != null)
         {
             _maxLevelChangedHandler = HandleMaxLevelChanged;
@@ -63,7 +56,6 @@ public class SummonPanelController : MonoBehaviour
     {
         if (fieldManager != null && _maxLevelChangedHandler != null)
             fieldManager.OnMaxLevelChanged -= _maxLevelChangedHandler;
-
         HideReasonImmediate();
     }
 
@@ -75,11 +67,11 @@ public class SummonPanelController : MonoBehaviour
         if (_t >= interactableRefreshInterval)
         {
             _t = 0f;
-            RefreshCostsOnly(); // 버튼은 항상 활성 → 비용 라벨만 갱신
+            RefreshCostsOnly();
         }
     }
 
-    void HandleMaxLevelChanged(int newMax) => Rebuild();
+    void HandleMaxLevelChanged(int _){ Rebuild(); }
 
     void TryBuildIfReady()
     {
@@ -89,16 +81,10 @@ public class SummonPanelController : MonoBehaviour
 
     void Rebuild()
     {
-        foreach (Transform child in content)
-            Destroy(child.gameObject);
+        foreach (Transform child in content) Destroy(child.gameObject);
         cells.Clear();
 
-        // ❗ fieldManager가 null이어도 최소 Lv1 셀은 뜨게 한다.
-        int currentMax =
-            fieldManager != null ? Mathf.Max(1, fieldManager.CurrentMaxLevel)
-                                 : 3; // fallback(최소 1레벨 보여주기 위함)
-
-        // “최대레벨-2까지” 보여주되, 최소 1은 보이게
+        int currentMax = fieldManager != null ? Mathf.Max(1, fieldManager.CurrentMaxLevel) : 3;
         int maxSummonable = Mathf.Clamp(currentMax - 2, 1, TierRules.MaxLevel - 2);
 
         for (int level = 1; level <= maxSummonable; level++)
@@ -108,19 +94,14 @@ public class SummonPanelController : MonoBehaviour
 
             var go   = Instantiate(cellPrefab, content);
             var cell = go.GetComponent<SummonCell>();
-            if (!cell)
-            {
-                Debug.LogError("[SummonPanel] SummonCell 컴포넌트가 프리팹에 없습니다.");
-                continue;
-            }
+            if (!cell) { Debug.LogError("[SummonPanel] SummonCell missing."); continue; }
 
-            // (선택) 공용 라벨 주입
             cell.reasonLabel = reasonLabel;
 
-            Sprite icon    = spriteLoader ? spriteLoader.GetSpriteForData(data, preferLD: false) : null;
+            Sprite icon    = spriteLoader ? spriteLoader.GetSpriteForData(data, preferLD:false) : null;
             double curCost = CurrentCost(level);
 
-            int lv = level; // 캡처 안전
+            int lv = level;
             cell.Setup(
                 level: lv,
                 nameText: $"Lv.{data.level}  {data.name}",
@@ -131,21 +112,15 @@ public class SummonPanelController : MonoBehaviour
 
             cells[level] = cell;
         }
-
         HideReasonImmediate();
     }
 
     double CurrentCost(int level)
     {
-        // EconomyManager에 동적 가격(구매 누적) 로직이 있는 경우 사용
-        if (economy != null && economy.TryGetComponent(out EconomyManager e))
-        {
-            // EconomyManager에 GetSummonCost(level, baseCost) 구현돼 있으면 사용
-            var mi = typeof(EconomyManager).GetMethod("GetSummonCost");
-            if (mi != null) return (double)mi.Invoke(e, new object[] { level, baseCost });
-        }
-        // 없으면 레벨 성장만(기본 동작)
-        return baseCost * Math.Pow(1.15, Math.Max(0, level - 1));
+        if (economy != null) return economy.GetSummonCostByMinuteRule(level);
+        // fallback(이상 케이스)
+        double perSec = Math.Pow(2.0, Math.Max(0, level-1));
+        return 60.0 * perSec;
     }
 
     void OnClickSummon(int level)
@@ -160,22 +135,15 @@ public class SummonPanelController : MonoBehaviour
         }
 
         double cost = CurrentCost(level);
-        double gold = (economy != null) ? economy.GetGold() : double.MaxValue;
-
-        if (gold < cost || (economy != null && !economy.SpendGold(cost)))
+        if (economy == null || !economy.SpendGold(cost))
         {
             ShowReasonTemp("골드가 부족합니다.");
             return;
         }
 
-        // 성공: 실제 소환
         fieldManager.ManualSpawnGirl(level, Vector3.zero);
+        economy?.RecordSummonPurchase(level);
 
-        // EconomyManager에 구매 카운트가 있다면 증가 → 다음 가격 상승
-        var miRecord = typeof(EconomyManager).GetMethod("RecordSummonPurchase");
-        if (economy != null && miRecord != null) miRecord.Invoke(economy, new object[] { level });
-
-        // 해당 셀 비용 라벨 즉시 갱신
         if (cells.TryGetValue(level, out var cell) && cell != null)
             cell.UpdateCost(CurrentCost(level));
 
@@ -191,22 +159,9 @@ public class SummonPanelController : MonoBehaviour
         reasonLabel.gameObject.SetActive(true);
         _reasonRoutine = StartCoroutine(HideReasonAfter(reasonShowSeconds));
     }
+    IEnumerator HideReasonAfter(float sec){ yield return new WaitForSecondsRealtime(sec); HideReasonImmediate(); }
+    void HideReasonImmediate(){ if (!reasonLabel) return; if (_reasonRoutine!=null){ StopCoroutine(_reasonRoutine); _reasonRoutine=null; } reasonLabel.text=""; reasonLabel.gameObject.SetActive(false); }
 
-    IEnumerator HideReasonAfter(float sec)
-    {
-        yield return new WaitForSecondsRealtime(sec);
-        HideReasonImmediate();
-    }
-
-    void HideReasonImmediate()
-    {
-        if (!reasonLabel) return;
-        if (_reasonRoutine != null) { StopCoroutine(_reasonRoutine); _reasonRoutine = null; }
-        reasonLabel.text = string.Empty;
-        reasonLabel.gameObject.SetActive(false);
-    }
-
-    // 버튼은 항상 활성 → 주기적으로 가격 라벨만 업데이트
     void RefreshCostsOnly()
     {
         foreach (var kv in cells)

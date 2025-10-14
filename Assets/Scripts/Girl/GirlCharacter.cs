@@ -1,8 +1,8 @@
 // ============================
-// GirlCharacter.cs
+// GirlCharacter.cs  (클릭 연타 스케일 드리프트 가드 적용)
 // - 라스트 이후 "새 개체 생성 X, 레벨만 증가"를 위해 FinalRank 제거
 // - 수익 = 25레벨 기준 income * (1 + (Level-25))
-// - 기본 스케일 3 기준
+// - Pulse()가 연속 호출돼도 스케일이 무한히 커지지 않도록 베이스 스케일에서 시작하도록 수정
 // ============================
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,10 +27,11 @@ public class GirlCharacter : MonoBehaviour,
 
     // UI/이펙트
     private Image imageUI;
-    private Vector3 baseScale;
+    private Vector3 baseScale;       // 방향(Flip) 제외한 기준 스케일의 절대값
     private Color originColor;
     private RectTransform rectT;
     private Tween jumpTween;
+    private Tween pulseTween;        // ⬅ Pulse 전용 트윈(연타 가드용)
 
     // 점프/움직임
     private float jumpPower = 120f;
@@ -47,6 +48,11 @@ public class GirlCharacter : MonoBehaviour,
     private int currentDirectionX = 1; // 1(왼쪽), -1(오른쪽)
     private IEnumerator autoRoutine;
 
+    // Pulse 파라미터
+    [SerializeField] private float pulseUpScaleMul = 1.06f;
+    [SerializeField] private float pulseUpTime     = 0.08f;
+    [SerializeField] private float pulseDownTime   = 0.09f;
+
     // ---- 풀 입출(초기화/정리) ----
     public void OnGetFromPool()
     {
@@ -58,7 +64,7 @@ public class GirlCharacter : MonoBehaviour,
 
         // 기본 스케일 3 기준
         transform.localScale = Vector3.one * defaultScale;
-        baseScale = transform.localScale;
+        baseScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
 
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         if (!IsFinal)
@@ -82,6 +88,7 @@ public class GirlCharacter : MonoBehaviour,
         transform.DOKill();
         if (rectT != null) rectT.DOKill();
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
+        if (pulseTween != null && pulseTween.IsActive()) pulseTween.Kill();
     }
 
     void Awake()
@@ -102,7 +109,7 @@ public class GirlCharacter : MonoBehaviour,
 
         // 스케일 3 기준
         transform.localScale = Vector3.one * defaultScale;
-        baseScale = transform.localScale;
+        baseScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
 
         targetPosition = rectT.localPosition;
     }
@@ -156,9 +163,7 @@ public class GirlCharacter : MonoBehaviour,
         targetPosition = new Vector3(newX, newY, rectT.localPosition.z);
 
         currentDirectionX = (dirX > 0 ? -1 : 1); // 오른쪽=-1, 왼쪽=1
-        Vector3 scale = baseScale;
-        scale.x *= currentDirectionX;
-        transform.localScale = scale;
+        transform.localScale = GetDirectionalBaseScale(); // 방향 반영한 기준으로 리셋
 
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
         jumpTween = rectT.DOLocalJump(targetPosition, jumpPower, 1, jumpDuration)
@@ -229,26 +234,38 @@ public class GirlCharacter : MonoBehaviour,
     void BounceAnim()
     {
         if (IsFinal) return; // 25 자동 바운스는 X (클릭만 Pulse)
-        transform.DOKill();
-        Vector3 scaled = baseScale * 1.22f;
-        scaled.x *= currentDirectionX;
+
+        // 바운스 시작 전에 Pulse 트윈만 종료(이동/점프는 유지)
+        if (pulseTween != null && pulseTween.IsActive()) pulseTween.Kill();
+
+        // 방향 반영한 기준 스케일에서 시작 → 드리프트 방지
+        transform.localScale = GetDirectionalBaseScale();
+
+        Vector3 scaled = transform.localScale * 1.22f;
         transform.DOScale(scaled, 0.11f).SetEase(Ease.OutQuad)
                  .OnComplete(() =>
                  {
-                     Vector3 baseDir = baseScale;
-                     baseDir.x *= currentDirectionX;
+                     Vector3 baseDir = GetDirectionalBaseScale();
                      transform.DOScale(baseDir, 0.10f).SetEase(Ease.InQuad);
                  });
     }
 
     public void Pulse()
     {
-        transform.DOKill();
-        var s0 = transform.localScale;
-        var s1 = s0 * 1.06f;
-        Sequence seq = DOTween.Sequence();
-        seq.Append(transform.DOScale(s1, 0.08f).SetEase(Ease.OutCubic));
-        seq.Append(transform.DOScale(s0, 0.09f).SetEase(Ease.InCubic));
+        // 이동/점프 트윈은 유지, Pulse 트윈만 관리
+        if (pulseTween != null && pulseTween.IsActive()) pulseTween.Kill();
+
+        // ✅ 항상 방향 반영한 "기준 스케일"에서 시작해 드리프트(무한 확대) 차단
+        Vector3 baseS = GetDirectionalBaseScale();
+        transform.localScale = baseS;
+
+        var up   = baseS * pulseUpScaleMul;
+        var down = baseS;
+
+        var seq = DOTween.Sequence();
+        seq.Append(transform.DOScale(up,   pulseUpTime).SetEase(Ease.OutCubic));
+        seq.Append(transform.DOScale(down, pulseDownTime).SetEase(Ease.InCubic));
+        pulseTween = seq;
     }
 
     // 25 모드 진입: 가운데 고정 + 화면 채움
@@ -287,5 +304,15 @@ public class GirlCharacter : MonoBehaviour,
     {
         Level++;
         Pulse();
+    }
+
+    // ─── Helper: 방향(Flip) 반영한 기준 스케일 계산 ───
+    private Vector3 GetDirectionalBaseScale()
+    {
+        // 현재 방향(부호) 기준으로 baseScale(절대값)을 재구성
+        float signX = Mathf.Sign(transform.localScale.x);
+        if (signX == 0f) signX = currentDirectionX >= 0 ? 1f : -1f;
+
+        return new Vector3(baseScale.x * signX, baseScale.y, baseScale.z);
     }
 }

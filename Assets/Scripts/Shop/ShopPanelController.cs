@@ -24,7 +24,7 @@ public class ShopPanelController : MonoBehaviour
         [Header("Texts (TMP)")]
         public TextMeshProUGUI combinedLabel; // ⬅ 이름 전용(타이틀만)
         public TextMeshProUGUI levelText;     // "Lv. x / y"
-        public TextMeshProUGUI costText;      // 다음 비용(N0) + 밸류(합침), MAX면 "-"
+        public TextMeshProUGUI costText;      // MAX: 밸류만 / 그 외: 밸류 + \n + 코스트
 
         [Header("Upgrade (Icon Only)")]
         public Button buyOrUpgradeButton; // 텍스트 없이 이미지 아이콘만
@@ -134,7 +134,7 @@ public class ShopPanelController : MonoBehaviour
         // ⬇ 레벨 라벨: "Lv. 현재 / 최대"
         if (e.levelText != null) e.levelText.text = FormatLvCap(lv, cap);
 
-        // ⬇ 코스트 라벨: "12,345 • 쿨 7.2s" 같은 형태 (MAX면 "-")
+        // ⬇ 코스트 라벨: MAX면 "밸류만", 그 외 "밸류\n코스트"
         if (e.costText != null)
             e.costText.text = ComposeCostWithValue(e.type, nextCost, isMax);
 
@@ -160,6 +160,8 @@ public class ShopPanelController : MonoBehaviour
 
     string ComposeValue(ShopItemType t)
     {
+        if (economy == null) return "-";
+
         switch (t)
         {
             case ShopItemType.ManualSpawnMax:   return $"MAX {economy.GetMaxManualSpawnCount()}개";
@@ -174,9 +176,13 @@ public class ShopPanelController : MonoBehaviour
 
     string ComposeCostWithValue(ShopItemType t, double nextCost, bool isMax)
     {
-        if (isMax || double.IsInfinity(nextCost)) return "-";
         string value = ComposeValue(t);
-        // 코스트만 보이고 밸류는 보조로 붙음
+
+        // ✅ MAX면 밸류만 노출
+        if (isMax || double.IsInfinity(nextCost))
+            return value;
+
+        // ✅ 그 외에는 "밸류\n코스트"
         return $"{value}\n{nextCost:N0}";
     }
 

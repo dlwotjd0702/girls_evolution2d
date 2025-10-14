@@ -19,7 +19,7 @@ public class GameSystem : MonoBehaviour
     public EconomyManager economy;
 
     [Header("UI")]
-    public GameUIManager gameUIManager;
+    
     public SummonPanelController summonPanel; // 선택
 
     public bool AssetsReady { get; private set; } = false;
@@ -55,12 +55,7 @@ public class GameSystem : MonoBehaviour
             if (prestigeManager.topLevel <= 0)             prestigeManager.topLevel = TierRules.MaxLevel;
         }
 
-        // UI
-        if (gameUIManager != null)
-        {
-            if (gameUIManager.economy == null)         gameUIManager.economy = economy;
-            if (gameUIManager.prestigeManager == null) gameUIManager.prestigeManager = prestigeManager;
-        }
+        
     }
 
     private async void Start()

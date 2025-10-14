@@ -23,20 +23,28 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private Transform hiddenParent;
 
     [Header("Visibility")]
-    [Tooltip("가시성 전환 시 계층 정리를 위해 부모를 바꿀지 여부(기본: 비활성). On이면 월드 좌표/스케일 안전 복원 처리함.")]
+    [Tooltip("가시성 전환 시 부모를 바꿔 계층 정리할지 여부. On이면 월드 좌표/스케일 안전 복원.")]
     [SerializeField] private bool reparentForVisibility = false;
 
     private readonly HashSet<int> discoveredLevels = new HashSet<int>();
     private bool _isRestoring = false;
     private Coroutine _restoreRoutine;
 
-    // ── 소환 차지 ──
+    // ── 수동 소환 차지 ──
     public int  curSpawnCharge = 0;
     private float chargeTimer = 0f;
 
     // ── 자동 타이머 ──
     private float autoSpawnTimer = 0f;
     private float autoMergeTimer = 0f;
+
+    // ── Idle 수익 지급 ──
+    [Header("Idle Income")]
+    [SerializeField] private float idleTickSeconds = 1.0f; // 1초 단위 지급
+    private float  idleTimer = 0f;
+    private double lastComputedPerSec = 0.0;
+    private double emaPerSec = 0.0; // Economy에 전달할 추정치
+    [SerializeField] private float emaTimeConstant = 1.5f; // 부드럽게
 
     [Header("Discovery FX")]
     [SerializeField] private float ldCenterScale = 2.0f;
@@ -84,7 +92,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     void Start()
     {
         curSpawnCharge = GetMaxSpawnCharge();
-        chargeTimer = 0f; // 초기 진척도는 0부터
+        chargeTimer = 0f;
         UpdateSpawnButtonUI();
 
         if (tierManager != null)
@@ -98,13 +106,14 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     void Update()
     {
-        int maxCharge = GetMaxSpawnCharge();
-        float interval = GetSpawnChargeInterval();
+        float dt = Time.unscaledDeltaTime;
 
         // ── 수동 차지 충전 ──
+        int   maxCharge = GetMaxSpawnCharge();
+        float interval  = GetSpawnChargeInterval();
         if (curSpawnCharge < maxCharge)
         {
-            chargeTimer += Time.unscaledDeltaTime;
+            chargeTimer += dt;
             if (chargeTimer >= interval)
             {
                 while (chargeTimer >= interval && curSpawnCharge < maxCharge)
@@ -119,7 +128,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         float autoS = (economy != null) ? economy.GetAutoSpawnInterval() : float.MaxValue;
         if (autoS < float.MaxValue)
         {
-            autoSpawnTimer += Time.unscaledDeltaTime;
+            autoSpawnTimer += dt;
             if (autoSpawnTimer >= autoS)
             {
                 autoSpawnTimer -= autoS;
@@ -131,7 +140,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         float autoM = (economy != null) ? economy.GetAutoMergeInterval() : float.MaxValue;
         if (autoM < float.MaxValue && mergeManager != null)
         {
-            autoMergeTimer += Time.unscaledDeltaTime;
+            autoMergeTimer += dt;
             if (autoMergeTimer >= autoM)
             {
                 autoMergeTimer -= autoM;
@@ -139,8 +148,40 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             }
         }
 
-        // UI 갱신
+        // ── Idle 수익 계산(2^ 레벨 규칙 기반) + 1초 단위 지급 ──
+        lastComputedPerSec = ComputeIdleGoldPerSec();
+        idleTimer += dt;
+        if (idleTimer >= idleTickSeconds)
+        {
+            double payout = lastComputedPerSec * idleTickSeconds;
+            if (payout > 0 && economy != null) economy.AddGold(payout);
+            idleTimer -= idleTickSeconds;
+        }
+
+        // EMA로 /s 라벨 부드럽게
+        if (economy != null)
+        {
+            double alpha = 1.0 - Math.Exp(-dt / Mathf.Max(0.0001f, emaTimeConstant));
+            emaPerSec = (1.0 - alpha) * emaPerSec + alpha * lastComputedPerSec;
+            economy.SetGoldPerSecEstimate(emaPerSec);
+        }
+
+        // UI
         UpdateSpawnButtonUI();
+    }
+
+    // 현재 필드에 존재하는 모든 캐릭터의 초당 수익 합산 (2^ 성장)
+    private double ComputeIdleGoldPerSec()
+    {
+        if (economy == null) return 0;
+        double sum = 0;
+        for (int i = 0; i < girlList.Count; i++)
+        {
+            var g = girlList[i];
+            if (!g) continue;
+            sum += economy.GetLevelIncomePerSec(g.Level);
+        }
+        return sum;
     }
 
     public void OnClickSpawnButton()
@@ -212,7 +253,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         var go = SimpleUIPool.Instance.Get(girlRoot);
         var rect = go.transform as RectTransform;
 
-        // ⬇⬇ 풀에서 나올 때 스케일/회전 초기화 (부모 스케일 애니메이션 영향 최소화)
+        // 풀에서 나올 때 초기화(부모 스케일 애니 효과 차단)
         go.transform.localScale = Vector3.one;
         go.transform.localRotation = Quaternion.identity;
 
@@ -390,7 +431,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
             int itemTier = TierRules.TierIndexFromLevel(g.Level);
 
-            // 가시성만 토글 (기본), 필요 시 안전 리페어런팅
             if (itemTier == prevTier) HideGirl(g);
             else if (itemTier == targetTier) ShowGirl(g);
         }
@@ -424,15 +464,14 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         if (reparentForVisibility && activeParent && g.transform.parent != activeParent)
         {
-            // 안전 리페어런팅: 부모 스케일 애니메이션 영향 차단
             var t = g.transform;
             var worldPos = t.position;
             var worldRot = t.rotation;
 
-            t.SetParent(activeParent, false); // 부모 기준 스케일 채택
-            t.position = worldPos;            // 월드 좌표 복원
+            t.SetParent(activeParent, false);
+            t.position = worldPos;
             t.rotation = worldRot;
-            t.localScale = Vector3.one;       // 로컬 스케일 정규화
+            t.localScale = Vector3.one;
         }
     }
 

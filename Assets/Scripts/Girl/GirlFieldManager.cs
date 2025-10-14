@@ -80,7 +80,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     void Start()
     {
         curSpawnCharge = GetMaxSpawnCharge();
-        chargeTimer = 0f;
+        chargeTimer = 0f; // 초기 진척도는 0부터
         UpdateSpawnButtonUI();
 
         if (tierManager != null)
@@ -106,15 +106,15 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
                 // 여러 프레임 초과 누적도 대비
                 while (chargeTimer >= interval && curSpawnCharge < maxCharge)
                 {
-                    chargeTimer -= interval;
+                    chargeTimer -= interval;   // ✅ 다음 차지를 위한 "잔여 진행도" 유지
                     curSpawnCharge++;
                 }
             }
         }
         else
         {
-            // 최대치면 타이머 고정(표시 1.0 유지)
-            chargeTimer = 0f;
+            // ✅ 최대치에서는 더 이상 타이머를 0으로 초기화하지 않음
+            // (UI는 cur==max일 때 fill=1로 강제 표시하므로, 잔여값 보존해도 표시상 문제 없음)
         }
 
         // ── 자동 소환 ──
@@ -151,8 +151,8 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         {
             curSpawnCharge = Mathf.Max(0, curSpawnCharge - 1);
             SpawnGirl(1, (Vector3)GetRandomSpawnPos());
-            // 차지 하나 소모했으니 타이머 리셋해서 다음 게이지가 0부터 차오르도록
-            chargeTimer = 0f;
+            // ❌ chargeTimer 리셋 금지: 부분 진행도 유지해야 fill이 초기화처럼 보이지 않음
+            // chargeTimer = 0f;
             UpdateSpawnButtonUI();
         }
     }
@@ -163,7 +163,8 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         {
             curSpawnCharge = Mathf.Max(0, curSpawnCharge - 1);
             SpawnGirl(1, (Vector3)GetRandomSpawnPos());
-            chargeTimer = 0f;
+            // ❌ 리셋 금지
+            // chargeTimer = 0f;
             UpdateSpawnButtonUI();
         }
     }

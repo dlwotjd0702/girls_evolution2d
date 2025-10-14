@@ -22,9 +22,9 @@ public class ShopPanelController : MonoBehaviour
         public ShopItemType type;
 
         [Header("Texts (TMP)")]
-        public TextMeshProUGUI combinedLabel; // 타이틀+밸류 통합
+        public TextMeshProUGUI combinedLabel; // ⬅ 이름 전용(타이틀만)
         public TextMeshProUGUI levelText;     // "Lv. x / y"
-        public TextMeshProUGUI costText;      // 다음 비용(N0), MAX면 "-"
+        public TextMeshProUGUI costText;      // 다음 비용(N0) + 밸류(합침), MAX면 "-"
 
         [Header("Upgrade (Icon Only)")]
         public Button buyOrUpgradeButton; // 텍스트 없이 이미지 아이콘만
@@ -128,10 +128,17 @@ public class ShopPanelController : MonoBehaviour
         bool isMax = (lv >= cap);
         double nextCost = GetNextCost(e.type);
 
-        if (e.combinedLabel != null) e.combinedLabel.text = ComposeCombined(e.type);
-        if (e.levelText     != null) e.levelText.text     = FormatLvCap(lv, cap);
-        if (e.costText      != null) e.costText.text      = double.IsInfinity(nextCost) ? "-" : $"{nextCost:N0}";
+        // ⬇ 이름(타이틀만) 표시
+        if (e.combinedLabel != null) e.combinedLabel.text = ComposeName(e.type);
 
+        // ⬇ 레벨 라벨: "Lv. 현재 / 최대"
+        if (e.levelText != null) e.levelText.text = FormatLvCap(lv, cap);
+
+        // ⬇ 코스트 라벨: "12,345 • 쿨 7.2s" 같은 형태 (MAX면 "-")
+        if (e.costText != null)
+            e.costText.text = ComposeCostWithValue(e.type, nextCost, isMax);
+
+        // ⬇ 아이콘/인터랙션
         if (e.iconTarget != null)
             e.iconTarget.sprite = isMax ? e.maxIconSprite : e.upgradeIconSprite;
 
@@ -139,32 +146,38 @@ public class ShopPanelController : MonoBehaviour
             e.buyOrUpgradeButton.interactable = !isMax; // MAX에서만 비활성
     }
 
-    // 통합 라벨: "타이틀  •  밸류"
-    string ComposeCombined(ShopItemType t)
+    // ─── Name / Value / Cost 합성 ───
+    string ComposeName(ShopItemType t) => t switch
     {
-        string title = t switch
-        {
-            ShopItemType.ManualSpawnMax   => "수동 소환 최대치",
-            ShopItemType.ManualSpawnSpeed => "수동 소환 쿨다운",
-            ShopItemType.FieldMax         => "필드 최대 슬롯",
-            ShopItemType.ClickBonus       => "클릭 보너스",
-            ShopItemType.OfflineReward    => "오프라인 보상 배율",
-            ShopItemType.OfflineMaxTime   => "오프라인 최대 시간",
-            _ => "업그레이드"
-        };
+        ShopItemType.ManualSpawnMax   => "수동 소환 최대치",
+        ShopItemType.ManualSpawnSpeed => "수동 소환 쿨다운",
+        ShopItemType.FieldMax         => "필드 최대 슬롯",
+        ShopItemType.ClickBonus       => "클릭 보너스",
+        ShopItemType.OfflineReward    => "오프라인 보상",
+        ShopItemType.OfflineMaxTime   => "오프라인 시간",
+        _ => "업그레이드"
+    };
 
-        string value = t switch
+    string ComposeValue(ShopItemType t)
+    {
+        switch (t)
         {
-            ShopItemType.ManualSpawnMax   => $"최대 {economy.GetMaxManualSpawnCount()}칸",
-            ShopItemType.ManualSpawnSpeed => $"쿨 {economy.GetManualSpawnInterval():0.0}s",
-            ShopItemType.FieldMax         => $"필드 {economy.GetMaxFieldCount()}칸",
-            ShopItemType.ClickBonus       => $"클릭 x{economy.GetClickBonusMultiplier():0.0}",
-            ShopItemType.OfflineReward    => $"오프라인 x{economy.GetOfflineRewardMultiplier():0.00}",
-            ShopItemType.OfflineMaxTime   => $"상한 {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h",
-            _ => "-"
-        };
+            case ShopItemType.ManualSpawnMax:   return $"MAX {economy.GetMaxManualSpawnCount()}개";
+            case ShopItemType.ManualSpawnSpeed: return $"쿨타임 {economy.GetManualSpawnInterval():0.0}s";
+            case ShopItemType.FieldMax:         return $"필드 {economy.GetMaxFieldCount()}칸";
+            case ShopItemType.ClickBonus:       return $"클릭 x{economy.GetClickBonusMultiplier():0.0}";
+            case ShopItemType.OfflineReward:    return $"오프라인 x{economy.GetOfflineRewardMultiplier():0.00}";
+            case ShopItemType.OfflineMaxTime:   return $"상한 {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h";
+        }
+        return "-";
+    }
 
-        return $"{title}  •  {value}";
+    string ComposeCostWithValue(ShopItemType t, double nextCost, bool isMax)
+    {
+        if (isMax || double.IsInfinity(nextCost)) return "-";
+        string value = ComposeValue(t);
+        // 코스트만 보이고 밸류는 보조로 붙음
+        return $"{value}\n{nextCost:N0}";
     }
 
     // 레벨/캡/코스트

@@ -77,7 +77,7 @@ public class AutoAutomationController : MonoBehaviour
                                               : economy.IsAutoSpawnOn();
 
         // 통합 라벨
-        string title = (type==AutoType.AutoMerge) ? "오토 합성" : "오토 소환";
+        string title = (type==AutoType.AutoMerge) ? "자동 합성" : "자동 소환";
         string value;
         if (lv <= 0) value = "잠김";
         else
@@ -86,7 +86,7 @@ public class AutoAutomationController : MonoBehaviour
                                                   : economy.GetAutoSpawnInterval();
             value = (iv >= float.MaxValue*0.5f) ? "-" : $"{iv:0.0}s";
         }
-        if (combinedLabel) combinedLabel.text = $"{title}  •  {value}";
+        if (combinedLabel) combinedLabel.text = $"{title}({value})";
 
         // 레벨/코스트
         if (levelText) levelText.text = FormatLvCap(lv, cap);

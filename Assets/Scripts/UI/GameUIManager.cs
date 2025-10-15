@@ -1,3 +1,4 @@
+/*
 using UnityEngine;
 using TMPro;
 
@@ -80,3 +81,4 @@ public class GameUIManager : MonoBehaviour
         return $"{v:N0}";
     }
 }
+*/

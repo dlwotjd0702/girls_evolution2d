@@ -1,6 +1,13 @@
-﻿using System;
+﻿// ============================
+// GirlFieldManager.cs (FULL, 환생 상점/계승 등급 보너스 + 상점 Plus 효과 반영 버전)
+// - ComputeIdleGoldPerSec(): "계승 등급 + 환생 상점" 수익 배수 곱
+// - 수동 소환 최대/쿨타임, 자동 소환/합성 주기, 필드 최대칸에 "PrestigeShop Plus" 반영
+// - 외부 매니저(PrestigeShopManager/LegacyRankManager)가 없어도 리플렉션 기반 안전 동작
+// ============================
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -64,6 +71,20 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private Image           chargeFillImage;  // Image Type = Filled
     [SerializeField] private TextMeshProUGUI chargeCountText;  // "cur/max"
 
+    // ── 외부 배수/Plus 리플렉션 캐시 ──
+    static bool _legacyCached = false;
+    static object _legacyInst;
+    static MethodInfo _miLegacyIncome; // double GetIncomeMultiplier()
+
+    static bool _shopCached = false;
+    static object _shopInst;
+    static MethodInfo _miShopIncome;                 // double GetIncomeMultiplier()
+    static MethodInfo _miShopPlusSpawnMax;           // int    GetManualSpawnMaxPlus()
+    static MethodInfo _miShopMulManualInterval;      // double GetManualSpawnIntervalMul()
+    static MethodInfo _miShopMulAutoSpawn;           // double GetAutoSpawnIntervalMul()
+    static MethodInfo _miShopMulAutoMerge;           // double GetAutoMergeIntervalMul()
+    static MethodInfo _miShopPlusFieldMax;           // int    GetFieldMaxPlus()
+
     void OnEnable()
     {
         if (tierManager != null)
@@ -126,6 +147,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         // ── 자동 소환 ──
         float autoS = (economy != null) ? economy.GetAutoSpawnInterval() : float.MaxValue;
+        autoS = ApplyAutoSpawnMul(autoS);
         if (autoS < float.MaxValue)
         {
             autoSpawnTimer += dt;
@@ -138,6 +160,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         // ── 자동 합성 ──
         float autoM = (economy != null) ? economy.GetAutoMergeInterval() : float.MaxValue;
+        autoM = ApplyAutoMergeMul(autoM);
         if (autoM < float.MaxValue && mergeManager != null)
         {
             autoMergeTimer += dt;
@@ -181,7 +204,139 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             if (!g) continue;
             sum += economy.GetLevelIncomePerSec(g.Level);
         }
-        return sum;
+
+        // ◀ 계승(자동) + 상점(구매) 배수 곱 — 외부 매니저가 없어도 안전
+        double mulRank = GetLegacyIncomeMulSafe();
+        double mulShop = GetShopIncomeMulSafe();
+        return sum * mulRank * mulShop;
+    }
+
+    // ── 외부 배수/Plus 안전 조회(1회 캐싱) ──
+    static Type FindTypeByName(string name)
+    {
+        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            var t = asm.GetType(name);
+            if (t != null) return t;
+            try
+            {
+                foreach (var tt in asm.GetTypes())
+                    if (tt.Name == name) return tt;
+            }
+            catch { /* 일부 어셈블리는 GetTypes 실패 가능 */ }
+        }
+        return null;
+    }
+
+    static void EnsureLegacyCache()
+    {
+        if (_legacyCached) return;
+        _legacyCached = true;
+        var t = FindTypeByName("LegacyRankManager");
+        if (t == null) return;
+        var pi = t.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
+        _legacyInst = pi?.GetValue(null, null);
+        _miLegacyIncome = t.GetMethod("GetIncomeMultiplier", BindingFlags.Public | BindingFlags.Instance);
+    }
+    static void EnsureShopCache()
+    {
+        if (_shopCached) return;
+        _shopCached = true;
+        var t = FindTypeByName("PrestigeShopManager");
+        if (t == null) return;
+        var pi = t.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
+        _shopInst = pi?.GetValue(null, null);
+
+        // 배수
+        _miShopIncome            = t.GetMethod("GetIncomeMultiplier",            BindingFlags.Public | BindingFlags.Instance);
+        // Plus
+        _miShopPlusSpawnMax      = t.GetMethod("GetManualSpawnMaxPlus",          BindingFlags.Public | BindingFlags.Instance);
+        _miShopMulManualInterval = t.GetMethod("GetManualSpawnIntervalMul",      BindingFlags.Public | BindingFlags.Instance);
+        _miShopMulAutoSpawn      = t.GetMethod("GetAutoSpawnIntervalMul",        BindingFlags.Public | BindingFlags.Instance);
+        _miShopMulAutoMerge      = t.GetMethod("GetAutoMergeIntervalMul",        BindingFlags.Public | BindingFlags.Instance);
+        _miShopPlusFieldMax      = t.GetMethod("GetFieldMaxPlus",                BindingFlags.Public | BindingFlags.Instance);
+    }
+
+    // ── 계승/상점 수익 배수 ──
+    static double GetLegacyIncomeMulSafe()
+    {
+        try
+        {
+            EnsureLegacyCache();
+            if (_legacyInst != null && _miLegacyIncome != null)
+            {
+                var v = _miLegacyIncome.Invoke(_legacyInst, null);
+                return Convert.ToDouble(v);
+            }
+        }
+        catch { }
+        return 1.0;
+    }
+    static double GetShopIncomeMulSafe()
+    {
+        try
+        {
+            EnsureShopCache();
+            if (_shopInst != null && _miShopIncome != null)
+            {
+                var v = _miShopIncome.Invoke(_shopInst, null);
+                return Convert.ToDouble(v);
+            }
+        }
+        catch { }
+        return 1.0;
+    }
+
+    // ── 상점 Plus: 안전 조회 ──
+    static int GetShopManualSpawnMaxPlusSafe()
+    {
+        try
+        {
+            EnsureShopCache();
+            if (_shopInst != null && _miShopPlusSpawnMax != null)
+                return Convert.ToInt32(_miShopPlusSpawnMax.Invoke(_shopInst, null));
+        } catch {}
+        return 0;
+    }
+    static double GetShopManualSpawnIntervalMulSafe()
+    {
+        try
+        {
+            EnsureShopCache();
+            if (_shopInst != null && _miShopMulManualInterval != null)
+                return Convert.ToDouble(_miShopMulManualInterval.Invoke(_shopInst, null));
+        } catch {}
+        return 1.0;
+    }
+    static double GetShopAutoSpawnIntervalMulSafe()
+    {
+        try
+        {
+            EnsureShopCache();
+            if (_shopInst != null && _miShopMulAutoSpawn != null)
+                return Convert.ToDouble(_miShopMulAutoSpawn.Invoke(_shopInst, null));
+        } catch {}
+        return 1.0;
+    }
+    static double GetShopAutoMergeIntervalMulSafe()
+    {
+        try
+        {
+            EnsureShopCache();
+            if (_shopInst != null && _miShopMulAutoMerge != null)
+                return Convert.ToDouble(_miShopMulAutoMerge.Invoke(_shopInst, null));
+        } catch {}
+        return 1.0;
+    }
+    static int GetShopFieldMaxPlusSafe()
+    {
+        try
+        {
+            EnsureShopCache();
+            if (_shopInst != null && _miShopPlusFieldMax != null)
+                return Convert.ToInt32(_miShopPlusFieldMax.Invoke(_shopInst, null));
+        } catch {}
+        return 0;
     }
 
     public void OnClickSpawnButton()
@@ -403,9 +558,39 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         return new Vector2(x, y);
     }
 
-    private int GetMaxSpawnCharge()        => economy != null ? economy.GetMaxManualSpawnCount() : 3;
-    private float GetSpawnChargeInterval() => economy != null ? economy.GetManualSpawnInterval() : 10f;
-    private int GetMaxFieldCount()         => economy != null ? economy.GetMaxFieldCount() : 8;
+    // ── Economy 값에 PrestigeShop Plus 적용 ──
+    private int GetMaxSpawnCharge()
+    {
+        int baseVal = economy != null ? economy.GetMaxManualSpawnCount() : 3;
+        int plus    = GetShopManualSpawnMaxPlusSafe();
+        return Mathf.Max(1, baseVal + plus);
+    }
+    private float GetSpawnChargeInterval()
+    {
+        float baseVal = economy != null ? economy.GetManualSpawnInterval() : 10f;
+        double mul    = GetShopManualSpawnIntervalMulSafe(); // <= 1.0 (단축)
+        return Mathf.Max(0.05f, (float)(baseVal * mul));
+    }
+    private int GetMaxFieldCount()
+    {
+        int baseVal = economy != null ? economy.GetMaxFieldCount() : 8;
+        int plus    = GetShopFieldMaxPlusSafe();
+        return Mathf.Max(1, baseVal + plus);
+    }
+
+    // 자동 주기 보정
+    private float ApplyAutoSpawnMul(float baseInterval)
+    {
+        if (baseInterval == float.MaxValue) return baseInterval;
+        double mul = GetShopAutoSpawnIntervalMulSafe();
+        return Mathf.Max(0.05f, (float)(baseInterval * mul));
+    }
+    private float ApplyAutoMergeMul(float baseInterval)
+    {
+        if (baseInterval == float.MaxValue) return baseInterval;
+        double mul = GetShopAutoMergeIntervalMulSafe();
+        return Mathf.Max(0.05f, (float)(baseInterval * mul));
+    }
 
     private void UpdateSpawnButtonUI()
     {

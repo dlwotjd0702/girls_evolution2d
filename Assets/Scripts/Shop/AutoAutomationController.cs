@@ -156,7 +156,7 @@ public class AutoAutomationController : MonoBehaviour
     {
         if (cap <= 0) return $"Lv. {lv}";
         lv = Mathf.Clamp(lv, 0, cap);
-        return $"Lv. {lv} / {cap}";
+        return $"Lv.{lv}/{cap}";
     }
 
     // Reason helpers

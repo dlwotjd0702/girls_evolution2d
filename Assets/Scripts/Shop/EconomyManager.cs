@@ -1,4 +1,11 @@
-﻿using System;
+﻿// ============================================================================
+// EconomyManager.cs  (UPDATED)
+// - 기존 인터페이스/세이브 그대로 유지
+// - 각종 Getter에 PrestigeShopManager의 영구 강화(Plus/Mul) 보정 적용
+//   * 수동소환MAX +Plus / 쿨다운 *Mul / 필드칸 +Plus
+//   * 클릭보너스 *Mul / 자동간격 *Mul / 오프라인보상 *Mul / 오프라인상한 +Seconds
+// ============================================================================
+using System;
 using UnityEngine;
 using TMPro;
 
@@ -51,7 +58,6 @@ public class EconomyManager : MonoBehaviour, ISaveable
         double av = Math.Abs(v);
         string sign = v < 0 ? "-" : "";
 
-        // 동적 포맷 문자열 구성
         string fmt = (digits <= 0) ? "0" : "0." + new string('0', digits);
 
         if (av < 1_000d)             return $"{sign}{av:0}";
@@ -60,7 +66,6 @@ public class EconomyManager : MonoBehaviour, ISaveable
         if (av < 1_000_000_000_000d) return sign + (av / 1_000_000_000d).ToString(fmt) + "B";
         return sign + (av / 1_000_000_000_000d).ToString(fmt) + "T";
     }
-
 
     void RefreshGoldHUD()
     {
@@ -85,14 +90,12 @@ public class EconomyManager : MonoBehaviour, ISaveable
     [SerializeField] private float baseManualSpawnInterval = 10f;
     [SerializeField] private int   baseFieldCount = 8;
 
-    // ───────── Balance consts (Inspector 오염 방지) ─────────
+    // ───────── Balance consts ─────────
     private const double INCOME_BASE_PER_SEC   = 1.0;  // 2^(Lv-1)/s
 
-    // 소환가: 60초치 × 누적구매 성장(1.12^n)
     private const double SUMMON_BASE_SECONDS   = 60.0;
     private const double SUMMON_BUY_GROWTH     = 1.12;
 
-    // 상점 업그레이드(분당 소환가 페이스와 균형)
     private const double UPG_SPAWN_MAX_BASE    = 400;  private const double UPG_SPAWN_MAX_GROW    = 2.00;
     private const double UPG_SPAWN_SPEED_BASE  = 420;  private const double UPG_SPAWN_SPEED_GROW  = 2.05;
     private const double UPG_FIELD_MAX_BASE    = 500;  private const double UPG_FIELD_MAX_GROW    = 2.00;
@@ -165,22 +168,60 @@ public class EconomyManager : MonoBehaviour, ISaveable
         OnUpgradeChanged?.Invoke();
     }
 
-    // ───────── Getter들 ─────────
-    public int    GetMaxManualSpawnCount() => baseManualSpawnMax + manualSpawnMaxUpgrade;
-    public float  GetManualSpawnInterval() => baseManualSpawnInterval * Mathf.Pow(0.9f, manualSpawnSpeedUpgrade);
-    public int    GetMaxFieldCount()       => baseFieldCount + maxFieldCountUpgrade * 2;
-    public double GetClickBonusMultiplier()=> 1.0 + clickBonusUpgrade * CLICK_BONUS_PER_LEVEL;
+    // ───────── Getter들 (Prestige 보정 포함) ─────────
+    public int GetMaxManualSpawnCount() {
+        int v = baseManualSpawnMax + manualSpawnMaxUpgrade;
+        try { v += PrestigeShopManager.Instance.GetManualSpawnMaxPlus(); } catch {}
+        return v;
+    }
+    public float GetManualSpawnInterval() {
+        float iv = baseManualSpawnInterval * Mathf.Pow(0.9f, manualSpawnSpeedUpgrade);
+        try { iv *= (float)PrestigeShopManager.Instance.GetManualSpawnIntervalMul(); } catch {}
+        return iv;
+    }
+    public int GetMaxFieldCount() {
+        int v = baseFieldCount + maxFieldCountUpgrade * 2;
+        try { v += PrestigeShopManager.Instance.GetFieldMaxPlus(); } catch {}
+        return v;
+    }
+    public double GetClickBonusMultiplier() {
+        double mul = 1.0 + clickBonusUpgrade * CLICK_BONUS_PER_LEVEL;
+        try { mul *= PrestigeShopManager.Instance.GetClickBonusMul(); } catch {}
+        return mul;
+    }
 
-    public bool   IsAutoMergeOn() => autoMergeOn && autoMergeUpgrade > 0;
-    public bool   IsAutoSpawnOn() => autoSpawnOn && autoSpawnUpgrade > 0;
-    public void   SetAutoMergeOn(bool on){ autoMergeOn = on; OnUpgradeChanged?.Invoke(); }
-    public void   SetAutoSpawnOn(bool on){ autoSpawnOn = on; OnUpgradeChanged?.Invoke(); }
+    public bool IsAutoMergeOn() => autoMergeOn && autoMergeUpgrade > 0;
+    public bool IsAutoSpawnOn() => autoSpawnOn && autoSpawnUpgrade > 0;
+    public void SetAutoMergeOn(bool on){ autoMergeOn = on; OnUpgradeChanged?.Invoke(); }
+    public void SetAutoSpawnOn(bool on){ autoSpawnOn = on; OnUpgradeChanged?.Invoke(); }
 
-    public float  GetAutoMergeInterval(){ if(!IsAutoMergeOn()) return float.MaxValue; int lv=Mathf.Max(1,autoMergeUpgrade); float iv=autoMergeBaseInterval*Mathf.Pow(autoPerLevelMul, lv-1); return Mathf.Max(autoIntervalFloor, iv); }
-    public float  GetAutoSpawnInterval(){ if(!IsAutoSpawnOn()) return float.MaxValue; int lv=Mathf.Max(1,autoSpawnUpgrade); float iv=autoSpawnBaseInterval*Mathf.Pow(autoPerLevelMul, lv-1); return Mathf.Max(autoIntervalFloor, iv); }
+    public float GetAutoMergeInterval(){
+        if(!IsAutoMergeOn()) return float.MaxValue;
+        int lv=Mathf.Max(1,autoMergeUpgrade);
+        float iv=autoMergeBaseInterval*Mathf.Pow(autoPerLevelMul, lv-1);
+        iv = Mathf.Max(autoIntervalFloor, iv);
+        try { iv *= (float)PrestigeShopManager.Instance.GetAutoMergeIntervalMul(); } catch {}
+        return iv;
+    }
+    public float GetAutoSpawnInterval(){
+        if(!IsAutoSpawnOn()) return float.MaxValue;
+        int lv=Mathf.Max(1,autoSpawnUpgrade);
+        float iv=autoSpawnBaseInterval*Mathf.Pow(autoPerLevelMul, lv-1);
+        iv = Mathf.Max(autoIntervalFloor, iv);
+        try { iv *= (float)PrestigeShopManager.Instance.GetAutoSpawnIntervalMul(); } catch {}
+        return iv;
+    }
 
-    public double GetOfflineRewardMultiplier() => 1.0 + (offlineRewardUpgrade * 0.25); // x(1+0.25*Lv)
-    public double GetOfflineMaxSeconds()       => (2.0 + offlineMaxTimeUpgrade * 0.5) * 3600.0;
+    public double GetOfflineRewardMultiplier() {
+        double mul = 1.0 + (offlineRewardUpgrade * 0.25);
+        try { mul *= PrestigeShopManager.Instance.GetOfflineRewardMul(); } catch {}
+        return mul;
+    }
+    public double GetOfflineMaxSeconds() {
+        double sec = (2.0 + offlineMaxTimeUpgrade * 0.5) * 3600.0;
+        try { sec += PrestigeShopManager.Instance.GetOfflineMaxExtraSeconds(); } catch {}
+        return sec;
+    }
 
     // 레벨/캡 Getter (UI용)
     public int GetSpawnMaxUpgradeLevel()      => manualSpawnMaxUpgrade;

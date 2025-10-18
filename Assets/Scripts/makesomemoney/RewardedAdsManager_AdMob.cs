@@ -1,72 +1,60 @@
 ﻿using System;
-using UnityEngine;
 using GoogleMobileAds.Api;
+using UnityEngine;
 
 public class RewardedAdsManager_AdMob : MonoBehaviour
 {
     public static RewardedAdsManager_AdMob Instance { get; private set; }
 
-    [Header("Ad Unit IDs (테스트 기본값)")]
-    public string androidRewardedUnitId = "ca-app-pub-3940256099942544/5224354917";
-    public string iosRewardedUnitId     = "ca-app-pub-3940256099942544/1712485313";
+    [Header("Ad Unit Ids")]
+#if UNITY_ANDROID
+    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544/5224354917"; // 테스트ID
+#elif UNITY_IOS
+    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544/1712485313"; // 테스트ID
+#else
+    [SerializeField] private string rewardedAdUnitId = "";
+#endif
 
-    public bool IsReady => rewardedAd != null && rewardedAd.CanShowAd();
+    private RewardedAd _rewardedAd;
+    private bool _isLoading;
 
-    public event Action<bool> OnReadyChanged;
-
-    private RewardedAd rewardedAd;
+    public bool IsReady => _rewardedAd != null && _rewardedAd.CanShowAd();
 
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        MobileAds.Initialize(_ => { Load(); });
     }
 
-    void Start()
+    public void Load()
     {
-        MobileAds.Initialize(_ => LoadRewarded());
-    }
+        if (_isLoading || string.IsNullOrEmpty(rewardedAdUnitId)) return;
+        _isLoading = true;
 
-    string GetUnitId()
-    {
-#if UNITY_ANDROID
-        return androidRewardedUnitId;
-#elif UNITY_IOS
-        return iosRewardedUnitId;
-#else
-        return "";
-#endif
-    }
-
-    public void LoadRewarded()
-    {
-        var adUnitId = GetUnitId();
-        if (string.IsNullOrEmpty(adUnitId)) return;
-
-        var request = new AdRequest();
-        RewardedAd.Load(adUnitId, request, (ad, error) =>
+        var request = new AdRequest(); // 최신 SDK: Builder 없이 기본 생성자
+        RewardedAd.Load(rewardedAdUnitId, request, (ad, error) =>
         {
-            rewardedAd = error == null ? ad : null;
-            OnReadyChanged?.Invoke(IsReady);
+            _isLoading = false;
+            if (error != null || ad == null)
+            {
+                _rewardedAd = null;
+                return;
+            }
+            _rewardedAd = ad;
+            // 자동 재로딩용 이벤트
+            _rewardedAd.OnAdFullScreenContentClosed += () => { _rewardedAd = null; Load(); };
+            _rewardedAd.OnAdFullScreenContentFailed += _ => { _rewardedAd = null; Load(); };
         });
     }
 
-    public void ShowRewarded(Action onReward)
+    public void Show(Action onReward)
     {
         if (!IsReady) return;
-
-        rewardedAd.OnAdFullScreenContentClosed += () =>
+        _rewardedAd.Show(reward =>
         {
-            rewardedAd = null;
-            OnReadyChanged?.Invoke(false);
-            LoadRewarded();
-        };
-
-        rewardedAd.Show(r =>
-        {
-            if (r.Amount > 0) onReward?.Invoke();
-            else onReward?.Invoke(); // 테스트 유닛은 보상정보가 고정, 보상 자체는 게임 로직이 정함
+            try { onReward?.Invoke(); } catch {}
         });
     }
 }

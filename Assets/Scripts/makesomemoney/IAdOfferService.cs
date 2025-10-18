@@ -1,7 +1,11 @@
-﻿using System;
+﻿// Assets/Scripts/ads/IAdOfferService.cs
+using System;
 
 public interface IAdOfferService
 {
-    bool IsReady(string placement = null);
-    void ShowRewarded(string placement, Action onRewarded, Action onClosed = null);
+    bool IsRewardedReady();
+    void LoadRewarded();
+    void ShowRewarded(Action onReward);
+
+    event Action<bool> OnRewardedReadyChanged;
 }

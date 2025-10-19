@@ -1,46 +1,45 @@
-﻿// Assets/Scripts/makesomemoney/PremiumCurrencyManager.cs
-#pragma warning disable 0618
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Purchasing; // v4 API (v5에서도 호환)
+using UnityEngine.Purchasing;
+using System.Linq;
 
-public class PremiumCurrencyManager : MonoBehaviour, IStoreListener, ISaveable
+// Updated for Unity IAP v5.0
+// The previous implementation relied on IStoreListener and synchronous initialization.
+// This class now uses the StoreController from UnityIAPServices and asynchronous
+// initialization to comply with the Google Play Billing Library v7+ and Apple policies.
+public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 {
     public static PremiumCurrencyManager Instance { get; private set; }
 
-    [Header("Balance")]
-    [SerializeField] private long gems = 0;
-    public long GetGems() => gems;
-    public event Action<long> OnGemsChanged;
-
-    [Header("Products")]
-    [Tooltip("스토어 상품ID와 지급량 매핑")]
-    [SerializeField] private List<GemProduct> products = new()
-    {
-        new GemProduct{ productId="gems_small",  type=ProductType.Consumable, grantAmount=80  },
-        new GemProduct{ productId="gems_medium", type=ProductType.Consumable, grantAmount=500 },
-        new GemProduct{ productId="gems_large",  type=ProductType.Consumable, grantAmount=1200},
-    };
-
-    [Serializable] public class GemProduct
+    [Serializable]
+    public class GemProduct
     {
         public string productId;
         public ProductType type = ProductType.Consumable;
         public int grantAmount = 0;
     }
 
-    // IAP core
-    private IStoreController _controller;
-    private IExtensionProvider _extensions;
+    [Header("Products")]
+    public List<GemProduct> products = new()
+    {
+        new GemProduct{ productId="gems_small",  type=ProductType.Consumable, grantAmount=80  },
+        new GemProduct{ productId="gems_medium", type=ProductType.Consumable, grantAmount=500 },
+        new GemProduct{ productId="gems_large",  type=ProductType.Consumable, grantAmount=1200},
+    };
+
+    [Header("Balance")]
+    [SerializeField] private long gems = 0;
+    public event Action<long> OnGemsChanged;
+    public event Action       OnCatalogReady;
+
+    const string PP_GEMS = "GEMS_BALANCE_V2";
+
+    // Store controller for IAP v5
+    private StoreController storeController;
 
     // 가격 캐시
-    private readonly Dictionary<string,string> _price = new();
-
-    // UI용 이벤트 (카탈로그/가격표 준비됨)
-    public event Action OnCatalogReady;
-
-    private const string PP_GEMS = "GEMS_BALANCE";
+    private readonly Dictionary<string,string> priceCache = new();
 
     void Awake()
     {
@@ -51,146 +50,212 @@ public class PremiumCurrencyManager : MonoBehaviour, IStoreListener, ISaveable
 
     void Start()
     {
-        // 세이브/백업 로드
-        if (!HasSaveManager()) gems = (long)PlayerPrefs.GetFloat(PP_GEMS, 0);
-
-        InitIAP();
+        // SaveManager가 없다면 PlayerPrefs에서 복구
+        if (!HasSaveManager())
+        {
+            var s = PlayerPrefs.GetString(PP_GEMS, "0");
+            if (long.TryParse(s, out var v)) gems = Math.Max(0, v);
+        }
         OnGemsChanged?.Invoke(gems);
+        // Begin asynchronous initialization of the IAP services
+        InitializeIAP();
     }
 
-    // ─────────── Public API ───────────
-    public void AddGems(long amount)
+    // ===== Public API =====
+    public long  GetGems() => gems;
+    public void  SetGems(long amount){ gems = Math.Max(0, amount); NotifyAndPersist(); }
+    public void  AddGems(long amount){ if (amount<=0) return; gems += amount; NotifyAndPersist(); }
+    public bool  TrySpendGems(long amount){ if (amount<=0) return true; if (gems<amount) return false; gems -= amount; NotifyAndPersist(); return true; }
+
+    public void Purchase(string productId)
     {
-        if (amount <= 0) return;
-        gems = Math.Max(0, gems + amount);
-        OnGemsChanged?.Invoke(gems);
-        Persist();
-    }
-    public bool TrySpendGems(long amount)
-    {
-        if (amount <= 0) return true;
-        if (gems < amount) return false;
-        gems -= amount;
-        OnGemsChanged?.Invoke(gems);
-        Persist();
-        return true;
-    }
-    public void SetGems(long amount)
-    {
-        gems = Math.Max(0, amount);
-        OnGemsChanged?.Invoke(gems);
-        Persist();
+        if (string.IsNullOrEmpty(productId)) return;
+        if (storeController == null)
+        {
+            Debug.LogWarning("[IAP] Store not initialized.");
+            return;
+        }
+        storeController.PurchaseProduct(productId);
     }
 
     public string GetLocalizedPrice(string productId)
     {
         if (string.IsNullOrEmpty(productId)) return "";
-        if (_price.TryGetValue(productId, out var p)) return p;
+        // Return cached price if available
+        if (priceCache.TryGetValue(productId, out var s) && !string.IsNullOrEmpty(s))
+            return s;
 
-        if (_controller != null)
+        // Attempt to fetch from the store controller directly
+        var p = storeController?.GetProductById(productId);
+        if (p?.metadata != null)
         {
-            var prod = _controller.products.WithID(productId);
-            if (prod != null && prod.metadata != null)
-            {
-                var s = prod.metadata.localizedPriceString;
-                _price[productId] = s;
-                return s;
-            }
+            s = p.metadata.localizedPriceString;
+            priceCache[productId] = s;
+            return s;
         }
         return "";
-    }
-
-    public void Purchase(string productId)
-    {
-        if (_controller == null) { Debug.LogWarning("[IAP] Not initialized."); return; }
-        if (string.IsNullOrEmpty(productId)) { Debug.LogWarning("[IAP] Empty product id."); return; }
-
-        var prod = _controller.products.WithID(productId);
-        if (prod == null || !prod.availableToPurchase)
-        {
-            Debug.LogWarning("[IAP] Product not available: " + productId);
-            return;
-        }
-        _controller.InitiatePurchase(productId);
     }
 
     public void RestorePurchases()
     {
 #if UNITY_IOS || UNITY_STANDALONE_OSX
-        var apple = _extensions?.GetExtension<IAppleExtensions>();
-        apple?.RestoreTransactions(result => Debug.Log("[IAP] Restore: " + result));
+        // In IAP v5, restore transactions is handled via StoreController
+        storeController?.RestoreTransactions((success, error) => { /* handle restore callback if needed */ });
 #else
-        Debug.Log("[IAP] RestorePurchases is iOS/macOS only.");
+        Debug.Log("[IAP] RestorePurchases is only for iOS/macOS.");
 #endif
     }
 
-    // ─────────── IAP Init ───────────
-    void InitIAP()
+    // ===== IAP 초기화 (IAP v5) =====
+    // Connects to the store, fetches products, and sets up event handlers.
+    async void InitializeIAP()
     {
-        var module  = StandardPurchasingModule.Instance();
-        var builder = ConfigurationBuilder.Instance(module);
+        // Obtain a store controller instance
+        storeController = UnityIAPServices.StoreController();
 
-        foreach (var gp in products)
-            if (!string.IsNullOrEmpty(gp.productId))
-                builder.AddProduct(gp.productId, gp.type);
+        // Register event handlers before making API calls
+        storeController.OnProductsFetched += OnProductsFetched;
+        storeController.OnProductsFetchFailed += OnProductsFetchFailed;
+        storeController.OnPurchasePending += OnPurchasePending;
+        storeController.OnPurchaseConfirmed += OnPurchaseConfirmed;
+        storeController.OnPurchaseFailed += OnPurchaseFailed;
 
-        UnityPurchasing.Initialize(this, builder);
-    }
-
-    // ─────────── IStoreListener ───────────
-    public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
-    {
-        _controller = controller;
-        _extensions = extensions;
-
-        foreach (var gp in products)
+        // Connect to the store
+        try
         {
-            var p = controller.products.WithID(gp.productId);
-            if (p != null && p.metadata != null)
-                _price[gp.productId] = p.metadata.localizedPriceString;
+            await storeController.Connect();
         }
-        Debug.Log("[IAP] Initialized.");
-        OnCatalogReady?.Invoke();
-    }
-
-    public void OnInitializeFailed(InitializationFailureReason error)
-    {
-        Debug.LogError("[IAP] Initialize failed: " + error);
-    }
-    public void OnInitializeFailed(InitializationFailureReason error, string message)
-    {
-        Debug.LogError($"[IAP] Initialize failed: {error} - {message}");
-    }
-
-    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs e)
-    {
-        var id = e.purchasedProduct.definition.id;
-        int amount = 0;
-        foreach (var gp in products) if (gp.productId == id) { amount = gp.grantAmount; break; }
-
-        if (amount > 0)
+        catch (Exception ex)
         {
-            AddGems(amount);
-            Debug.Log($"[IAP] Purchase OK: {id}, +{amount} gems");
+            Debug.LogError("[IAP] Connection failed: " + ex.Message);
+            OnCatalogReady?.Invoke();
+            return;
+        }
+
+        // Build list of product definitions from our gem products
+        var definitions = new List<ProductDefinition>();
+        foreach (var gp in products)
+        {
+            if (!string.IsNullOrEmpty(gp.productId))
+            {
+                definitions.Add(new ProductDefinition(gp.productId, gp.type));
+            }
+        }
+
+        // Fetch product metadata from the store
+        if (definitions.Count > 0)
+        {
+            storeController.FetchProducts(definitions);
         }
         else
         {
-            Debug.LogWarning("[IAP] Unknown product: " + id);
+            // Nothing to fetch; still notify that the catalog is ready so UI can react
+            OnCatalogReady?.Invoke();
         }
-        return PurchaseProcessingResult.Complete;
     }
 
-    public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
+    // ===== IAP v5 event handlers =====
+    void OnProductsFetched(List<Product> fetchedProducts)
     {
-        Debug.LogWarning($"[IAP] Purchase failed: {product?.definition?.id} - {failureReason}");
+        // Populate localized price cache
+        foreach (var prod in fetchedProducts)
+        {
+            if (prod?.metadata != null)
+            {
+                priceCache[prod.definition.id] = prod.metadata.localizedPriceString;
+            }
+        }
+        // Notify that catalog is ready for UI refresh
+        OnCatalogReady?.Invoke();
+
+        // Optionally fetch existing purchases (not strictly necessary for consumables)
+        storeController.FetchPurchases();
     }
 
-    // ─────────── Save hooks ───────────
-    void Persist()
+    void OnProductsFetchFailed(ProductFetchFailed failure)
     {
+        Debug.LogWarning("[IAP] Products fetch failed: " + failure);
+        OnCatalogReady?.Invoke();
+    }
+
+    void OnPurchasePending(PendingOrder pendingOrder)
+    {
+        // Immediately confirm the pending order to finalize the transaction
+        if (storeController != null && pendingOrder != null)
+        {
+            storeController.ConfirmPurchase(pendingOrder);
+        }
+    }
+
+    void OnPurchaseConfirmed(Order order)
+    {
+        if (order == null) return;
+        // Iterate through items in the confirmed order's cart and grant rewards
+        var items = order.CartOrdered?.Items();
+        if (items != null)
+        {
+            foreach (var item in items)
+            {
+                var productId = item?.Product?.definition?.id;
+                if (string.IsNullOrEmpty(productId)) continue;
+                var grant = 0;
+                foreach (var gp in products)
+                {
+                    if (gp.productId == productId)
+                    {
+                        grant = gp.grantAmount;
+                        break;
+                    }
+                }
+                if (grant > 0)
+                {
+                    AddGems(grant);
+                    Debug.Log($"[IAP] +{grant} gems ({productId})");
+                }
+                else
+                {
+                    Debug.LogWarning("[IAP] Unknown product id: " + productId);
+                }
+            }
+        }
+    }
+
+    void OnPurchaseFailed(FailedOrder failedOrder)
+    {
+        var productId = failedOrder?.CartOrdered?.Items()?.FirstOrDefault()?.Product?.definition?.id;
+        var reason = failedOrder?.FailureReason;
+        Debug.LogWarning($"[IAP] Purchase failed: {productId} - {reason}");
+    }
+
+    // ===== Save / Load (ISaveable 호환) =====
+    public void CollectSaveData(SaveData d)
+    {
+        TrySetLong(d, "gems", gems);
+        TrySetLong(d, "diamonds", gems);
+        TrySetLong(d, "premiumCurrency", gems);
+    }
+    public void ApplyLoadedData(SaveData d)
+    {
+        long v = TryGetLong(d, "gems", long.MinValue);
+        if (v==long.MinValue) v = TryGetLong(d, "diamonds", long.MinValue);
+        if (v==long.MinValue) v = TryGetLong(d, "premiumCurrency", long.MinValue);
+
+        if (v!=long.MinValue) gems = Math.Max(0, v);
+        else
+        {
+            var s = PlayerPrefs.GetString(PP_GEMS, "0");
+            if (long.TryParse(s, out var p)) gems = Math.Max(0, p);
+        }
+        OnGemsChanged?.Invoke(gems);
+    }
+
+    // ===== Helpers =====
+    void NotifyAndPersist()
+    {
+        OnGemsChanged?.Invoke(gems);
         if (!HasSaveManager())
         {
-            PlayerPrefs.SetFloat(PP_GEMS, gems);
+            PlayerPrefs.SetString(PP_GEMS, gems.ToString());
             PlayerPrefs.Save();
         }
     }
@@ -201,38 +266,19 @@ public class PremiumCurrencyManager : MonoBehaviour, IStoreListener, ISaveable
             var t = typeof(SaveManager);
             var pi = t.GetProperty("Instance", System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Static);
             return pi?.GetValue(null, null) != null;
-        }
-        catch { return false; }
+        } catch { return false; }
     }
-
-    public void CollectSaveData(SaveData d)
-    {
-        TrySetLong(d, "gems", gems);
-        TrySetLong(d, "diamonds", gems);
-        TrySetLong(d, "premiumCurrency", gems);
-    }
-    public void ApplyLoadedData(SaveData d)
-    {
-        long v = TryGetLong(d, "gems", long.MinValue);
-        if (v == long.MinValue) v = TryGetLong(d, "diamonds", long.MinValue);
-        if (v == long.MinValue) v = TryGetLong(d, "premiumCurrency", long.MinValue);
-
-        gems = (v == long.MinValue) ? (long)PlayerPrefs.GetFloat(PP_GEMS, 0) : Math.Max(0, v);
-        OnGemsChanged?.Invoke(gems);
-    }
-
     static void TrySetLong(object obj, string name, long value)
     {
         var f = obj.GetType().GetField(name, System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Instance);
-        if (f == null) return;
-        if (f.FieldType == typeof(long)) f.SetValue(obj, value);
-        else if (f.FieldType == typeof(int)) f.SetValue(obj, (int)Mathf.Clamp(value, int.MinValue, int.MaxValue));
+        if (f==null) return;
+        if (f.FieldType==typeof(long)) f.SetValue(obj, value);
+        else if (f.FieldType==typeof(int)) f.SetValue(obj, (int)Mathf.Clamp(value, int.MinValue, int.MaxValue));
     }
     static long TryGetLong(object obj, string name, long fb)
     {
         var f = obj.GetType().GetField(name, System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Instance);
-        if (f == null) return fb;
+        if (f==null) return fb;
         try { return Convert.ToInt64(f.GetValue(obj)); } catch { return fb; }
     }
 }
-#pragma warning restore 0618

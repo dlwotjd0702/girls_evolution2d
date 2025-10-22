@@ -121,8 +121,10 @@ public class AutoAutomationController : MonoBehaviour
         }
         if (buyOrUpgradeButton) buyOrUpgradeButton.interactable = (lv < cap);
 
-        if (toggleButton)      toggleButton.gameObject.SetActive(lv > 0);
-        if (toggleIconTarget)  toggleIconTarget.sprite = on ? toggleOnSprite : toggleOffSprite;
+        // 🔸 온/오프 버튼: 게임오브젝트는 항상 켜두고, 구매 전에는 비활성/아이콘 숨김
+        if (toggleButton)     toggleButton.interactable = lv > 0;       // 잠금 시 클릭 불가
+        if (toggleIconTarget) toggleIconTarget.enabled  = lv > 0;       // 잠금 시 아이콘 비표시
+        if (toggleIconTarget) toggleIconTarget.sprite   = on ? toggleOnSprite : toggleOffSprite;
     }
 
     void OnClickBuyOrUpgrade()

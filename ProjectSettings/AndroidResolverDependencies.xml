@@ -1,14 +1,14 @@
 <dependencies>
   <packages>
-    <package>com.google.games:gpgs-plugin-support:2.1.0</package>
+    <package>androidx.constraintlayout:constraintlayout:2.1.4</package>
+    <package>androidx.lifecycle:lifecycle-process:2.6.2</package>
+    <package>com.google.android.gms:play-services-ads:24.5.0</package>
+    <package>com.google.android.ump:user-messaging-platform:3.2.0</package>
   </packages>
-  <files>
-    <file>Assets/GeneratedLocalRepo/GooglePlayGames/com.google.play.games/Editor/m2repository/com/google/games/gpgs-plugin-support/2.1.0/gpgs-plugin-support-2.1.0.aar</file>
-    <file>Assets/GeneratedLocalRepo/GooglePlayGames/com.google.play.games/Editor/m2repository/com/google/games/gpgs-plugin-support/2.1.0/gpgs-plugin-support-2.1.0.pom</file>
-  </files>
+  <files />
   <settings>
     <setting name="androidAbis" value="armeabi-v7a" />
-    <setting name="bundleId" value="com.DefaultCompany.girls_evolution" />
+    <setting name="bundleId" value="com.MaybrSoft.girls_evolution" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradlePropertiesTemplateEnabled" value="True" />

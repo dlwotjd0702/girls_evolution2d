@@ -169,15 +169,15 @@ public class PrestigeShopPanelController : MonoBehaviour
         ShopItemType.IncomeMultiplier      => "초당 수익 배수",
         ShopItemType.TwoStepChance         => "합성 +2단 확률",
         ShopItemType.StartGoldMultiplier   => "환생 시작 자금",
-        ShopItemType.PrestigePointGain     => "환생 포인트 획득",
-        ShopItemType.ManualSpawnMaxPlus    => "수동 소환 최대치(추가)",
-        ShopItemType.ManualSpawnSpeedPlus  => "수동 소환 쿨다운(단축)",
-        ShopItemType.AutoMergeSpeedPlus    => "자동 합성 주기(단축)",
-        ShopItemType.AutoSpawnSpeedPlus    => "자동 소환 주기(단축)",
-        ShopItemType.FieldMaxPlus          => "필드 슬롯(추가)",
+        ShopItemType.PrestigePointGain     => " 환생 포인트 획득",
+        ShopItemType.ManualSpawnMaxPlus    => "수동 소환 최대치",
+        ShopItemType.ManualSpawnSpeedPlus  => "수동 소환 쿨다운",
+        ShopItemType.AutoMergeSpeedPlus    => "자동 합성 주기",
+        ShopItemType.AutoSpawnSpeedPlus    => "자동 소환 주기",
+        ShopItemType.FieldMaxPlus          => "필드 슬롯",
         ShopItemType.ClickBonusPlus        => "클릭 보너스(배수)",
-        ShopItemType.OfflineRewardPlus     => "오프라인 보상(배수)",
-        ShopItemType.OfflineMaxTimePlus    => "오프라인 상한(추가)",
+        ShopItemType.OfflineRewardPlus     => "오프라인 보상",
+        ShopItemType.OfflineMaxTimePlus    => "오프라인 상한",
         _ => "업그레이드"
     };
 

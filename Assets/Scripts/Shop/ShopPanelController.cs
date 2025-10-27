@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class ShopPanelController : MonoBehaviour
 {
-    // 탭에 따라 동일 엔트리를 "자동 라우팅"해서 구매/업그레이드 처리
-    public enum CurrencyTab { Gold, Gem, Prestige }
+    // B안: Prestige 완전 제거 (Gold/Gem만 유지)
+    public enum CurrencyTab { Gold, Gem }
 
     public enum ShopItemType
     {
@@ -28,8 +28,8 @@ public class ShopPanelController : MonoBehaviour
 
         [Header("Texts (TMP)")]
         public TextMeshProUGUI combinedLabel; // 이름(타이틀)
-        public TextMeshProUGUI levelText;     // "Lv. x / y" (Prestige 탭은 cap 없음이면 "Lv. x")
-        public TextMeshProUGUI costText;      // MAX: 밸류만 / 그 외: 밸류 + \n + 코스트
+        public TextMeshProUGUI levelText;     // "Lv. x / y"
+        public TextMeshProUGUI costText;      // 밸류 + \n + 코스트 (MAX면 밸류만)
 
         [Header("Upgrade (Icon Only)")]
         public Button buyOrUpgradeButton;     // 텍스트 없이 아이콘만
@@ -46,8 +46,6 @@ public class ShopPanelController : MonoBehaviour
 
     [Header("Refs")]
     public EconomyManager economy;
-    public PrestigeManager prestige; // 통합 환생 매니저(필요 시)
-    private PrestigeShopManager shop; // Facade (PrestigeManager를 위임)
 
     [Header("Reason Label")]
     [SerializeField] private TextMeshProUGUI reasonLabel;
@@ -57,13 +55,9 @@ public class ShopPanelController : MonoBehaviour
     [Header("Entries")]
     public List<EntryUI> entries = new List<EntryUI>();
 
-    // ─────────────────────────────────────────────────────────────
-
     void Awake()
     {
-        if (economy == null)  economy  = FindObjectOfType<EconomyManager>(true);
-        if (prestige == null) prestige = FindObjectOfType<PrestigeManager>(true);
-        shop = PrestigeShopManager.Instance; // 없으면 null-safe로 동작
+        if (economy == null) economy = FindObjectOfType<EconomyManager>(true);
 
         foreach (var e in entries)
         {
@@ -102,10 +96,8 @@ public class ShopPanelController : MonoBehaviour
     void HandleUpgradeChanged()       => RefreshAll();
 
     // ─────────────────────────────────────────────────────────────
-    // 외부에서 탭 전환 버튼으로 호출
-    public void SwitchToGold()     { currentTab = CurrencyTab.Gold;     RefreshAll(); }
-    public void SwitchToGem()      { currentTab = CurrencyTab.Gem;      RefreshAll(); }
-    public void SwitchToPrestige() { currentTab = CurrencyTab.Prestige; RefreshAll(); }
+    public void SwitchToGold() { currentTab = CurrencyTab.Gold; HideReasonImmediate(); RefreshAll(); }
+    public void SwitchToGem()  { currentTab = CurrencyTab.Gem;  HideReasonImmediate(); RefreshAll(); }
 
     // ─────────────────────────────────────────────────────────────
     void OnClickUpgrade(EntryUI e)
@@ -114,17 +106,8 @@ public class ShopPanelController : MonoBehaviour
 
         switch (currentTab)
         {
-            case CurrencyTab.Gold:
-                BuyWithGold(e);
-                break;
-
-            case CurrencyTab.Gem:
-                BuyWithGems(e);
-                break;
-
-            case CurrencyTab.Prestige:
-                BuyWithPrestige(e);
-                break;
+            case CurrencyTab.Gold: BuyWithGold(e); break;
+            case CurrencyTab.Gem:  BuyWithGems(e); break;
         }
     }
 
@@ -132,12 +115,12 @@ public class ShopPanelController : MonoBehaviour
     {
         if (economy == null) { ShowReasonTemp("시스템 미준비"); return; }
 
-        int lv  = GetLevel(e.type, CurrencyTab.Gold);
-        int cap = GetCap(e.type, CurrencyTab.Gold);
+        int lv  = GetLevel(e.type);
+        int cap = GetCap(e.type);
         if (cap >= 0 && lv >= cap) { ShowReasonTemp("최대 레벨입니다."); return; }
 
         bool ok = false;
-        double need = GetNextCost(e.type, CurrencyTab.Gold);
+        double need = GetNextGoldCost(e.type);
 
         switch (e.type)
         {
@@ -164,8 +147,8 @@ public class ShopPanelController : MonoBehaviour
     {
         if (economy == null) { ShowReasonTemp("시스템 미준비"); return; }
 
-        int lv  = GetLevel(e.type, CurrencyTab.Gem);
-        int cap = GetCap(e.type, CurrencyTab.Gem);
+        int lv  = GetLevel(e.type);
+        int cap = GetCap(e.type);
         if (cap >= 0 && lv >= cap) { ShowReasonTemp("최대 레벨입니다."); return; }
 
         // EconomyManager에 보석 전용 API가 있으면 호출(리플렉션)
@@ -195,38 +178,10 @@ public class ShopPanelController : MonoBehaviour
                     return;
                 }
             }
-            catch { /* 무시하고 폴백 */ }
+            catch { /* 폴백 */ }
         }
 
         ShowReasonTemp("유료재화 구매 미구현");
-    }
-
-    void BuyWithPrestige(EntryUI e)
-    {
-        if (shop == null || prestige == null) { ShowReasonTemp("시스템 미준비"); return; }
-
-        int lv  = GetLevel(e.type, CurrencyTab.Prestige);
-        int cap = GetCap(e.type, CurrencyTab.Prestige);
-        if (cap >= 0 && lv >= cap) { ShowReasonTemp("최대 레벨입니다."); return; }
-
-        int need = GetPrestigeCost(e.type);
-        if (GetPrestigePointsSafe() < need) { ShowReasonTemp("포인트가 부족합니다."); return; }
-
-        bool ok = e.type switch
-        {
-            ShopItemType.ManualSpawnMax   => Safe(() => shop.TryBuyPlusManualSpawnMax(), false),
-            ShopItemType.ManualSpawnSpeed => Safe(() => shop.TryBuyPlusManualSpeed(), false),
-            ShopItemType.FieldMax         => Safe(() => shop.TryBuyPlusFieldMax(), false),
-            ShopItemType.ClickBonus       => Safe(() => shop.TryBuyPlusClickBonus(), false),
-            ShopItemType.OfflineReward    => Safe(() => shop.TryBuyPlusOfflineReward(), false),
-            ShopItemType.OfflineMaxTime   => Safe(() => shop.TryBuyPlusOfflineMaxTime(), false),
-            _ => false
-        };
-
-        if (!ok) { ShowReasonTemp("구매 실패"); return; }
-
-        RefreshEntry(e);
-        HideReasonImmediate();
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -239,32 +194,20 @@ public class ShopPanelController : MonoBehaviour
     {
         if (e == null) return;
 
-        int  lv    = GetLevel(e.type, currentTab);
-        int  cap   = GetCap(e.type, currentTab);
+        int  lv    = GetLevel(e.type);
+        int  cap   = GetCap(e.type);
         bool isMax = (cap >= 0 && lv >= cap);
 
-        // ⬇ 이름(타이틀만)
         if (e.combinedLabel != null) e.combinedLabel.text = ComposeName(e.type);
 
-        // ⬇ 레벨 라벨
         if (e.levelText != null)
-        {
-            if (currentTab == CurrencyTab.Prestige && cap < 0) e.levelText.text = $"Lv. {Mathf.Max(0, lv)}";
-            else                                               e.levelText.text = FormatLvCap(lv, cap);
-        }
+            e.levelText.text = FormatLvCap(lv, cap);
 
-        // ⬇ 코스트/밸류 라벨
         if (e.costText != null)
         {
-            if (currentTab == CurrencyTab.Prestige)
+            if (currentTab == CurrencyTab.Gem)
             {
-                int cost = GetPrestigeCost(e.type);
-                string value = ComposeValuePrestige(e.type);
-                e.costText.text = (isMax || cost <= 0) ? value : $"{value}\n{cost:N0}";
-            }
-            else if (currentTab == CurrencyTab.Gem)
-            {
-                double goldCost = GetNextCost(e.type, CurrencyTab.Gold);
+                double goldCost = GetNextGoldCost(e.type);
                 long gemCost = (double.IsInfinity(goldCost) || goldCost <= 0)
                     ? 0
                     : (long)Math.Max(1, Math.Ceiling(goldCost * Math.Max(1e-6, goldToGemFactor)));
@@ -273,13 +216,12 @@ public class ShopPanelController : MonoBehaviour
             }
             else // Gold
             {
-                double goldCost = GetNextCost(e.type, CurrencyTab.Gold);
+                double goldCost = GetNextGoldCost(e.type);
                 string value = ComposeValueGoldEconomy(e.type);
                 e.costText.text = (isMax || double.IsInfinity(goldCost)) ? value : $"{value}\n{goldCost:N0}";
             }
         }
 
-        // ⬇ 아이콘/인터랙션
         if (e.iconTarget != null) e.iconTarget.sprite = isMax ? e.maxIconSprite : e.upgradeIconSprite;
         if (e.buyOrUpgradeButton != null) e.buyOrUpgradeButton.interactable = !isMax;
     }
@@ -312,51 +254,9 @@ public class ShopPanelController : MonoBehaviour
         return "-";
     }
 
-    string ComposeValuePrestige(ShopItemType t)
-    {
-        if (shop == null) return "-";
-
-        switch (t)
-        {
-            case ShopItemType.ManualSpawnMax:
-            {
-                int add = Safe(() => shop.GetManualSpawnMaxPlus(), 0);
-                return $"+{add}개";
-            }
-            case ShopItemType.ManualSpawnSpeed:
-            {
-                double m = Safe(() => shop.GetManualSpawnIntervalMul(), 1.0);
-                return $"-{(1.0 - m) * 100.0:0.#}%";
-            }
-            case ShopItemType.FieldMax:
-            {
-                int add = Safe(() => shop.GetFieldMaxPlus(), 0);
-                return $"+{add}칸";
-            }
-            case ShopItemType.ClickBonus:
-            {
-                double mul = Safe(() => shop.GetClickBonusMul(), 1.0);
-                return $"x{mul:0.00}";
-            }
-            case ShopItemType.OfflineReward:
-            {
-                double mul = Safe(() => shop.GetOfflineRewardMul(), 1.0);
-                return $"x{mul:0.00}";
-            }
-            case ShopItemType.OfflineMaxTime:
-            {
-                int sec = Safe(() => shop.GetOfflineMaxExtraSeconds(), 0);
-                return $"+{sec/60}분";
-            }
-        }
-        return "-";
-    }
-
     // ─────────────────────────────────────────────────────────────
-    // 레벨/캡/코스트 (탭별 라우팅)
-    int GetLevel(ShopItemType t, CurrencyTab tab)
+    int GetLevel(ShopItemType t)
     {
-        if (tab == CurrencyTab.Prestige) return GetPrestigeLevel(t);
         if (economy == null) return 0;
 
         return t switch
@@ -371,9 +271,8 @@ public class ShopPanelController : MonoBehaviour
         };
     }
 
-    int GetCap(ShopItemType t, CurrencyTab tab)
+    int GetCap(ShopItemType t)
     {
-        if (tab == CurrencyTab.Prestige) return -1; // cap 미설정(무한)
         if (economy == null) return 0;
 
         return t switch
@@ -388,9 +287,8 @@ public class ShopPanelController : MonoBehaviour
         };
     }
 
-    double GetNextCost(ShopItemType t, CurrencyTab tab)
+    double GetNextGoldCost(ShopItemType t)
     {
-        if (tab == CurrencyTab.Prestige) return GetPrestigeCost(t); // 포인트 비용
         if (economy == null) return double.PositiveInfinity;
 
         return t switch
@@ -405,55 +303,7 @@ public class ShopPanelController : MonoBehaviour
         };
     }
 
-    int GetPrestigeCost(ShopItemType t)
-    {
-        if (shop == null) return int.MaxValue;
-
-        return t switch
-        {
-            ShopItemType.ManualSpawnMax   => Safe(() => shop.GetPlusManualSpawnMaxCost(),  int.MaxValue),
-            ShopItemType.ManualSpawnSpeed => Safe(() => shop.GetPlusManualSpeedCost(),     int.MaxValue),
-            ShopItemType.FieldMax         => Safe(() => shop.GetPlusFieldMaxCost(),        int.MaxValue),
-            ShopItemType.ClickBonus       => Safe(() => shop.GetPlusClickBonusCost(),      int.MaxValue),
-            ShopItemType.OfflineReward    => Safe(() => shop.GetPlusOfflineRewardCost(),   int.MaxValue),
-            ShopItemType.OfflineMaxTime   => Safe(() => shop.GetPlusOfflineMaxTimeCost(),  int.MaxValue),
-            _ => int.MaxValue
-        };
-    }
-
-    int GetPrestigeLevel(ShopItemType t)
-    {
-        if (shop == null) return 0;
-
-        string field = t switch
-        {
-            ShopItemType.ManualSpawnMax   => "plusManualSpawnMaxLv",
-            ShopItemType.ManualSpawnSpeed => "plusManualSpawnSpeedLv",
-            ShopItemType.FieldMax         => "plusFieldMaxLv",
-            ShopItemType.ClickBonus       => "plusClickBonusLv",
-            ShopItemType.OfflineReward    => "plusOfflineRewardLv",
-            ShopItemType.OfflineMaxTime   => "plusOfflineMaxTimeLv",
-            _ => null
-        };
-        if (string.IsNullOrEmpty(field)) return 0;
-
-        try
-        {
-            var fi = typeof(PrestigeShopManager).GetField(field, BindingFlags.NonPublic | BindingFlags.Instance);
-            if (fi != null && fi.FieldType == typeof(int)) return (int)fi.GetValue(shop);
-        }
-        catch { }
-
-        return 0;
-    }
-
-    int GetPrestigePointsSafe()
-    {
-        try { return prestige != null ? prestige.GetPrestigePoints() : 0; } catch { return 0; }
-    }
-
     // ─────────────────────────────────────────────────────────────
-    // 표기 유틸
     string FormatLvCap(int lv, int cap)
     {
         if (cap <= 0) return $"Lv. {lv}";
@@ -472,7 +322,4 @@ public class ShopPanelController : MonoBehaviour
     }
     System.Collections.IEnumerator HideReasonAfter(float sec){ yield return new WaitForSecondsRealtime(sec); HideReasonImmediate(); }
     void HideReasonImmediate(){ if (reasonLabel==null) return; if (_reasonRoutine!=null){ StopCoroutine(_reasonRoutine); _reasonRoutine=null; } reasonLabel.text=""; reasonLabel.gameObject.SetActive(false); }
-
-    // 안전 호출
-    static T Safe<T>(Func<T> f, T fb){ try { return f(); } catch { return fb; } }
 }

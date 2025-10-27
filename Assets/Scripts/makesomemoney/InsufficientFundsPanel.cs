@@ -33,6 +33,11 @@ public class InsufficientFundsPanel : MonoBehaviour
     public TextMeshProUGUI gemNeedHaveText;
     public Button openGemShopButton;
 
+    // Keep a reference to the delegate used for the ad ready changed event so
+    // we can properly unsubscribe on disable. Lambdas create new delegates
+    // each time, so removing a similar lambda would not detach the original handler.
+    private Action<bool> adReadyChangedHandler;
+
     void Awake()
     {
         if (!economy) economy = FindObjectOfType<EconomyManager>(true);
@@ -50,11 +55,26 @@ public class InsufficientFundsPanel : MonoBehaviour
             watchAdButton.onClick.AddListener(OnClickWatchAd);
         }
         UpdateAdButtonVisual();
-        if (adService != null) adService.OnRewardedReadyChanged += _ => UpdateAdButtonVisual();
+        // Subscribe once to the OnRewardedReadyChanged event if available
+        if (adService != null)
+        {
+            // Unsubscribe previous handler if one exists
+            if (adReadyChangedHandler != null)
+            {
+                try { adService.OnRewardedReadyChanged -= adReadyChangedHandler; } catch {}
+            }
+            adReadyChangedHandler = (ready) => UpdateAdButtonVisual();
+            adService.OnRewardedReadyChanged += adReadyChangedHandler;
+        }
     }
     void OnDisable()
     {
-        if (adService != null) adService.OnRewardedReadyChanged -= _ => UpdateAdButtonVisual();
+        // Properly unsubscribe the stored handler to avoid memory leaks
+        if (adService != null && adReadyChangedHandler != null)
+        {
+            try { adService.OnRewardedReadyChanged -= adReadyChangedHandler; } catch {}
+            adReadyChangedHandler = null;
+        }
     }
 
     // ───────── Public API (오토/상점에서 호출) ─────────

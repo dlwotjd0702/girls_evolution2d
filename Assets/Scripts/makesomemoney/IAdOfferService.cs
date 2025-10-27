@@ -1,5 +1,6 @@
 ﻿// Assets/Scripts/ads/IAdOfferService.cs
 using System;
+using UnityEngine;
 
 public interface IAdOfferService
 {
@@ -9,3 +10,7 @@ public interface IAdOfferService
 
     event Action<bool> OnRewardedReadyChanged;
 }
+
+
+
+

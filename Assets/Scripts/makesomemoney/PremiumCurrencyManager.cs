@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Purchasing;
-using System.Linq;
 
 // Updated for Unity IAP v5.0
-// The previous implementation relied on IStoreListener and synchronous initialization.
-// This class now uses the StoreController from UnityIAPServices and asynchronous
-// initialization to comply with the Google Play Billing Library v7+ and Apple policies.
+// StoreController (UnityIAPServices) 비동기 초기화 기반
 public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 {
     public static PremiumCurrencyManager Instance { get; private set; }
@@ -30,8 +29,18 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     [Header("Balance")]
     [SerializeField] private long gems = 0;
-    public event Action<long> OnGemsChanged;
+    public event Action<long> OnGemsChanged;   // 외부에서 필요 시 구독
     public event Action       OnCatalogReady;
+
+    // ───────────────── HUD 바인딩 ─────────────────
+    [Header("HUD Bindings (optional)")]
+    [Tooltip("젬 수량을 표시할 TMP 텍스트들(HUD/상단바 등). 매니저가 직접 갱신합니다.")]
+    [SerializeField] private List<TextMeshProUGUI> gemTextTargets = new();
+    [Tooltip("표시 포맷. {0} 위치에 젬 수가 들어갑니다.")]
+    [SerializeField] private string gemTextFormat = "{0:N0}";
+    [Tooltip("접두/접미 텍스트가 필요하면 사용하세요. 예) \"💎 \"")]
+    [SerializeField] private string gemPrefix = "";
+    [SerializeField] private string gemSuffix = "";
 
     const string PP_GEMS = "GEMS_BALANCE_V2";
 
@@ -56,16 +65,63 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             var s = PlayerPrefs.GetString(PP_GEMS, "0");
             if (long.TryParse(s, out var v)) gems = Math.Max(0, v);
         }
-        OnGemsChanged?.Invoke(gems);
+        // 최초 푸시
+        SafeInvokeGemsChanged();
+        UpdateGemTextsImmediate();
+
         // Begin asynchronous initialization of the IAP services
         InitializeIAP();
     }
 
     // ===== Public API =====
     public long  GetGems() => gems;
-    public void  SetGems(long amount){ gems = Math.Max(0, amount); NotifyAndPersist(); }
-    public void  AddGems(long amount){ if (amount<=0) return; gems += amount; NotifyAndPersist(); }
-    public bool  TrySpendGems(long amount){ if (amount<=0) return true; if (gems<amount) return false; gems -= amount; NotifyAndPersist(); return true; }
+
+    public void  SetGems(long amount)
+    {
+        gems = Math.Max(0, amount);
+        NotifyAndPersist();
+    }
+    public void  AddGems(long amount)
+    {
+        if (amount<=0) return;
+        gems += amount;
+        NotifyAndPersist();
+    }
+    public bool  TrySpendGems(long amount)
+    {
+        if (amount<=0) return true;
+        if (gems<amount) return false;
+        gems -= amount;
+        NotifyAndPersist();
+        return true;
+    }
+
+    // ───── HUD 텍스트 바인딩 제어 ─────
+    public void RegisterGemText(TextMeshProUGUI text, bool pushNow = true)
+    {
+        if (text == null) return;
+        if (!gemTextTargets.Contains(text)) gemTextTargets.Add(text);
+        if (pushNow) UpdateGemText(text);
+    }
+    public void UnregisterGemText(TextMeshProUGUI text)
+    {
+        if (text == null) return;
+        gemTextTargets.Remove(text);
+    }
+    public void UpdateGemTextsImmediate()
+    {
+        for (int i = gemTextTargets.Count - 1; i >= 0; i--)
+        {
+            var t = gemTextTargets[i];
+            if (t == null) { gemTextTargets.RemoveAt(i); continue; }
+            UpdateGemText(t);
+        }
+    }
+    private void UpdateGemText(TextMeshProUGUI t)
+    {
+        if (t == null) return;
+        t.text = $"{gemPrefix}{string.Format(gemTextFormat, gems)}{gemSuffix}";
+    }
 
     public void Purchase(string productId)
     {
@@ -81,11 +137,9 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     public string GetLocalizedPrice(string productId)
     {
         if (string.IsNullOrEmpty(productId)) return "";
-        // Return cached price if available
         if (priceCache.TryGetValue(productId, out var s) && !string.IsNullOrEmpty(s))
             return s;
 
-        // Attempt to fetch from the store controller directly
         var p = storeController?.GetProductById(productId);
         if (p?.metadata != null)
         {
@@ -99,7 +153,6 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     public void RestorePurchases()
     {
 #if UNITY_IOS || UNITY_STANDALONE_OSX
-        // In IAP v5, restore transactions is handled via StoreController
         storeController?.RestoreTransactions((success, error) => { /* handle restore callback if needed */ });
 #else
         Debug.Log("[IAP] RestorePurchases is only for iOS/macOS.");
@@ -107,20 +160,16 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     }
 
     // ===== IAP 초기화 (IAP v5) =====
-    // Connects to the store, fetches products, and sets up event handlers.
     async void InitializeIAP()
     {
-        // Obtain a store controller instance
         storeController = UnityIAPServices.StoreController();
 
-        // Register event handlers before making API calls
-        storeController.OnProductsFetched += OnProductsFetched;
-        storeController.OnProductsFetchFailed += OnProductsFetchFailed;
-        storeController.OnPurchasePending += OnPurchasePending;
-        storeController.OnPurchaseConfirmed += OnPurchaseConfirmed;
-        storeController.OnPurchaseFailed += OnPurchaseFailed;
+        storeController.OnProductsFetched    += OnProductsFetched;
+        storeController.OnProductsFetchFailed+= OnProductsFetchFailed;
+        storeController.OnPurchasePending    += OnPurchasePending;
+        storeController.OnPurchaseConfirmed  += OnPurchaseConfirmed;
+        storeController.OnPurchaseFailed     += OnPurchaseFailed;
 
-        // Connect to the store
         try
         {
             await storeController.Connect();
@@ -132,43 +181,25 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             return;
         }
 
-        // Build list of product definitions from our gem products
         var definitions = new List<ProductDefinition>();
         foreach (var gp in products)
-        {
             if (!string.IsNullOrEmpty(gp.productId))
-            {
                 definitions.Add(new ProductDefinition(gp.productId, gp.type));
-            }
-        }
 
-        // Fetch product metadata from the store
         if (definitions.Count > 0)
-        {
             storeController.FetchProducts(definitions);
-        }
         else
-        {
-            // Nothing to fetch; still notify that the catalog is ready so UI can react
             OnCatalogReady?.Invoke();
-        }
     }
 
     // ===== IAP v5 event handlers =====
     void OnProductsFetched(List<Product> fetchedProducts)
     {
-        // Populate localized price cache
         foreach (var prod in fetchedProducts)
-        {
             if (prod?.metadata != null)
-            {
                 priceCache[prod.definition.id] = prod.metadata.localizedPriceString;
-            }
-        }
-        // Notify that catalog is ready for UI refresh
-        OnCatalogReady?.Invoke();
 
-        // Optionally fetch existing purchases (not strictly necessary for consumables)
+        OnCatalogReady?.Invoke();
         storeController.FetchPurchases();
     }
 
@@ -180,17 +211,13 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     void OnPurchasePending(PendingOrder pendingOrder)
     {
-        // Immediately confirm the pending order to finalize the transaction
         if (storeController != null && pendingOrder != null)
-        {
             storeController.ConfirmPurchase(pendingOrder);
-        }
     }
 
     void OnPurchaseConfirmed(Order order)
     {
         if (order == null) return;
-        // Iterate through items in the confirmed order's cart and grant rewards
         var items = order.CartOrdered?.Items();
         if (items != null)
         {
@@ -198,15 +225,11 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             {
                 var productId = item?.Product?.definition?.id;
                 if (string.IsNullOrEmpty(productId)) continue;
+
                 var grant = 0;
                 foreach (var gp in products)
-                {
-                    if (gp.productId == productId)
-                    {
-                        grant = gp.grantAmount;
-                        break;
-                    }
-                }
+                    if (gp.productId == productId) { grant = gp.grantAmount; break; }
+
                 if (grant > 0)
                 {
                     AddGems(grant);
@@ -227,7 +250,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         Debug.LogWarning($"[IAP] Purchase failed: {productId} - {reason}");
     }
 
-    // ===== Save / Load (ISaveable 호환) =====
+    // ===== Save / Load =====
     public void CollectSaveData(SaveData d)
     {
         TrySetLong(d, "gems", gems);
@@ -246,19 +269,27 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             var s = PlayerPrefs.GetString(PP_GEMS, "0");
             if (long.TryParse(s, out var p)) gems = Math.Max(0, p);
         }
-        OnGemsChanged?.Invoke(gems);
+        SafeInvokeGemsChanged();
+        UpdateGemTextsImmediate();
     }
 
     // ===== Helpers =====
     void NotifyAndPersist()
     {
-        OnGemsChanged?.Invoke(gems);
+        SafeInvokeGemsChanged();
+        UpdateGemTextsImmediate();
+
         if (!HasSaveManager())
         {
             PlayerPrefs.SetString(PP_GEMS, gems.ToString());
             PlayerPrefs.Save();
         }
     }
+    void SafeInvokeGemsChanged()
+    {
+        try { OnGemsChanged?.Invoke(gems); } catch { /* swallow */ }
+    }
+
     bool HasSaveManager()
     {
         try
@@ -268,6 +299,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             return pi?.GetValue(null, null) != null;
         } catch { return false; }
     }
+
     static void TrySetLong(object obj, string name, long value)
     {
         var f = obj.GetType().GetField(name, System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Instance);

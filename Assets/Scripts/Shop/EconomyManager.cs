@@ -70,7 +70,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
     void RefreshGoldHUD()
     {
         if (goldText)
-            goldText.text = $"{FormatCompact(gold)} {goldUnitSuffix}";
+            goldText.text = $"{FormatCompact(gold)} {goldUnitSuffix}G";
 
         if (goldPerSecText)
         {
@@ -79,7 +79,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
             if (show)
             {
                 string plus = showPlusOnPerSec ? "+" : "";
-                goldPerSecText.text = $"{plus}{FormatCompact(_goldPerSecEstimate, 1)} {goldUnitSuffix}/s";
+                goldPerSecText.text = $"{plus}{FormatCompact(_goldPerSecEstimate, 1)} {goldUnitSuffix}G/s";
             }
         }
     }

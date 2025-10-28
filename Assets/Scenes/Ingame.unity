@@ -9103,7 +9103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &692445993
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22102,10 +22102,10 @@ MonoBehaviour:
   emaTimeConstant: 1.5
   ldCenterScale: 2
   ldCenterScaleFinalMul: 2
-  ldPopOvershoot: 0.12
-  ldPopInTime: 0.12
-  ldHoldTime: 0.15
-  moveDuration: 0.55
+  ldPopOvershoot: 0.4
+  ldPopInTime: 0.5
+  ldHoldTime: 1
+  moveDuration: 1
   swapToSDFraction: 0.18
   spawnButton: {fileID: 284952149}
   chargeFillImage: {fileID: 923441312}
@@ -24511,14 +24511,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 0.3137255}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 0fb6d5ec5b3ee3648ad4790cdd8b4015, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

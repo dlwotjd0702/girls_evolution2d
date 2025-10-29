@@ -1,12 +1,15 @@
-﻿using System;
+﻿// ============================================================================
+// PremiumCurrencyManager.cs  (젬 라벨 단일화)
+// - 젬 텍스트: 단일 TMP_Text만 인스펙터에서 연결
+// - 나머지 IAP v5 로직은 기존 그대로
+// ============================================================================
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Purchasing;
+using System.Linq;
+using TMPro;
 
-// Updated for Unity IAP v5.0
-// StoreController (UnityIAPServices) 비동기 초기화 기반
 public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 {
     public static PremiumCurrencyManager Instance { get; private set; }
@@ -29,25 +32,15 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     [Header("Balance")]
     [SerializeField] private long gems = 0;
-    public event Action<long> OnGemsChanged;   // 외부에서 필요 시 구독
+    public event Action<long> OnGemsChanged;
     public event Action       OnCatalogReady;
 
-    // ───────────────── HUD 바인딩 ─────────────────
-    [Header("HUD Bindings (optional)")]
-    [Tooltip("젬 수량을 표시할 TMP 텍스트들(HUD/상단바 등). 매니저가 직접 갱신합니다.")]
-    [SerializeField] private List<TextMeshProUGUI> gemTextTargets = new();
-    [Tooltip("표시 포맷. {0} 위치에 젬 수가 들어갑니다.")]
-    [SerializeField] private string gemTextFormat = "{0:N0}";
-    [Tooltip("접두/접미 텍스트가 필요하면 사용하세요. 예) \"💎 \"")]
-    [SerializeField] private string gemPrefix = "";
-    [SerializeField] private string gemSuffix = "";
+    [Header("UI Label (Optional)")]
+    [SerializeField] private TextMeshProUGUI gemLabel; // 인스펙터에서 하나만 연결
 
     const string PP_GEMS = "GEMS_BALANCE_V2";
 
-    // Store controller for IAP v5
     private StoreController storeController;
-
-    // 가격 캐시
     private readonly Dictionary<string,string> priceCache = new();
 
     void Awake()
@@ -59,86 +52,33 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     void Start()
     {
-        // SaveManager가 없다면 PlayerPrefs에서 복구
+        // SaveManager가 없으면 PlayerPrefs에서 복구
         if (!HasSaveManager())
         {
             var s = PlayerPrefs.GetString(PP_GEMS, "0");
             if (long.TryParse(s, out var v)) gems = Math.Max(0, v);
         }
-        // 최초 푸시
-        SafeInvokeGemsChanged();
-        UpdateGemTextsImmediate();
-
-        // Begin asynchronous initialization of the IAP services
+        NotifyAndPersist(); // 초기 라벨 갱신
         InitializeIAP();
     }
 
     // ===== Public API =====
     public long  GetGems() => gems;
-
-    public void  SetGems(long amount)
-    {
-        gems = Math.Max(0, amount);
-        NotifyAndPersist();
-    }
-    public void  AddGems(long amount)
-    {
-        if (amount<=0) return;
-        gems += amount;
-        NotifyAndPersist();
-    }
-    public bool  TrySpendGems(long amount)
-    {
-        if (amount<=0) return true;
-        if (gems<amount) return false;
-        gems -= amount;
-        NotifyAndPersist();
-        return true;
-    }
-
-    // ───── HUD 텍스트 바인딩 제어 ─────
-    public void RegisterGemText(TextMeshProUGUI text, bool pushNow = true)
-    {
-        if (text == null) return;
-        if (!gemTextTargets.Contains(text)) gemTextTargets.Add(text);
-        if (pushNow) UpdateGemText(text);
-    }
-    public void UnregisterGemText(TextMeshProUGUI text)
-    {
-        if (text == null) return;
-        gemTextTargets.Remove(text);
-    }
-    public void UpdateGemTextsImmediate()
-    {
-        for (int i = gemTextTargets.Count - 1; i >= 0; i--)
-        {
-            var t = gemTextTargets[i];
-            if (t == null) { gemTextTargets.RemoveAt(i); continue; }
-            UpdateGemText(t);
-        }
-    }
-    private void UpdateGemText(TextMeshProUGUI t)
-    {
-        if (t == null) return;
-        t.text = $"{gemPrefix}{string.Format(gemTextFormat, gems)}{gemSuffix}";
-    }
+    public void  SetGems(long amount){ gems = Math.Max(0, amount); NotifyAndPersist(); }
+    public void  AddGems(long amount){ if (amount<=0) return; gems += amount; NotifyAndPersist(); }
+    public bool  TrySpendGems(long amount){ if (amount<=0) return true; if (gems<amount) return false; gems -= amount; NotifyAndPersist(); return true; }
 
     public void Purchase(string productId)
     {
         if (string.IsNullOrEmpty(productId)) return;
-        if (storeController == null)
-        {
-            Debug.LogWarning("[IAP] Store not initialized.");
-            return;
-        }
+        if (storeController == null) { Debug.LogWarning("[IAP] Store not initialized."); return; }
         storeController.PurchaseProduct(productId);
     }
 
     public string GetLocalizedPrice(string productId)
     {
         if (string.IsNullOrEmpty(productId)) return "";
-        if (priceCache.TryGetValue(productId, out var s) && !string.IsNullOrEmpty(s))
-            return s;
+        if (priceCache.TryGetValue(productId, out var s) && !string.IsNullOrEmpty(s)) return s;
 
         var p = storeController?.GetProductById(productId);
         if (p?.metadata != null)
@@ -153,27 +93,24 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     public void RestorePurchases()
     {
 #if UNITY_IOS || UNITY_STANDALONE_OSX
-        storeController?.RestoreTransactions((success, error) => { /* handle restore callback if needed */ });
+        storeController?.RestoreTransactions((success, error) => {});
 #else
         Debug.Log("[IAP] RestorePurchases is only for iOS/macOS.");
 #endif
     }
 
-    // ===== IAP 초기화 (IAP v5) =====
+    // ===== IAP v5 초기화/이벤트 (기존과 동일) =====
     async void InitializeIAP()
     {
         storeController = UnityIAPServices.StoreController();
 
-        storeController.OnProductsFetched    += OnProductsFetched;
-        storeController.OnProductsFetchFailed+= OnProductsFetchFailed;
-        storeController.OnPurchasePending    += OnPurchasePending;
-        storeController.OnPurchaseConfirmed  += OnPurchaseConfirmed;
-        storeController.OnPurchaseFailed     += OnPurchaseFailed;
+        storeController.OnProductsFetched     += OnProductsFetched;
+        storeController.OnProductsFetchFailed += OnProductsFetchFailed;
+        storeController.OnPurchasePending     += OnPurchasePending;
+        storeController.OnPurchaseConfirmed   += OnPurchaseConfirmed;
+        storeController.OnPurchaseFailed      += OnPurchaseFailed;
 
-        try
-        {
-            await storeController.Connect();
-        }
+        try { await storeController.Connect(); }
         catch (Exception ex)
         {
             Debug.LogError("[IAP] Connection failed: " + ex.Message);
@@ -186,13 +123,10 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             if (!string.IsNullOrEmpty(gp.productId))
                 definitions.Add(new ProductDefinition(gp.productId, gp.type));
 
-        if (definitions.Count > 0)
-            storeController.FetchProducts(definitions);
-        else
-            OnCatalogReady?.Invoke();
+        if (definitions.Count > 0) storeController.FetchProducts(definitions);
+        else OnCatalogReady?.Invoke();
     }
 
-    // ===== IAP v5 event handlers =====
     void OnProductsFetched(List<Product> fetchedProducts)
     {
         foreach (var prod in fetchedProducts)
@@ -219,27 +153,19 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     {
         if (order == null) return;
         var items = order.CartOrdered?.Items();
-        if (items != null)
+        if (items == null) return;
+
+        foreach (var item in items)
         {
-            foreach (var item in items)
-            {
-                var productId = item?.Product?.definition?.id;
-                if (string.IsNullOrEmpty(productId)) continue;
+            var productId = item?.Product?.definition?.id;
+            if (string.IsNullOrEmpty(productId)) continue;
 
-                var grant = 0;
-                foreach (var gp in products)
-                    if (gp.productId == productId) { grant = gp.grantAmount; break; }
+            var grant = 0;
+            foreach (var gp in products)
+                if (gp.productId == productId) { grant = gp.grantAmount; break; }
 
-                if (grant > 0)
-                {
-                    AddGems(grant);
-                    Debug.Log($"[IAP] +{grant} gems ({productId})");
-                }
-                else
-                {
-                    Debug.LogWarning("[IAP] Unknown product id: " + productId);
-                }
-            }
+            if (grant > 0) { AddGems(grant); Debug.Log($"[IAP] +{grant} gems ({productId})"); }
+            else Debug.LogWarning("[IAP] Unknown product id: " + productId);
         }
     }
 
@@ -269,15 +195,14 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             var s = PlayerPrefs.GetString(PP_GEMS, "0");
             if (long.TryParse(s, out var p)) gems = Math.Max(0, p);
         }
-        SafeInvokeGemsChanged();
-        UpdateGemTextsImmediate();
+        NotifyAndPersist();
     }
 
     // ===== Helpers =====
     void NotifyAndPersist()
     {
-        SafeInvokeGemsChanged();
-        UpdateGemTextsImmediate();
+        if (gemLabel) gemLabel.text = $"{gems:N0}";
+        OnGemsChanged?.Invoke(gems);
 
         if (!HasSaveManager())
         {
@@ -285,11 +210,6 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             PlayerPrefs.Save();
         }
     }
-    void SafeInvokeGemsChanged()
-    {
-        try { OnGemsChanged?.Invoke(gems); } catch { /* swallow */ }
-    }
-
     bool HasSaveManager()
     {
         try
@@ -299,7 +219,6 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             return pi?.GetValue(null, null) != null;
         } catch { return false; }
     }
-
     static void TrySetLong(object obj, string name, long value)
     {
         var f = obj.GetType().GetField(name, System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Instance);

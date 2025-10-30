@@ -22190,7 +22190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1562373081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30257,13 +30257,14 @@ GameObject:
   - component: {fileID: 2050212757}
   - component: {fileID: 2050212756}
   - component: {fileID: 2050212759}
+  - component: {fileID: 2050212760}
   m_Layer: 5
   m_Name: "\uD604\uC9C8"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2050212752
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30366,21 +30367,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   premium: {fileID: 1331978605}
   entries:
-  - productId: 
-    grantGems: 0
+  - productId: gems_small
+    grantGems: 80
     titleText: {fileID: 0}
     priceText: {fileID: 0}
     buyButton: {fileID: 0}
-  - productId: 
-    grantGems: 0
+  - productId: gems_medium
+    grantGems: 500
     titleText: {fileID: 0}
     priceText: {fileID: 0}
     buyButton: {fileID: 0}
-  - productId: 
-    grantGems: 0
+  - productId: gems_large
+    grantGems: 1200
     titleText: {fileID: 0}
     priceText: {fileID: 0}
     buyButton: {fileID: 0}
+--- !u!114 &2050212760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050212751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d404169fff694112ab69ba0a411e9006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  premium: {fileID: 0}
+  entries: []
 --- !u!1 &2050865558
 GameObject:
   m_ObjectHideFlags: 0

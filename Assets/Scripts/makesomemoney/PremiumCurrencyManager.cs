@@ -28,12 +28,33 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         new GemProduct{ productId="gems_small",  type=ProductType.Consumable, grantAmount=80  },
         new GemProduct{ productId="gems_medium", type=ProductType.Consumable, grantAmount=500 },
         new GemProduct{ productId="gems_large",  type=ProductType.Consumable, grantAmount=1200},
+        // Non-consumable product to permanently remove ads from the game. Set grantAmount=0 since no currency is awarded.
+        new GemProduct{ productId=REMOVE_ADS_ID, type=ProductType.NonConsumable, grantAmount=0 },
     };
 
     [Header("Balance")]
     [SerializeField] private long gems = 0;
     public event Action<long> OnGemsChanged;
     public event Action       OnCatalogReady;
+
+    // ===== Remove Ads (Non-consumable purchase) =====
+    /// <summary>
+    /// Identifier for the non-consumable product that permanently removes ads.
+    /// </summary>
+    public const string REMOVE_ADS_ID = "remove_ads";
+
+    /// <summary>
+    /// Persistent flag indicating whether the user has purchased ad removal. When true, reward videos and other ads should be disabled.
+    /// </summary>
+    [SerializeField] private bool adsRemoved = false;
+
+    /// <summary>
+    /// Event fired when the adsRemoved state changes (true when the player has removed ads).
+    /// </summary>
+    public event Action<bool> OnAdsRemovedChanged;
+
+    // PlayerPrefs key used for storing the ad removal state when no save manager is present.
+    const string PP_ADS_REMOVED = "ADS_REMOVED_FLAG";
 
     [Header("UI Label (Optional)")]
     [SerializeField] private TextMeshProUGUI gemLabel; // 인스펙터에서 하나만 연결
@@ -57,6 +78,8 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         {
             var s = PlayerPrefs.GetString(PP_GEMS, "0");
             if (long.TryParse(s, out var v)) gems = Math.Max(0, v);
+            // Restore the ad removal flag from PlayerPrefs
+            adsRemoved = PlayerPrefs.GetInt(PP_ADS_REMOVED, 0) != 0;
         }
         NotifyAndPersist(); // 초기 라벨 갱신
         InitializeIAP();
@@ -160,12 +183,32 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             var productId = item?.Product?.definition?.id;
             if (string.IsNullOrEmpty(productId)) continue;
 
+            // Handle gem grants and special products
             var grant = 0;
             foreach (var gp in products)
-                if (gp.productId == productId) { grant = gp.grantAmount; break; }
+            {
+                if (gp.productId == productId)
+                {
+                    grant = gp.grantAmount;
+                    break;
+                }
+            }
 
-            if (grant > 0) { AddGems(grant); Debug.Log($"[IAP] +{grant} gems ({productId})"); }
-            else Debug.LogWarning("[IAP] Unknown product id: " + productId);
+            // If the player purchased the remove ads product, set the flag and skip gem awarding
+            if (productId == REMOVE_ADS_ID)
+            {
+                SetAdsRemoved(true);
+                Debug.Log("[IAP] Ads have been permanently removed.");
+            }
+            else if (grant > 0)
+            {
+                AddGems(grant);
+                Debug.Log($"[IAP] +{grant} gems ({productId})");
+            }
+            else
+            {
+                Debug.LogWarning("[IAP] Unknown product id: " + productId);
+            }
         }
     }
 
@@ -182,6 +225,9 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         TrySetLong(d, "gems", gems);
         TrySetLong(d, "diamonds", gems);
         TrySetLong(d, "premiumCurrency", gems);
+
+        // Persist the ad removal state as a long (1=true, 0=false)
+        TrySetLong(d, "adsRemoved", adsRemoved ? 1L : 0L);
     }
     public void ApplyLoadedData(SaveData d)
     {
@@ -195,6 +241,17 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
             var s = PlayerPrefs.GetString(PP_GEMS, "0");
             if (long.TryParse(s, out var p)) gems = Math.Max(0, p);
         }
+
+        // Load ad removal state from SaveData or PlayerPrefs fallback
+        long adsFlag = TryGetLong(d, "adsRemoved", long.MinValue);
+        if (adsFlag != long.MinValue)
+        {
+            adsRemoved = adsFlag != 0;
+        }
+        else
+        {
+            adsRemoved = PlayerPrefs.GetInt(PP_ADS_REMOVED, 0) != 0;
+        }
         NotifyAndPersist();
     }
 
@@ -207,6 +264,32 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         if (!HasSaveManager())
         {
             PlayerPrefs.SetString(PP_GEMS, gems.ToString());
+            PlayerPrefs.Save();
+        }
+    }
+
+    /// <summary>
+    /// Sets the ad removal flag and persists it. Fires <see cref="OnAdsRemovedChanged"/> when the state changes.
+    /// </summary>
+    /// <param name="value">Whether ads should be considered removed.</param>
+    public void SetAdsRemoved(bool value)
+    {
+        if (adsRemoved == value) return;
+        adsRemoved = value;
+        OnAdsRemovedChanged?.Invoke(adsRemoved);
+        PersistAdsRemoved();
+    }
+
+    /// <summary>
+    /// Returns true if the player has purchased the remove-ads non-consumable.
+    /// </summary>
+    public bool AdsRemoved => adsRemoved;
+
+    void PersistAdsRemoved()
+    {
+        if (!HasSaveManager())
+        {
+            PlayerPrefs.SetInt(PP_ADS_REMOVED, adsRemoved ? 1 : 0);
             PlayerPrefs.Save();
         }
     }

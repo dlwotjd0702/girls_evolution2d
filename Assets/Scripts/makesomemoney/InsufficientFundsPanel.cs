@@ -38,6 +38,9 @@ public class InsufficientFundsPanel : MonoBehaviour
     // each time, so removing a similar lambda would not detach the original handler.
     private Action<bool> adReadyChangedHandler;
 
+    // Keep a reference to the handler subscribed to the ad removal event so it can be unsubscribed.
+    private Action<bool> adsRemovedHandler;
+
     void Awake()
     {
         if (!economy) economy = FindObjectOfType<EconomyManager>(true);
@@ -66,6 +69,18 @@ public class InsufficientFundsPanel : MonoBehaviour
             adReadyChangedHandler = (ready) => UpdateAdButtonVisual();
             adService.OnRewardedReadyChanged += adReadyChangedHandler;
         }
+
+        // Subscribe to the PremiumCurrencyManager's ads removed event so the UI updates when ads are removed
+        var pcm = PremiumCurrencyManager.Instance;
+        if (pcm != null)
+        {
+            if (adsRemovedHandler != null)
+            {
+                try { pcm.OnAdsRemovedChanged -= adsRemovedHandler; } catch {}
+            }
+            adsRemovedHandler = _ => UpdateAdButtonVisual();
+            pcm.OnAdsRemovedChanged += adsRemovedHandler;
+        }
     }
     void OnDisable()
     {
@@ -74,6 +89,14 @@ public class InsufficientFundsPanel : MonoBehaviour
         {
             try { adService.OnRewardedReadyChanged -= adReadyChangedHandler; } catch {}
             adReadyChangedHandler = null;
+        }
+
+        // Unsubscribe ads removed handler
+        var pcm = PremiumCurrencyManager.Instance;
+        if (pcm != null && adsRemovedHandler != null)
+        {
+            try { pcm.OnAdsRemovedChanged -= adsRemovedHandler; } catch {}
+            adsRemovedHandler = null;
         }
     }
 
@@ -126,7 +149,9 @@ public class InsufficientFundsPanel : MonoBehaviour
     // ───────── Internals ─────────
     void UpdateAdButtonVisual()
     {
-        bool ready = adService != null && adService.IsRewardedReady();
+        // Disable the ad button if ads have been permanently removed or if the ad is not ready
+        bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+        bool ready = (adService != null && adService.IsRewardedReady()) && !adsRemoved;
         if (watchAdButton) watchAdButton.interactable = ready;
         if (watchAdIcon)
             watchAdIcon.sprite = ready ? adReadySprite : adNotReadySprite;
@@ -134,6 +159,8 @@ public class InsufficientFundsPanel : MonoBehaviour
 
     void OnClickWatchAd()
     {
+        // If ads have been removed or the ad is not ready, do nothing
+        if (PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved) return;
         if (adService == null || !adService.IsRewardedReady()) return;
 
         // 광고 성공 시 5분치 골드 지급

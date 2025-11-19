@@ -39,7 +39,7 @@ public class GirlCharacter : MonoBehaviour,
     private float jumpDuration = 0.38f;
     private float jumpIntervalMin = 2.25f;
     private float jumpIntervalMax = 4.5f;
-    private float minX = -410f, maxX = 410f, minY = -780f, maxY = 780f;
+    private float minX = -400f, maxX = 400f, minY = -740f, maxY = 740f;
 
     // 상태/플래그
     private Vector3 targetPosition;

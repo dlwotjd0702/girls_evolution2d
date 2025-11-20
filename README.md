@@ -191,35 +191,75 @@ SaveManager.LoadGame()
 
 ## 📋 TODO 리스트
 
-### 1. 로컬 저장 활성화
-- [ ] 로컬 파일 시스템을 사용한 세이브 파일 생성
-  - [ ] `Application.persistentDataPath`에 JSON 파일로 저장
-  - [ ] 게임 시작 시 자동으로 세이브 파일 불러오기
-  - [ ] 세이브 파일 리셋/삭제 기능 구현 (테스트용)
-  - [ ] 세이브 파일 백업/복원 기능 (선택사항)
+### ✅ 완료된 항목
 
-### 2. 도감 시스템 제작
-- [ ] LD 도감 패널 UI 제작
-  - [ ] 도감 슬롯 그리드 레이아웃 (25개 슬롯)
-  - [ ] 언락된 슬롯만 클릭 가능하도록 설정
-  - [ ] 미해방 슬롯은 비활성화 표시
-- [ ] 도감 팝업 패널
-  - [ ] 슬롯 클릭 시 팝업 패널 표시
-  - [ ] 상단: LD 일러스트 크게 표시
-  - [ ] 하단: 이름, 레벨, income 정보 표시
-- [ ] 도감 데이터 관리
-  - [ ] 발견한 레벨 추적 (기존 `discoveredLevels` 활용)
-  - [ ] 도감 언락 상태 저장/로드
+#### 1. 로컬 저장 활성화 ✅
+- ✅ 로컬 파일 시스템을 사용한 세이브 파일 생성 (`Application.persistentDataPath` 사용)
+- ✅ 게임 시작 시 자동으로 세이브 파일 불러오기
+- ✅ 세이브 파일 리셋/삭제 기능 구현 (`SaveManager.DeleteSaveFile()`, `ResetSaveFile()`)
+- ✅ 백업 파일 시스템 (자동 백업 생성 및 복구)
 
-### 3. 캐릭터 움직임 루프 개선
-- [ ] 이동 방향 전환 확인 및 수정
-  - [ ] `GirlCharacter.StartJump()`에서 방향 전환 로직 검토
-  - [ ] 이동 방향에 따라 스프라이트 Flip 적용
-- [ ] Idle 상태 애니메이션 개선
-  - [ ] 뛰거나 또잉거리지 않을 때 미세한 그루브 애니메이션 추가
-  - [ ] 호흡 효과 또는 미세한 스케일 변화
-- [ ] 점프 애니메이션 자연스럽게
-  - [ ] 점프 궤적 및 타이밍 조정
-  - [ ] 착지 시 바운스 효과 개선
-- [ ] 또잉거리는 애니메이션 자연스럽게
-  - [ ] `BounceAnim()` 타이밍 및 스케일 변화 조정
+#### 2. 도감 시스템 제작 ✅
+- ✅ LD 도감 패널 컨트롤러 (`EncyclopediaPanelController.cs`)
+- ✅ 도감 슬롯 컴포넌트 (`EncyclopediaSlot.cs`)
+- ✅ 도감 상세 팝업 패널 (`EncyclopediaDetailPanel.cs`)
+- ✅ 도감 언락 상태 저장/로드 연동 (`GirlFieldManager.GetDiscoveredLevels()`)
+
+#### 3. 캐릭터 움직임 루프 개선 ✅
+- ✅ 이동 방향 전환 로직 수정 (스프라이트 Flip 적용)
+- ✅ Idle 상태 미세한 그루브 애니메이션 추가 (`StartIdleGroove()`)
+- ✅ 점프 애니메이션 개선 (OutCubic 이징, 자연스러운 곡선)
+- ✅ 바운스 애니메이션 개선 (OutBack 이징, 3단계 바운스)
+
+### 🔄 추가 작업 필요
+
+#### UI 설정 및 연동
+- [ ] 도감 패널 UI 프리팹 제작 (Unity 에디터에서 슬롯 프리팹, 그리드 레이아웃, 팝업 패널 구성)
+- [ ] 세이브 파일 관리 UI 추가 (리셋/삭제 버튼, 경로 표시)
+- [ ] 도감 패널 자동 새로고침 이벤트 연동 (discoveredLevels 변경 시 자동 업데이트)
+
+#### 튜닝 및 최적화
+- [ ] 캐릭터 움직임 파라미터 튜닝 (점프 간격, 그루브 강도, 바운스 타이밍 등)
+- [ ] 도감 슬롯 비주얼 개선 (잠금 효과, 언락 애니메이션, 호버 효과)
+- [ ] 도감 팝업 패널 애니메이션 추가 (페이드 인/아웃, 스케일 효과)
+
+#### 테스트 및 검증
+- [ ] 로컬 저장 시스템 테스트 (저장/로드/리셋/삭제 기능 검증)
+- [ ] 도감 시스템 통합 테스트 (언락 상태, 팝업 표시, 저장/로드 연동)
+- [ ] 캐릭터 움직임 개선 사항 테스트 (방향 전환, Idle 그루브, 점프/바운스)
+
+#### 선택사항
+- [ ] 세이브 파일 백업/복원 기능 UI 추가
+
+---
+
+## 🛠 에디터 연동/설정 체크리스트
+
+Unity 에디터에서 아래 필드를 반드시 연결/세팅해야 전체 기능이 정상 동작합니다.
+
+1. **GirlFieldManager**
+   - `discoverySpotlightPanel`: LD 최초 발견 시 표시할 스포트라이트 패널(GameObject) 연결
+   - `discoverySpotlightImage`: 스포트라이트 알파를 조절할 Image (패널에 없으면 추가)
+   - `spotlightFadeIn`, `spotlightFadeOut`, `spotlightMaxAlpha`: 연출에 맞게 값 조정
+   - `discoveryPresentationRoot`: LD 일러스트를 가운데에 띄울 전용 RectTransform (없으면 활성화된 캔버스의 중앙 레이어)
+   - `girlRoot`, `activeParent`, `hiddenParent`, `tierManager`, `spriteLoader`, `mergeManager`, `economy` 등 필수 참조 확인
+
+2. **EncyclopediaPanelController**
+   - `slotContainer`: GridLayoutGroup가 적용된 콘텐츠 루트
+   - `slotPrefab`: `EncyclopediaSlot` 컴포넌트가 포함된 슬롯 프리팹
+   - `detailPanel`: `EncyclopediaDetailPanel` 인스턴스 참조
+   - `lockedSlotSprite`, `lockedColor`: 잠금 상태 표현용 리소스
+
+3. **EncyclopediaDetailPanel**
+   - `panelRoot`: 팝업 전체를 감싸는 루트 오브젝트
+   - `ldIllustrationImage`, `nameText`, `levelText`, `incomeText`, `closeButton`
+
+4. **SaveManager**
+   - `SaveManager` 오브젝트는 씬 내에 1개만 존재하도록 배치하고 `DontDestroyOnLoad` 상태 유지
+
+5. **Addressables & Sprite Loader**
+   - `GirlSpriteAddressableLoader`의 SD/LD 라벨이 Addressables에 등록되어 있는지 확인
+   - SD/LD 스프라이트 키 규칙(숫자 기반)이 CSV의 `spriteName`과 일치하도록 관리
+
+6. **DOTween**
+   - DOTween이 설치되어 있어야 하며, `Tools > Demigiant > DOTween Utility Panel`에서 Setup을 완료해야 함

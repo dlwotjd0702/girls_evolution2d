@@ -47,6 +47,7 @@ public class GirlCharacter : MonoBehaviour,
     private Vector3 dragOffset;
     private int currentDirectionX = 1; // 1(왼쪽), -1(오른쪽)
     private IEnumerator autoRoutine;
+    private Tween idleGrooveTween;  // Idle 그루브 애니메이션
 
     // Pulse 파라미터
     [SerializeField] private float pulseUpScaleMul = 1.06f;
@@ -65,6 +66,9 @@ public class GirlCharacter : MonoBehaviour,
         // 기본 스케일 3 기준
         transform.localScale = Vector3.one * defaultScale;
         baseScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
+        
+        // 초기 방향 설정
+        currentDirectionX = 1; // 기본 왼쪽 방향
 
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         if (!IsFinal)
@@ -89,6 +93,7 @@ public class GirlCharacter : MonoBehaviour,
         if (rectT != null) rectT.DOKill();
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
         if (pulseTween != null && pulseTween.IsActive()) pulseTween.Kill();
+        if (idleGrooveTween != null && idleGrooveTween.IsActive()) idleGrooveTween.Kill();
     }
 
     void Awake()
@@ -126,6 +131,9 @@ public class GirlCharacter : MonoBehaviour,
 
     private IEnumerator JumpBounceLoop()
     {
+        // 초기 Idle 그루브 시작
+        StartIdleGroove();
+        
         while (true)
         {
             while (isDragging) yield return null;
@@ -147,12 +155,41 @@ public class GirlCharacter : MonoBehaviour,
             BounceAnim();
         }
     }
+    
+    // Idle 상태 미세한 그루브 애니메이션
+    private void StartIdleGroove()
+    {
+        if (IsFinal || isJumping || isDragging) return;
+        
+        if (idleGrooveTween != null && idleGrooveTween.IsActive()) return;
+        
+        Vector3 baseS = GetDirectionalBaseScale();
+        float grooveAmount = 0.03f; // 3% 미세한 변화
+        float grooveDuration = 2.5f + UnityEngine.Random.Range(-0.5f, 0.5f); // 랜덤 타이밍
+        
+        // 미세한 스케일 변화와 약간의 회전
+        Sequence groove = DOTween.Sequence();
+        
+        // 스케일: 약간 커졌다 작아졌다
+        groove.Append(transform.DOScale(baseS * (1f + grooveAmount), grooveDuration * 0.5f).SetEase(Ease.InOutSine));
+        groove.Append(transform.DOScale(baseS * (1f - grooveAmount * 0.7f), grooveDuration * 0.5f).SetEase(Ease.InOutSine));
+        groove.Append(transform.DOScale(baseS, grooveDuration * 0.3f).SetEase(Ease.InOutSine));
+        
+        groove.SetLoops(-1, LoopType.Restart);
+        groove.SetUpdate(true); // TimeScale 무시
+        
+        idleGrooveTween = groove;
+    }
 
     void StartJump()
     {
         if (IsFinal) return;
 
         isJumping = true;
+        
+        // Idle 그루브 애니메이션 중지
+        if (idleGrooveTween != null && idleGrooveTween.IsActive()) idleGrooveTween.Kill();
+        
         float dirX = UnityEngine.Random.value < 0.5f ? -1f : 1f;
         float dirY = UnityEngine.Random.value < 0.5f ? -1f : 1f;
         float moveX = dirX * UnityEngine.Random.Range(moveDistance * 0.8f, moveDistance * 1.2f);
@@ -162,13 +199,25 @@ public class GirlCharacter : MonoBehaviour,
         float newY = Mathf.Clamp(rectT.localPosition.y + moveY, minY, maxY);
         targetPosition = new Vector3(newX, newY, rectT.localPosition.z);
 
-        currentDirectionX = (dirX > 0 ? -1 : 1); // 오른쪽=-1, 왼쪽=1
-        transform.localScale = GetDirectionalBaseScale(); // 방향 반영한 기준으로 리셋
+        // 이동 방향에 따라 스프라이트 Flip 적용
+        int newDirection = (dirX > 0) ? -1 : 1; // 오른쪽=-1, 왼쪽=1
+        if (newDirection != currentDirectionX)
+        {
+            currentDirectionX = newDirection;
+            transform.localScale = GetDirectionalBaseScale(); // 방향 반영한 기준으로 리셋
+        }
 
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
+        
+        // 점프 애니메이션 개선: 더 자연스러운 곡선과 타이밍
         jumpTween = rectT.DOLocalJump(targetPosition, jumpPower, 1, jumpDuration)
-                     .SetEase(Ease.OutQuad)
-                     .OnComplete(() => { isJumping = false; });
+                     .SetEase(Ease.OutCubic)  // OutQuad -> OutCubic으로 변경하여 더 부드럽게
+                     .OnComplete(() => 
+                     { 
+                         isJumping = false;
+                         // 점프 완료 후 Idle 그루브 재시작
+                         StartIdleGroove();
+                     });
     }
 
     // ----- 드래그/클릭 -----
@@ -213,6 +262,12 @@ public class GirlCharacter : MonoBehaviour,
         mergeManager?.ClearDraggingGirl();
         Highlight(false);
         targetPosition = rectT.localPosition;
+        
+        // 드래그 종료 후 Idle 그루브 재시작
+        if (!isJumping)
+        {
+            StartIdleGroove();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -237,17 +292,26 @@ public class GirlCharacter : MonoBehaviour,
 
         // 바운스 시작 전에 Pulse 트윈만 종료(이동/점프는 유지)
         if (pulseTween != null && pulseTween.IsActive()) pulseTween.Kill();
+        
+        // Idle 그루브도 일시 중지
+        if (idleGrooveTween != null && idleGrooveTween.IsActive()) idleGrooveTween.Kill();
 
         // 방향 반영한 기준 스케일에서 시작 → 드리프트 방지
         transform.localScale = GetDirectionalBaseScale();
 
-        Vector3 scaled = transform.localScale * 1.22f;
-        transform.DOScale(scaled, 0.11f).SetEase(Ease.OutQuad)
-                 .OnComplete(() =>
-                 {
-                     Vector3 baseDir = GetDirectionalBaseScale();
-                     transform.DOScale(baseDir, 0.10f).SetEase(Ease.InQuad);
-                 });
+        // 더 자연스러운 바운스: 약간 더 부드러운 곡선과 타이밍
+        Vector3 baseDir = GetDirectionalBaseScale();
+        Vector3 scaled = baseDir * 1.18f; // 1.22f -> 1.18f로 약간 줄여서 더 자연스럽게
+        
+        Sequence bounce = DOTween.Sequence();
+        bounce.Append(transform.DOScale(scaled, 0.13f).SetEase(Ease.OutBack, 1.2f)) // OutBack으로 더 탄성있게
+              .Append(transform.DOScale(baseDir * 0.98f, 0.08f).SetEase(Ease.InQuad)) // 약간 작아졌다가
+              .Append(transform.DOScale(baseDir, 0.10f).SetEase(Ease.OutQuad)) // 원래대로
+              .OnComplete(() =>
+              {
+                  // 바운스 완료 후 Idle 그루브 재시작
+                  StartIdleGroove();
+              });
     }
 
     public void Pulse()

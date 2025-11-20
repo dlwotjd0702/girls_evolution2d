@@ -61,6 +61,13 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private float ldHoldTime = 0.15f;
     [SerializeField] private float moveDuration = 0.55f;
     [SerializeField, Range(0f,1f)] private float swapToSDFraction = 0.18f;
+    [SerializeField] private GameObject discoverySpotlightPanel;
+    [SerializeField] private Image discoverySpotlightImage;
+    [SerializeField] private float spotlightFadeIn = 0.18f;
+    [SerializeField] private float spotlightFadeOut = 0.15f; // SD 스왑 시 빠른 fade out
+    [SerializeField, Range(0f,1f)] private float spotlightMaxAlpha = 0.9f;
+    [SerializeField] private RectTransform discoveryPresentationRoot;
+    private Tween spotlightFadeTween;
 
     private int _lastTierShown = 0;
     public int CurrentMaxLevel { get; private set; } = 1;
@@ -123,6 +130,19 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         RecomputeMaxLevelAndNotify();
+
+        if (discoverySpotlightPanel != null)
+        {
+            discoverySpotlightPanel.SetActive(false);
+            if (discoverySpotlightImage == null)
+                discoverySpotlightImage = discoverySpotlightPanel.GetComponent<Image>();
+            if (discoverySpotlightImage != null)
+            {
+                var c = discoverySpotlightImage.color;
+                c.a = 0f;
+                discoverySpotlightImage.color = c;
+            }
+        }
     }
 
     void Update()
@@ -495,6 +515,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         var img = girl.GetComponentInChildren<Image>();
         if (img != null && ld != null) img.sprite = ld;
 
+        MoveGirlToDiscoveryCenter(rect, out var originalParent, out var originalSiblingIndex);
+
+        SetDiscoverySpotlight(true);
+
         girl.KillAllTweens();
         girl.StopAllCoroutines();
 
@@ -518,9 +542,11 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         if (girl.Level >= TierRules.MaxLevel)
         {
             if (img != null && sd != null) img.sprite = sd;
+            RestoreGirlParent(rect, originalParent, originalSiblingIndex);
             ConfigureLevel25(girl);
             girl.OnGetFromPool();
             rect.localPosition = Vector3.zero;
+            SetDiscoverySpotlight(false);
             yield break;
         }
 
@@ -530,10 +556,18 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         float swapAtTime = Mathf.Clamp01(swapToSDFraction) * moveDuration;
         if (img != null && sd != null)
-            seq.InsertCallback(swapAtTime, () => { if (img != null) img.sprite = sd; });
+        {
+            seq.InsertCallback(swapAtTime, () => 
+            { 
+                if (img != null) img.sprite = sd;
+                // SD로 스왑될 때 스포트라이트 빠르게 fade out
+                FadeOutSpotlight();
+            });
+        }
 
         yield return seq.WaitForCompletion();
 
+        RestoreGirlParent(rect, originalParent, originalSiblingIndex);
         girl.OnGetFromPool();
         rect.localPosition = targetPos;
     }
@@ -684,6 +718,17 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         _lastTierShown = newTier;
     }
 
+    // ───── 도감 접근 ─────
+    public HashSet<int> GetDiscoveredLevels()
+    {
+        return new HashSet<int>(discoveredLevels);
+    }
+    
+    public bool IsLevelDiscovered(int level)
+    {
+        return discoveredLevels.Contains(level);
+    }
+
     // ───── ISaveable ─────
     public void CollectSaveData(SaveData data)
     {
@@ -776,5 +821,94 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         RecomputeMaxLevelAndNotify();
+    }
+
+    private void SetDiscoverySpotlight(bool enabled)
+    {
+        if (!discoverySpotlightPanel) return;
+
+        if (discoverySpotlightImage == null)
+            discoverySpotlightImage = discoverySpotlightPanel.GetComponent<Image>();
+
+        if (enabled)
+        {
+            if (!discoverySpotlightPanel.activeSelf)
+                discoverySpotlightPanel.SetActive(true);
+
+            if (discoverySpotlightImage != null)
+            {
+                spotlightFadeTween?.Kill();
+                var color = discoverySpotlightImage.color;
+                color.a = 0f;
+                discoverySpotlightImage.color = color;
+                spotlightFadeTween = discoverySpotlightImage
+                    .DOFade(spotlightMaxAlpha, spotlightFadeIn)
+                    .SetEase(Ease.OutQuad);
+            }
+        }
+        else
+        {
+            FadeOutSpotlight();
+        }
+    }
+
+    private void FadeOutSpotlight()
+    {
+        if (!discoverySpotlightPanel || !discoverySpotlightPanel.activeSelf) return;
+
+        if (discoverySpotlightImage == null)
+            discoverySpotlightImage = discoverySpotlightPanel.GetComponent<Image>();
+
+        if (discoverySpotlightImage != null)
+        {
+            spotlightFadeTween?.Kill();
+            spotlightFadeTween = discoverySpotlightImage
+                .DOFade(0f, spotlightFadeOut)
+                .SetEase(Ease.OutCubic)
+                .OnComplete(() =>
+                {
+                    discoverySpotlightPanel.SetActive(false);
+                });
+        }
+        else
+        {
+            discoverySpotlightPanel.SetActive(false);
+        }
+    }
+
+    private void MoveGirlToDiscoveryCenter(RectTransform rect, out Transform originalParent, out int originalSiblingIndex)
+    {
+        originalParent = null;
+        originalSiblingIndex = 0;
+        if (rect == null) return;
+
+        originalParent = rect.parent;
+        if (originalParent != null)
+            originalSiblingIndex = rect.GetSiblingIndex();
+
+        RectTransform container = discoveryPresentationRoot
+                                  ?? activeParent as RectTransform
+                                  ?? girlRoot as RectTransform
+                                  ?? transform as RectTransform;
+        if (container != null)
+        {
+            rect.SetParent(container, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+        }
+        else
+        {
+            rect.localPosition = Vector3.zero;
+        }
+    }
+
+    private void RestoreGirlParent(RectTransform rect, Transform originalParent, int originalSiblingIndex)
+    {
+        if (rect == null || originalParent == null) return;
+
+        rect.SetParent(originalParent, false);
+        int maxIndex = Mathf.Max(0, rect.parent.childCount - 1);
+        rect.SetSiblingIndex(Mathf.Clamp(originalSiblingIndex, 0, maxIndex));
     }
 }

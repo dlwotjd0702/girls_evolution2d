@@ -821,6 +821,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         RecomputeMaxLevelAndNotify();
+        
+        // 로딩 패널 숨기기 (세이브 데이터 적용 완료)
+        if (GameSystem.Instance != null && GameSystem.Instance.loadingPanel != null)
+        {
+            GameSystem.Instance.loadingPanel.SetActive(false);
+        }
     }
 
     private void SetDiscoverySpotlight(bool enabled)

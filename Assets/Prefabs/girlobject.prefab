@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5053573171817855932}
   - component: {fileID: 435658349625643343}
   m_Layer: 5
-  m_Name: Image
+  m_Name: girlobject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

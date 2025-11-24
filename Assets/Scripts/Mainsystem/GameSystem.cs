@@ -19,8 +19,8 @@ public class GameSystem : MonoBehaviour
     public EconomyManager economy;
 
     [Header("UI")]
-    
     public SummonPanelController summonPanel; // 선택
+    public GameObject loadingPanel; // 로딩 패널
 
     public bool AssetsReady { get; private set; } = false;
     public event Action AssetsReadyEvent;
@@ -74,6 +74,16 @@ public class GameSystem : MonoBehaviour
 
         AssetsReady = true;
         AssetsReadyEvent?.Invoke();
+        
+        // 세이브 파일이 없으면 스프라이트 로딩 완료 시 바로 로딩 패널 숨기기
+        // 세이브 파일이 있으면 GirlFieldManager에서 적용 완료 후 숨김
+        if (loadingPanel != null)
+        {
+            if (SaveManager.Instance == null || !SaveManager.Instance.HasSaveFile())
+            {
+                loadingPanel.SetActive(false);
+            }
+        }
     }
 
     private void OnDestroy()

@@ -62,13 +62,13 @@ public class EncyclopediaDetailPanel : MonoBehaviour
         // 레벨
         if (levelText != null)
         {
-            levelText.text = $"레벨 {level}";
+            levelText.text = $"{level} 단계";
         }
         
         // 수익
         if (incomeText != null)
         {
-            incomeText.text = string.Format(incomeFormat, income);
+            incomeText.text = string.Format(incomeFormat, income)+"G/s";
         }
     }
     

@@ -108,6 +108,7 @@ public class SaveManager : MonoBehaviour
                     s.ApplyLoadedData(data);
 
                 Debug.Log("[SaveManager] 불러오기 완료");
+                // 데이터 적용은 비동기이므로, GirlFieldManager에서 완료 알림을 받음
             }
         }
         catch (System.Exception e)
@@ -134,6 +135,7 @@ public class SaveManager : MonoBehaviour
             }
         }
     }
+    
 
     // 세이브 파일 삭제 (테스트용)
     public bool DeleteSaveFile()

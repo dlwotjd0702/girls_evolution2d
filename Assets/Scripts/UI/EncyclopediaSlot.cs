@@ -22,15 +22,9 @@ public class EncyclopediaSlot : MonoBehaviour
     void Awake()
     {
         if (button == null) button = GetComponent<Button>();
-        if (button != null)
-        {
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => onClick?.Invoke());
-        }
     }
     
-    public void Setup(int level, string name, Sprite sprite, bool isUnlocked, 
-        Sprite lockedSprite, Color lockedColor, Action onClick)
+    public void Setup(int level, string name, Sprite sprite, bool isUnlocked, Action onClick)
     {
         this.level = level;
         this.isUnlocked = isUnlocked;
@@ -39,34 +33,27 @@ public class EncyclopediaSlot : MonoBehaviour
         // 아이콘 설정
         if (iconImage != null)
         {
-            iconImage.sprite = sprite ?? lockedSprite;
-            iconImage.color = isUnlocked ? Color.white : lockedColor;
+            iconImage.sprite = sprite;
         }
         
         // 레벨 텍스트
         if (levelText != null)
         {
             levelText.text = level.ToString();
-            levelText.color = isUnlocked ? Color.white : lockedColor;
         }
         
-        // 잠금 오버레이
+        // 잠금 오버레이 (슬롯 자체에 잠금 이미지 포함되어 있으므로 SetActive만 관리)
         if (lockedOverlay != null)
         {
             lockedOverlay.SetActive(!isUnlocked);
         }
         
-        // 버튼 상호작용
+        // 버튼 상호작용 및 클릭 리스너 설정
         if (button != null)
         {
             button.interactable = isUnlocked;
-        }
-        
-        // 배경 이미지 (잠금 스프라이트)
-        if (backgroundImage != null && !isUnlocked && lockedSprite != null)
-        {
-            backgroundImage.sprite = lockedSprite;
-            backgroundImage.color = lockedColor;
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => onClick?.Invoke());
         }
     }
 }

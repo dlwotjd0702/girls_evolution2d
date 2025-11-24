@@ -22,10 +22,6 @@ public class EncyclopediaPanelController : MonoBehaviour
     [SerializeField] private GameObject slotPrefab;      // 도감 슬롯 프리팹
     [SerializeField] private EncyclopediaDetailPanel detailPanel;  // 팝업 패널
     
-    [Header("Settings")]
-    [SerializeField] private Sprite lockedSlotSprite;  // 잠금 슬롯 스프라이트
-    [SerializeField] private Color lockedColor = new Color(0.5f, 0.5f, 0.5f, 1f);
-    
     private readonly Dictionary<int, EncyclopediaSlot> slots = new Dictionary<int, EncyclopediaSlot>();
     private readonly HashSet<int> discoveredLevels = new HashSet<int>();
     
@@ -95,14 +91,15 @@ public class EncyclopediaPanelController : MonoBehaviour
                 iconSprite = spriteLoader.GetSpriteForData(data, preferLD: false);
             }
             
+            // 클로저에서 level 변수 캡처 문제 해결을 위해 로컬 변수에 복사
+            int capturedLevel = level;
+            
             slot.Setup(
-                level: level,
+                level: capturedLevel,
                 name: data.name,
                 sprite: iconSprite,
                 isUnlocked: isUnlocked,
-                lockedSprite: lockedSlotSprite,
-                lockedColor: lockedColor,
-                onClick: () => OnSlotClicked(level)
+                onClick: () => OnSlotClicked(capturedLevel)
             );
             
             slots[level] = slot;
@@ -111,9 +108,12 @@ public class EncyclopediaPanelController : MonoBehaviour
     
     void OnSlotClicked(int level)
     {
+        // 클릭 시 최신 발견 상태 확인 (패널이 열려있는 동안 발견된 경우 대비)
+        RefreshDiscoveredLevels();
+        
         if (!discoveredLevels.Contains(level))
         {
-            Debug.Log($"[Encyclopedia] 레벨 {level}은 아직 해방되지 않았습니다.");
+            Debug.Log($"[Encyclopedia] 레벨 {level}은 아직 해방되지 않았습니다. discoveredLevels: [{string.Join(", ", discoveredLevels)}]");
             return;
         }
         
@@ -124,7 +124,11 @@ public class EncyclopediaPanelController : MonoBehaviour
         }
         
         var data = dataManager?.GetDataByLevel(level);
-        if (data == null) return;
+        if (data == null)
+        {
+            Debug.LogError($"[Encyclopedia] 레벨 {level}의 데이터를 찾을 수 없습니다.");
+            return;
+        }
         
         Sprite ldSprite = null;
         if (spriteLoader != null)

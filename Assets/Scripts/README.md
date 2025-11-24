@@ -263,3 +263,165 @@ Unity 에디터에서 아래 필드를 반드시 연결/세팅해야 전체 기�
 
 6. **DOTween**
    - DOTween이 설치되어 있어야 하며, `Tools > Demigiant > DOTween Utility Panel`에서 Setup을 완료해야 함
+
+7. **SummonPanelController**
+   - `premiumCurrency`: `PremiumCurrencyManager` 인스턴스 참조 (보석 소환용)
+   - `goldToGemFactor`: 골드 비용을 보석으로 변환하는 배수 (기본 0.01)
+   - 각 SummonCell의 보석 소환 버튼은 셀 프리팹에서 설정
+
+---
+
+## 📚 도감 시스템 에디터 설정 가이드
+
+### 1. 도감 슬롯 프리팹 제작
+
+#### 슬롯 프리팹 구조
+```
+EncyclopediaSlot (GameObject)
+├── Background (Image) - 배경 이미지
+├── IconImage (Image) - 캐릭터 아이콘 (SD 스프라이트)
+├── LevelText (TextMeshProUGUI) - 레벨 표시
+├── LockedOverlay (GameObject) - 잠금 오버레이 (선택사항)
+└── Button (Button) - 클릭 버튼
+```
+
+**설정 팁:**
+- `EncyclopediaSlot` 컴포넌트를 루트 GameObject에 추가
+- `Button` 컴포넌트는 전체 슬롯 영역을 덮도록 설정
+- `IconImage`는 `Preserve Aspect` 체크
+- `LockedOverlay`는 잠금 상태일 때만 표시되도록 초기 비활성화
+
+#### GridLayoutGroup 설정
+- `slotContainer`에 `GridLayoutGroup` 컴포넌트 추가
+- **Cell Size**: 슬롯 크기 (예: 100x100)
+- **Spacing**: 슬롯 간격 (예: 10x10)
+- **Constraint**: `Fixed Column Count` = 5 (5열 그리드)
+- **Child Alignment**: `Upper Left` 또는 `Middle Center`
+
+### 2. 도감 상세 팝업 패널 제작
+
+#### 팝업 패널 구조
+```
+EncyclopediaDetailPanel (GameObject)
+├── PanelRoot (GameObject) - 전체 패널 루트
+│   ├── Background (Image) - 반투명 배경 (클릭 시 닫기)
+│   ├── ContentPanel (GameObject)
+│   │   ├── LDIllustrationImage (Image) - 상단 큰 LD 일러스트
+│   │   ├── InfoPanel (GameObject)
+│   │   │   ├── NameText (TextMeshProUGUI) - 캐릭터 이름
+│   │   │   ├── LevelText (TextMeshProUGUI) - 레벨 정보
+│   │   │   └── IncomeText (TextMeshProUGUI) - 수익 정보
+│   │   └── CloseButton (Button) - 닫기 버튼
+```
+
+**설정 팁:**
+- `PanelRoot`는 전체 화면을 덮도록 설정 (Anchor: Stretch)
+- `LDIllustrationImage`는 `Preserve Aspect` 체크, 상단 중앙 배치
+- `Background`에 `Button` 컴포넌트 추가하여 배경 클릭 시 닫기
+- `EncyclopediaDetailPanel` 컴포넌트를 루트에 추가하고 모든 필드 연결
+
+### 3. EncyclopediaPanelController 설정
+
+**인스펙터 필드 연결:**
+- `slotContainer`: GridLayoutGroup이 있는 부모 Transform
+- `slotPrefab`: 위에서 만든 슬롯 프리팹
+- `detailPanel`: 위에서 만든 상세 팝업 패널의 `EncyclopediaDetailPanel` 컴포넌트
+- `lockedSlotSprite`: 잠금 슬롯용 스프라이트 (선택사항)
+- `lockedColor`: 잠금 상태 색상 (기본: 회색)
+
+**자동 참조:**
+- `dataManager`, `fieldManager`, `spriteLoader`는 `GameSystem`에서 자동으로 찾습니다
+- 수동으로 연결하려면 인스펙터에서 직접 할당
+
+### 4. 도감 패널 활성화/비활성화
+
+도감 패널을 열고 닫는 버튼을 별도로 만들어 연결:
+```csharp
+// 예시: 도감 열기 버튼
+public void OnClickOpenEncyclopedia()
+{
+    encyclopediaPanel.SetActive(true);
+}
+
+// EncyclopediaDetailPanel의 닫기 버튼은 자동으로 연결됨
+```
+
+### 5. 테스트 체크리스트
+
+- [ ] 슬롯 프리팹이 25개 정상 생성되는지 확인
+- [ ] 잠금 슬롯은 클릭 불가능한지 확인
+- [ ] 언락된 슬롯 클릭 시 팝업이 정상 표시되는지 확인
+- [ ] LD 일러스트가 상단에 크게 표시되는지 확인
+- [ ] 이름, 레벨, income 정보가 정상 표시되는지 확인
+- [ ] 닫기 버튼 및 배경 클릭 시 팝업이 닫히는지 확인
+- [ ] 새로운 캐릭터 발견 시 도감이 자동으로 업데이트되는지 확인
+
+---
+
+## 📚 소환 패널 (SummonCell) 에디터 설정 가이드
+
+### 1. SummonCell 프리팹 제작
+
+#### 셀 프리팹 구조
+```
+SummonCell (GameObject)
+├── IconImage (Image) - 캐릭터 아이콘 (SD 스프라이트)
+├── NameLabel (TextMeshProUGUI) - "Lv.X 이름" 표시
+├── CostLabel (TextMeshProUGUI) - 골드 비용 표시
+├── SummonButton (Button) - 골드 소환 버튼
+├── GemSummonButton (Button) - 보석 소환 버튼 (새로 추가)
+└── GemCostLabel (TextMeshProUGUI) - 보석 비용 표시 (선택사항)
+```
+
+**설정 팁:**
+- `SummonCell` 컴포넌트를 루트 GameObject에 추가
+- `SummonButton`과 `GemSummonButton`은 각각 골드/보석 소환용으로 분리
+- `GemCostLabel`은 보석 소환 버튼 근처에 배치 (비용 표시용)
+- 두 버튼 모두 클릭 가능하도록 설정
+
+#### 레이아웃 예시
+```
+┌─────────────────────┐
+│  [아이콘 이미지]     │
+│  Lv.1 평범소녀      │
+│  60 G               │
+│  [골드 소환] [보석 소환] │
+│            (1 G)    │
+└─────────────────────┘
+```
+
+### 2. SummonPanelController 설정
+
+**인스펙터 필드 연결:**
+- `content`: ScrollView의 Content (RectTransform)
+- `cellPrefab`: 위에서 만든 SummonCell 프리팹
+- `premiumCurrency`: `PremiumCurrencyManager` 인스턴스 참조
+- `goldToGemFactor`: 골드 → 보석 변환 배수 (기본 0.01)
+- `reasonLabel`: 오류 메시지 표시용 텍스트
+
+**자동 참조:**
+- `dataManager`, `fieldManager`, `spriteLoader`, `economy`는 `GameSystem`에서 자동으로 찾습니다
+
+### 3. 보석 소환 기능
+
+**동작 방식:**
+- 각 레벨별 셀에 골드 소환 버튼과 보석 소환 버튼이 모두 표시됨
+- 보석 비용 = 골드 비용 × `goldToGemFactor`
+- 보석이 부족하거나 필드가 가득 차면 버튼 비활성화
+- 보석 소환 시에도 `RecordSummonPurchase`가 호출되어 다음 소환 비용 증가
+
+**보석 소환 기능:**
+- 각 셀마다 골드 소환 버튼과 보석 소환 버튼이 모두 표시됨
+- 보석 비용 = 골드 비용 × `goldToGemFactor`
+- 보석이 부족하거나 필드가 가득 차면 버튼 비활성화
+- 보석 소환 시에도 `RecordSummonPurchase`가 호출되어 다음 소환 비용 증가
+
+### 4. 테스트 체크리스트
+
+- [ ] 각 셀에 골드/보석 소환 버튼이 모두 표시되는지 확인
+- [ ] 골드 소환이 정상 작동하는지 확인
+- [ ] 보석 소환이 정상 작동하는지 확인
+- [ ] 보석 비용이 골드 비용에 비례하여 계산되는지 확인
+- [ ] 보석 부족 시 버튼이 비활성화되는지 확인
+- [ ] 필드 가득 참 시 버튼이 비활성화되는지 확인
+- [ ] 소환 후 비용이 증가하는지 확인

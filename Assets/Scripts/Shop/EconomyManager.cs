@@ -163,6 +163,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
     // 레벨별 누적 소환 구매수
     readonly int[] summonPurchaseCounts = new int[25];
+    readonly int[] gemSummonPurchaseCounts = new int[25]; // 보석 소환 횟수 추적
 
     // ───────── 수익/소환가 규칙 ─────────
     public double GetLevelIncomePerSec(int level)
@@ -185,6 +186,19 @@ public class EconomyManager : MonoBehaviour, ISaveable
         int idx = Mathf.Clamp(level - 1, 0, 24);
         summonPurchaseCounts[idx] = Mathf.Clamp(summonPurchaseCounts[idx] + 1, 0, int.MaxValue);
         OnUpgradeChanged?.Invoke();
+    }
+    
+    public void RecordGemSummonPurchase(int level)
+    {
+        int idx = Mathf.Clamp(level - 1, 0, 24);
+        gemSummonPurchaseCounts[idx] = Mathf.Clamp(gemSummonPurchaseCounts[idx] + 1, 0, int.MaxValue);
+        OnUpgradeChanged?.Invoke();
+    }
+    
+    public int GetGemSummonPurchaseCount(int level)
+    {
+        int idx = Mathf.Clamp(level - 1, 0, 24);
+        return gemSummonPurchaseCounts[idx];
     }
 
     // ───────── Getter들 (Prestige 보정 포함) ─────────
@@ -328,6 +342,10 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
         if(d.summonPurchaseCounts==null || d.summonPurchaseCounts.Length!=25) d.summonPurchaseCounts=new int[25];
         Array.Copy(summonPurchaseCounts, d.summonPurchaseCounts, 25);
+        
+        // 보석 소환 횟수 저장
+        if(d.gemSummonPurchaseCounts==null || d.gemSummonPurchaseCounts.Length!=25) d.gemSummonPurchaseCounts=new int[25];
+        Array.Copy(gemSummonPurchaseCounts, d.gemSummonPurchaseCounts, 25);
     }
 
     public void ApplyLoadedData(SaveData d)
@@ -348,6 +366,12 @@ public class EconomyManager : MonoBehaviour, ISaveable
         offlineMaxTimeUpgrade = Mathf.Max(0,d.offlineMaxTimeUpgrade);
 
         if(d.summonPurchaseCounts!=null && d.summonPurchaseCounts.Length==25) Array.Copy(d.summonPurchaseCounts, summonPurchaseCounts, 25);
+        
+        // 보석 소환 횟수 복원 (SaveData에 필드가 없으면 0으로 시작)
+        if(d.gemSummonPurchaseCounts!=null && d.gemSummonPurchaseCounts.Length==25) 
+            Array.Copy(d.gemSummonPurchaseCounts, gemSummonPurchaseCounts, 25);
+        else
+            Array.Clear(gemSummonPurchaseCounts, 0, gemSummonPurchaseCounts.Length);
 
         OnGoldChanged?.Invoke(gold);
         OnUpgradeChanged?.Invoke();
@@ -361,6 +385,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
         autoMergeUpgrade=0; autoSpawnUpgrade=0; autoMergeOn=false; autoSpawnOn=false;
         offlineRewardUpgrade=0; offlineMaxTimeUpgrade=0;
         Array.Clear(summonPurchaseCounts,0,summonPurchaseCounts.Length);
+        Array.Clear(gemSummonPurchaseCounts,0,gemSummonPurchaseCounts.Length);
         OnUpgradeChanged?.Invoke();
         RefreshGoldHUD();
     }

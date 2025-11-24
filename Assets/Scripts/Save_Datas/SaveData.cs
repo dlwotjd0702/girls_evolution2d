@@ -39,6 +39,7 @@ public class SaveData
 
     // 레벨별 소환 누적 구매수
     public int[] summonPurchaseCounts = new int[25];
+    public int[] gemSummonPurchaseCounts = new int[25]; // 보석 소환 횟수
 
     // ── 추가: 계승/상점 (기본 0 → 구세이브 호환) ──
     public int legacyXp;                    // 계승 경험치

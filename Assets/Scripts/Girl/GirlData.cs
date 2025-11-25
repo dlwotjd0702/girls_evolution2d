@@ -7,4 +7,5 @@ public class GirlData
     public int mergeCount { get; set; }
     public string spriteName { get; set; }
     public string unlockDesc { get; set; }
+    public int initialDirection { get; set; } = 1; // 1=왼쪽, -1=오른쪽
 }

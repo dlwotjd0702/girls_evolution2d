@@ -59,6 +59,8 @@ public class ShopPanelController : MonoBehaviour
     [Header("Entries")]
     public List<EntryUI> entries = new List<EntryUI>();
 
+    private const string GemAdHint = "광고 시청 보상으로 보석 5개를 받을 수 있어요!";
+
     void Awake()
     {
         if (economy == null) economy = FindObjectOfType<EconomyManager>(true);
@@ -185,14 +187,14 @@ public class ShopPanelController : MonoBehaviour
             if (insufficientFundsPanel != null)
             {
                 long have = premiumCurrency.GetGems();
-                insufficientFundsPanel.ShowGeneric("보석이 부족합니다", $"필요: {gemCost:N0} / 보유: {have:N0}");
+                insufficientFundsPanel.ShowGemShortage(gemCost, have);
             }
             else
             {
-                ShowReasonTemp("보석이 부족합니다.");
+                ShowReasonTemp($"보석이 부족합니다.\n{GemAdHint}");
             }
-                    return;
-                }
+            return;
+        }
 
         // 보석 차감 성공 시 골드 구매 메서드 호출
         bool ok = false;

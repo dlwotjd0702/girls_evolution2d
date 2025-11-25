@@ -8,16 +8,15 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
 
     [Header("Ad Unit Ids")]
 #if UNITY_ANDROID
-    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544/5224354917"; // 테스트ID
+    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544~3347511713"; // 테스트ID
 #elif UNITY_IOS
-    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544/1712485313"; // 테스트ID
+    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544~3347511713"; // 테스트ID
 #else
-    [SerializeField] private string rewardedAdUnitId = "";
+    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544~3347511713";
 #endif
 
     private RewardedAd _rewardedAd;
     private bool _isLoading;
-
     public bool IsReady => _rewardedAd != null && _rewardedAd.CanShowAd();
 
     void Awake()

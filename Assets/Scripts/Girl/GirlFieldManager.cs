@@ -67,6 +67,11 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private RectTransform discoveryPresentationRoot;
     private Tween spotlightFadeTween;
 
+    [Header("Tier Ascend FX")]
+    [SerializeField] private float tierAscendScaleMul = 1.32f;
+    [SerializeField] private float tierAscendDuration = 0.35f;
+    [SerializeField] private Vector2 tierAscendMoveOffset = new Vector2(0f, 240f);
+
     private int _lastTierShown = 0;
     public int CurrentMaxLevel { get; private set; } = 1;
     public event Action<int> OnMaxLevelChanged;
@@ -75,6 +80,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private Button          spawnButton;
     [SerializeField] private Image           chargeFillImage;  // Image Type = Filled
     [SerializeField] private TextMeshProUGUI chargeCountText;  // "cur/max"
+    [SerializeField] private TextMeshProUGUI spawnReasonLabel;
+    [SerializeField] private float spawnReasonShowSeconds = 1.5f;
+    private Coroutine spawnReasonRoutine;
 
     [Header("Population UI")]
     [SerializeField] private TextMeshProUGUI populationText;
@@ -380,6 +388,15 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             curSpawnCharge = Mathf.Max(0, curSpawnCharge - 1);
             SpawnGirl(1, (Vector3)GetRandomSpawnPos());
             UpdateSpawnButtonUI();
+            HideSpawnReasonImmediate();
+        }
+        else if (girlList.Count >= GetMaxFieldCount())
+        {
+            ShowSpawnReasonTemp("필드가 가득 찼습니다.");
+        }
+        else if (curSpawnCharge <= 0)
+        {
+            HideSpawnReasonImmediate();
         }
     }
 
@@ -450,8 +467,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         bool isFirstDiscover = !_isRestoring && !discoveredLevels.Contains(level);
         int itemTier = TierRules.TierIndexFromLevel(level);
-        if (!_isRestoring && tierManager != null && itemTier != tierManager.CurrentTierIndex)
-            isFirstDiscover = false;
+        bool tierMismatch = tierManager != null && itemTier != tierManager.CurrentTierIndex;
+        bool shouldShowAscendFx = !_isRestoring && tierMismatch;
+        bool allowLDDiscovery = !_isRestoring && isFirstDiscover && level < TierRules.MaxLevel && spriteLoader != null;
 
         Sprite sprite = null;
         if (spriteLoader != null)
@@ -486,15 +504,25 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         girlFieldAdd(girl);
 
         if (level >= TierRules.MaxLevel) ConfigureLevel25(girl);
-        ApplyVisibilityFor(girl);
 
-        if (isFirstDiscover && spriteLoader != null)
-        {
+        if (shouldShowAscendFx)
+            ShowGirl(girl);
+        else
+            ApplyVisibilityFor(girl);
+
+        Vector3 finalPos = rect != null ? rect.localPosition : go.transform.localPosition;
+
+        if (isFirstDiscover)
             discoveredLevels.Add(level);
-            Vector3 finalPos = rect != null ? rect.localPosition : go.transform.localPosition;
 
-            if (!spriteLoader.IsLoadedLD) StartCoroutine(EnsureLDAndPlayDiscovery(girl, data, finalPos));
-            else                           StartCoroutine(PlayDiscoveryOnce(girl, data, finalPos));
+        if (allowLDDiscovery)
+        {
+            if (!spriteLoader.IsLoadedLD) StartCoroutine(EnsureLDAndPlayDiscovery(girl, data, finalPos, shouldShowAscendFx));
+            else                           StartCoroutine(PlayDiscoveryOnce(girl, data, finalPos, shouldShowAscendFx));
+        }
+        else if (shouldShowAscendFx)
+        {
+            StartCoroutine(PlayTierAscendOnly(girl, finalPos, shouldShowAscendFx));
         }
 
         NotifySpawnedLevel(level);
@@ -566,14 +594,14 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
     }
 
-    private IEnumerator EnsureLDAndPlayDiscovery(GirlCharacter girl, GirlData data, Vector3 targetPos)
+    private IEnumerator EnsureLDAndPlayDiscovery(GirlCharacter girl, GirlData data, Vector3 targetPos, bool resyncVisibilityAfterFx)
     {
         var task = spriteLoader.EnsureLDLoadedAsync();
         while (!task.IsCompleted) yield return null;
-        yield return PlayDiscoveryOnce(girl, data, targetPos);
+        yield return PlayDiscoveryOnce(girl, data, targetPos, resyncVisibilityAfterFx);
     }
 
-    private IEnumerator PlayDiscoveryOnce(GirlCharacter girl, GirlData data, Vector3 targetPos)
+    private IEnumerator PlayDiscoveryOnce(GirlCharacter girl, GirlData data, Vector3 targetPos, bool resyncVisibilityAfterFx)
     {
         if (girl == null || data == null) yield break;
 
@@ -612,9 +640,26 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         {
             if (img != null && sd != null) img.sprite = sd;
             RestoreGirlParent(rect, originalParent, originalSiblingIndex);
-            ConfigureLevel25(girl);
             girl.OnGetFromPool();
+            ConfigureLevel25(girl);
             rect.localPosition = Vector3.zero;
+            SetDiscoverySpotlight(false);
+            if (resyncVisibilityAfterFx)
+                ApplyVisibilityFor(girl);
+            yield break;
+        }
+
+        if (resyncVisibilityAfterFx)
+        {
+            if (img != null && sd != null) img.sprite = sd;
+            FadeOutSpotlight();
+            yield return PlayTierAscendFx(girl, rect, img);
+            RestoreGirlParent(rect, originalParent, originalSiblingIndex);
+            girl.OnGetFromPool();
+            if (girl.Level >= TierRules.MaxLevel)
+                ConfigureLevel25(girl);
+            rect.localPosition = targetPos;
+            ApplyVisibilityFor(girl);
             SetDiscoverySpotlight(false);
             yield break;
         }
@@ -638,7 +683,49 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         RestoreGirlParent(rect, originalParent, originalSiblingIndex);
         girl.OnGetFromPool();
+        if (girl.Level >= TierRules.MaxLevel)
+            ConfigureLevel25(girl);
         rect.localPosition = targetPos;
+        if (resyncVisibilityAfterFx)
+            ApplyVisibilityFor(girl);
+        SetDiscoverySpotlight(false);
+    }
+
+    private IEnumerator PlayTierAscendOnly(GirlCharacter girl, Vector3 targetPos, bool resyncVisibilityAfterFx)
+    {
+        if (girl == null) yield break;
+        var rect = (RectTransform)girl.transform;
+        var img = girl.GetComponentInChildren<Image>();
+        yield return PlayTierAscendFx(girl, rect, img);
+        girl.OnGetFromPool();
+        if (girl.Level >= TierRules.MaxLevel)
+            ConfigureLevel25(girl);
+        rect.localPosition = targetPos;
+        if (resyncVisibilityAfterFx)
+            ApplyVisibilityFor(girl);
+    }
+
+    private IEnumerator PlayTierAscendFx(GirlCharacter girl, RectTransform rect, Image img)
+    {
+        if (girl == null || rect == null) yield break;
+
+        Vector3 startScale = girl.transform.localScale;
+        Vector2 startPos = rect.anchoredPosition;
+
+        rect.DOKill();
+        girl.transform.DOKill();
+        img?.DOKill();
+
+        Sequence seq = DOTween.Sequence();
+        seq.Join(rect.DOAnchorPos(startPos + tierAscendMoveOffset, tierAscendDuration).SetEase(Ease.OutCubic));
+        seq.Join(girl.transform.DOScale(startScale * tierAscendScaleMul, tierAscendDuration).SetEase(Ease.OutCubic));
+        if (img != null)
+        {
+            seq.Join(img.DOFade(0f, tierAscendDuration).SetEase(Ease.InCubic));
+        }
+        yield return seq.WaitForCompletion();
+
+        rect.anchoredPosition = startPos;
     }
 
     private void girlFieldAdd(GirlCharacter girl)
@@ -740,7 +827,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         if (chargeFillImage != null) chargeFillImage.fillAmount = fill;
 
         if (spawnButton != null)
-            spawnButton.interactable = (curSpawnCharge > 0) && (girlList.Count < GetMaxFieldCount());
+            spawnButton.interactable = (curSpawnCharge > 0);
 
         UpdatePopulationUI();
     }
@@ -752,6 +839,34 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         int current = Mathf.Min(girlList.Count, max);
         string format = string.IsNullOrEmpty(populationFormat) ? "{0}/{1}" : populationFormat;
         populationText.text = string.Format(format, current, max);
+    }
+
+    private void ShowSpawnReasonTemp(string msg)
+    {
+        if (!spawnReasonLabel) return;
+        HideSpawnReasonImmediate();
+        spawnReasonLabel.text = msg;
+        spawnReasonLabel.gameObject.SetActive(true);
+        if (spawnReasonShowSeconds > 0f)
+            spawnReasonRoutine = StartCoroutine(HideSpawnReasonAfter(spawnReasonShowSeconds));
+    }
+
+    private IEnumerator HideSpawnReasonAfter(float sec)
+    {
+        yield return new WaitForSecondsRealtime(sec);
+        HideSpawnReasonImmediate();
+    }
+
+    private void HideSpawnReasonImmediate()
+    {
+        if (!spawnReasonLabel) return;
+        if (spawnReasonRoutine != null)
+        {
+            StopCoroutine(spawnReasonRoutine);
+            spawnReasonRoutine = null;
+        }
+        spawnReasonLabel.text = "";
+        spawnReasonLabel.gameObject.SetActive(false);
     }
 
     private void TryShowOfflineReward()

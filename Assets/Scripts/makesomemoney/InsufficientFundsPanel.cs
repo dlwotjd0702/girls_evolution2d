@@ -24,6 +24,7 @@ public class InsufficientFundsPanel : MonoBehaviour
     public Image  watchAdIcon;
     public Sprite adReadySprite;
     public Sprite adNotReadySprite;
+    private const string DefaultGemRewardText = "광고 보상 보석 5개";
 
     // Keep a reference to the delegate used for the ad ready changed event so
     // we can properly unsubscribe on disable. Lambdas create new delegates
@@ -169,6 +170,15 @@ public class InsufficientFundsPanel : MonoBehaviour
         string text = !string.IsNullOrEmpty(msg) ? msg : (title ?? "안내");
         messageText?.SetText(text);
         rewardText?.SetText(string.Empty);
+        UpdateAdButtonVisual();
+        panelRoot.SetActive(true);
+    }
+
+    public void ShowGemShortage(long need, long have)
+    {
+        if (!panelRoot) return;
+        messageText?.SetText("보석이 부족합니다");
+        rewardText?.SetText(DefaultGemRewardText);
         UpdateAdButtonVisual();
         panelRoot.SetActive(true);
     }

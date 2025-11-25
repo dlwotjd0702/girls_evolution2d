@@ -65,14 +65,15 @@ public class GirlCharacter : MonoBehaviour,
         gameObject.SetActive(true);
 
         // 기본 스케일 3 기준
-        float targetScale = Mathf.Max(0.01f, finalModeScale);
-        var finalScale = Vector3.one * targetScale;
-        transform.localScale = finalScale;
-        baseScale = new Vector3(Mathf.Abs(finalScale.x), Mathf.Abs(finalScale.y), Mathf.Abs(finalScale.z));
+        float targetScale = Mathf.Max(0.01f, defaultScale);
+        var initialScale = Vector3.one * targetScale;
+        transform.localScale = initialScale;
+        baseScale = new Vector3(Mathf.Abs(initialScale.x), Mathf.Abs(initialScale.y), Mathf.Abs(initialScale.z));
+        ResetScaleToBase();
         
         // 초기 방향 설정
         currentDirectionX = 1; // 기본 왼쪽 방향
-        ApplyDirectionToScale();
+        ApplyDirectionToOrientation();
 
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         if (!IsFinal)
@@ -121,10 +122,11 @@ public class GirlCharacter : MonoBehaviour,
         // 스케일 3 기준
         transform.localScale = Vector3.one * defaultScale;
         baseScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
+        ResetScaleToBase();
 
         // 데이터 기반 초기 방향 (1=왼쪽, -1=오른쪽)
         currentDirectionX = (data != null && data.initialDirection < 0) ? -1 : 1;
-        ApplyDirectionToScale();
+        ApplyDirectionToOrientation();
 
         targetPosition = rectT.localPosition;
         
@@ -182,7 +184,7 @@ public class GirlCharacter : MonoBehaviour,
         
         if (idleGrooveTween != null && idleGrooveTween.IsActive()) return;
         
-        Vector3 baseS = GetDirectionalBaseScale();
+        Vector3 baseS = GetBaseScale();
         float grooveAmount = 0.03f; // 3% 미세한 변화
         float grooveDuration = 2.5f + UnityEngine.Random.Range(-0.5f, 0.5f); // 랜덤 타이밍
         
@@ -223,7 +225,8 @@ public class GirlCharacter : MonoBehaviour,
         if (newDirection != currentDirectionX)
         {
             currentDirectionX = newDirection;
-            transform.localScale = GetDirectionalBaseScale(); // 방향 반영한 기준으로 리셋
+            ResetScaleToBase();
+            ApplyDirectionToOrientation(); // 방향 즉시 반영
         }
 
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
@@ -335,10 +338,10 @@ public class GirlCharacter : MonoBehaviour,
         if (idleGrooveTween != null && idleGrooveTween.IsActive()) idleGrooveTween.Kill();
 
         // 방향 반영한 기준 스케일에서 시작 → 드리프트 방지
-        transform.localScale = GetDirectionalBaseScale();
+        ResetScaleToBase();
 
         // 더 자연스러운 바운스: 약간 더 부드러운 곡선과 타이밍
-        Vector3 baseDir = GetDirectionalBaseScale();
+        Vector3 baseDir = GetBaseScale();
         Vector3 scaled = baseDir * 1.18f; // 1.22f -> 1.18f로 약간 줄여서 더 자연스럽게
         
         Sequence bounce = DOTween.Sequence();
@@ -358,7 +361,7 @@ public class GirlCharacter : MonoBehaviour,
         if (pulseTween != null && pulseTween.IsActive()) pulseTween.Kill();
 
         // ✅ 항상 방향 반영한 "기준 스케일"에서 시작해 드리프트(무한 확대) 차단
-        Vector3 baseS = GetDirectionalBaseScale();
+        Vector3 baseS = GetBaseScale();
         transform.localScale = baseS;
 
         var up   = baseS * pulseUpScaleMul;
@@ -381,11 +384,13 @@ public class GirlCharacter : MonoBehaviour,
         rectT.pivot = new Vector2(0.5f, 0.5f);
         rectT.anchoredPosition = Vector2.zero;
 
-        // 모든 스케일 트윈 종료 후 기본 스케일로 복원
+        // 모든 스케일 트윈 종료 후 25단계 전용 스케일로 복원
         KillAllTweens();
-        transform.localScale = Vector3.one * defaultScale;
+        float targetScale = Mathf.Max(0.01f, finalModeScale);
+        transform.localScale = Vector3.one * targetScale;
         baseScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
-        ApplyDirectionToScale();
+        ResetScaleToBase();
+        ApplyDirectionToOrientation();
 
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         isJumping = false; isDragging = false;
@@ -410,16 +415,23 @@ public class GirlCharacter : MonoBehaviour,
     }
 
     // ─── Helper: 방향(Flip) 반영한 기준 스케일 계산 ───
-    private Vector3 GetDirectionalBaseScale()
+    private Vector3 GetBaseScale()
     {
-        float signX = currentDirectionX >= 0 ? 1f : -1f;
-        return new Vector3(baseScale.x * signX, baseScale.y, baseScale.z);
+        if (baseScale == Vector3.zero) return Vector3.one;
+        return baseScale;
     }
 
-    private void ApplyDirectionToScale()
+    private void ResetScaleToBase()
     {
-        if (baseScale == Vector3.zero) return;
-        float signX = currentDirectionX >= 0 ? 1f : -1f;
-        transform.localScale = new Vector3(baseScale.x * signX, baseScale.y, baseScale.z);
+        transform.localScale = GetBaseScale();
+    }
+
+    private void ApplyDirectionToOrientation()
+    {
+        if (!rectT) rectT = GetComponent<RectTransform>();
+        if (!rectT) return;
+        var euler = rectT.localEulerAngles;
+        euler.y = currentDirectionX >= 0 ? 0f : 180f;
+        rectT.localEulerAngles = euler;
     }
 }

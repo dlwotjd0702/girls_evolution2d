@@ -47,6 +47,7 @@ public class AutoAutomationController : MonoBehaviour
     public TextMeshProUGUI reasonLabel;
     public float reasonShowSeconds = 1.15f;
     Coroutine _reasonRoutine;
+    private const string GemAdHint = "광고 시청 보상으로 보석 5개를 받을 수 있어요!";
 
     void Awake()
     {
@@ -194,11 +195,11 @@ public class AutoAutomationController : MonoBehaviour
                 if (insufficientPanel != null)
                 {
                     long have = premiumCurrency.GetGems();
-                    insufficientPanel.ShowGeneric("보석이 부족합니다", $"필요: {gemCost:N0} / 보유: {have:N0}");
+                    insufficientPanel.ShowGemShortage(gemCost, have);
                 }
                 else
                 {
-                    ShowReason("보석이 부족합니다.");
+                    ShowReason($"보석이 부족합니다.\n{GemAdHint}");
                 }
                 return;
             }

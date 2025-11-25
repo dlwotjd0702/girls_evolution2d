@@ -54,13 +54,8 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     /// </summary>
     public event Action<bool> OnAdsRemovedChanged;
 
-    // PlayerPrefs key used for storing the ad removal state when no save manager is present.
-    const string PP_ADS_REMOVED = "ADS_REMOVED_FLAG";
-
     [Header("UI Label (Optional)")]
     [SerializeField] private TextMeshProUGUI gemLabel; // 인스펙터에서 하나만 연결
-
-    const string PP_GEMS = "GEMS_BALANCE_V2";
 
     private StoreController storeController;
     private readonly Dictionary<string,string> priceCache = new();
@@ -75,16 +70,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     void Start()
     {
         // SaveManager가 있으면 ApplyLoadedData에서 복구하므로 여기서는 복구하지 않음
-        // SaveManager가 없을 때만 PlayerPrefs에서 복구 (레거시 지원)
-        if (!HasSaveManager())
-        {
-            var s = PlayerPrefs.GetString(PP_GEMS, "0");
-            if (long.TryParse(s, out var v)) gems = Math.Max(0, v);
-            // Restore the ad removal flag from PlayerPrefs
-            adsRemoved = PlayerPrefs.GetInt(PP_ADS_REMOVED, 0) != 0;
-            NotifyAndPersist(); // 초기 라벨 갱신
-        }
-        // SaveManager가 있으면 ApplyLoadedData에서 NotifyAndPersist()가 호출됨
+        NotifyAndPersist(); // SaveManager의 ApplyLoadedData 이전에도 UI를 초기화
         InitializeIAP();
     }
 
@@ -237,29 +223,9 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         // gems는 0일 수도 있으므로, SaveData 필드를 우선 사용
         gems = Math.Max(0, d.gems);
         
-        // SaveData에 gems가 0이고 PlayerPrefs에 값이 있으면 레거시 호환
-        if (gems == 0 && HasSaveManager())
-        {
-            var s = PlayerPrefs.GetString(PP_GEMS, "0");
-            if (long.TryParse(s, out var p) && p > 0)
-            {
-                gems = p;
-            }
-        }
-
         // Load ad removal state from SaveData
         adsRemoved = (d.adsRemoved > 0);
-        
-        // 레거시 호환: SaveData에 없고 PlayerPrefs에 있으면 복구
-        if (!adsRemoved && HasSaveManager())
-        {
-            int ppValue = PlayerPrefs.GetInt(PP_ADS_REMOVED, 0);
-            if (ppValue != 0)
-            {
-                adsRemoved = true;
-            }
-        }
-        
+
         NotifyAndPersist();
     }
 
@@ -268,12 +234,6 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     {
         if (gemLabel) gemLabel.text = $"{gems:N0}";
         OnGemsChanged?.Invoke(gems);
-
-        if (!HasSaveManager())
-        {
-            PlayerPrefs.SetString(PP_GEMS, gems.ToString());
-            PlayerPrefs.Save();
-        }
     }
 
     /// <summary>
@@ -295,20 +255,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     void PersistAdsRemoved()
     {
-        if (!HasSaveManager())
-        {
-            PlayerPrefs.SetInt(PP_ADS_REMOVED, adsRemoved ? 1 : 0);
-            PlayerPrefs.Save();
-        }
-    }
-    bool HasSaveManager()
-    {
-        try
-        {
-            var t = typeof(SaveManager);
-            var pi = t.GetProperty("Instance", System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Static);
-            return pi?.GetValue(null, null) != null;
-        } catch { return false; }
+        // SaveManager를 통해서만 영구 저장하므로 별도 처리가 필요 없음
     }
     static void TrySetLong(object obj, string name, long value)
     {

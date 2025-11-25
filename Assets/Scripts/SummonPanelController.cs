@@ -33,6 +33,7 @@ public class SummonPanelController : MonoBehaviour
     private float _t;
     private Coroutine _reasonRoutine;
     private Action<int> _maxLevelChangedHandler;
+    private const string GemAdHint = "광고 시청 보상으로 보석 5개를 받을 수 있어요!";
 
     void Awake()
     {
@@ -256,11 +257,11 @@ public class SummonPanelController : MonoBehaviour
             if (insufficientFundsPanel != null)
             {
                 long have = premiumCurrency != null ? premiumCurrency.GetGems() : 0;
-                insufficientFundsPanel.ShowGeneric("보석이 부족합니다", $"필요: {gemCost:N0} / 보유: {have:N0}");
+                insufficientFundsPanel.ShowGemShortage(gemCost, have);
             }
             else
             {
-                ShowReasonTemp("보석이 부족합니다.");
+                ShowReasonTemp($"보석이 부족합니다.\n{GemAdHint}");
             }
             return;
         }

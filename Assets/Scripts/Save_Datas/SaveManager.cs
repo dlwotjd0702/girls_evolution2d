@@ -15,8 +15,24 @@ public class SaveManager : MonoBehaviour
     private const string SAVE_FILE_NAME = "save.json";
     private const string BACKUP_FILE_NAME = "save_backup.json";
 
-    private string SaveFilePath => Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
-    private string BackupFilePath => Path.Combine(Application.persistentDataPath, BACKUP_FILE_NAME);
+    private string SaveDirectory
+    {
+        get
+        {
+#if UNITY_EDITOR
+            string editorDir = Path.Combine(Application.dataPath, "..", "EditorSaves");
+            if (!Directory.Exists(editorDir)) Directory.CreateDirectory(editorDir);
+            return Path.GetFullPath(editorDir);
+#else
+            if (!Directory.Exists(Application.persistentDataPath))
+                Directory.CreateDirectory(Application.persistentDataPath);
+            return Application.persistentDataPath;
+#endif
+        }
+    }
+
+    private string SaveFilePath => Path.Combine(SaveDirectory, SAVE_FILE_NAME);
+    private string BackupFilePath => Path.Combine(SaveDirectory, BACKUP_FILE_NAME);
     
     [Header("Auto Save Settings")]
     [Tooltip("자동 저장 간격 (초)")]
@@ -25,6 +41,7 @@ public class SaveManager : MonoBehaviour
     [Header("Debug / Maintenance")]
     [Tooltip("시작 시 세이브 데이터를 삭제하고 새 게임으로 시작합니다.")]
     [SerializeField] private bool resetSaveOnStart = false;
+    
     
     private float autoSaveTimer = 0f;
     private double pendingOfflineSeconds = 0f;

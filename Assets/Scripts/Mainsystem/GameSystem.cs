@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [DefaultExecutionOrder(-100)]
@@ -24,6 +25,8 @@ public class GameSystem : MonoBehaviour
 
     public bool AssetsReady { get; private set; } = false;
     public event Action AssetsReadyEvent;
+
+    private Coroutine loadingFallbackRoutine;
 
     private void Awake()
     {
@@ -83,7 +86,19 @@ public class GameSystem : MonoBehaviour
             {
                 loadingPanel.SetActive(false);
             }
+            else
+            {
+                if (loadingFallbackRoutine != null) StopCoroutine(loadingFallbackRoutine);
+                loadingFallbackRoutine = StartCoroutine(LoadingFallbackTimeout());
+            }
         }
+    }
+
+    private IEnumerator LoadingFallbackTimeout()
+    {
+        yield return new WaitForSeconds(5f);
+        if (loadingPanel != null) loadingPanel.SetActive(false);
+        loadingFallbackRoutine = null;
     }
 
     private void OnDestroy()

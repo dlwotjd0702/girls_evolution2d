@@ -98,7 +98,7 @@ public class OfflineRewardPanel : MonoBehaviour
         // 보상 금액 표시
         if (rewardText != null)
         {
-            rewardText.SetText($"+{EconomyManager.FormatAbbrev(payload.totalReward)} G");
+            rewardText.SetText($"+{EconomyManager.FormatAbbrev(payload.totalReward)}");
         }
 
         // 오프라인 시간 표시 (선택)

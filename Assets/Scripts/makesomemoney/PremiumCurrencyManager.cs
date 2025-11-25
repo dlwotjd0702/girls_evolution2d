@@ -232,7 +232,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     // ===== Helpers =====
     void NotifyAndPersist()
     {
-        if (gemLabel) gemLabel.text = $"{gems:N0}";
+        if (gemLabel) gemLabel.text = $"{gems:N0} Gem";
         OnGemsChanged?.Invoke(gems);
     }
 

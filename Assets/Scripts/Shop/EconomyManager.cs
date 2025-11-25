@@ -56,6 +56,8 @@ public class EconomyManager : MonoBehaviour, ISaveable
     [SerializeField] private bool   showPlusOnPerSec = true;  // +표시 여부
     [SerializeField] private bool   hidePerSecWhenZero = true;
 
+    private static readonly string[] GoldUnitPrefixes = { "", "a", "b", "c", "d", "e", "f", "g", "h" };
+
     // 내부: /s 추정치 (필드매니저가 필요 시 세팅)
     private double _goldPerSecEstimate;
 
@@ -72,37 +74,54 @@ public class EconomyManager : MonoBehaviour, ISaveable
     void Start() { RefreshGoldHUD(); }
 
     // 숫자 축약 포맷
-    string FormatCompact(double v, int digits = 1)
+    string FormatCompact(double value, int digits = 1)
     {
-        double av = Math.Abs(v);
-        string sign = v < 0 ? "-" : "";
-        string fmt = (digits <= 0) ? "0" : "0." + new string('0', digits);
-
-        if (av < 1_000d)             return $"{sign}{av:0}";
-        if (av < 1_000_000d)         return sign + (av / 1_000d).ToString(fmt) + "K";
-        if (av < 1_000_000_000d)     return sign + (av / 1_000_000d).ToString(fmt) + "M";
-        if (av < 1_000_000_000_000d) return sign + (av / 1_000_000_000d).ToString(fmt) + "B";
-        return sign + (av / 1_000_000_000_000d).ToString(fmt) + "T";
+        return FormatAbbrev(value, digits, goldUnitSuffix);
     }
 
     // 정적 메서드: 숫자 축약 포맷 (외부에서 사용)
-    public static string FormatAbbrev(double v, int digits = 1)
+    public static string FormatAbbrev(double value, int digits = 1, string baseUnit = "G")
     {
-        double av = Math.Abs(v);
-        string sign = v < 0 ? "-" : "";
-        string fmt = (digits <= 0) ? "0" : "0." + new string('0', digits);
+        baseUnit ??= string.Empty;
+        double scaledValue = value;
+        double abs = Math.Abs(value);
+        int unitIndex = 0;
 
-        if (av < 1_000d)             return $"{sign}{av:0}";
-        if (av < 1_000_000d)         return sign + (av / 1_000d).ToString(fmt) + "K";
-        if (av < 1_000_000_000d)     return sign + (av / 1_000_000d).ToString(fmt) + "M";
-        if (av < 1_000_000_000_000d) return sign + (av / 1_000_000_000d).ToString(fmt) + "B";
-        return sign + (av / 1_000_000_000_000d).ToString(fmt) + "T";
+        while (abs >= 1000d && unitIndex < GoldUnitPrefixes.Length - 1)
+        {
+            abs /= 1000d;
+            scaledValue /= 1000d;
+            unitIndex++;
+        }
+
+        int decimals = Mathf.Clamp(digits, 0, 3);
+        if (abs >= 100d) decimals = 0;
+        else if (abs >= 10d) decimals = Math.Min(decimals, 1);
+        else decimals = Math.Min(decimals, 2);
+
+        string fmt = decimals <= 0 ? "0" : $"0.{new string('0', decimals)}";
+        string sign = scaledValue < 0 ? "-" : "";
+        double magnitude = Math.Abs(scaledValue);
+        string number = magnitude.ToString(fmt);
+        string unit = ComposeGoldUnit(unitIndex, baseUnit);
+
+        return string.IsNullOrEmpty(unit)
+            ? $"{sign}{number}"
+            : $"{sign}{number} {unit}";
+    }
+
+    static string ComposeGoldUnit(int index, string baseUnit)
+    {
+        index = Mathf.Clamp(index, 0, GoldUnitPrefixes.Length - 1);
+        string prefix = GoldUnitPrefixes[index];
+        if (string.IsNullOrEmpty(baseUnit)) return prefix;
+        return $"{prefix}{baseUnit}";
     }
 
     void RefreshGoldHUD()
     {
         if (goldText)
-            goldText.text = $"{FormatCompact(gold)} {goldUnitSuffix}";
+            goldText.text = FormatCompact(gold);
 
         if (goldPerSecText)
         {
@@ -111,7 +130,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
             if (show)
             {
                 string plus = showPlusOnPerSec ? "+" : "";
-                goldPerSecText.text = $"{plus}{FormatCompact(_goldPerSecEstimate, 1)} {goldUnitSuffix}/s";
+                goldPerSecText.text = $"{plus}{FormatCompact(_goldPerSecEstimate, 1)}/s";
             }
         }
     }

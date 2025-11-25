@@ -47,7 +47,7 @@ public class GoldGainPopup : MonoBehaviour
 
         if (amountText != null)
         {
-            amountText.text = $"+{FormatAmount(amount)}";
+            amountText.text = $"+{EconomyManager.FormatAbbrev(amount, 2)}";
             amountText.color = isClick ? clickColor : bounceColor;
         }
 
@@ -65,23 +65,6 @@ public class GoldGainPopup : MonoBehaviour
         fadeTween?.Kill();
     }
 
-    private string FormatAmount(double value)
-    {
-        double v = Math.Abs(value);
-        string suffix;
-        double divisor;
-
-        if (v >= 1e12) { suffix = "T"; divisor = 1e12; }
-        else if (v >= 1e9) { suffix = "B"; divisor = 1e9; }
-        else if (v >= 1e6) { suffix = "M"; divisor = 1e6; }
-        else if (v >= 1e3) { suffix = "K"; divisor = 1e3; }
-        else { suffix = string.Empty; divisor = 1; }
-
-        double display = value / divisor;
-        if (Math.Abs(display) >= 100) return $"{display:0}{suffix}";
-        if (Math.Abs(display) >= 10) return $"{display:0.0}{suffix}";
-        return $"{display:0.00}{suffix}";
-    }
 }
 
 

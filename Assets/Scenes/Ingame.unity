@@ -6757,9 +6757,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'point
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 766718bbc7034264bb6c415c38350183, type: 2}
   m_sharedMaterial: {fileID: -4408582079707424379, guid: 766718bbc7034264bb6c415c38350183, type: 2}
@@ -6786,7 +6784,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.5
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12042,9 +12040,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'point
-
-'
+  m_text: 0 G/s
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 766718bbc7034264bb6c415c38350183, type: 2}
   m_sharedMaterial: {fileID: -4408582079707424379, guid: 766718bbc7034264bb6c415c38350183, type: 2}
@@ -12585,9 +12581,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'point
-
-'
+  m_text: gems
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 766718bbc7034264bb6c415c38350183, type: 2}
   m_sharedMaterial: {fileID: -4408582079707424379, guid: 766718bbc7034264bb6c415c38350183, type: 2}
@@ -20581,9 +20575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'point
-
-'
+  m_text: 0 point
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 766718bbc7034264bb6c415c38350183, type: 2}
   m_sharedMaterial: {fileID: -4408582079707424379, guid: 766718bbc7034264bb6c415c38350183, type: 2}
@@ -29017,7 +29009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoSaveInterval: 60
-  resetSaveOnStart: 0
+  resetSaveOnStart: 1
 --- !u!1 &1852641126
 GameObject:
   m_ObjectHideFlags: 0
@@ -33442,9 +33434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'point
-
-'
+  m_text: 0 G
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 766718bbc7034264bb6c415c38350183, type: 2}
   m_sharedMaterial: {fileID: -4408582079707424379, guid: 766718bbc7034264bb6c415c38350183, type: 2}

@@ -169,7 +169,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     void UpdatePrestigePointLabel()
     {
         if (prestigePointLabel)
-            prestigePointLabel.text = $"<b>{prestigePoint:N0}</b>";
+            prestigePointLabel.text = $"<b>{prestigePoint:N0} pt</b>";
     }
 
     // ───────── 리플렉션 유틸 ─────────

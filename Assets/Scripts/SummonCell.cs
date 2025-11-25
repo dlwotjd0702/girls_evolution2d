@@ -18,6 +18,8 @@ public class SummonCell : MonoBehaviour
 
     private Action _onClick;
     private Action _onGemClick;
+    private bool _hasGoldAction;
+    private bool _hasGemAction;
 
     void Reset()
     {
@@ -37,9 +39,11 @@ public class SummonCell : MonoBehaviour
     {
         _onClick = onClick;
         _onGemClick = onGemClick;
+        _hasGoldAction = onClick != null;
+        _hasGemAction = onGemClick != null;
 
         if (nameLabel) nameLabel.text = nameText;
-        if (costLabel) costLabel.text = FormatAbbrev(cost);
+        if (costLabel) costLabel.text = EconomyManager.FormatAbbrev(cost);
         if (iconImage) iconImage.sprite = icon;
 
         // 보석 비용 표시
@@ -47,7 +51,7 @@ public class SummonCell : MonoBehaviour
         {
             if (gemCost > 0 && onGemClick != null)
             {
-                gemCostLabel.text = $"{gemCost:N0} G";
+                gemCostLabel.text = $"{gemCost:N0} Gem";
                 gemCostLabel.gameObject.SetActive(true);
             }
             else
@@ -57,19 +61,20 @@ public class SummonCell : MonoBehaviour
         }
 
         // 요구: 항상 활성 상태 유지 (실제 상호작용 가능 여부는 패널에서 관리)
-        if (summonButton) summonButton.interactable = true;
-        if (gemSummonButton) gemSummonButton.interactable = (onGemClick != null && gemCost > 0);
+        if (summonButton) summonButton.interactable = _hasGoldAction;
+        if (gemSummonButton) gemSummonButton.interactable = _hasGemAction && gemCost > 0;
     }
 
     // 비용 라벨 갱신용
     public void UpdateCost(double newCost)
     {
-        if (costLabel) costLabel.text = FormatAbbrev(newCost);
+        if (costLabel) costLabel.text = EconomyManager.FormatAbbrev(newCost);
     }
     
     // 보석 비용 및 버튼 상태 갱신
     public void UpdateGemCost(long gemCost, bool canAfford)
     {
+        _ = canAfford; // 버튼은 항상 활성 상태를 유지
         if (gemCostLabel != null)
         {
             if (gemCost > 0)
@@ -85,15 +90,15 @@ public class SummonCell : MonoBehaviour
         
         if (gemSummonButton != null)
         {
-            gemSummonButton.interactable = (gemCost > 0 && canAfford);
+            gemSummonButton.interactable = _hasGemAction && gemCost > 0;
         }
     }
     
     // 버튼 상호작용 가능 여부 업데이트 (필드 가득 참 등)
     public void SetButtonsInteractable(bool goldInteractable, bool gemInteractable)
     {
-        if (summonButton != null) summonButton.interactable = goldInteractable;
-        if (gemSummonButton != null) gemSummonButton.interactable = gemInteractable;
+        if (summonButton != null) summonButton.interactable = _hasGoldAction;
+        if (gemSummonButton != null) gemSummonButton.interactable = _hasGemAction;
     }
 
     // (패널에서 ReasonLabel 직접 관리하므로 현재 미사용)
@@ -105,13 +110,4 @@ public class SummonCell : MonoBehaviour
         else               reasonLabel.text = string.Empty;
     }
 
-    public static string FormatAbbrev(double v)
-    {
-        double av = Math.Abs(v);
-        if (av >= 1e12) return $"{v / 1e12:0.#}T";
-        if (av >= 1e9)  return $"{v / 1e9:0.#}B";
-        if (av >= 1e6)  return $"{v / 1e6:0.#}M";
-        if (av >= 1e3)  return $"{v / 1e3:0.#}K";
-        return $"{v:0}G";
-    }
 }

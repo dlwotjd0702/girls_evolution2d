@@ -155,17 +155,20 @@ public class SummonPanelController : MonoBehaviour
         double cost = CurrentCost(level);
         double currentGold = economy != null ? economy.GetGold() : 0;
         
-        if (economy == null || !economy.SpendGold(cost))
+        if (economy == null)
         {
-            // 골드 부족 패널이 있으면 표시
+            ShowReasonTemp("골드 정보를 불러오지 못했습니다.");
+            return;
+        }
+        
+        if (!economy.SpendGold(cost))
+        {
             if (insufficientFundsPanel != null)
             {
                 insufficientFundsPanel.ShowForGoldShortage(cost, currentGold);
             }
-            else
-        {
+            
             ShowReasonTemp("골드가 부족합니다.");
-            }
             return;
         }
 
@@ -192,8 +195,6 @@ public class SummonPanelController : MonoBehaviour
 
     void RefreshCostsOnly()
     {
-        int fieldCap = (economy != null) ? economy.GetMaxFieldCount() : 8;
-        bool fieldFull = fieldManager != null && fieldManager.girlList.Count >= fieldCap;
         long currentGems = premiumCurrency != null ? premiumCurrency.GetGems() : 0;
         
         foreach (var kv in cells)
@@ -207,10 +208,6 @@ public class SummonPanelController : MonoBehaviour
             
             cell.UpdateCost(goldCost);
             cell.UpdateGemCost(gemCost, currentGems >= gemCost);
-            
-            // 골드 소환 가능 여부
-            bool canAffordGold = economy != null && economy.GetGold() >= goldCost;
-            cell.SetButtonsInteractable(!fieldFull && canAffordGold, !fieldFull && currentGems >= gemCost);
         }
     }
     
@@ -252,12 +249,19 @@ public class SummonPanelController : MonoBehaviour
         }
 
         long gemCost = GetGemCostForLevel(level);
-        if (premiumCurrency == null || !premiumCurrency.TrySpendGems(gemCost))
+        if (premiumCurrency == null)
         {
+            ShowReasonTemp("보석 정보를 불러오지 못했습니다.");
+            return;
+        }
+
+        if (!premiumCurrency.TrySpendGems(gemCost))
+        {
+            long have = premiumCurrency.GetGems();
             if (insufficientFundsPanel != null)
             {
-                long have = premiumCurrency != null ? premiumCurrency.GetGems() : 0;
                 insufficientFundsPanel.ShowGemShortage(gemCost, have);
+                ShowReasonTemp("보석이 부족합니다.");
             }
             else
             {

@@ -88,15 +88,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61f84d90135757342a7ea7bfc69f12d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  Level: 0
   displayName: 
   mergeManager: {fileID: 0}
-  jumpPower: 0.38
-  moveDistance: 0.5
-  jumpDuration: 0.32
-  jumpIntervalMin: 7
-  jumpIntervalMax: 15
-  minX: -2.5
-  maxX: 2.5
-  minY: -4.8
-  maxY: 4.8
+  defaultScale: 3
+  finalModeScale: 9
+  pulseUpScaleMul: 1.06
+  pulseUpTime: 0.08
+  pulseDownTime: 0.09

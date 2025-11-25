@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -60,6 +61,9 @@ public class TierManager : MonoBehaviour, ISaveable
     bool useA = true;
     int  lastTier = 0;
     Sequence seq;
+    bool isTransitioning = false;
+    bool isSequenceRunning = false;
+    Coroutine tierSequenceRoutine;
 
     // ───────────── Unity ─────────────
     void Reset()
@@ -92,11 +96,19 @@ public class TierManager : MonoBehaviour, ISaveable
     {
         if (ascendButton) ascendButton.onClick.RemoveAllListeners();
         seq?.Kill();
+        if (tierSequenceRoutine != null)
+        {
+            StopCoroutine(tierSequenceRoutine);
+            tierSequenceRoutine = null;
+        }
+        isSequenceRunning = false;
+        isTransitioning = false;
     }
 
     // ───────────── Ascend 버튼 로직 ─────────────
     void OnClickAscend()
     {
+        if (isTransitioning || isSequenceRunning) return;
         if (playClickAnim && ascendButton)
         {
             var t = ascendButton.transform;
@@ -120,6 +132,7 @@ public class TierManager : MonoBehaviour, ISaveable
         int target = ComputeNextTierByRule();
         var sprite = SafeSpriteButton(target) ?? SafeSpriteBG(target);
         if (ascendIcon) ascendIcon.sprite = sprite;
+        UpdateAscendInteractableState();
     }
 
     // ───────────── 배경 전환 ─────────────
@@ -147,7 +160,7 @@ public class TierManager : MonoBehaviour, ISaveable
         }
     }
 
-    void PlayBGTo(int toTier)
+    void PlayBGTo(int toTier, int fromTier)
     {
         if (!bgA || !bgB) return;
 
@@ -155,6 +168,8 @@ public class TierManager : MonoBehaviour, ISaveable
         if (!nextSprite || toTier == lastTier) return;
 
         seq?.Kill();
+        isTransitioning = true;
+        UpdateAscendInteractableState();
 
         var cur = useA ? bgA : bgB;
         var nxt = useA ? bgB : bgA;
@@ -166,21 +181,28 @@ public class TierManager : MonoBehaviour, ISaveable
 
         nxt.sprite = nextSprite;
 
+        bool goingDown = fromTier > toTier;
+        float dir = goingDown ? -1f : 1f;
+        float curEndScale = goingDown ? inStartScale : outEndScale;
+        float nextStartScale = goingDown ? outEndScale : inStartScale;
+        float curTargetY = riseY * dir;
+        float nextStartY = nextStartYOffset * dir;
+
         // 현재층 아웃
         cur.rectTransform.localScale = Vector3.one;
         cur.rectTransform.anchoredPosition = Vector2.zero;
         cur.color = Color.white;
 
         // 다음층 인
-        nxt.rectTransform.localScale = Vector3.one * inStartScale;
-        nxt.rectTransform.anchoredPosition = new Vector2(0f, nextStartYOffset);
+        nxt.rectTransform.localScale = Vector3.one * nextStartScale;
+        nxt.rectTransform.anchoredPosition = new Vector2(0f, nextStartY);
         nxt.color = new Color(1,1,1,0);
 
         seq = DOTween.Sequence().SetAutoKill(true).SetUpdate(unscaledTime);
 
         // BG: 현재층 아웃
-        seq.Join(cur.rectTransform.DOScale(outEndScale, duration).SetEase(ease));
-        seq.Join(cur.rectTransform.DOAnchorPosY(riseY, duration).SetEase(ease));
+        seq.Join(cur.rectTransform.DOScale(curEndScale, duration).SetEase(ease));
+        seq.Join(cur.rectTransform.DOAnchorPosY(curTargetY, duration).SetEase(ease));
         seq.Join(cur.DOFade(0f, duration).SetEase(ease));
 
         // BG: 다음층 인
@@ -192,7 +214,8 @@ public class TierManager : MonoBehaviour, ISaveable
         if (fieldRoot)
         {
             fieldRoot.DOKill();
-            var startScale = _fieldOrigScale * inStartScale; // 원래 스케일 기준으로 확대 시작
+            var baseMul = goingDown ? outEndScale : inStartScale;
+            var startScale = _fieldOrigScale * baseMul;
             fieldRoot.localScale = startScale;
             seq.Join(fieldRoot.DOScale(_fieldOrigScale, duration).SetEase(ease));
         }
@@ -211,6 +234,8 @@ public class TierManager : MonoBehaviour, ISaveable
 
             useA = !useA;
             lastTier = toTier;
+            isTransitioning = false;
+            UpdateAscendInteractableState();
         });
     }
 
@@ -221,11 +246,15 @@ public class TierManager : MonoBehaviour, ISaveable
         if (!Unlocked[tierIndex]) return;
         if (CurrentTierIndex == tierIndex) return;
 
-        int prev = CurrentTierIndex;
-        CurrentTierIndex = tierIndex;
+        bool requireSequence = tierIndex < CurrentTierIndex - 1;
+        if (requireSequence && gameObject.activeInHierarchy)
+        {
+            if (tierSequenceRoutine == null)
+                tierSequenceRoutine = StartCoroutine(SwitchDownSequence(tierIndex));
+            return;
+        }
 
-        PlayBGTo(tierIndex);
-        OnTierChanged?.Invoke(CurrentTierIndex);
+        SwitchToInternal(tierIndex);
     }
 
     // 레벨 기반 자동 언락(9→1층, 17→2층, 25→3층)
@@ -249,6 +278,19 @@ public class TierManager : MonoBehaviour, ISaveable
     public bool IsUnlocked(int tier) => (uint)tier < 4u && Unlocked[tier];
 
     /// <summary>
+    /// 환생 시 티어 언락 초기화 (0층만 해금)
+    /// </summary>
+    public void ResetTierUnlocks()
+    {
+        for (int i = 1; i < 4; i++)
+        {
+            Unlocked[i] = false;
+        }
+        Unlocked[0] = true; // 0층은 항상 해금
+        RefreshAscendUI();
+    }
+
+    /// <summary>
     /// 규칙: 0→(1이 열렸으면 1, 아니면 0), 1→(2 열렸으면 2, 아니면 0), 2→(3 열렸으면 3, 아니면 0), 3→0
     /// </summary>
     public int ComputeNextTierByRule()
@@ -266,6 +308,40 @@ public class TierManager : MonoBehaviour, ISaveable
     public void GoNextTierByRule()
     {
         SwitchTo(ComputeNextTierByRule());
+    }
+
+    void SwitchToInternal(int tierIndex)
+    {
+        if ((uint)tierIndex > 3u) return;
+        if (CurrentTierIndex == tierIndex) return;
+        int prevTier = CurrentTierIndex;
+        CurrentTierIndex = tierIndex;
+        PlayBGTo(tierIndex, prevTier);
+        OnTierChanged?.Invoke(CurrentTierIndex);
+        RefreshAscendUI();
+    }
+
+    IEnumerator SwitchDownSequence(int targetTier)
+    {
+        isSequenceRunning = true;
+        UpdateAscendInteractableState();
+        int startTier = CurrentTierIndex;
+        int finalTarget = Mathf.Clamp(targetTier, 0, startTier - 1);
+        for (int tier = startTier - 1; tier >= finalTarget; tier--)
+        {
+            if (!Unlocked[tier]) continue;
+            SwitchToInternal(tier);
+            yield return new WaitUntil(() => !isTransitioning);
+        }
+        isSequenceRunning = false;
+        UpdateAscendInteractableState();
+        tierSequenceRoutine = null;
+    }
+
+    void UpdateAscendInteractableState()
+    {
+        if (ascendButton)
+            ascendButton.interactable = !isTransitioning && !isSequenceRunning;
     }
 
     // ───────────── 저장/복원 ─────────────

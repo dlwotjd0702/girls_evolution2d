@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Globalization;
 // using BackEnd; // 실제 프로젝트에 뒤끝 SDK 네임스페이스 추가
 
+[DefaultExecutionOrder(-200)] // GameSystem(-100)보다 먼저 실행
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
@@ -14,6 +17,18 @@ public class SaveManager : MonoBehaviour
 
     private string SaveFilePath => Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
     private string BackupFilePath => Path.Combine(Application.persistentDataPath, BACKUP_FILE_NAME);
+    
+    [Header("Auto Save Settings")]
+    [Tooltip("자동 저장 간격 (초)")]
+    [SerializeField] private float autoSaveInterval = 60f; // 1분
+    
+    [Header("Debug / Maintenance")]
+    [Tooltip("시작 시 세이브 데이터를 삭제하고 새 게임으로 시작합니다.")]
+    [SerializeField] private bool resetSaveOnStart = false;
+    
+    private float autoSaveTimer = 0f;
+    private double pendingOfflineSeconds = 0f;
+    private static readonly string[] SaveTimeFormats = { "yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd HH:mm:ss" };
 
     private void Awake()
     {
@@ -28,7 +43,25 @@ public class SaveManager : MonoBehaviour
 
     void Start()
     {
+        if (resetSaveOnStart)
+        {
+            Debug.LogWarning("[SaveManager] resetSaveOnStart가 활성화되어 세이브 데이터를 삭제합니다.");
+            ResetSaveFile();
+        }
         LoadGame();
+        autoSaveTimer = 0f;
+    }
+    
+    void Update()
+    {
+        // 1분 간격 자동 저장
+        autoSaveTimer += Time.unscaledDeltaTime;
+        if (autoSaveTimer >= autoSaveInterval)
+        {
+            autoSaveTimer = 0f;
+            SaveGame();
+            Debug.Log("[SaveManager] 자동 저장 완료");
+        }
     }
 
     void OnApplicationPause(bool pause)
@@ -46,8 +79,21 @@ public class SaveManager : MonoBehaviour
     {
         SaveData data = new SaveData();
         data.SetSaveTime();
-        foreach (var s in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
+        
+        // 모든 ISaveable 구현체 찾기 (비활성화된 오브젝트도 포함)
+        var saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>().ToList();
+        
+        foreach (var s in saveables)
+        {
+            try
+            {
             s.CollectSaveData(data);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[SaveManager] {s.GetType().Name} 데이터 수집 실패: {e.Message}");
+            }
+        }
 
         string saveJson = JsonUtility.ToJson(data, true);
 
@@ -63,8 +109,8 @@ public class SaveManager : MonoBehaviour
             File.WriteAllText(SaveFilePath, saveJson);
 
             // PlayerPrefs도 병행 저장 (호환성 유지)
-            PlayerPrefs.SetString("SaveData", saveJson);
-            PlayerPrefs.Save();
+        PlayerPrefs.SetString("SaveData", saveJson);
+        PlayerPrefs.Save();
 
             Debug.Log($"[SaveManager] 저장 완료: {SaveFilePath}");
         }
@@ -104,8 +150,23 @@ public class SaveManager : MonoBehaviour
 
             if (data != null)
             {
-                foreach (var s in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
-                    s.ApplyLoadedData(data);
+                CaptureOfflineDuration(data);
+                
+                // 모든 ISaveable 구현체 찾기 (비활성화된 오브젝트도 포함)
+                var saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>().ToList();
+                Debug.Log($"[SaveManager] 로드 시작: {saveables.Count}개 ISaveable 발견");
+                
+                foreach (var s in saveables)
+                {
+                    try
+                    {
+                        s.ApplyLoadedData(data);
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError($"[SaveManager] {s.GetType().Name} 데이터 적용 실패: {e.Message}");
+                    }
+                }
 
                 Debug.Log("[SaveManager] 불러오기 완료");
                 // 데이터 적용은 비동기이므로, GirlFieldManager에서 완료 알림을 받음
@@ -122,9 +183,19 @@ public class SaveManager : MonoBehaviour
                 {
                     saveJson = File.ReadAllText(BackupFilePath);
                     data = JsonUtility.FromJson<SaveData>(saveJson);
-                    
-                    foreach (var s in FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>())
-                        s.ApplyLoadedData(data);
+
+                    var saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>().ToList();
+                    foreach (var s in saveables)
+                    {
+                        try
+                        {
+            s.ApplyLoadedData(data);
+                        }
+                        catch (System.Exception e2)
+                        {
+                            Debug.LogError($"[SaveManager] {s.GetType().Name} 백업 복구 실패: {e2.Message}");
+                        }
+                    }
                     
                     Debug.Log("[SaveManager] 백업 파일에서 복구 완료");
                 }
@@ -189,5 +260,28 @@ public class SaveManager : MonoBehaviour
     public string GetSaveFilePath()
     {
         return SaveFilePath;
+    }
+
+    void CaptureOfflineDuration(SaveData data)
+    {
+        pendingOfflineSeconds = 0f;
+        if (data == null) return;
+        string stamp = data.savedAt;
+        if (string.IsNullOrEmpty(stamp)) return;
+
+        if (DateTime.TryParseExact(stamp, SaveTimeFormats, CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeLocal | DateTimeStyles.AllowWhiteSpaces, out var savedTime))
+        {
+            pendingOfflineSeconds = Math.Max(0.0, (DateTime.Now - savedTime).TotalSeconds);
+        }
+    }
+
+    public bool TryConsumeOfflineSeconds(out double seconds, double minSeconds = 30.0)
+    {
+        seconds = 0.0;
+        if (pendingOfflineSeconds < minSeconds) return false;
+        seconds = pendingOfflineSeconds;
+        pendingOfflineSeconds = 0.0;
+        return true;
     }
 }

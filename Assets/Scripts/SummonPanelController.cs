@@ -21,6 +21,7 @@ public class SummonPanelController : MonoBehaviour
     [SerializeField] private RectTransform   content;       // ScrollView Content
     [SerializeField] private GameObject      cellPrefab;    // SummonCell 프리팹(GameObject)
     [SerializeField] private TextMeshProUGUI reasonLabel;   // 공용 사유 라벨
+    [SerializeField] private InsufficientFundsPanel insufficientFundsPanel; // 골드 부족 패널
 
     [Header("Refresh")]
     [SerializeField] private float interactableRefreshInterval = 0.25f;
@@ -151,9 +152,19 @@ public class SummonPanelController : MonoBehaviour
         }
 
         double cost = CurrentCost(level);
+        double currentGold = economy != null ? economy.GetGold() : 0;
+        
         if (economy == null || !economy.SpendGold(cost))
         {
+            // 골드 부족 패널이 있으면 표시
+            if (insufficientFundsPanel != null)
+            {
+                insufficientFundsPanel.ShowForGoldShortage(cost, currentGold);
+            }
+            else
+        {
             ShowReasonTemp("골드가 부족합니다.");
+            }
             return;
         }
 
@@ -242,7 +253,15 @@ public class SummonPanelController : MonoBehaviour
         long gemCost = GetGemCostForLevel(level);
         if (premiumCurrency == null || !premiumCurrency.TrySpendGems(gemCost))
         {
-            ShowReasonTemp("보석이 부족합니다.");
+            if (insufficientFundsPanel != null)
+            {
+                long have = premiumCurrency != null ? premiumCurrency.GetGems() : 0;
+                insufficientFundsPanel.ShowGeneric("보석이 부족합니다", $"필요: {gemCost:N0} / 보유: {have:N0}");
+            }
+            else
+            {
+                ShowReasonTemp("보석이 부족합니다.");
+            }
             return;
         }
 

@@ -716,7 +716,7 @@ MonoBehaviour:
   iconImage: {fileID: 6348454269036154042}
   nameLabel: {fileID: 7203072475532776966}
   costLabel: {fileID: 6765928871849617616}
-  summonButton: {fileID: 5643549710317108856}
+  summonButton: {fileID: 9200579674263444507}
   gemSummonButton: {fileID: 5643549710317108856}
   gemCostLabel: {fileID: 1242483812657660942}
 --- !u!222 &1044608092929746030

@@ -85,6 +85,20 @@ public class EconomyManager : MonoBehaviour, ISaveable
         return sign + (av / 1_000_000_000_000d).ToString(fmt) + "T";
     }
 
+    // 정적 메서드: 숫자 축약 포맷 (외부에서 사용)
+    public static string FormatAbbrev(double v, int digits = 1)
+    {
+        double av = Math.Abs(v);
+        string sign = v < 0 ? "-" : "";
+        string fmt = (digits <= 0) ? "0" : "0." + new string('0', digits);
+
+        if (av < 1_000d)             return $"{sign}{av:0}";
+        if (av < 1_000_000d)         return sign + (av / 1_000d).ToString(fmt) + "K";
+        if (av < 1_000_000_000d)     return sign + (av / 1_000_000d).ToString(fmt) + "M";
+        if (av < 1_000_000_000_000d) return sign + (av / 1_000_000_000d).ToString(fmt) + "B";
+        return sign + (av / 1_000_000_000_000d).ToString(fmt) + "T";
+    }
+
     void RefreshGoldHUD()
     {
         if (goldText)
@@ -127,7 +141,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
     private const double AUTO_SPAWN_BASE  = 980;  private const double AUTO_SPAWN_GROW  = 2.00;
 
     // 클릭 보너스
-    private const double CLICK_BONUS_PER_LEVEL = 0.20;
+    private const double CLICK_BONUS_PER_LEVEL = 0.01;
 
     // 자동 간격
     [Header("Automation (intervals)")]
@@ -320,6 +334,23 @@ public class EconomyManager : MonoBehaviour, ISaveable
         if (autoSpawnUpgrade >= autoSpawnCap) return false;
         double c=GetAutoSpawnNextCost(); if(!SpendGold(c)) return false;
         autoSpawnUpgrade = Mathf.Max(0,autoSpawnUpgrade)+1; OnUpgradeChanged?.Invoke(); return true;
+    }
+
+    // 보석 구매 전용 메서드 (골드 차감 없이 레벨만 증가)
+    public bool TryBuyAutoMergeUpgradeWithGems()
+    {
+        if (autoMergeUpgrade >= autoMergeCap) return false;
+        autoMergeUpgrade = Mathf.Max(0, autoMergeUpgrade) + 1;
+        OnUpgradeChanged?.Invoke();
+        return true;
+    }
+
+    public bool TryBuyAutoSpawnUpgradeWithGems()
+    {
+        if (autoSpawnUpgrade >= autoSpawnCap) return false;
+        autoSpawnUpgrade = Mathf.Max(0, autoSpawnUpgrade) + 1;
+        OnUpgradeChanged?.Invoke();
+        return true;
     }
 
     // ───────── Save / Load ─────────

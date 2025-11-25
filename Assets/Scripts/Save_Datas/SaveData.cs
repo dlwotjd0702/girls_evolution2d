@@ -12,6 +12,10 @@ public class SaveData
     // Economy
     public double gold;
 
+    // Premium Currency
+    public long gems; // 보석
+    public long adsRemoved; // 광고 제거 플래그 (1=true, 0=false)
+
     // Tier
     public int currentTierIndex;
     public int unlockedTierMask;
@@ -20,6 +24,7 @@ public class SaveData
     public int discoveredMask;
     public List<GirlSaveInfo> girls = new List<GirlSaveInfo>();
     public int maxLevelReached = 1;
+    public int level25UpgradeLevel = 0;
 
     // Prestige (구호환)
     public int prestigePoint;

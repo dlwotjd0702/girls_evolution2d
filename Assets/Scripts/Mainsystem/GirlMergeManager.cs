@@ -140,10 +140,21 @@ public class GirlMergeManager : MonoBehaviour
             StartCoroutine(MergeRoutine(dragging, highlightedTarget));
     }
 
-    public void AddIncomeGold(GirlCharacter girl)
+    public void AddIncomeGold(GirlCharacter girl, bool isClick = false)
     {
-        if (economy != null && girl != null)
-            economy.AddGold(girl.GetIncome());
+        if (economy == null || girl == null) return;
+
+        double gain = girl.GetIncome();
+        if (gain <= 0) return;
+
+        if (isClick)
+        {
+            gain *= 0.1; // 클릭 기반: 생산 골드의 10%
+            gain *= economy.GetClickBonusMultiplier();
+        }
+
+        economy.AddGold(gain);
+        fieldManager?.ShowGoldPopup(girl, gain, isClick);
     }
 
     public void TryAutoMerge()

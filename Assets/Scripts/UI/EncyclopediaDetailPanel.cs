@@ -18,7 +18,7 @@ public class EncyclopediaDetailPanel : MonoBehaviour
     [SerializeField] private Button closeButton;
     
     [Header("Settings")]
-    [SerializeField] private string incomeFormat = "수익: {0:N0} G/s";
+    [SerializeField] private string incomeFormat = "수익: {0:N0}";
     
     void Awake()
     {

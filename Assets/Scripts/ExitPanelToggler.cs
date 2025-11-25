@@ -1,4 +1,4 @@
-﻿// ExitPanelToggler.cs
+﻿
 using UnityEngine;
 
 public class ExitPanelToggler : MonoBehaviour
@@ -46,10 +46,37 @@ public class ExitPanelToggler : MonoBehaviour
         if (IsOpen) Hide(); else Show();
     }
 
-    // "예" 버튼에 연결해서 종료
+    // "예" 버튼에 연결해서 종료 및 저장
     public void ConfirmExit()
     {
+        // 종료 전 저장
+        SaveGame();
+        
+        // 저장 완료 후 종료 (약간의 지연을 주어 저장이 완료되도록)
+        StartCoroutine(QuitAfterSave());
+    }
+    
+    // 수동 저장 버튼용 메서드
+    public void SaveGame()
+    {
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.SaveGame();
+        }
+        else
+        {
+            Debug.LogWarning("[ExitPanelToggler] SaveManager.Instance가 null입니다.");
+        }
+    }
+    
+    private System.Collections.IEnumerator QuitAfterSave()
+    {
+        yield return new WaitForSeconds(0.1f); // 저장 완료 대기
         Application.Quit();
+        
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 
     // "아니오" 버튼에 연결해서 닫기

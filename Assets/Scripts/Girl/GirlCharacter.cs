@@ -24,6 +24,7 @@ public class GirlCharacter : MonoBehaviour,
 
     // 스케일 기준
     [SerializeField] private float defaultScale = 3f;
+    [SerializeField] private float finalModeScale = 9f;
 
     // UI/이펙트
     private Image imageUI;
@@ -39,7 +40,7 @@ public class GirlCharacter : MonoBehaviour,
     private float jumpDuration = 0.38f;
     private float jumpIntervalMin = 2.25f;
     private float jumpIntervalMax = 4.5f;
-    private float minX = -400f, maxX = 400f, minY = -740f, maxY = 740f;
+    private float minX = -450f, maxX = 450f, minY = -670f, maxY = 670f;
 
     // 상태/플래그
     private Vector3 targetPosition;
@@ -64,11 +65,14 @@ public class GirlCharacter : MonoBehaviour,
         gameObject.SetActive(true);
 
         // 기본 스케일 3 기준
-        transform.localScale = Vector3.one * defaultScale;
-        baseScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
+        float targetScale = Mathf.Max(0.01f, finalModeScale);
+        var finalScale = Vector3.one * targetScale;
+        transform.localScale = finalScale;
+        baseScale = new Vector3(Mathf.Abs(finalScale.x), Mathf.Abs(finalScale.y), Mathf.Abs(finalScale.z));
         
         // 초기 방향 설정
         currentDirectionX = 1; // 기본 왼쪽 방향
+        ApplyDirectionToScale();
 
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         if (!IsFinal)
@@ -84,6 +88,8 @@ public class GirlCharacter : MonoBehaviour,
         if (imageUI != null) imageUI.color = originColor;
         isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
         if (autoRoutine != null) StopCoroutine(autoRoutine);
+        transform.localScale = Vector3.one;
+        baseScale = Vector3.one;
         gameObject.SetActive(false);
     }
 
@@ -116,12 +122,25 @@ public class GirlCharacter : MonoBehaviour,
         transform.localScale = Vector3.one * defaultScale;
         baseScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
 
+        // 데이터 기반 초기 방향 (1=왼쪽, -1=오른쪽)
+        currentDirectionX = (data != null && data.initialDirection < 0) ? -1 : 1;
+        ApplyDirectionToScale();
+
         targetPosition = rectT.localPosition;
+        
+        // 25단계는 움직임 루프 시작하지 않음
+        if (IsFinal && autoRoutine != null)
+        {
+            StopCoroutine(autoRoutine);
+            autoRoutine = null;
+        }
     }
 
     void OnEnable()
     {
         if (autoRoutine != null) StopCoroutine(autoRoutine);
+        // 25단계는 움직임 루프 시작하지 않음
+        if (IsFinal) return;
         if (!IsFinal)
         {
             autoRoutine = JumpBounceLoop();
@@ -159,7 +178,7 @@ public class GirlCharacter : MonoBehaviour,
     // Idle 상태 미세한 그루브 애니메이션
     private void StartIdleGroove()
     {
-        if (IsFinal || isJumping || isDragging) return;
+        if (isJumping || isDragging) return;
         
         if (idleGrooveTween != null && idleGrooveTween.IsActive()) return;
         
@@ -223,7 +242,14 @@ public class GirlCharacter : MonoBehaviour,
     // ----- 드래그/클릭 -----
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (IsFinal) return;
+        // 25단계는 드래그 불가, 클릭만 가능
+        if (IsFinal)
+        {
+            wasDragged = false; // 클릭으로 처리되도록
+            // 드래그는 시작하지 않지만 클릭은 가능하도록 return하지 않음
+            return;
+        }
+        
         isDragging = true; wasDragged = false;
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
 
@@ -236,13 +262,21 @@ public class GirlCharacter : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (IsFinal) return;
+        if (IsFinal)
+        {
+            wasDragged = false; // 25단계는 드래그가 없으므로 클릭으로 처리
+            return;
+        }
         isDragging = true;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (IsFinal) return;
+        if (IsFinal)
+        {
+            wasDragged = false; // 25단계는 드래그가 없으므로 클릭으로 처리
+            return;
+        }
         if (isDragging)
         {
             Vector2 localPoint;
@@ -256,7 +290,11 @@ public class GirlCharacter : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (IsFinal) return;
+        if (IsFinal)
+        {
+            wasDragged = false; // 25단계는 드래그가 없으므로 클릭으로 처리
+            return;
+        }
         isDragging = false;
         mergeManager?.TryMergeByDrag(this);
         mergeManager?.ClearDraggingGirl();
@@ -274,7 +312,7 @@ public class GirlCharacter : MonoBehaviour,
     {
         if (!wasDragged)
         {
-            mergeManager?.AddIncomeGold(this); // 25 포함 클릭 수익
+            mergeManager?.AddIncomeGold(this, true); // 25 포함 클릭 수익
             Pulse();
         }
     }
@@ -332,7 +370,7 @@ public class GirlCharacter : MonoBehaviour,
         pulseTween = seq;
     }
 
-    // 25 모드 진입: 가운데 고정 + 화면 채움
+    // 25 모드 진입: 가운데 고정 + 스케일 유지
     public void EnableFinalMode(RectTransform container, float coverage = 0.95f)
     {
         if (!rectT) rectT = GetComponent<RectTransform>();
@@ -343,17 +381,18 @@ public class GirlCharacter : MonoBehaviour,
         rectT.pivot = new Vector2(0.5f, 0.5f);
         rectT.anchoredPosition = Vector2.zero;
 
-        if (container)
-        {
-            var w = container.rect.width * coverage;
-            var h = container.rect.height * coverage;
-            rectT.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, w);
-            rectT.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, h);
-            transform.localScale = Vector3.one; // 화면 채움
-        }
+        // 모든 스케일 트윈 종료 후 기본 스케일로 복원
+        KillAllTweens();
+        transform.localScale = Vector3.one * defaultScale;
+        baseScale = new Vector3(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y), Mathf.Abs(transform.localScale.z));
+        ApplyDirectionToScale();
 
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         isJumping = false; isDragging = false;
+        
+        // 25단계는 클릭 가능하도록 enabled 유지
+        enabled = true;
+        StartIdleGroove();
     }
 
     public double GetIncome()
@@ -373,10 +412,14 @@ public class GirlCharacter : MonoBehaviour,
     // ─── Helper: 방향(Flip) 반영한 기준 스케일 계산 ───
     private Vector3 GetDirectionalBaseScale()
     {
-        // 현재 방향(부호) 기준으로 baseScale(절대값)을 재구성
-        float signX = Mathf.Sign(transform.localScale.x);
-        if (signX == 0f) signX = currentDirectionX >= 0 ? 1f : -1f;
-
+        float signX = currentDirectionX >= 0 ? 1f : -1f;
         return new Vector3(baseScale.x * signX, baseScale.y, baseScale.z);
+    }
+
+    private void ApplyDirectionToScale()
+    {
+        if (baseScale == Vector3.zero) return;
+        float signX = currentDirectionX >= 0 ? 1f : -1f;
+        transform.localScale = new Vector3(baseScale.x * signX, baseScale.y, baseScale.z);
     }
 }

@@ -15,23 +15,15 @@ public class InsufficientFundsPanel : MonoBehaviour
     [Header("Root")]
     public GameObject panelRoot;
 
-    [Header("Header")]
-    public TextMeshProUGUI titleText;
+    [Header("Texts")]
     public TextMeshProUGUI messageText;
+    public TextMeshProUGUI rewardText;
 
-    [Header("Gold Shortage UI")]
-    public GameObject goldBlock;
-    public TextMeshProUGUI goldNeedHaveText;
-    public TextMeshProUGUI goldRewardText;
+    [Header("Buttons")]
     public Button watchAdButton;
     public Image  watchAdIcon;
     public Sprite adReadySprite;
     public Sprite adNotReadySprite;
-
-    [Header("Gem Shortage UI")]
-    public GameObject gemBlock;
-    public TextMeshProUGUI gemNeedHaveText;
-    public Button openGemShopButton;
 
     // Keep a reference to the delegate used for the ad ready changed event so
     // we can properly unsubscribe on disable. Lambdas create new delegates
@@ -104,42 +96,12 @@ public class InsufficientFundsPanel : MonoBehaviour
     public void ShowForGoldShortage(double need, double have)
     {
         if (!panelRoot) return;
-        titleText?.SetText("골드가 부족합니다");
-        messageText?.SetText("아래 보상을 통해 부족분을 채워보세요.");
-
-        if (goldBlock) goldBlock.SetActive(true);
-        if (gemBlock)  gemBlock.SetActive(false);
-
-        goldNeedHaveText?.SetText($"필요: {need:N0} / 보유: {have:N0}");
+        messageText?.SetText("골드가 부족합니다");
 
         double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
-        double reward = perSec * 60.0 * 5.0; // 5분치
-        goldRewardText?.SetText($"+{reward:N0} G (광고)");
+        double reward = perSec * 60.0 * 10.0; // 5분치
+        rewardText?.SetText($"+{reward:N0} G");
 
-        UpdateAdButtonVisual();
-        panelRoot.SetActive(true);
-    }
-
-    public void ShowForGemShortage(long need, long have)
-    {
-        if (!panelRoot) return;
-        titleText?.SetText("보석이 부족합니다");
-        messageText?.SetText("상점에서 보석을 구매하거나, 다른 경로를 이용해주세요.");
-
-        if (goldBlock) goldBlock.SetActive(false);
-        if (gemBlock)  gemBlock.SetActive(true);
-
-        gemNeedHaveText?.SetText($"필요: {need:N0} / 보유: {have:N0}");
-        panelRoot.SetActive(true);
-    }
-
-    public void ShowGeneric(string title, string msg)
-    {
-        if (!panelRoot) return;
-        titleText?.SetText(title ?? "안내");
-        messageText?.SetText(msg ?? "");
-        if (goldBlock) goldBlock.SetActive(false);
-        if (gemBlock)  gemBlock.SetActive(false);
         UpdateAdButtonVisual();
         panelRoot.SetActive(true);
     }
@@ -149,21 +111,49 @@ public class InsufficientFundsPanel : MonoBehaviour
     // ───────── Internals ─────────
     void UpdateAdButtonVisual()
     {
-        // Disable the ad button if ads have been permanently removed or if the ad is not ready
+        if (watchAdButton == null) return;
         bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
-        bool ready = (adService != null && adService.IsRewardedReady()) && !adsRemoved;
-        if (watchAdButton) watchAdButton.interactable = ready;
+        bool showButton = adService != null && !adsRemoved;
+        watchAdButton.gameObject.SetActive(showButton);
+        if (!showButton)
+        {
+            if (watchAdIcon) watchAdIcon.sprite = adNotReadySprite;
+            return;
+        }
+
+        // 안전하게 IsRewardedReady 호출 (초기화 전일 수 있음)
+        bool ready = false;
+        try
+        {
+            if (adService != null)
+                ready = adService.IsRewardedReady();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"[InsufficientFundsPanel] IsRewardedReady() 호출 실패: {e.Message}");
+            ready = false;
+        }
+        
+        watchAdButton.interactable = ready;
         if (watchAdIcon)
             watchAdIcon.sprite = ready ? adReadySprite : adNotReadySprite;
     }
 
     void OnClickWatchAd()
     {
-        // If ads have been removed or the ad is not ready, do nothing
         if (PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved) return;
-        if (adService == null || !adService.IsRewardedReady()) return;
+        if (adService == null)
+        {
+            watchAdButton?.gameObject.SetActive(false);
+            return;
+        }
 
-        // 광고 성공 시 5분치 골드 지급
+        if (!adService.IsRewardedReady())
+        {
+            adService.LoadRewarded();
+            return;
+        }
+
         adService.ShowRewarded(() =>
         {
             double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
@@ -171,5 +161,15 @@ public class InsufficientFundsPanel : MonoBehaviour
             if (economy != null && reward > 0) economy.AddGold(reward);
             Hide();
         });
+    }
+
+    public void ShowGeneric(string title, string msg)
+    {
+        if (!panelRoot) return;
+        string text = !string.IsNullOrEmpty(msg) ? msg : (title ?? "안내");
+        messageText?.SetText(text);
+        rewardText?.SetText(string.Empty);
+        UpdateAdButtonVisual();
+        panelRoot.SetActive(true);
     }
 }

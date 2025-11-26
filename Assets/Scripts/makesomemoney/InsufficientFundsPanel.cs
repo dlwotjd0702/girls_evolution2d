@@ -97,6 +97,14 @@ public class InsufficientFundsPanel : MonoBehaviour
     public void ShowForGoldShortage(double need, double have)
     {
         if (!panelRoot) return;
+
+        // 광고가 준비되지 않았다면 패널 자체를 띄우지 않음
+        if (!IsAdReadyForPanel())
+        {
+            Debug.Log("[InsufficientFundsPanel] 광고 미준비 상태이므로 골드 부족 패널을 표시하지 않습니다.");
+            return;
+        }
+
         messageText?.SetText("골드가 부족합니다");
 
         double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
@@ -110,6 +118,30 @@ public class InsufficientFundsPanel : MonoBehaviour
     public void Hide(){ if (panelRoot) panelRoot.SetActive(false); }
 
     // ───────── Internals ─────────
+    /// <summary>
+    /// 부족 패널을 표시해도 되는 광고 준비 상태인지 확인.
+    /// - AdsRemoved 상태거나 adService가 없으면 false
+    /// - adService.IsRewardedReady()가 true일 때만 true
+    /// </summary>
+    bool IsAdReadyForPanel()
+    {
+        // 광고 제거 상품을 구매한 경우 부족 패널을 띄워도 의미가 없으므로 false
+        bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+        if (adsRemoved) return false;
+
+        if (adService == null) return false;
+
+        try
+        {
+            return adService.IsRewardedReady();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"[InsufficientFundsPanel] IsAdReadyForPanel() 체크 실패: {e.Message}");
+            return false;
+        }
+    }
+
     void UpdateAdButtonVisual()
     {
         if (watchAdButton == null) return;
@@ -177,6 +209,14 @@ public class InsufficientFundsPanel : MonoBehaviour
     public void ShowGemShortage(long need, long have)
     {
         if (!panelRoot) return;
+
+        // 광고 준비 상태일 때만 보석 부족 패널 표시
+        if (!IsAdReadyForPanel())
+        {
+            Debug.Log("[InsufficientFundsPanel] 광고 미준비 상태이므로 보석 부족 패널을 표시하지 않습니다.");
+            return;
+        }
+
         messageText?.SetText("보석이 부족합니다");
         rewardText?.SetText(DefaultGemRewardText);
         UpdateAdButtonVisual();

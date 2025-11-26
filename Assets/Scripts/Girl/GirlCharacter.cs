@@ -207,12 +207,26 @@ public class GirlCharacter : MonoBehaviour,
         if (IsFinal) return;
 
         isJumping = true;
-        
+
         // Idle 그루브 애니메이션 중지
         if (idleGrooveTween != null && idleGrooveTween.IsActive()) idleGrooveTween.Kill();
-        
-        float dirX = UnityEngine.Random.value < 0.5f ? -1f : 1f;
-        float dirY = UnityEngine.Random.value < 0.5f ? -1f : 1f;
+
+        // --- 가장자리 보정: 가장자리에 가까울수록 "안쪽"으로 뛸 확률을 높임 ---
+        float curX = rectT.localPosition.x;
+        float curY = rectT.localPosition.y;
+
+        // 0(왼쪽/아래) ~ 1(오른쪽/위) 범위로 정규화
+        float nx = Mathf.InverseLerp(minX, maxX, curX);
+        float ny = Mathf.InverseLerp(minY, maxY, curY);
+
+        // 중앙(0.5)일 때는 50:50, 왼쪽/아래로 갈수록 오른쪽/위로 뛸 확률을 0.8까지 올리고
+        // 오른쪽/위로 갈수록 0.2까지 낮춤 (약한 편향)
+        float probRight = Mathf.Lerp(0.8f, 0.2f, nx); // 왼쪽에 있을수록 오른쪽으로 많이 튐
+        float probUp    = Mathf.Lerp(0.8f, 0.2f, ny); // 아래에 있을수록 위로 많이 튐
+
+        float dirX = (UnityEngine.Random.value < probRight) ?  1f : -1f;
+        float dirY = (UnityEngine.Random.value < probUp)    ?  1f : -1f;
+
         float moveX = dirX * UnityEngine.Random.Range(moveDistance * 0.8f, moveDistance * 1.2f);
         float moveY = dirY * UnityEngine.Random.Range(moveDistance * 0.5f, moveDistance * 1.5f);
 
@@ -254,7 +268,12 @@ public class GirlCharacter : MonoBehaviour,
         }
         
         isDragging = true; wasDragged = false;
-        if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
+        // 점프 도중 클릭/드래그 시 점프 트윈 정지 + 상태 리셋
+        if (jumpTween != null && jumpTween.IsActive())
+        {
+            jumpTween.Kill();
+            isJumping = false;
+        }
 
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(

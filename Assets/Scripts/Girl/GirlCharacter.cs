@@ -42,9 +42,11 @@ public class GirlCharacter : MonoBehaviour,
     private float jumpIntervalMax = 4.5f;
     private float minX = -450f, maxX = 450f, minY = -670f, maxY = 670f;
 
-    // 상태/플래그
-    private Vector3 targetPosition;
-    private bool isJumping = false, isDragging = false, highlightOn = false, wasDragged = false;
+    // 상태/플래그 (인스펙터에서 직접 관찰/디버그 가능하도록 SerializeField)
+    [SerializeField] private Vector3 targetPosition;
+    [SerializeField] private bool isJumping = false;
+    [SerializeField] private bool isDragging = false;
+    [SerializeField] private bool highlightOn = false;
     private Vector3 dragOffset;
     private int currentDirectionX = 1; // 1(왼쪽), -1(오른쪽)
     private IEnumerator autoRoutine;
@@ -61,7 +63,9 @@ public class GirlCharacter : MonoBehaviour,
         enabled = true;
         KillAllTweens();
         if (imageUI != null) imageUI.color = originColor;
-        isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
+        isJumping = false;
+        isDragging = false;
+        highlightOn = false;
         gameObject.SetActive(true);
 
         // 기본 스케일 3 기준
@@ -87,7 +91,9 @@ public class GirlCharacter : MonoBehaviour,
     {
         KillAllTweens();
         if (imageUI != null) imageUI.color = originColor;
-        isJumping = false; isDragging = false; highlightOn = false; wasDragged = false;
+        isJumping = false;
+        isDragging = false;
+        highlightOn = false;
         if (autoRoutine != null) StopCoroutine(autoRoutine);
         transform.localScale = Vector3.one;
         baseScale = Vector3.one;
@@ -262,18 +268,17 @@ public class GirlCharacter : MonoBehaviour,
         // 25단계는 드래그 불가, 클릭만 가능
         if (IsFinal)
         {
-            wasDragged = false; // 클릭으로 처리되도록
-            // 드래그는 시작하지 않지만 클릭은 가능하도록 return하지 않음
             return;
         }
-        
-        isDragging = true; wasDragged = false;
-        // 점프 도중 클릭/드래그 시 점프 트윈 정지 + 상태 리셋
-        if (jumpTween != null && jumpTween.IsActive())
-        {
-            jumpTween.Kill();
-            isJumping = false;
-        }
+
+        if (!rectT) rectT = GetComponent<RectTransform>();
+        // 혹시 비활성화된 상태에서 이벤트가 들어온 경우를 방어
+        if (!enabled) enabled = true;
+
+        // 입력이 들어온 시점에 트윈/점프 상태 초기화
+        KillAllTweens();
+        isJumping  = false;
+        isDragging = false;
 
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -286,9 +291,12 @@ public class GirlCharacter : MonoBehaviour,
     {
         if (IsFinal)
         {
-            wasDragged = false; // 25단계는 드래그가 없으므로 클릭으로 처리
             return;
         }
+        // 드래그가 시작되면 점프/애니메이션 상태는 모두 리셋하고
+        // 순수 드래그 상태로 전환
+        KillAllTweens();
+        isJumping = false;
         isDragging = true;
     }
 
@@ -296,28 +304,25 @@ public class GirlCharacter : MonoBehaviour,
     {
         if (IsFinal)
         {
-            wasDragged = false; // 25단계는 드래그가 없으므로 클릭으로 처리
             return;
         }
-        if (isDragging)
-        {
-            Vector2 localPoint;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                rectT.parent as RectTransform, eventData.position, eventData.pressEventCamera, out localPoint);
-            rectT.localPosition = (Vector3)localPoint - dragOffset;
-            mergeManager?.UpdateMergeHighlight(this);
-            wasDragged = true;
-        }
+        if (!rectT) rectT = GetComponent<RectTransform>();
+
+        Vector2 localPoint;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            rectT.parent as RectTransform, eventData.position, eventData.pressEventCamera, out localPoint);
+        rectT.localPosition = (Vector3)localPoint - dragOffset;
+        mergeManager?.UpdateMergeHighlight(this);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if (IsFinal)
         {
-            wasDragged = false; // 25단계는 드래그가 없으므로 클릭으로 처리
             return;
         }
         isDragging = false;
+        if (!rectT) rectT = GetComponent<RectTransform>();
         mergeManager?.TryMergeByDrag(this);
         mergeManager?.ClearDraggingGirl();
         Highlight(false);
@@ -332,11 +337,9 @@ public class GirlCharacter : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!wasDragged)
-        {
-            mergeManager?.AddIncomeGold(this, true); // 25 포함 클릭 수익
-            Pulse();
-        }
+        // 드래그 여부와 상관없이 항상 클릭 수익 및 연출 처리 (25단계 포함)
+        mergeManager?.AddIncomeGold(this, true);
+        Pulse();
     }
 
     // ----- 연출 -----

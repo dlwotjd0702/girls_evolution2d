@@ -2276,7 +2276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &142429195
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6972,7 +6972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &500396812
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8551,7 +8551,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTab: 1
-  goldToGemFactor: 0.01
   economy: {fileID: 1973007492}
   premiumCurrency: {fileID: 0}
   reasonLabel: {fileID: 544206926}
@@ -9965,7 +9964,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666970144}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -10027,6 +10026,10 @@ MonoBehaviour:
   toggleOffSprite: {fileID: 21300000, guid: 307a9451828ac4d44aee2010b641ef6e, type: 3}
   reasonLabel: {fileID: 544206926}
   reasonShowSeconds: 1.15
+  autoMergeGemBase: 20
+  autoMergeGemGrow: 1.35
+  autoSpawnGemBase: 25
+  autoSpawnGemGrow: 1.35
 --- !u!1 &676034087
 GameObject:
   m_ObjectHideFlags: 0
@@ -23899,7 +23902,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTab: 0
-  goldToGemFactor: 0.01
   economy: {fileID: 1973007492}
   premiumCurrency: {fileID: 0}
   reasonLabel: {fileID: 544206926}
@@ -24341,7 +24343,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580721927}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -24466,6 +24468,10 @@ MonoBehaviour:
   toggleOffSprite: {fileID: 21300000, guid: 95fce326cfa8abf4caf4f125fa3ed2bc, type: 3}
   reasonLabel: {fileID: 544206926}
   reasonShowSeconds: 1.15
+  autoMergeGemBase: 20
+  autoMergeGemGrow: 1.35
+  autoSpawnGemBase: 25
+  autoSpawnGemGrow: 1.35
 --- !u!1 &1587213581
 GameObject:
   m_ObjectHideFlags: 0
@@ -31864,21 +31870,6 @@ MonoBehaviour:
   goldUnitSuffix: G
   showPlusOnPerSec: 1
   hidePerSecWhenZero: 1
-  baseManualSpawnMax: 3
-  baseManualSpawnInterval: 10
-  baseFieldCount: 8
-  autoMergeBaseInterval: 4
-  autoSpawnBaseInterval: 6
-  autoPerLevelMul: 0.9
-  autoIntervalFloor: 0.4
-  spawnMaxUpgradeCap: 10
-  spawnSpeedUpgradeCap: 10
-  fieldMaxUpgradeCap: 10
-  clickBonusUpgradeCap: 15
-  offlineRewardCap: 10
-  offlineMaxTimeCap: 10
-  autoMergeCap: 10
-  autoSpawnCap: 10
 --- !u!1 &1974761968
 GameObject:
   m_ObjectHideFlags: 0

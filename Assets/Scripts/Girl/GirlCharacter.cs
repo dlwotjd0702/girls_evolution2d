@@ -163,13 +163,18 @@ public class GirlCharacter : MonoBehaviour,
     {
         // 초기 Idle 그루브 시작
         StartIdleGroove();
-        
+
+        // 코루틴 내부에서 박스/할당을 줄이기 위해 WaitForSeconds는 한 번만 생성해서 재사용
+        WaitForSeconds cachedDelay = null;
+
         while (true)
         {
             while (isDragging) yield return null;
 
             float jumpDelay = UnityEngine.Random.Range(jumpIntervalMin, jumpIntervalMax);
-            yield return new WaitForSeconds(jumpDelay);
+            cachedDelay ??= new WaitForSeconds(jumpDelay);
+            yield return cachedDelay;
+            cachedDelay = null;
 
             while (isDragging) yield return null;
 
@@ -177,7 +182,9 @@ public class GirlCharacter : MonoBehaviour,
             while (isJumping || isDragging) yield return null;
 
             float bounceDelay = UnityEngine.Random.Range(jumpIntervalMin, jumpIntervalMax);
-            yield return new WaitForSeconds(bounceDelay);
+            cachedDelay ??= new WaitForSeconds(bounceDelay);
+            yield return cachedDelay;
+            cachedDelay = null;
 
             while (isDragging) yield return null;
 

@@ -137,9 +137,9 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
     // ───────── Base (spawn/field) ─────────
     [Header("Spawn/Field Base")]
-    [SerializeField] private int   baseManualSpawnMax = 3;
-    [SerializeField] private float baseManualSpawnInterval = 10f;
-    [SerializeField] private int   baseFieldCount = 8;
+    private int   baseManualSpawnMax = 3;
+    private float baseManualSpawnInterval = 10f;
+    private int   baseFieldCount = 8;
 
     // ───────── Balance consts ─────────
     private const double INCOME_BASE_PER_SEC   = 1.0;  // 2^(Lv-1)/s
@@ -164,21 +164,21 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
     // 자동 간격
     [Header("Automation (intervals)")]
-    [SerializeField] private float autoMergeBaseInterval = 5f;   // Lv1 기준
-    [SerializeField] private float autoSpawnBaseInterval = 6f;   // Lv1 기준
-    [SerializeField] private float autoPerLevelMul       = 0.9f; // 레벨당 -10%
-    [SerializeField] private float autoIntervalFloor     = 0.4f; // 하한
+    private float autoMergeBaseInterval = 50f;  // Lv1 기준 (요청: 기본 50초)
+    private float autoSpawnBaseInterval = 60f;  // Lv1 기준 (요청: 기본 60초)
+    private float autoPerLevelMul       = 0.9f; // 레벨당 -10%
+    private float autoIntervalFloor     = 0.4f; // 하한
 
     // Caps
     [Header("Level Caps)")]
-    [SerializeField] private int spawnMaxUpgradeCap     = 10;
-    [SerializeField] private int spawnSpeedUpgradeCap   = 10;
-    [SerializeField] private int fieldMaxUpgradeCap     = 10;
-    [SerializeField] private int clickBonusUpgradeCap   = 15;
-    [SerializeField] private int offlineRewardCap       = 10;
-    [SerializeField] private int offlineMaxTimeCap      = 10;
-    [SerializeField] private int autoMergeCap           = 10; // 0=미구매, 1..Cap
-    [SerializeField] private int autoSpawnCap           = 10;
+    private int spawnMaxUpgradeCap     = 10;
+    private int spawnSpeedUpgradeCap   = 10;
+    private int fieldMaxUpgradeCap     = 10;
+    private int clickBonusUpgradeCap   = 15;
+    private int offlineRewardCap       = 10;
+    private int offlineMaxTimeCap      = 10;
+    private int autoMergeCap           = 10; // 0=미구매, 1..Cap
+    private int autoSpawnCap           = 10;
 
     // 업그레이드 레벨(세이브)
     int manualSpawnMaxUpgrade;
@@ -205,13 +205,20 @@ public class EconomyManager : MonoBehaviour, ISaveable
         return INCOME_BASE_PER_SEC * Math.Pow(2.0, level - 1);
     }
 
+    // 가격은 항상 100원 단위로 반올림해 깔끔하게 유지
+    private static double RoundToHundred(double value)
+    {
+        if (double.IsInfinity(value) || double.IsNaN(value)) return value;
+        return Math.Round(value / 100.0) * 100.0;
+    }
+
     public double GetSummonCostByMinuteRule(int level)
     {
         level = Mathf.Clamp(level, 1, 25);
         int idx = level - 1;
         double baseCost = SUMMON_BASE_SECONDS * GetLevelIncomePerSec(level);
         double byBuy    = Math.Pow(SUMMON_BUY_GROWTH, summonPurchaseCounts[idx]);
-        return baseCost * byBuy;
+        return RoundToHundred(baseCost * byBuy);
     }
 
     public void RecordSummonPurchase(int level)
@@ -282,6 +289,25 @@ public class EconomyManager : MonoBehaviour, ISaveable
         return iv;
     }
 
+    // UI 표시용: 토글 꺼져 있어도 "현재 업그레이드 기준 이론상 간격"을 보여주기 위한 헬퍼
+    public float GetAutoMergeIntervalForDisplay(){
+        if (autoMergeUpgrade <= 0) return float.MaxValue;
+        int lv = Mathf.Max(1, autoMergeUpgrade);
+        float iv = autoMergeBaseInterval * Mathf.Pow(autoPerLevelMul, lv - 1);
+        iv = Mathf.Max(autoIntervalFloor, iv);
+        try { iv *= (float)PrestigeManager.Instance.GetAutoMergeIntervalMul(); } catch {}
+        return iv;
+    }
+
+    public float GetAutoSpawnIntervalForDisplay(){
+        if (autoSpawnUpgrade <= 0) return float.MaxValue;
+        int lv = Mathf.Max(1, autoSpawnUpgrade);
+        float iv = autoSpawnBaseInterval * Mathf.Pow(autoPerLevelMul, lv - 1);
+        iv = Mathf.Max(autoIntervalFloor, iv);
+        try { iv *= (float)PrestigeManager.Instance.GetAutoSpawnIntervalMul(); } catch {}
+        return iv;
+    }
+
     public double GetOfflineRewardMultiplier() {
         double mul = 1.0 + (offlineRewardUpgrade * 0.25);
         try { mul *= PrestigeManager.Instance.GetOfflineRewardMul(); } catch {}
@@ -314,12 +340,18 @@ public class EconomyManager : MonoBehaviour, ISaveable
     public int GetAutoSpawnCap()              => autoSpawnCap;
 
     // ───────── 업그레이드 비용/구매 ─────────
-    public double GetSpawnMaxUpgradeCost(int lv)      => (lv >= spawnMaxUpgradeCap)   ? double.PositiveInfinity : UPG_SPAWN_MAX_BASE    * Math.Pow(UPG_SPAWN_MAX_GROW,    lv);
-    public double GetSpawnSpeedUpgradeCost(int lv)    => (lv >= spawnSpeedUpgradeCap) ? double.PositiveInfinity : UPG_SPAWN_SPEED_BASE  * Math.Pow(UPG_SPAWN_SPEED_GROW,  lv);
-    public double GetFieldMaxUpgradeCost(int lv)      => (lv >= fieldMaxUpgradeCap)   ? double.PositiveInfinity : UPG_FIELD_MAX_BASE    * Math.Pow(UPG_FIELD_MAX_GROW,    lv);
-    public double GetClickBonusUpgradeCost(int lv)    => (lv >= clickBonusUpgradeCap) ? double.PositiveInfinity : UPG_CLICK_BONUS_BASE  * Math.Pow(UPG_CLICK_BONUS_GROW,  lv);
-    public double GetOfflineRewardUpgradeCost(int lv) => (lv >= offlineRewardCap)     ? double.PositiveInfinity : UPG_OFFLINE_REWARD_BASE  * Math.Pow(UPG_OFFLINE_REWARD_GROW,  lv);
-    public double GetOfflineMaxTimeUpgradeCost(int lv)=> (lv >= offlineMaxTimeCap)    ? double.PositiveInfinity : UPG_OFFLINE_MAXTIME_BASE * Math.Pow(UPG_OFFLINE_MAXTIME_GROW, lv);
+    public double GetSpawnMaxUpgradeCost(int lv)
+        => (lv >= spawnMaxUpgradeCap)   ? double.PositiveInfinity : RoundToHundred(UPG_SPAWN_MAX_BASE    * Math.Pow(UPG_SPAWN_MAX_GROW,    lv));
+    public double GetSpawnSpeedUpgradeCost(int lv)
+        => (lv >= spawnSpeedUpgradeCap) ? double.PositiveInfinity : RoundToHundred(UPG_SPAWN_SPEED_BASE  * Math.Pow(UPG_SPAWN_SPEED_GROW,  lv));
+    public double GetFieldMaxUpgradeCost(int lv)
+        => (lv >= fieldMaxUpgradeCap)   ? double.PositiveInfinity : RoundToHundred(UPG_FIELD_MAX_BASE    * Math.Pow(UPG_FIELD_MAX_GROW,    lv));
+    public double GetClickBonusUpgradeCost(int lv)
+        => (lv >= clickBonusUpgradeCap) ? double.PositiveInfinity : RoundToHundred(UPG_CLICK_BONUS_BASE  * Math.Pow(UPG_CLICK_BONUS_GROW,  lv));
+    public double GetOfflineRewardUpgradeCost(int lv)
+        => (lv >= offlineRewardCap)     ? double.PositiveInfinity : RoundToHundred(UPG_OFFLINE_REWARD_BASE  * Math.Pow(UPG_OFFLINE_REWARD_GROW,  lv));
+    public double GetOfflineMaxTimeUpgradeCost(int lv)
+        => (lv >= offlineMaxTimeCap)    ? double.PositiveInfinity : RoundToHundred(UPG_OFFLINE_MAXTIME_BASE * Math.Pow(UPG_OFFLINE_MAXTIME_GROW, lv));
 
     public bool TryBuySpawnMaxUpgrade()   { if (manualSpawnMaxUpgrade   >= spawnMaxUpgradeCap)   return false; double c=GetSpawnMaxUpgradeCost(manualSpawnMaxUpgrade);      if(!SpendGold(c)) return false; manualSpawnMaxUpgrade++;   OnUpgradeChanged?.Invoke(); return true; }
     public bool TryBuySpawnSpeedUpgrade() { if (manualSpawnSpeedUpgrade >= spawnSpeedUpgradeCap) return false; double c=GetSpawnSpeedUpgradeCost(manualSpawnSpeedUpgrade);  if(!SpendGold(c)) return false; manualSpawnSpeedUpgrade++; OnUpgradeChanged?.Invoke(); return true; }
@@ -332,8 +364,8 @@ public class EconomyManager : MonoBehaviour, ISaveable
     public double GetAutoMergeNextCost()
     {
         if (autoMergeUpgrade >= autoMergeCap) return double.PositiveInfinity;
-        if (autoMergeUpgrade <= 0) return AUTO_MERGE_BASE;
-        return AUTO_MERGE_BASE * Math.Pow(AUTO_MERGE_GROW, autoMergeUpgrade);
+        if (autoMergeUpgrade <= 0) return RoundToHundred(AUTO_MERGE_BASE);
+        return RoundToHundred(AUTO_MERGE_BASE * Math.Pow(AUTO_MERGE_GROW, autoMergeUpgrade));
     }
     public bool   TryBuyAutoMergeUpgrade()
     {
@@ -345,8 +377,8 @@ public class EconomyManager : MonoBehaviour, ISaveable
     public double GetAutoSpawnNextCost()
     {
         if (autoSpawnUpgrade >= autoSpawnCap) return double.PositiveInfinity;
-        if (autoSpawnUpgrade <= 0) return AUTO_SPAWN_BASE;
-        return AUTO_SPAWN_BASE * Math.Pow(AUTO_SPAWN_GROW, autoSpawnUpgrade);
+        if (autoSpawnUpgrade <= 0) return RoundToHundred(AUTO_SPAWN_BASE);
+        return RoundToHundred(AUTO_SPAWN_BASE * Math.Pow(AUTO_SPAWN_GROW, autoSpawnUpgrade));
     }
     public bool   TryBuyAutoSpawnUpgrade()
     {

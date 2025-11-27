@@ -49,6 +49,14 @@ public class AutoAutomationController : MonoBehaviour
     Coroutine _reasonRoutine;
     private const string GemAdHint = "광고 시청 보상으로 보석 5개를 받을 수 있어요!";
 
+    [Header("Gem Cost Curve (independent from gold)")]
+    [Tooltip("자동 합성 보석 업그레이드 기본값")]
+    [SerializeField] private int   autoMergeGemBase  = 20;
+    [SerializeField] private float autoMergeGemGrow  = 1.35f;
+    [Tooltip("자동 소환 보석 업그레이드 기본값")]
+    [SerializeField] private int   autoSpawnGemBase  = 25;
+    [SerializeField] private float autoSpawnGemGrow  = 1.35f;
+
     void Awake()
     {
         if (!economy) economy = FindObjectOfType<EconomyManager>();
@@ -99,8 +107,9 @@ public class AutoAutomationController : MonoBehaviour
         if (lv <= 0) value = "잠김";
         else
         {
-            float iv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeInterval()
-                                                  : economy.GetAutoSpawnInterval();
+            // UI에는 토글 상태와 상관없이 "현재 업그레이드/환생 기준 이론상 간격"을 보여준다.
+            float iv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeIntervalForDisplay()
+                                                  : economy.GetAutoSpawnIntervalForDisplay();
             value = (iv >= float.MaxValue*0.5f) ? "-" : $"{iv:0.0}s";
         }
 
@@ -121,8 +130,8 @@ public class AutoAutomationController : MonoBehaviour
             }
             else if (purchaseCurrency == PurchaseCurrency.Gem)
             {
-                // 보석 비용 계산 (골드 비용 * 변환율)
-                long gemCost = (long)Math.Max(1, Math.Ceiling(nextCost * 0.01)); // 기본 변환율 0.01
+                // 보석 비용: 골드와 독립적인 완만한 곡선 사용 (항상 정수)
+                long gemCost = GetGemCostForAuto(type);
                 costText.text = $"{gemCost:N0} gems";
             }
             else
@@ -185,8 +194,8 @@ public class AutoAutomationController : MonoBehaviour
                 return;
             }
 
-            // 보석 비용 계산
-            long gemCost = (long)Math.Max(1, Math.Ceiling(needGold * 0.01)); // 기본 변환율 0.01
+            // 보석 비용: 골드와 독립적인 완만한 곡선 사용 (항상 정수)
+            long gemCost = GetGemCostForAuto(type);
 
             // 보석 차감 시도
             if (!premiumCurrency.TrySpendGems(gemCost))
@@ -270,6 +279,24 @@ public class AutoAutomationController : MonoBehaviour
             _miGetAutoSpawnMul = t.GetMethod("GetAutoSpawnIntervalMul", BindingFlags.Public | BindingFlags.Instance);
         }
         catch { }
+    }
+
+    long GetGemCostForAuto(AutoType t)
+    {
+        if (economy == null) return 0;
+
+        int lv = (t == AutoType.AutoMerge)
+            ? economy.GetAutoMergeUpgradeLevel()
+            : economy.GetAutoSpawnUpgradeLevel();
+
+        lv = Mathf.Max(0, lv);
+
+        double baseCost = (t == AutoType.AutoMerge) ? autoMergeGemBase : autoSpawnGemBase;
+        double grow     = (t == AutoType.AutoMerge) ? autoMergeGemGrow : autoSpawnGemGrow;
+
+        double raw = baseCost * Math.Pow(grow, lv);
+        long gems  = (long)Math.Max(1, Math.Round(raw));
+        return gems;
     }
 
     string GetPrestigeAutoReducePercentText()

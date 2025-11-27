@@ -438,7 +438,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     void NotifyPointsChanged()
     {
         if (prestigePointLabel)
-            prestigePointLabel.text = $"<b>{prestigePoint:N0}</b>";
+            prestigePointLabel.text = $"<b>{prestigePoint:N0} pt</b>";
         OnPrestigePointsChanged?.Invoke(prestigePoint);
     }
 }

@@ -110,8 +110,10 @@ public class InsufficientFundsPanel : MonoBehaviour
         messageText?.SetText("골드가 부족합니다");
 
         double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
-        double reward = perSec * 60.0 * 10.0; // 5분치
-        rewardText?.SetText($"+{reward:N0} G");
+        double reward = perSec * 60.0 * 10.0; // 10분치
+        // 최소 300G 보장
+        if (reward < 300.0) reward = 300.0;
+        rewardText?.SetText($"+{EconomyManager.FormatAbbrev(reward)}");
 
         UpdateAdButtonVisual();
         panelRoot.SetActive(true);
@@ -202,7 +204,8 @@ public class InsufficientFundsPanel : MonoBehaviour
         if (HasAdsRemoved())
         {
             double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
-            double reward = perSec * 60.0 * 5.0;
+            double reward = perSec * 60.0 * 5.0; // 5분치
+            if (reward < 300.0) reward = 300.0;  // 최소 300G 보장
             if (economy != null && reward > 0) economy.AddGold(reward);
             Hide();
             return;
@@ -223,7 +226,8 @@ public class InsufficientFundsPanel : MonoBehaviour
         adService.ShowRewarded(() =>
         {
             double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
-            double reward = perSec * 60.0 * 5.0;
+            double reward = perSec * 60.0 * 5.0; // 5분치
+            if (reward < 300.0) reward = 300.0;  // 최소 300G 보장
             if (economy != null && reward > 0) economy.AddGold(reward);
             Hide();
         });

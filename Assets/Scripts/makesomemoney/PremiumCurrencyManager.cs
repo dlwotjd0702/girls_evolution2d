@@ -232,6 +232,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     // ===== Helpers =====
     void NotifyAndPersist()
     {
+        // 0이어도 항상 단위가 보이도록 "0 Gem" 형태로 표시
         if (gemLabel) gemLabel.text = $"{gems:N0} Gem";
         OnGemsChanged?.Invoke(gems);
     }

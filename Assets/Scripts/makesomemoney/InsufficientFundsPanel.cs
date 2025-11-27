@@ -34,6 +34,11 @@ public class InsufficientFundsPanel : MonoBehaviour
     // Keep a reference to the handler subscribed to the ad removal event so it can be unsubscribed.
     private Action<bool> adsRemovedHandler;
 
+    [Header("Cooldown")]
+    [Tooltip("광고 제거 상품을 구매한 유저에게 부족 패널을 다시 보여주기까지의 쿨타임 (초 단위). 기본 30분.")]
+    [SerializeField] private float cooldownSeconds = 1800f;
+    private float lastShownTime = -99999f;
+
     void Awake()
     {
         if (!economy) economy = FindObjectOfType<EconomyManager>(true);
@@ -97,24 +102,87 @@ public class InsufficientFundsPanel : MonoBehaviour
     public void ShowForGoldShortage(double need, double have)
     {
         if (!panelRoot) return;
+
+        // 패널을 띄워도 되는지(광고 준비/쿨타임)를 먼저 검사
+        if (!CanShowPanel())
+            return;
+
         messageText?.SetText("골드가 부족합니다");
 
         double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
-        double reward = perSec * 60.0 * 10.0; // 5분치
-        rewardText?.SetText($"+{reward:N0} G");
+        double reward = perSec * 60.0 * 10.0; // 10분치
+        // 최소 300G 보장
+        if (reward < 300.0) reward = 300.0;
+        rewardText?.SetText($"+{EconomyManager.FormatAbbrev(reward)}");
 
         UpdateAdButtonVisual();
         panelRoot.SetActive(true);
+        lastShownTime = Time.unscaledTime;
     }
 
     public void Hide(){ if (panelRoot) panelRoot.SetActive(false); }
 
     // ───────── Internals ─────────
+    bool HasAdsRemoved()
+    {
+        var pcm = PremiumCurrencyManager.Instance;
+        return pcm != null && pcm.AdsRemoved;
+    }
+
+    /// <summary>
+    /// 광고 제거 미구매 유저에 대해, 광고 준비 상태를 확인.
+    /// </summary>
+    bool IsAdReadyForNonRemoved()
+    {
+        if (adService == null) return false;
+
+        try
+        {
+            return adService.IsRewardedReady();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning($"[InsufficientFundsPanel] IsRewardedReady() 체크 실패: {e.Message}");
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 현재 상황에서 부족 패널을 띄워도 되는지 여부를 판단.
+    /// - 광고 제거 미구매: 광고가 준비되어 있을 때만 true
+    /// - 광고 제거 구매: 내부 쿨타임이 지난 경우에만 true
+    /// </summary>
+    bool CanShowPanel()
+    {
+        if (HasAdsRemoved())
+        {
+            // 광고 제거 유저는 지정된 쿨타임이 지난 경우에만 표시
+            if (Time.unscaledTime - lastShownTime < cooldownSeconds)
+                return false;
+            return true;
+        }
+
+        // 광고 제거 미구매 유저는 광고 준비 여부에 따라 표시
+        return IsAdReadyForNonRemoved();
+    }
+
     void UpdateAdButtonVisual()
     {
         if (watchAdButton == null) return;
-        bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
-        bool showButton = adService != null && !adsRemoved;
+
+        bool adsRemoved = HasAdsRemoved();
+
+        if (adsRemoved)
+        {
+            // 광고 제거 상품을 구매한 경우: "그냥 받기" 버튼으로 항상 활성화
+            watchAdButton.gameObject.SetActive(true);
+            watchAdButton.interactable = true;
+            if (watchAdIcon)
+                watchAdIcon.sprite = adReadySprite; // 여기에 "그냥 받기" 스프라이트를 설정해둘 예정
+            return;
+        }
+
+        bool showButton = adService != null;
         watchAdButton.gameObject.SetActive(showButton);
         if (!showButton)
         {
@@ -123,18 +191,8 @@ public class InsufficientFundsPanel : MonoBehaviour
         }
 
         // 안전하게 IsRewardedReady 호출 (초기화 전일 수 있음)
-        bool ready = false;
-        try
-        {
-            if (adService != null)
-                ready = adService.IsRewardedReady();
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogWarning($"[InsufficientFundsPanel] IsRewardedReady() 호출 실패: {e.Message}");
-            ready = false;
-        }
-        
+        bool ready = IsAdReadyForNonRemoved();
+
         watchAdButton.interactable = ready;
         if (watchAdIcon)
             watchAdIcon.sprite = ready ? adReadySprite : adNotReadySprite;
@@ -142,7 +200,17 @@ public class InsufficientFundsPanel : MonoBehaviour
 
     void OnClickWatchAd()
     {
-        if (PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved) return;
+        // 광고 제거 유저: 바로 보상 지급 + 패널 닫기
+        if (HasAdsRemoved())
+        {
+            double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
+            double reward = perSec * 60.0 * 5.0; // 5분치
+            if (reward < 300.0) reward = 300.0;  // 최소 300G 보장
+            if (economy != null && reward > 0) economy.AddGold(reward);
+            Hide();
+            return;
+        }
+
         if (adService == null)
         {
             watchAdButton?.gameObject.SetActive(false);
@@ -158,7 +226,8 @@ public class InsufficientFundsPanel : MonoBehaviour
         adService.ShowRewarded(() =>
         {
             double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
-            double reward = perSec * 60.0 * 5.0;
+            double reward = perSec * 60.0 * 5.0; // 5분치
+            if (reward < 300.0) reward = 300.0;  // 최소 300G 보장
             if (economy != null && reward > 0) economy.AddGold(reward);
             Hide();
         });
@@ -177,9 +246,15 @@ public class InsufficientFundsPanel : MonoBehaviour
     public void ShowGemShortage(long need, long have)
     {
         if (!panelRoot) return;
+
+        // 패널을 띄워도 되는지(광고 준비/쿨타임)를 먼저 검사
+        if (!CanShowPanel())
+            return;
+
         messageText?.SetText("보석이 부족합니다");
         rewardText?.SetText(DefaultGemRewardText);
         UpdateAdButtonVisual();
         panelRoot.SetActive(true);
+        lastShownTime = Time.unscaledTime;
     }
 }

@@ -605,6 +605,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         if (girl == null || data == null) yield break;
 
+        // LD 연출 동안에는 캐릭터 클릭/드래그 입력을 막는다
+        girl.SetInputLocked(true);
+
         var rect = (RectTransform)girl.transform;
         var sd = spriteLoader.GetSpriteForData(data, preferLD: false);
         var ld = spriteLoader.GetSpriteForData(data, preferLD: true) ?? sd;
@@ -646,6 +649,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             SetDiscoverySpotlight(false);
             if (resyncVisibilityAfterFx)
                 ApplyVisibilityFor(girl);
+            girl.SetInputLocked(false);
             yield break;
         }
 
@@ -661,6 +665,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             rect.localPosition = targetPos;
             ApplyVisibilityFor(girl);
             SetDiscoverySpotlight(false);
+            girl.SetInputLocked(false);
             yield break;
         }
 
@@ -689,6 +694,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         if (resyncVisibilityAfterFx)
             ApplyVisibilityFor(girl);
         SetDiscoverySpotlight(false);
+        girl.SetInputLocked(false);
     }
 
     private IEnumerator PlayTierAscendOnly(GirlCharacter girl, Vector3 targetPos, bool resyncVisibilityAfterFx)

@@ -77,7 +77,6 @@ public class SaveManager : MonoBehaviour
         {
             autoSaveTimer = 0f;
             SaveGame();
-            Debug.Log("[SaveManager] 자동 저장 완료");
         }
     }
 
@@ -126,10 +125,8 @@ public class SaveManager : MonoBehaviour
             File.WriteAllText(SaveFilePath, saveJson);
 
             // PlayerPrefs도 병행 저장 (호환성 유지)
-        PlayerPrefs.SetString("SaveData", saveJson);
-        PlayerPrefs.Save();
-
-            Debug.Log($"[SaveManager] 저장 완료: {SaveFilePath}");
+            PlayerPrefs.SetString("SaveData", saveJson);
+            PlayerPrefs.Save();
         }
         catch (System.Exception e)
         {
@@ -150,14 +147,12 @@ public class SaveManager : MonoBehaviour
             {
                 saveJson = File.ReadAllText(SaveFilePath);
                 data = JsonUtility.FromJson<SaveData>(saveJson);
-                Debug.Log($"[SaveManager] 로컬 파일에서 불러오기: {SaveFilePath}");
             }
             // 2순위: PlayerPrefs에서 불러오기 (기존 호환성)
             else if (PlayerPrefs.HasKey("SaveData"))
             {
                 saveJson = PlayerPrefs.GetString("SaveData");
                 data = JsonUtility.FromJson<SaveData>(saveJson);
-                Debug.Log("[SaveManager] PlayerPrefs에서 불러오기");
             }
             else
             {
@@ -171,7 +166,6 @@ public class SaveManager : MonoBehaviour
                 
                 // 모든 ISaveable 구현체 찾기 (비활성화된 오브젝트도 포함)
                 var saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>().ToList();
-                Debug.Log($"[SaveManager] 로드 시작: {saveables.Count}개 ISaveable 발견");
                 
                 foreach (var s in saveables)
                 {
@@ -184,8 +178,6 @@ public class SaveManager : MonoBehaviour
                         Debug.LogError($"[SaveManager] {s.GetType().Name} 데이터 적용 실패: {e.Message}");
                     }
                 }
-
-                Debug.Log("[SaveManager] 불러오기 완료");
                 // 데이터 적용은 비동기이므로, GirlFieldManager에서 완료 알림을 받음
             }
         }

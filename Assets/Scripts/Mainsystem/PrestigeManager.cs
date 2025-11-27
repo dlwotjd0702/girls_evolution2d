@@ -74,6 +74,9 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     [SerializeField] private bool   hideWhenNotOnTop   = true;  // 4층 아닐 때 숨김
     [SerializeField] private bool   disableWhenNotReady = true; // 준비 안되면 비활성
 
+    [Header("Prestige Confirm Panel")]
+    [SerializeField] private PrestigeConfirmPanel confirmPanel; // 환생 확인 패널
+
     public event Action<int> OnPrestigePointsChanged;
 
     // 내부: 버튼 폴링(머지 직후 등 이벤트 누락 대비)
@@ -132,11 +135,20 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     void OnClickPrestigeButton()
     {
         if (!IsPrestigeReady()) return;
+        
+        // 확인 패널이 있으면 표시, 없으면 바로 환생
+        if (confirmPanel != null)
+        {
+            confirmPanel.Show();
+        }
+        else
+        {
         DoPrestige();
         RefreshPrestigeButton(true);
+        }
     }
 
-    void RefreshPrestigeButton(bool force=false)
+    public void RefreshPrestigeButton(bool force=false)
     {
         if (!prestigeButton && !hideWhenNotOnTop) return;
 
@@ -157,7 +169,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     void UpdatePrestigePointLabel()
     {
         if (prestigePointLabel)
-            prestigePointLabel.text = $"<b>{prestigePoint:N0}</b>";
+            prestigePointLabel.text = $"<b>{prestigePoint:N0} pt</b>";
     }
 
     // ───────── 리플렉션 유틸 ─────────
@@ -194,17 +206,28 @@ public class PrestigeManager : MonoBehaviour, ISaveable
 
     public bool IsPrestigeReady() => HasAnyFinalGirl();
 
-    // 25→1, 26→2, 27→3 …
+    // 25단계 기준 100 포인트, 24단계 50 포인트, 23단계 25 포인트... (2의 거듭제곱)
     public int PreviewPrestigeGain()
     {
-        int finalRank = 0;
-        if (girlFieldManager != null)
-        {
+        if (girlFieldManager == null) return 0;
+        
+        int totalPoints = 0;
             foreach (var g in girlFieldManager.girlList)
-                if (g && g.Level >= topLevel)
-                    finalRank = Math.Max(finalRank, g.Level - (topLevel - 1));
+        {
+            if (g == null) continue;
+            int level = g.Level;
+            
+            // 25단계 이상만 계산
+            if (level >= topLevel)
+            {
+                int diff = level - topLevel; // 25→0, 26→1, 27→2...
+                // 25단계 기준 100 포인트, 하위 단계는 2의 거듭제곱으로 감소
+                // 25=100, 24=50, 23=25, 22=12.5...
+                double points = 100.0 / Math.Pow(2.0, diff);
+                totalPoints += Mathf.RoundToInt((float)points);
+            }
         }
-        return Math.Max(0, finalRank);
+        return totalPoints;
     }
 
     public int  GetPrestigePoints()      => prestigePoint;
@@ -243,18 +266,26 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         }
         catch {}
 
-        // 2) 필드 비우기
+        // 2) 필드 비우기 (도감 해금 정보는 유지)
         var snapshot = new List<GirlCharacter>(girlFieldManager.girlList);
         foreach (var g in snapshot) if (g != null) girlFieldManager.RemoveGirl(g);
         girlFieldManager.girlList.Clear();
+        girlFieldManager.ResetLevel25Progress();
+        // discoveredLevels는 유지 (환생 시 도감 해금 정보 보존)
 
         // 3) 경제/티어 리셋 (HUD 즉시 0 표시)
         economy.SetGold(0);
-        try {
-            var mi = economy.GetType().GetMethod("ResetGoldUpgradesForPrestige", BindingFlags.Public|BindingFlags.Instance);
-            mi?.Invoke(economy, null);
+        economy.ResetGoldUpgradesForPrestige(); // 골드로 구매한 강화 초기화
+        // 보석으로 구매한 강화는 유지 (환생 시 보석 강화 보존)
+        try 
+        { 
+            if (tierManager != null)
+            {
+                tierManager.SwitchTo(0);
+                // 티어 언락 초기화 (0층만 해금)
+                tierManager.ResetTierUnlocks();
+            }
         } catch {}
-        try { tierManager?.SwitchTo(0); } catch {}
 
         // 4) 시작 자금 지급 = (Lv1 60초 수익) × (계급 배수) × (상점 배수)
         double base1Min = economy.GetLevelIncomePerSec(1) * 60.0;
@@ -273,6 +304,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         double startGold = base1Min * mulRank * GetStartGoldMultiplier();
         if (startGold > 0) economy.AddGold(startGold);
 
+        // 환생 후 즉시 저장 (필드 비움, 골드 0, 강화 초기화 반영)
         SaveManager.Instance?.SaveGame();
 
         // 버튼 즉시 갱신
@@ -406,7 +438,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     void NotifyPointsChanged()
     {
         if (prestigePointLabel)
-            prestigePointLabel.text = $"<b>{prestigePoint:N0}</b>";
+            prestigePointLabel.text = $"<b>{prestigePoint:N0} pt</b>";
         OnPrestigePointsChanged?.Invoke(prestigePoint);
     }
 }

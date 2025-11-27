@@ -48,6 +48,7 @@ public class GirlDataManager
             int idx_merge  = FindCol(header, "mergecount", "merge_count");
             int idx_sprite = FindCol(header, "spritename", "sprite", "sprite_name");
             int idx_unlock = FindCol(header, "unlockdesc", "desc", "unlock_desc");
+            int idx_dir    = FindCol(header, "direction", "initialdirection", "dir");
 
             if (idx_id < 0 || idx_name < 0 || idx_level < 0 || idx_income < 0 || idx_merge < 0 || idx_sprite < 0 || idx_unlock < 0)
             {
@@ -85,6 +86,15 @@ public class GirlDataManager
                 string spriteName = Get(idx_sprite)?.Trim();
                 string unlockDesc = Get(idx_unlock) ?? string.Empty;
 
+                int initialDirection = 1;
+                if (idx_dir >= 0)
+                {
+                    if (int.TryParse(Get(idx_dir), NumberStyles.Integer, CultureInfo.InvariantCulture, out int dirParsed))
+                    {
+                        initialDirection = dirParsed >= 0 ? 1 : -1;
+                    }
+                }
+
                 if (level < 1 || level > TierRules.MaxLevel) { Warn(row, $"level 범위(1~{TierRules.MaxLevel}) 초과: {level}"); row++; continue; }
                 if (income < 0) { Warn(row, $"incomePerSec 음수: {income}"); row++; continue; }
                 if (mergeCount <= 0) { Warn(row, $"mergeCount 비정상: {mergeCount}"); row++; continue; }
@@ -100,7 +110,8 @@ public class GirlDataManager
                     incomePerSec = income,
                     mergeCount = mergeCount,
                     spriteName = string.IsNullOrEmpty(spriteName) ? level.ToString(CultureInfo.InvariantCulture) : spriteName,
-                    unlockDesc = unlockDesc
+                    unlockDesc = unlockDesc,
+                    initialDirection = initialDirection
                 };
 
                 dataList.Add(rec);

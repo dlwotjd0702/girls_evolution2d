@@ -16,6 +16,7 @@ public class AutoAutomationController : MonoBehaviour
 
     [Header("Refs")]
     public EconomyManager economy;
+    [SerializeField] private PremiumCurrencyManager premiumCurrency; // 보석 관리자
     [Tooltip("선택: 보석 부족/골드 부족 시 띄울 패널(광고/상점 유도)")]
     public InsufficientFundsPanel insufficientPanel;
 
@@ -46,10 +47,12 @@ public class AutoAutomationController : MonoBehaviour
     public TextMeshProUGUI reasonLabel;
     public float reasonShowSeconds = 1.15f;
     Coroutine _reasonRoutine;
+    private const string GemAdHint = "광고 시청 보상으로 보석 5개를 받을 수 있어요!";
 
     void Awake()
     {
         if (!economy) economy = FindObjectOfType<EconomyManager>();
+        if (premiumCurrency == null) premiumCurrency = FindObjectOfType<PremiumCurrencyManager>(true);
 
         if (buyOrUpgradeButton) buyOrUpgradeButton.onClick.AddListener(OnClickBuyOrUpgrade);
         if (toggleButton)       toggleButton.onClick.AddListener(OnClickToggle);
@@ -110,7 +113,23 @@ public class AutoAutomationController : MonoBehaviour
         if (levelText) levelText.text = FormatLvCap(lv, cap);
         double nextCost = (type==AutoType.AutoMerge) ? economy.GetAutoMergeNextCost()
                                                      : economy.GetAutoSpawnNextCost();
-        if (costText) costText.text = double.IsInfinity(nextCost) ? "-" : $"{nextCost:N0}";
+        if (costText)
+        {
+            if (double.IsInfinity(nextCost))
+            {
+                costText.text = "-";
+            }
+            else if (purchaseCurrency == PurchaseCurrency.Gem)
+            {
+                // 보석 비용 계산 (골드 비용 * 변환율)
+                long gemCost = (long)Math.Max(1, Math.Ceiling(nextCost * 0.01)); // 기본 변환율 0.01
+                costText.text = $"{gemCost:N0} gems";
+            }
+            else
+            {
+                costText.text = $"{nextCost:N0} G";
+            }
+        }
 
         // 아이콘 & 상호작용
         if (buyIconTarget)
@@ -160,43 +179,50 @@ public class AutoAutomationController : MonoBehaviour
         }
         else // PurchaseCurrency.Gem
         {
-            // 1) Economy에 보석 구매 API가 있으면 시도 (리플렉션)
-            string method = (type==AutoType.AutoMerge) ? "TryBuyAutoMergeWithGems" : "TryBuyAutoSpawnWithGems";
-            try
+            if (premiumCurrency == null)
             {
-                var mi = economy.GetType().GetMethod(method, BindingFlags.Public|BindingFlags.Instance);
-                if (mi != null && mi.ReturnType == typeof(bool))
+                ShowReason("보석 시스템 미준비");
+                return;
+            }
+
+            // 보석 비용 계산
+            long gemCost = (long)Math.Max(1, Math.Ceiling(needGold * 0.01)); // 기본 변환율 0.01
+
+            // 보석 차감 시도
+            if (!premiumCurrency.TrySpendGems(gemCost))
+            {
+                // 보석 부족 시 insufficientPanel 표시
+                if (insufficientPanel != null)
                 {
-                    bool ok = (bool)mi.Invoke(economy, null);
-                    if (!ok)
-                    {
-                        // 보석 부족 → 보석 상점 유도 패널
-                        if (insufficientPanel)
-                        {
-                            long have = GetCurrentGems();
-                            long need = EstimateGemsFromGold(needGold); // 추정치(메시지용)
-                            insufficientPanel.ShowForGemShortage(need, have);
-                        }
-                        else ShowReason("보석이 부족합니다.");
-                        return;
-                    }
+                    long have = premiumCurrency.GetGems();
+                    insufficientPanel.ShowGemShortage(gemCost, have);
                 }
                 else
                 {
-                    // 보석 구매 API 미구현 → 상점 열기 유도
-                    if (insufficientPanel)
-                    {
-                        long have = GetCurrentGems();
-                        long need = EstimateGemsFromGold(needGold);
-                        insufficientPanel.ShowForGemShortage(need, have);
-                    }
-                    else ShowReason("보석 구매 경로가 없습니다.");
-                    return;
+                    ShowReason($"보석이 부족합니다.\n{GemAdHint}");
                 }
+                return;
             }
-            catch
+
+            // 보석 차감 성공 시 골드 차감 없이 레벨만 올리기
+            // lv와 cap은 이미 메서드 시작 부분에서 선언됨
+            if (lv >= cap)
             {
-                ShowReason("보석 구매 실패");
+                // 최대 레벨 도달 시 보석 환불
+                premiumCurrency.AddGems(gemCost);
+                ShowReason("최대 레벨입니다.");
+                return;
+            }
+
+            // 골드 차감 없이 레벨만 증가 (보석 구매 전용 메서드 사용)
+            bool ok = (type==AutoType.AutoMerge) ? economy.TryBuyAutoMergeUpgradeWithGems()
+                                                : economy.TryBuyAutoSpawnUpgradeWithGems();
+
+            if (!ok)
+            {
+                // 구매 실패 시 보석 환불
+                premiumCurrency.AddGems(gemCost);
+                ShowReason("구매가 불가합니다.");
                 return;
             }
         }
@@ -280,32 +306,6 @@ public class AutoAutomationController : MonoBehaviour
     }
 
     // ───────────────────── Gem/Panel helpers ─────────────────────
-    long GetCurrentGems()
-    {
-        try
-        {
-            //var pcm = PremiumCurrencyManager.Instance ?? FindObjectOfType<PremiumCurrencyManager>(true);
-            //if (pcm != null) return pcm.GetGems();
-        } catch {}
-        // Economy에 GetGems()가 있다면 폴백
-        try
-        {
-            var t = economy?.GetType();
-            var mi = t?.GetMethod("GetGems", BindingFlags.Public|BindingFlags.Instance);
-            if (mi != null) return Convert.ToInt64(mi.Invoke(economy, null));
-        } catch {}
-        return 0;
-    }
-
-    // 추정용(표시만): 골드 → 보석 환산. 실제 결제는 Economy의 TryBuy...WithGems()에 위임.
-    [Tooltip("표시용 환산(골드→보석) 추정. 실제 결제엔 사용하지 않음.")]
-    public double goldToGemFactorForHint = 0.01;
-    long EstimateGemsFromGold(double goldCost)
-    {
-        double f = Math.Max(1e-6, goldToGemFactorForHint);
-        return (long)Math.Max(1, Math.Ceiling(goldCost * f));
-    }
-
     // Reason helpers (패널 없을 땐 라벨 fallback)
     void ShowReason(string msg)
     {

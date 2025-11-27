@@ -50,8 +50,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private float idleTickSeconds = 1.0f; // 1초 단위 지급
     private float  idleTimer = 0f;
     private double lastComputedPerSec = 0.0;
-    private double emaPerSec = 0.0; // Economy에 전달할 추정치
-    [SerializeField] private float emaTimeConstant = 1.5f; // 부드럽게
 
     [Header("Discovery FX")]
     [SerializeField] private float ldCenterScale = 2.0f;
@@ -61,6 +59,18 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private float ldHoldTime = 0.15f;
     [SerializeField] private float moveDuration = 0.55f;
     [SerializeField, Range(0f,1f)] private float swapToSDFraction = 0.18f;
+    [SerializeField] private GameObject discoverySpotlightPanel;
+    [SerializeField] private Image discoverySpotlightImage;
+    [SerializeField] private float spotlightFadeIn = 0.18f;
+    [SerializeField] private float spotlightFadeOut = 0.15f; // SD 스왑 시 빠른 fade out
+    [SerializeField, Range(0f,1f)] private float spotlightMaxAlpha = 0.9f;
+    [SerializeField] private RectTransform discoveryPresentationRoot;
+    private Tween spotlightFadeTween;
+
+    [Header("Tier Ascend FX")]
+    [SerializeField] private float tierAscendScaleMul = 1.32f;
+    [SerializeField] private float tierAscendDuration = 0.35f;
+    [SerializeField] private Vector2 tierAscendMoveOffset = new Vector2(0f, 240f);
 
     private int _lastTierShown = 0;
     public int CurrentMaxLevel { get; private set; } = 1;
@@ -70,6 +80,26 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     [SerializeField] private Button          spawnButton;
     [SerializeField] private Image           chargeFillImage;  // Image Type = Filled
     [SerializeField] private TextMeshProUGUI chargeCountText;  // "cur/max"
+    [SerializeField] private TextMeshProUGUI spawnReasonLabel;
+    [SerializeField] private float spawnReasonShowSeconds = 1.5f;
+    private Coroutine spawnReasonRoutine;
+
+    [Header("Population UI")]
+    [SerializeField] private TextMeshProUGUI populationText;
+    [SerializeField] private string populationFormat = "{0}/{1}";
+    
+    [Header("Level 25 UI")]
+    [SerializeField] private TextMeshProUGUI level25Text; // 25단계 레벨 표시 텍스트
+    [SerializeField] private int level25UpgradeLevel = 0; // 25단계 강화 레벨
+    public int Level25UpgradeLevel => level25UpgradeLevel;
+
+    [Header("Gold Popup")]
+    [SerializeField] private GoldGainPopupPool goldPopupPool;
+    [SerializeField] private Vector2 goldPopupOffset = new Vector2(0f, 120f);
+
+    [Header("Offline Reward")]
+    [SerializeField] private OfflineRewardPanel offlineRewardPanel;
+    [SerializeField] private float offlineRewardMinSeconds = 30f;
 
     // ── 외부 배수/Plus 리플렉션 캐시 ──
     static bool _legacyCached = false;
@@ -115,6 +145,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         curSpawnCharge = GetMaxSpawnCharge();
         chargeTimer = 0f;
         UpdateSpawnButtonUI();
+        UpdatePopulationUI();
 
         if (tierManager != null)
         {
@@ -123,6 +154,19 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         RecomputeMaxLevelAndNotify();
+
+        if (discoverySpotlightPanel != null)
+        {
+            discoverySpotlightPanel.SetActive(false);
+            if (discoverySpotlightImage == null)
+                discoverySpotlightImage = discoverySpotlightPanel.GetComponent<Image>();
+            if (discoverySpotlightImage != null)
+            {
+                var c = discoverySpotlightImage.color;
+                c.a = 0f;
+                discoverySpotlightImage.color = c;
+            }
+        }
     }
 
     void Update()
@@ -181,12 +225,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             idleTimer -= idleTickSeconds;
         }
 
-        // EMA로 /s 라벨 부드럽게
+        // 골드 수익 즉시 갱신
         if (economy != null)
         {
-            double alpha = 1.0 - Math.Exp(-dt / Mathf.Max(0.0001f, emaTimeConstant));
-            emaPerSec = (1.0 - alpha) * emaPerSec + alpha * lastComputedPerSec;
-            economy.SetGoldPerSecEstimate(emaPerSec);
+            economy.SetGoldPerSecEstimate(lastComputedPerSec);
         }
 
         // UI
@@ -346,6 +388,15 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             curSpawnCharge = Mathf.Max(0, curSpawnCharge - 1);
             SpawnGirl(1, (Vector3)GetRandomSpawnPos());
             UpdateSpawnButtonUI();
+            HideSpawnReasonImmediate();
+        }
+        else if (girlList.Count >= GetMaxFieldCount())
+        {
+            ShowSpawnReasonTemp("필드가 가득 찼습니다.");
+        }
+        else if (curSpawnCharge <= 0)
+        {
+            HideSpawnReasonImmediate();
         }
     }
 
@@ -366,11 +417,29 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     }
     public void ManualSpawnGirl(int level, Vector3 pos) => SpawnGirl(level, pos);
 
+    /// <summary>
+    /// 테스트용: 특정 레벨을 즉시 한 번 소환
+    /// </summary>
+    public void SpawnLevelForTest(int level)
+    {
+        level = Mathf.Clamp(level, 1, TierRules.MaxLevel);
+        SpawnGirl(level, Vector3.zero);
+    }
+
     public void AcquireLevel25()
     {
+        level25UpgradeLevel = Mathf.Max(1, level25UpgradeLevel + 1);
         var exist = GetFinalGirl();
-        if (exist != null) { exist.IncrementFinalLevel(); ConfigureLevel25(exist); }
-        else               { SpawnGirl(TierRules.MaxLevel, Vector3.zero); }
+        if (exist != null) 
+        { 
+            exist.IncrementFinalLevel(); 
+            ConfigureLevel25(exist);
+        }
+        else               
+        { 
+            SpawnGirl(TierRules.MaxLevel, Vector3.zero);
+        }
+        UpdateLevel25Text();
         NotifySpawnedLevel(TierRules.MaxLevel);
     }
 
@@ -398,12 +467,16 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         bool isFirstDiscover = !_isRestoring && !discoveredLevels.Contains(level);
         int itemTier = TierRules.TierIndexFromLevel(level);
-        if (!_isRestoring && tierManager != null && itemTier != tierManager.CurrentTierIndex)
-            isFirstDiscover = false;
+        bool tierMismatch = tierManager != null && itemTier != tierManager.CurrentTierIndex;
+        bool shouldShowAscendFx = !_isRestoring && tierMismatch;
+        bool allowLDDiscovery = !_isRestoring && isFirstDiscover && level < TierRules.MaxLevel && spriteLoader != null;
 
         Sprite sprite = null;
         if (spriteLoader != null)
-            sprite = spriteLoader.GetSpriteForData(data, preferLD: isFirstDiscover);
+        {
+            // 복원 중일 때는 SD 스프라이트 사용 (발견 애니메이션 없음)
+            sprite = spriteLoader.GetSpriteForData(data, preferLD: _isRestoring ? false : isFirstDiscover);
+        }
 
         var go = SimpleUIPool.Instance.Get(girlRoot);
         var rect = go.transform as RectTransform;
@@ -415,6 +488,13 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         if (rect != null) rect.localPosition = pos; else go.transform.localPosition = pos;
 
         var girl = go.GetComponent<GirlCharacter>();
+        if (girl == null)
+        {
+            Debug.LogError("[GirlFieldManager] SpawnGirl: GirlCharacter 컴포넌트를 찾을 수 없습니다.");
+            SimpleUIPool.Instance.Return(go);
+            return;
+        }
+        
         girl.enabled = true;
 
         girl.OnGetFromPool();
@@ -424,15 +504,25 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         girlFieldAdd(girl);
 
         if (level >= TierRules.MaxLevel) ConfigureLevel25(girl);
-        ApplyVisibilityFor(girl);
 
-        if (isFirstDiscover && spriteLoader != null)
-        {
+        if (shouldShowAscendFx)
+            ShowGirl(girl);
+        else
+            ApplyVisibilityFor(girl);
+
+        Vector3 finalPos = rect != null ? rect.localPosition : go.transform.localPosition;
+
+        if (isFirstDiscover)
             discoveredLevels.Add(level);
-            Vector3 finalPos = rect != null ? rect.localPosition : go.transform.localPosition;
 
-            if (!spriteLoader.IsLoadedLD) StartCoroutine(EnsureLDAndPlayDiscovery(girl, data, finalPos));
-            else                           StartCoroutine(PlayDiscoveryOnce(girl, data, finalPos));
+        if (allowLDDiscovery)
+        {
+            if (!spriteLoader.IsLoadedLD) StartCoroutine(EnsureLDAndPlayDiscovery(girl, data, finalPos, shouldShowAscendFx));
+            else                           StartCoroutine(PlayDiscoveryOnce(girl, data, finalPos, shouldShowAscendFx));
+        }
+        else if (shouldShowAscendFx)
+        {
+            StartCoroutine(PlayTierAscendOnly(girl, finalPos, shouldShowAscendFx));
         }
 
         NotifySpawnedLevel(level);
@@ -444,6 +534,24 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         girl.EnableFinalMode(container, 0.95f);
         var rt = (RectTransform)girl.transform;
         rt.localPosition = Vector3.zero;
+        
+        // 25단계 레벨 표시 텍스트 업데이트
+        UpdateLevel25Text();
+    }
+    
+    private void UpdateLevel25Text()
+    {
+        if (level25Text == null) return;
+        bool show = level25UpgradeLevel > 0 && tierManager != null && tierManager.CurrentTierIndex == 3;
+        if (show)
+        {
+            level25Text.text = $"Lv {level25UpgradeLevel}";
+            level25Text.gameObject.SetActive(true);
+        }
+        else
+        {
+            level25Text.gameObject.SetActive(false);
+        }
     }
 
     public void NotifySpawnedLevel(int level)
@@ -451,6 +559,15 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         UpdateMaxLevel(level);
         if (level >= 9 && tierManager != null)
             tierManager.TryUnlockByLevel(level);
+    }
+
+    public void ShowGoldPopup(GirlCharacter girl, double amount, bool isClick)
+    {
+        if (goldPopupPool == null || girl == null) return;
+        var rt = girl.transform as RectTransform;
+        if (rt == null) return;
+        Vector2 anchored = rt.anchoredPosition + goldPopupOffset;
+        goldPopupPool.Show(anchored, amount, isClick);
     }
 
     private void UpdateMaxLevel(int achievedLevel)
@@ -477,16 +594,19 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
     }
 
-    private IEnumerator EnsureLDAndPlayDiscovery(GirlCharacter girl, GirlData data, Vector3 targetPos)
+    private IEnumerator EnsureLDAndPlayDiscovery(GirlCharacter girl, GirlData data, Vector3 targetPos, bool resyncVisibilityAfterFx)
     {
         var task = spriteLoader.EnsureLDLoadedAsync();
         while (!task.IsCompleted) yield return null;
-        yield return PlayDiscoveryOnce(girl, data, targetPos);
+        yield return PlayDiscoveryOnce(girl, data, targetPos, resyncVisibilityAfterFx);
     }
 
-    private IEnumerator PlayDiscoveryOnce(GirlCharacter girl, GirlData data, Vector3 targetPos)
+    private IEnumerator PlayDiscoveryOnce(GirlCharacter girl, GirlData data, Vector3 targetPos, bool resyncVisibilityAfterFx)
     {
         if (girl == null || data == null) yield break;
+
+        // LD 연출 동안에는 캐릭터 클릭/드래그 입력을 막는다
+        girl.SetInputLocked(true);
 
         var rect = (RectTransform)girl.transform;
         var sd = spriteLoader.GetSpriteForData(data, preferLD: false);
@@ -494,6 +614,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         var img = girl.GetComponentInChildren<Image>();
         if (img != null && ld != null) img.sprite = ld;
+
+        MoveGirlToDiscoveryCenter(rect, out var originalParent, out var originalSiblingIndex);
+
+        SetDiscoverySpotlight(true);
 
         girl.KillAllTweens();
         girl.StopAllCoroutines();
@@ -518,9 +642,30 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         if (girl.Level >= TierRules.MaxLevel)
         {
             if (img != null && sd != null) img.sprite = sd;
-            ConfigureLevel25(girl);
+            RestoreGirlParent(rect, originalParent, originalSiblingIndex);
             girl.OnGetFromPool();
+            ConfigureLevel25(girl);
             rect.localPosition = Vector3.zero;
+            SetDiscoverySpotlight(false);
+            if (resyncVisibilityAfterFx)
+                ApplyVisibilityFor(girl);
+            girl.SetInputLocked(false);
+            yield break;
+        }
+
+        if (resyncVisibilityAfterFx)
+        {
+            if (img != null && sd != null) img.sprite = sd;
+            FadeOutSpotlight();
+            yield return PlayTierAscendFx(girl, rect, img);
+            RestoreGirlParent(rect, originalParent, originalSiblingIndex);
+            girl.OnGetFromPool();
+            if (girl.Level >= TierRules.MaxLevel)
+                ConfigureLevel25(girl);
+            rect.localPosition = targetPos;
+            ApplyVisibilityFor(girl);
+            SetDiscoverySpotlight(false);
+            girl.SetInputLocked(false);
             yield break;
         }
 
@@ -530,25 +675,109 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         float swapAtTime = Mathf.Clamp01(swapToSDFraction) * moveDuration;
         if (img != null && sd != null)
-            seq.InsertCallback(swapAtTime, () => { if (img != null) img.sprite = sd; });
+        {
+            seq.InsertCallback(swapAtTime, () => 
+            { 
+                if (img != null) img.sprite = sd;
+                // SD로 스왑될 때 스포트라이트 빠르게 fade out
+                FadeOutSpotlight();
+            });
+        }
 
         yield return seq.WaitForCompletion();
 
+        RestoreGirlParent(rect, originalParent, originalSiblingIndex);
         girl.OnGetFromPool();
+        if (girl.Level >= TierRules.MaxLevel)
+            ConfigureLevel25(girl);
         rect.localPosition = targetPos;
+        if (resyncVisibilityAfterFx)
+            ApplyVisibilityFor(girl);
+        SetDiscoverySpotlight(false);
+        girl.SetInputLocked(false);
+    }
+
+    private IEnumerator PlayTierAscendOnly(GirlCharacter girl, Vector3 targetPos, bool resyncVisibilityAfterFx)
+    {
+        if (girl == null) yield break;
+        var rect = (RectTransform)girl.transform;
+        var img = girl.GetComponentInChildren<Image>();
+        yield return PlayTierAscendFx(girl, rect, img);
+        girl.OnGetFromPool();
+        if (girl.Level >= TierRules.MaxLevel)
+            ConfigureLevel25(girl);
+        rect.localPosition = targetPos;
+        if (resyncVisibilityAfterFx)
+            ApplyVisibilityFor(girl);
+    }
+
+    private IEnumerator PlayTierAscendFx(GirlCharacter girl, RectTransform rect, Image img)
+    {
+        if (girl == null || rect == null) yield break;
+
+        Vector3 startScale = girl.transform.localScale;
+        Vector2 startPos = rect.anchoredPosition;
+
+        rect.DOKill();
+        girl.transform.DOKill();
+        img?.DOKill();
+
+        Sequence seq = DOTween.Sequence();
+        seq.Join(rect.DOAnchorPos(startPos + tierAscendMoveOffset, tierAscendDuration).SetEase(Ease.OutCubic));
+        seq.Join(girl.transform.DOScale(startScale * tierAscendScaleMul, tierAscendDuration).SetEase(Ease.OutCubic));
+        if (img != null)
+        {
+            seq.Join(img.DOFade(0f, tierAscendDuration).SetEase(Ease.InCubic));
+        }
+        yield return seq.WaitForCompletion();
+
+        rect.anchoredPosition = startPos;
     }
 
     private void girlFieldAdd(GirlCharacter girl)
     {
         if (!girlList.Contains(girl))
             girlList.Add(girl);
+
+        UpdatePopulationUI();
     }
 
     public void RemoveGirl(GirlCharacter girl)
     {
+        if (girl == null) return;
+        bool wasFinal = girl.IsFinal;
         girlList.Remove(girl);
         girl.KillAllTweens();
         SimpleUIPool.Instance.Return(girl.gameObject);
+        UpdatePopulationUI();
+        
+        // 25단계가 제거되면 레벨 텍스트 업데이트
+        if (wasFinal)
+        {
+            UpdateLevel25Text();
+        }
+    }
+
+    public void ResetLevel25Progress()
+    {
+        level25UpgradeLevel = 0;
+        UpdateLevel25Text();
+    }
+
+    private int EstimateLevel25UpgradeLevel(SaveData data)
+    {
+        if (data == null || data.girls == null) return 0;
+        int maxStack = 0;
+        foreach (var info in data.girls)
+        {
+            if (info == null) continue;
+            if (info.level >= TierRules.MaxLevel)
+            {
+                int stack = Mathf.Max(1, info.level - (TierRules.MaxLevel - 1));
+                if (stack > maxStack) maxStack = stack;
+            }
+        }
+        return maxStack;
     }
 
     private Vector2 GetRandomSpawnPos()
@@ -604,7 +833,86 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         if (chargeFillImage != null) chargeFillImage.fillAmount = fill;
 
         if (spawnButton != null)
-            spawnButton.interactable = (curSpawnCharge > 0) && (girlList.Count < GetMaxFieldCount());
+            spawnButton.interactable = (curSpawnCharge > 0);
+
+        UpdatePopulationUI();
+    }
+
+    private void UpdatePopulationUI()
+    {
+        if (populationText == null) return;
+        int max = GetMaxFieldCount();
+        int current = Mathf.Min(girlList.Count, max);
+        string format = string.IsNullOrEmpty(populationFormat) ? "{0}/{1}" : populationFormat;
+        populationText.text = string.Format(format, current, max);
+    }
+
+    private void ShowSpawnReasonTemp(string msg)
+    {
+        if (!spawnReasonLabel) return;
+        HideSpawnReasonImmediate();
+        spawnReasonLabel.text = msg;
+        spawnReasonLabel.gameObject.SetActive(true);
+        if (spawnReasonShowSeconds > 0f)
+            spawnReasonRoutine = StartCoroutine(HideSpawnReasonAfter(spawnReasonShowSeconds));
+    }
+
+    private IEnumerator HideSpawnReasonAfter(float sec)
+    {
+        yield return new WaitForSecondsRealtime(sec);
+        HideSpawnReasonImmediate();
+    }
+
+    private void HideSpawnReasonImmediate()
+    {
+        if (!spawnReasonLabel) return;
+        if (spawnReasonRoutine != null)
+        {
+            StopCoroutine(spawnReasonRoutine);
+            spawnReasonRoutine = null;
+        }
+        spawnReasonLabel.text = "";
+        spawnReasonLabel.gameObject.SetActive(false);
+    }
+
+    private void TryShowOfflineReward()
+    {
+        if (SaveManager.Instance == null || economy == null) return;
+
+        double offlineSeconds;
+        if (!SaveManager.Instance.TryConsumeOfflineSeconds(out offlineSeconds, offlineRewardMinSeconds))
+            return;
+
+        double perSec = ComputeIdleGoldPerSec();
+        if (perSec <= 0) return;
+
+        double cappedSeconds = Math.Min(offlineSeconds, economy.GetOfflineMaxSeconds());
+        if (cappedSeconds <= 0) return;
+
+        double multiplier = economy.GetOfflineRewardMultiplier();
+        double reward = perSec * cappedSeconds * multiplier;
+        if (reward <= 0) return;
+
+        if (!offlineRewardPanel)
+            offlineRewardPanel = FindObjectOfType<OfflineRewardPanel>(true);
+
+        if (offlineRewardPanel != null)
+        {
+            var payload = new OfflineRewardPanel.Payload
+            {
+                rawSeconds = offlineSeconds,
+                appliedSeconds = cappedSeconds,
+                perSecondIncome = perSec,
+                multiplier = multiplier,
+                totalReward = reward
+            };
+            offlineRewardPanel.Show(payload);
+        }
+        else
+        {
+            economy.AddGold(reward);
+            Debug.Log("[GirlFieldManager] OfflineRewardPanel이 없어 보상을 즉시 지급했습니다.");
+        }
     }
 
     private void ToggleTwoTiers(int prevTier, int targetTier)
@@ -652,11 +960,15 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             var t = g.transform;
             var worldPos = t.position;
             var worldRot = t.rotation;
-
             t.SetParent(activeParent, false);
             t.position = worldPos;
             t.rotation = worldRot;
             t.localScale = Vector3.one;
+        }
+
+        if (g.IsFinal)
+        {
+            ConfigureLevel25(g);
         }
     }
 
@@ -670,7 +982,6 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             var t = g.transform;
             var worldPos = t.position;
             var worldRot = t.rotation;
-
             t.SetParent(hiddenParent, false);
             t.position = worldPos;
             t.rotation = worldRot;
@@ -682,11 +993,24 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         ToggleTwoTiers(_lastTierShown, newTier);
         _lastTierShown = newTier;
+        UpdateLevel25Text();
+    }
+
+    // ───── 도감 접근 ─────
+    public HashSet<int> GetDiscoveredLevels()
+    {
+        return new HashSet<int>(discoveredLevels);
+    }
+    
+    public bool IsLevelDiscovered(int level)
+    {
+        return discoveredLevels.Contains(level);
     }
 
     // ───── ISaveable ─────
     public void CollectSaveData(SaveData data)
     {
+        // 도감 해금 정보 저장 (32비트 마스크, 레벨 1~32까지 지원)
         int mask = 0;
         foreach (var lv in discoveredLevels)
         {
@@ -695,11 +1019,22 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
         data.discoveredMask = mask;
 
+        // 최대 도달 레벨 저장
+        int maxLv = 1;
+        foreach (var lv in discoveredLevels)
+        {
+            if (lv > maxLv) maxLv = lv;
+        }
+        data.maxLevelReached = maxLv;
+        data.level25UpgradeLevel = level25UpgradeLevel;
+
+        // 필드의 유닛들 저장
         girlList.RemoveAll(g => g == null);
         data.girls.Clear();
         for (int i = 0; i < girlList.Count; i++)
         {
             var g = girlList[i];
+            if (g != null)
             data.girls.Add(new GirlSaveInfo(g.Level));
         }
     }
@@ -712,6 +1047,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private IEnumerator RestoreWhenReady(SaveData data)
     {
+        level25UpgradeLevel = Mathf.Max(0, data.level25UpgradeLevel);
+        if (level25UpgradeLevel == 0)
+            level25UpgradeLevel = EstimateLevel25UpgradeLevel(data);
+
         if (GameSystem.Instance != null && !GameSystem.Instance.AssetsReady)
         {
             bool ready = false;
@@ -757,15 +1096,25 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
         // 복원
         _isRestoring = true;
-        if (data.girls != null)
+        if (data.girls != null && data.girls.Count > 0)
         {
+            Debug.Log($"[GirlFieldManager] 복원 시작: {data.girls.Count}개 유닛");
             for (int i = 0; i < data.girls.Count; i++)
             {
                 int level = Mathf.Clamp(data.girls[i].level, 1, TierRules.MaxLevel);
                 Vector2 rnd = GetRandomSpawnPos();
                 Vector3 pos = (level >= TierRules.MaxLevel) ? Vector3.zero : new Vector3(rnd.x, rnd.y, 0f);
+                
+                // 스프라이트가 로드되었는지 확인
+                if (spriteLoader != null && !spriteLoader.IsReady)
+                {
+                    Debug.LogWarning($"[GirlFieldManager] 스프라이트 로더가 준비되지 않았습니다. 레벨 {level} 복원 건너뜀.");
+                    continue;
+                }
+                
                 SpawnGirl(level, pos);
             }
+            Debug.Log($"[GirlFieldManager] 복원 완료: {girlList.Count}개 유닛 복원됨");
         }
         _isRestoring = false;
 
@@ -776,5 +1125,102 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         RecomputeMaxLevelAndNotify();
+        TryShowOfflineReward();
+        UpdateLevel25Text();
+        
+        // 로딩 패널 숨기기 (세이브 데이터 적용 완료)
+        if (GameSystem.Instance != null && GameSystem.Instance.loadingPanel != null)
+        {
+            GameSystem.Instance.loadingPanel.SetActive(false);
+        }
+    }
+
+    private void SetDiscoverySpotlight(bool enabled)
+    {
+        if (!discoverySpotlightPanel) return;
+
+        if (discoverySpotlightImage == null)
+            discoverySpotlightImage = discoverySpotlightPanel.GetComponent<Image>();
+
+        if (enabled)
+        {
+            if (!discoverySpotlightPanel.activeSelf)
+                discoverySpotlightPanel.SetActive(true);
+
+            if (discoverySpotlightImage != null)
+            {
+                spotlightFadeTween?.Kill();
+                var color = discoverySpotlightImage.color;
+                color.a = 0f;
+                discoverySpotlightImage.color = color;
+                spotlightFadeTween = discoverySpotlightImage
+                    .DOFade(spotlightMaxAlpha, spotlightFadeIn)
+                    .SetEase(Ease.OutQuad);
+            }
+        }
+        else
+        {
+            FadeOutSpotlight();
+        }
+    }
+
+    private void FadeOutSpotlight()
+    {
+        if (!discoverySpotlightPanel || !discoverySpotlightPanel.activeSelf) return;
+
+        if (discoverySpotlightImage == null)
+            discoverySpotlightImage = discoverySpotlightPanel.GetComponent<Image>();
+
+        if (discoverySpotlightImage != null)
+        {
+            spotlightFadeTween?.Kill();
+            spotlightFadeTween = discoverySpotlightImage
+                .DOFade(0f, spotlightFadeOut)
+                .SetEase(Ease.OutCubic)
+                .OnComplete(() =>
+                {
+                    discoverySpotlightPanel.SetActive(false);
+                });
+        }
+        else
+        {
+            discoverySpotlightPanel.SetActive(false);
+        }
+    }
+
+    private void MoveGirlToDiscoveryCenter(RectTransform rect, out Transform originalParent, out int originalSiblingIndex)
+    {
+        originalParent = null;
+        originalSiblingIndex = 0;
+        if (rect == null) return;
+
+        originalParent = rect.parent;
+        if (originalParent != null)
+            originalSiblingIndex = rect.GetSiblingIndex();
+
+        RectTransform container = discoveryPresentationRoot
+                                  ?? activeParent as RectTransform
+                                  ?? girlRoot as RectTransform
+                                  ?? transform as RectTransform;
+        if (container != null)
+        {
+            rect.SetParent(container, false);
+            rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+        }
+        else
+        {
+            rect.localPosition = Vector3.zero;
+        }
+    }
+
+    private void RestoreGirlParent(RectTransform rect, Transform originalParent, int originalSiblingIndex)
+    {
+        if (rect == null || originalParent == null) return;
+
+        rect.SetParent(originalParent, false);
+        int maxIndex = Mathf.Max(0, rect.parent.childCount - 1);
+        rect.SetSiblingIndex(Mathf.Clamp(originalSiblingIndex, 0, maxIndex));
     }
 }

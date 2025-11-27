@@ -36,6 +36,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     [SerializeField] private long gems = 0;
     public event Action<long> OnGemsChanged;
     public event Action       OnCatalogReady;
+    public event Action<string, string> OnPurchaseFailed; // productId, reason
 
     // ===== Remove Ads (Non-consumable purchase) =====
     /// <summary>
@@ -53,13 +54,8 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     /// </summary>
     public event Action<bool> OnAdsRemovedChanged;
 
-    // PlayerPrefs key used for storing the ad removal state when no save manager is present.
-    const string PP_ADS_REMOVED = "ADS_REMOVED_FLAG";
-
     [Header("UI Label (Optional)")]
     [SerializeField] private TextMeshProUGUI gemLabel; // 인스펙터에서 하나만 연결
-
-    const string PP_GEMS = "GEMS_BALANCE_V2";
 
     private StoreController storeController;
     private readonly Dictionary<string,string> priceCache = new();
@@ -73,15 +69,8 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     void Start()
     {
-        // SaveManager가 없으면 PlayerPrefs에서 복구
-        if (!HasSaveManager())
-        {
-            var s = PlayerPrefs.GetString(PP_GEMS, "0");
-            if (long.TryParse(s, out var v)) gems = Math.Max(0, v);
-            // Restore the ad removal flag from PlayerPrefs
-            adsRemoved = PlayerPrefs.GetInt(PP_ADS_REMOVED, 0) != 0;
-        }
-        NotifyAndPersist(); // 초기 라벨 갱신
+        // SaveManager가 있으면 ApplyLoadedData에서 복구하므로 여기서는 복구하지 않음
+        NotifyAndPersist(); // SaveManager의 ApplyLoadedData 이전에도 UI를 초기화
         InitializeIAP();
     }
 
@@ -131,7 +120,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         storeController.OnProductsFetchFailed += OnProductsFetchFailed;
         storeController.OnPurchasePending     += OnPurchasePending;
         storeController.OnPurchaseConfirmed   += OnPurchaseConfirmed;
-        storeController.OnPurchaseFailed      += OnPurchaseFailed;
+        storeController.OnPurchaseFailed      += HandlePurchaseFailed;
 
         try { await storeController.Connect(); }
         catch (Exception ex)
@@ -212,60 +201,40 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         }
     }
 
-    void OnPurchaseFailed(FailedOrder failedOrder)
+    void HandlePurchaseFailed(FailedOrder failedOrder)
     {
         var productId = failedOrder?.CartOrdered?.Items()?.FirstOrDefault()?.Product?.definition?.id;
         var reason = failedOrder?.FailureReason;
         Debug.LogWarning($"[IAP] Purchase failed: {productId} - {reason}");
+        OnPurchaseFailed?.Invoke(productId ?? "", reason?.ToString() ?? "");
     }
 
     // ===== Save / Load =====
     public void CollectSaveData(SaveData d)
     {
-        TrySetLong(d, "gems", gems);
-        TrySetLong(d, "diamonds", gems);
-        TrySetLong(d, "premiumCurrency", gems);
-
-        // Persist the ad removal state as a long (1=true, 0=false)
-        TrySetLong(d, "adsRemoved", adsRemoved ? 1L : 0L);
+        // SaveData에 직접 필드로 저장 (리플렉션 대신)
+        d.gems = gems;
+        d.adsRemoved = adsRemoved ? 1L : 0L;
     }
+    
     public void ApplyLoadedData(SaveData d)
     {
-        long v = TryGetLong(d, "gems", long.MinValue);
-        if (v==long.MinValue) v = TryGetLong(d, "diamonds", long.MinValue);
-        if (v==long.MinValue) v = TryGetLong(d, "premiumCurrency", long.MinValue);
+        // SaveData에서 직접 필드로 로드 (SaveData에 필드가 있으면 항상 사용)
+        // gems는 0일 수도 있으므로, SaveData 필드를 우선 사용
+        gems = Math.Max(0, d.gems);
+        
+        // Load ad removal state from SaveData
+        adsRemoved = (d.adsRemoved > 0);
 
-        if (v!=long.MinValue) gems = Math.Max(0, v);
-        else
-        {
-            var s = PlayerPrefs.GetString(PP_GEMS, "0");
-            if (long.TryParse(s, out var p)) gems = Math.Max(0, p);
-        }
-
-        // Load ad removal state from SaveData or PlayerPrefs fallback
-        long adsFlag = TryGetLong(d, "adsRemoved", long.MinValue);
-        if (adsFlag != long.MinValue)
-        {
-            adsRemoved = adsFlag != 0;
-        }
-        else
-        {
-            adsRemoved = PlayerPrefs.GetInt(PP_ADS_REMOVED, 0) != 0;
-        }
         NotifyAndPersist();
     }
 
     // ===== Helpers =====
     void NotifyAndPersist()
     {
-        if (gemLabel) gemLabel.text = $"{gems:N0}";
+        // 0이어도 항상 단위가 보이도록 "0 Gem" 형태로 표시
+        if (gemLabel) gemLabel.text = $"{gems:N0} Gem";
         OnGemsChanged?.Invoke(gems);
-
-        if (!HasSaveManager())
-        {
-            PlayerPrefs.SetString(PP_GEMS, gems.ToString());
-            PlayerPrefs.Save();
-        }
     }
 
     /// <summary>
@@ -287,20 +256,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     void PersistAdsRemoved()
     {
-        if (!HasSaveManager())
-        {
-            PlayerPrefs.SetInt(PP_ADS_REMOVED, adsRemoved ? 1 : 0);
-            PlayerPrefs.Save();
-        }
-    }
-    bool HasSaveManager()
-    {
-        try
-        {
-            var t = typeof(SaveManager);
-            var pi = t.GetProperty("Instance", System.Reflection.BindingFlags.Public|System.Reflection.BindingFlags.Static);
-            return pi?.GetValue(null, null) != null;
-        } catch { return false; }
+        // SaveManager를 통해서만 영구 저장하므로 별도 처리가 필요 없음
     }
     static void TrySetLong(object obj, string name, long value)
     {

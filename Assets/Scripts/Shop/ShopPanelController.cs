@@ -46,18 +46,25 @@ public class ShopPanelController : MonoBehaviour
 
     [Header("Refs")]
     public EconomyManager economy;
+    [SerializeField] private PremiumCurrencyManager premiumCurrency; // 보석 관리자
 
     [Header("Reason Label")]
     [SerializeField] private TextMeshProUGUI reasonLabel;
     [SerializeField] private float reasonShowSeconds = 1.15f;
     private Coroutine _reasonRoutine;
+    
+    [Header("Insufficient Funds Panel")]
+    [SerializeField] private InsufficientFundsPanel insufficientFundsPanel; // 골드 부족 패널
 
     [Header("Entries")]
     public List<EntryUI> entries = new List<EntryUI>();
 
+    private const string GemAdHint = "광고 시청 보상으로 보석 5개를 받을 수 있어요!";
+
     void Awake()
     {
         if (economy == null) economy = FindObjectOfType<EconomyManager>(true);
+        if (premiumCurrency == null) premiumCurrency = FindObjectOfType<PremiumCurrencyManager>(true);
 
         foreach (var e in entries)
         {
@@ -134,8 +141,23 @@ public class ShopPanelController : MonoBehaviour
 
         if (!ok)
         {
-            if (economy.GetGold() < need) ShowReasonTemp("골드가 부족합니다.");
-            else ShowReasonTemp("구매가 불가합니다.");
+            double currentGold = economy.GetGold();
+            if (currentGold < need)
+            {
+                // 골드 부족 패널이 있으면 표시
+                if (insufficientFundsPanel != null)
+                {
+                    insufficientFundsPanel.ShowForGoldShortage(need, currentGold);
+                }
+                else
+                {
+                    ShowReasonTemp("골드가 부족합니다.");
+                }
+            }
+            else
+            {
+                ShowReasonTemp("구매가 불가합니다.");
+            }
             return;
         }
 
@@ -146,42 +168,56 @@ public class ShopPanelController : MonoBehaviour
     void BuyWithGems(EntryUI e)
     {
         if (economy == null) { ShowReasonTemp("시스템 미준비"); return; }
+        if (premiumCurrency == null) { ShowReasonTemp("보석 시스템 미준비"); return; }
 
         int lv  = GetLevel(e.type);
         int cap = GetCap(e.type);
         if (cap >= 0 && lv >= cap) { ShowReasonTemp("최대 레벨입니다."); return; }
 
-        // EconomyManager에 보석 전용 API가 있으면 호출(리플렉션)
-        string method = e.type switch
-        {
-            ShopItemType.ManualSpawnMax   => "TryBuySpawnMaxWithGems",
-            ShopItemType.ManualSpawnSpeed => "TryBuySpawnSpeedWithGems",
-            ShopItemType.FieldMax         => "TryBuyFieldMaxWithGems",
-            ShopItemType.ClickBonus       => "TryBuyClickBonusWithGems",
-            ShopItemType.OfflineReward    => "TryBuyOfflineRewardWithGems",
-            ShopItemType.OfflineMaxTime   => "TryBuyOfflineMaxTimeWithGems",
-            _ => null
-        };
+        // 보석 비용 계산
+        double goldCost = GetNextGoldCost(e.type);
+        long gemCost = (double.IsInfinity(goldCost) || goldCost <= 0)
+            ? 0
+            : (long)Math.Max(1, Math.Ceiling(goldCost * Math.Max(1e-6, goldToGemFactor)));
 
-        if (!string.IsNullOrEmpty(method))
+        // 보석 차감 시도
+        if (!premiumCurrency.TrySpendGems(gemCost))
         {
-            try
+            // 보석 부족 시 insufficientPanel 표시
+            if (insufficientFundsPanel != null)
             {
-                var mi = economy.GetType().GetMethod(method, BindingFlags.Public | BindingFlags.Instance);
-                if (mi != null && mi.ReturnType == typeof(bool))
-                {
-                    bool ok = (bool)mi.Invoke(economy, null);
-                    if (!ok) { ShowReasonTemp("보석이 부족합니다."); return; }
-
-                    RefreshEntry(e);
-                    HideReasonImmediate();
-                    return;
-                }
+                long have = premiumCurrency.GetGems();
+                insufficientFundsPanel.ShowGemShortage(gemCost, have);
             }
-            catch { /* 폴백 */ }
+            else
+            {
+                ShowReasonTemp($"보석이 부족합니다.\n{GemAdHint}");
+            }
+            return;
         }
 
-        ShowReasonTemp("유료재화 구매 미구현");
+        // 보석 차감 성공 시 골드 구매 메서드 호출
+        bool ok = false;
+        switch (e.type)
+        {
+            case ShopItemType.ManualSpawnMax:   ok = economy.TryBuySpawnMaxUpgrade();       break;
+            case ShopItemType.ManualSpawnSpeed: ok = economy.TryBuySpawnSpeedUpgrade();     break;
+            case ShopItemType.FieldMax:         ok = economy.TryBuyFieldMaxUpgrade();       break;
+            case ShopItemType.ClickBonus:       ok = economy.TryBuyClickBonusUpgrade();     break;
+            case ShopItemType.OfflineReward:    ok = economy.TryBuyOfflineRewardUpgrade();  break;
+            case ShopItemType.OfflineMaxTime:   ok = economy.TryBuyOfflineMaxTimeUpgrade(); break;
+        }
+
+        if (!ok)
+        {
+            // 구매 실패 시 보석 환불
+            premiumCurrency.AddGems(gemCost);
+            ShowReasonTemp("구매가 불가합니다.");
+            return;
+        }
+
+        RefreshEntry(e);
+        HideReasonImmediate();
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -212,13 +248,13 @@ public class ShopPanelController : MonoBehaviour
                     ? 0
                     : (long)Math.Max(1, Math.Ceiling(goldCost * Math.Max(1e-6, goldToGemFactor)));
                 string value = ComposeValueGoldEconomy(e.type);
-                e.costText.text = (isMax || gemCost <= 0) ? value : $"{value}\n{gemCost:N0}";
+                e.costText.text = (isMax || gemCost <= 0) ? value : $"{value}\n{gemCost:N0} gems";
             }
             else // Gold
             {
                 double goldCost = GetNextGoldCost(e.type);
                 string value = ComposeValueGoldEconomy(e.type);
-                e.costText.text = (isMax || double.IsInfinity(goldCost)) ? value : $"{value}\n{goldCost:N0}";
+                e.costText.text = (isMax || double.IsInfinity(goldCost)) ? value : $"{value}\n{goldCost:N0} G";
             }
         }
 

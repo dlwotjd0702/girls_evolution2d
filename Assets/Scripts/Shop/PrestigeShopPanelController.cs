@@ -134,7 +134,7 @@ public class PrestigeShopPanelController : MonoBehaviour
         if (e.costText)
         {
             string value = ComposeValue(e.type);
-            e.costText.text = (isMax || cost <= 0) ? value : $"{value}\n{cost:N0}";
+            e.costText.text = (isMax || cost <= 0) ? value : $"{value}\n{cost:N0} point";
         }
 
         if (e.iconTarget) e.iconTarget.sprite = isMax ? e.maxIconSprite : e.upgradeIconSprite;

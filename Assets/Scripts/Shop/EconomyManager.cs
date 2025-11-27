@@ -56,6 +56,8 @@ public class EconomyManager : MonoBehaviour, ISaveable
     [SerializeField] private bool   showPlusOnPerSec = true;  // +표시 여부
     [SerializeField] private bool   hidePerSecWhenZero = true;
 
+    private static readonly string[] GoldUnitPrefixes = { "", "a", "b", "c", "d", "e", "f", "g", "h" };
+
     // 내부: /s 추정치 (필드매니저가 필요 시 세팅)
     private double _goldPerSecEstimate;
 
@@ -72,23 +74,54 @@ public class EconomyManager : MonoBehaviour, ISaveable
     void Start() { RefreshGoldHUD(); }
 
     // 숫자 축약 포맷
-    string FormatCompact(double v, int digits = 1)
+    string FormatCompact(double value, int digits = 1)
     {
-        double av = Math.Abs(v);
-        string sign = v < 0 ? "-" : "";
-        string fmt = (digits <= 0) ? "0" : "0." + new string('0', digits);
+        return FormatAbbrev(value, digits, goldUnitSuffix);
+    }
 
-        if (av < 1_000d)             return $"{sign}{av:0}";
-        if (av < 1_000_000d)         return sign + (av / 1_000d).ToString(fmt) + "K";
-        if (av < 1_000_000_000d)     return sign + (av / 1_000_000d).ToString(fmt) + "M";
-        if (av < 1_000_000_000_000d) return sign + (av / 1_000_000_000d).ToString(fmt) + "B";
-        return sign + (av / 1_000_000_000_000d).ToString(fmt) + "T";
+    // 정적 메서드: 숫자 축약 포맷 (외부에서 사용)
+    public static string FormatAbbrev(double value, int digits = 1, string baseUnit = "G")
+    {
+        baseUnit ??= string.Empty;
+        double scaledValue = value;
+        double abs = Math.Abs(value);
+        int unitIndex = 0;
+
+        while (abs >= 1000d && unitIndex < GoldUnitPrefixes.Length - 1)
+        {
+            abs /= 1000d;
+            scaledValue /= 1000d;
+            unitIndex++;
+        }
+
+        int decimals = Mathf.Clamp(digits, 0, 3);
+        if (abs >= 100d) decimals = 0;
+        else if (abs >= 10d) decimals = Math.Min(decimals, 1);
+        else decimals = Math.Min(decimals, 2);
+
+        string fmt = decimals <= 0 ? "0" : $"0.{new string('0', decimals)}";
+        string sign = scaledValue < 0 ? "-" : "";
+        double magnitude = Math.Abs(scaledValue);
+        string number = magnitude.ToString(fmt);
+        string unit = ComposeGoldUnit(unitIndex, baseUnit);
+
+        return string.IsNullOrEmpty(unit)
+            ? $"{sign}{number}"
+            : $"{sign}{number} {unit}";
+    }
+
+    static string ComposeGoldUnit(int index, string baseUnit)
+    {
+        index = Mathf.Clamp(index, 0, GoldUnitPrefixes.Length - 1);
+        string prefix = GoldUnitPrefixes[index];
+        if (string.IsNullOrEmpty(baseUnit)) return prefix;
+        return $"{prefix}{baseUnit}";
     }
 
     void RefreshGoldHUD()
     {
         if (goldText)
-            goldText.text = $"{FormatCompact(gold)} {goldUnitSuffix}";
+            goldText.text = FormatCompact(gold);
 
         if (goldPerSecText)
         {
@@ -97,7 +130,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
             if (show)
             {
                 string plus = showPlusOnPerSec ? "+" : "";
-                goldPerSecText.text = $"{plus}{FormatCompact(_goldPerSecEstimate, 1)} {goldUnitSuffix}/s";
+                goldPerSecText.text = $"{plus}{FormatCompact(_goldPerSecEstimate, 1)}/s";
             }
         }
     }
@@ -127,7 +160,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
     private const double AUTO_SPAWN_BASE  = 980;  private const double AUTO_SPAWN_GROW  = 2.00;
 
     // 클릭 보너스
-    private const double CLICK_BONUS_PER_LEVEL = 0.20;
+    private const double CLICK_BONUS_PER_LEVEL = 0.01;
 
     // 자동 간격
     [Header("Automation (intervals)")]
@@ -163,6 +196,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
     // 레벨별 누적 소환 구매수
     readonly int[] summonPurchaseCounts = new int[25];
+    readonly int[] gemSummonPurchaseCounts = new int[25]; // 보석 소환 횟수 추적
 
     // ───────── 수익/소환가 규칙 ─────────
     public double GetLevelIncomePerSec(int level)
@@ -185,6 +219,19 @@ public class EconomyManager : MonoBehaviour, ISaveable
         int idx = Mathf.Clamp(level - 1, 0, 24);
         summonPurchaseCounts[idx] = Mathf.Clamp(summonPurchaseCounts[idx] + 1, 0, int.MaxValue);
         OnUpgradeChanged?.Invoke();
+    }
+    
+    public void RecordGemSummonPurchase(int level)
+    {
+        int idx = Mathf.Clamp(level - 1, 0, 24);
+        gemSummonPurchaseCounts[idx] = Mathf.Clamp(gemSummonPurchaseCounts[idx] + 1, 0, int.MaxValue);
+        OnUpgradeChanged?.Invoke();
+    }
+    
+    public int GetGemSummonPurchaseCount(int level)
+    {
+        int idx = Mathf.Clamp(level - 1, 0, 24);
+        return gemSummonPurchaseCounts[idx];
     }
 
     // ───────── Getter들 (Prestige 보정 포함) ─────────
@@ -308,6 +355,23 @@ public class EconomyManager : MonoBehaviour, ISaveable
         autoSpawnUpgrade = Mathf.Max(0,autoSpawnUpgrade)+1; OnUpgradeChanged?.Invoke(); return true;
     }
 
+    // 보석 구매 전용 메서드 (골드 차감 없이 레벨만 증가)
+    public bool TryBuyAutoMergeUpgradeWithGems()
+    {
+        if (autoMergeUpgrade >= autoMergeCap) return false;
+        autoMergeUpgrade = Mathf.Max(0, autoMergeUpgrade) + 1;
+        OnUpgradeChanged?.Invoke();
+        return true;
+    }
+
+    public bool TryBuyAutoSpawnUpgradeWithGems()
+    {
+        if (autoSpawnUpgrade >= autoSpawnCap) return false;
+        autoSpawnUpgrade = Mathf.Max(0, autoSpawnUpgrade) + 1;
+        OnUpgradeChanged?.Invoke();
+        return true;
+    }
+
     // ───────── Save / Load ─────────
     public void CollectSaveData(SaveData d)
     {
@@ -328,6 +392,10 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
         if(d.summonPurchaseCounts==null || d.summonPurchaseCounts.Length!=25) d.summonPurchaseCounts=new int[25];
         Array.Copy(summonPurchaseCounts, d.summonPurchaseCounts, 25);
+        
+        // 보석 소환 횟수 저장
+        if(d.gemSummonPurchaseCounts==null || d.gemSummonPurchaseCounts.Length!=25) d.gemSummonPurchaseCounts=new int[25];
+        Array.Copy(gemSummonPurchaseCounts, d.gemSummonPurchaseCounts, 25);
     }
 
     public void ApplyLoadedData(SaveData d)
@@ -348,6 +416,12 @@ public class EconomyManager : MonoBehaviour, ISaveable
         offlineMaxTimeUpgrade = Mathf.Max(0,d.offlineMaxTimeUpgrade);
 
         if(d.summonPurchaseCounts!=null && d.summonPurchaseCounts.Length==25) Array.Copy(d.summonPurchaseCounts, summonPurchaseCounts, 25);
+        
+        // 보석 소환 횟수 복원 (SaveData에 필드가 없으면 0으로 시작)
+        if(d.gemSummonPurchaseCounts!=null && d.gemSummonPurchaseCounts.Length==25) 
+            Array.Copy(d.gemSummonPurchaseCounts, gemSummonPurchaseCounts, 25);
+        else
+            Array.Clear(gemSummonPurchaseCounts, 0, gemSummonPurchaseCounts.Length);
 
         OnGoldChanged?.Invoke(gold);
         OnUpgradeChanged?.Invoke();
@@ -361,6 +435,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
         autoMergeUpgrade=0; autoSpawnUpgrade=0; autoMergeOn=false; autoSpawnOn=false;
         offlineRewardUpgrade=0; offlineMaxTimeUpgrade=0;
         Array.Clear(summonPurchaseCounts,0,summonPurchaseCounts.Length);
+        Array.Clear(gemSummonPurchaseCounts,0,gemSummonPurchaseCounts.Length);
         OnUpgradeChanged?.Invoke();
         RefreshGoldHUD();
     }

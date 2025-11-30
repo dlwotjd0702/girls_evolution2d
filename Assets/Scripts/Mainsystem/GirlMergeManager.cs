@@ -177,6 +177,12 @@ public class GirlMergeManager : MonoBehaviour
         {
             gain *= 0.1; // 클릭 기반: 생산 골드의 10%
             gain *= economy.GetClickBonusMultiplier();
+            
+            // 클릭 효과음 재생
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayClickSFX();
+            }
         }
 
         economy.AddGold(gain);
@@ -276,6 +282,12 @@ public class GirlMergeManager : MonoBehaviour
         b.enabled = false;
 
         yield return MergeAnimation(a, b, center);
+        
+        // 합성 효과음 재생
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayMergeSFX();
+        }
 
         // 풀 반환 전 다시 활성화(풀 재사용 안전)
         a.enabled = true;

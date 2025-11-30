@@ -24,7 +24,7 @@ public class InsufficientFundsPanel : MonoBehaviour
     public Image  watchAdIcon;
     public Sprite adReadySprite;
     public Sprite adNotReadySprite;
-    private const string DefaultGemRewardText = "광고 보상 보석 5개";
+    private static string DefaultGemRewardText => LocalizationManager.GetText("광고 보상 보석 5개", "Ad Reward: 5 Gems");
 
     // Keep a reference to the delegate used for the ad ready changed event so
     // we can properly unsubscribe on disable. Lambdas create new delegates
@@ -107,7 +107,7 @@ public class InsufficientFundsPanel : MonoBehaviour
         if (!CanShowPanel())
             return;
 
-        messageText?.SetText("골드가 부족합니다");
+        messageText?.SetText(LocalizationManager.GetText("골드가 부족합니다", "Not enough gold"));
 
         double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
         double reward = perSec * 60.0 * 10.0; // 10분치
@@ -236,7 +236,7 @@ public class InsufficientFundsPanel : MonoBehaviour
     public void ShowGeneric(string title, string msg)
     {
         if (!panelRoot) return;
-        string text = !string.IsNullOrEmpty(msg) ? msg : (title ?? "안내");
+        string text = !string.IsNullOrEmpty(msg) ? msg : (title ?? LocalizationManager.GetText("안내", "Notice"));
         messageText?.SetText(text);
         rewardText?.SetText(string.Empty);
         UpdateAdButtonVisual();
@@ -251,7 +251,7 @@ public class InsufficientFundsPanel : MonoBehaviour
         if (!CanShowPanel())
             return;
 
-        messageText?.SetText("보석이 부족합니다");
+        messageText?.SetText(LocalizationManager.GetText("보석이 부족합니다", "Not enough gems"));
         rewardText?.SetText(DefaultGemRewardText);
         UpdateAdButtonVisual();
         panelRoot.SetActive(true);

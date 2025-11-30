@@ -618,6 +618,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         MoveGirlToDiscoveryCenter(rect, out var originalParent, out var originalSiblingIndex);
 
         SetDiscoverySpotlight(true);
+        
+        // 새로운 단계 발견 효과음 재생
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayDiscoverySFX();
+        }
 
         girl.KillAllTweens();
         girl.StopAllCoroutines();

@@ -2,7 +2,7 @@
     "dataVersion": 2,
     "autoMergeOn": true,
     "autoSpawnOn": true,
-    "gold": 1806.1999999999766,
+    "gold": 10409.499999999982,
     "gems": 0,
     "adsRemoved": 0,
     "currentTierIndex": 0,
@@ -10,16 +10,13 @@
     "discoveredMask": 31,
     "girls": [
         {
-            "level": 1
-        },
-        {
-            "level": 2
-        },
-        {
             "level": 5
         },
         {
-            "level": 1
+            "level": 3
+        },
+        {
+            "level": 2
         }
     ],
     "maxLevelReached": 5,
@@ -92,5 +89,6 @@
     "prestigeShopIncomeLv": 0,
     "prestigeShopTwoStepLv": 0,
     "prestigeShopStartGoldLv": 0,
-    "savedAt": "2025-11-27 15:53:21"
+    "savedAt": "2025-12-01 06:49:33",
+    "languageCode": 1
 }

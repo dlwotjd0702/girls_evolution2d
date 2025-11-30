@@ -157,6 +157,8 @@ public class SaveManager : MonoBehaviour
             else
             {
                 Debug.Log("[SaveManager] 저장 파일이 없습니다. 새 게임 시작.");
+                // 세이브 파일이 없어도 LocalizationManager는 초기화해야 함
+                InitializeLocalizationManagerForNewGame();
                 return;
             }
 
@@ -292,5 +294,19 @@ public class SaveManager : MonoBehaviour
         seconds = pendingOfflineSeconds;
         pendingOfflineSeconds = 0.0;
         return true;
+    }
+    
+    /// <summary>
+    /// 새 게임 시작 시 LocalizationManager를 시스템 언어로 초기화합니다.
+    /// </summary>
+    void InitializeLocalizationManagerForNewGame()
+    {
+        var localizationManager = FindObjectOfType<LocalizationManager>(true);
+        if (localizationManager != null)
+        {
+            // 시스템 언어로 초기화
+            bool isKorean = Application.systemLanguage == SystemLanguage.Korean;
+            LocalizationManager.SetLanguage(isKorean);
+        }
     }
 }

@@ -8,7 +8,7 @@
 
 **Unity 기반 2D 방치형/진화형 합성 게임**
 
-[게임 개요](#-게임-개요) • [시스템 아키텍처](#-시스템-아키텍처) • [기술 스택](#-기술-스택) • [프로젝트 구조](#-프로젝트-구조)
+[핵심 아키텍처](#-핵심-아키텍처) • [핵심 시스템 코드](#-핵심-시스템-코드) • [성능 최적화](#-성능-최적화) • [설계 패턴](#-설계-패턴)
 
 </div>
 
@@ -16,15 +16,527 @@
 
 ## 📋 목차
 
-- [게임 개요](#-게임-개요)
-- [시스템 아키텍처](#-시스템-아키텍처)
-- [기술 스택](#-기술-스택)
-- [프로젝트 구조](#-프로젝트-구조)
-- [핵심 시스템 상세](#-핵심-시스템-상세)
-- [데이터 파이프라인](#-데이터-파이프라인)
+- [핵심 아키텍처](#-핵심-아키텍처)
+- [핵심 시스템 코드](#-핵심-시스템-코드)
 - [성능 최적화](#-성능-최적화)
 - [설계 패턴](#-설계-패턴)
+- [게임 개요](#-게임-개요)
+- [프로젝트 구조](#-프로젝트-구조)
+- [기술 스택](#-기술-스택)
+- [핵심 시스템 상세](#-핵심-시스템-상세)
+- [데이터 파이프라인](#-데이터-파이프라인)
 - [빌드 및 배포](#-빌드-및-배포)
+
+---
+
+## 🏗️ 핵심 아키텍처
+
+### 초기화 플로우
+
+```csharp
+// SaveManager (ExecutionOrder: -200)
+[DefaultExecutionOrder(-200)]
+public class SaveManager : MonoBehaviour
+{
+    public static SaveManager Instance { get; private set; }
+    
+    void Start() {
+        LoadGame(); // 세이브 데이터 복원
+    }
+}
+
+// GameSystem (ExecutionOrder: -100)
+[DefaultExecutionOrder(-100)]
+public class GameSystem : MonoBehaviour
+{
+    public static GameSystem Instance { get; private set; }
+    
+    private void Awake()
+    {
+        Instance = this;
+        // 의존성 주입: 매니저 간 참조 자동 연결
+        if (fieldManager != null) {
+            fieldManager.dataManager = girlDataManager;
+            fieldManager.spriteLoader = spriteLoader;
+            fieldManager.mergeManager = mergeManager;
+            fieldManager.economy = economy;
+        }
+    }
+    
+    private async void Start()
+    {
+        // 비동기 데이터 로딩
+        await girlDataManager.LoadAsync();        // CSV/TSV 로드
+        await spriteLoader.LoadAllGirlSpritesAsync(); // SD/LD 스프라이트 로드
+        
+        AssetsReady = true;
+        AssetsReadyEvent?.Invoke();
+    }
+}
+```
+
+### 게임 루프 구조
+
+```csharp
+// GirlFieldManager.Update() - 메인 게임 루프
+void Update()
+{
+    // 1. Idle 골드 계산 및 지급 (1초마다)
+    idleTimer += Time.deltaTime;
+    if (idleTimer >= idleTickSeconds)
+    {
+        double perSec = ComputeIdleGoldPerSec();
+        economy.AddGold(perSec * idleTickSeconds);
+        idleTimer = 0f;
+    }
+    
+    // 2. 자동 소환 타이머
+    autoSpawnTimer += Time.deltaTime;
+    if (autoSpawnTimer >= GetAutoSpawnInterval())
+    {
+        TryAutoSpawn();
+        autoSpawnTimer = 0f;
+    }
+    
+    // 3. 자동 합성 타이머
+    autoMergeTimer += Time.deltaTime;
+    if (autoMergeTimer >= GetAutoMergeInterval())
+    {
+        mergeManager?.TryAutoMerge();
+        autoMergeTimer = 0f;
+    }
+    
+    // 4. 수동 소환 차지
+    UpdateSpawnCharge();
+}
+```
+
+### 골드 수익 계산
+
+```csharp
+// EconomyManager: 레벨별 기본 수익 계산
+public double GetLevelIncomePerSec(int level)
+{
+    if (level <= 0) return 0;
+    return INCOME_BASE_PER_SEC * Math.Pow(2, level - 1);
+}
+
+// GirlFieldManager: 전체 필드 수익 계산
+double ComputeIdleGoldPerSec()
+{
+    double total = 0.0;
+    foreach (var girl in girlList)
+    {
+        if (!girl || !girl.gameObject.activeSelf) continue;
+        total += girl.GetIncome();
+    }
+    
+    // 계승 등급 배수 × 환생 상점 배수 적용 (리플렉션 기반)
+    double legacyMul = GetLegacyIncomeMultiplierSafe();
+    double shopMul = GetShopIncomeMultiplierSafe();
+    total *= legacyMul * shopMul;
+    
+    return total;
+}
+```
+
+### 합성 시스템
+
+```csharp
+// GirlMergeManager: 자동 합성 알고리즘
+public void TryAutoMerge()
+{
+    if (_mergeBusy || fieldManager == null) return;
+    
+    var list = fieldManager.girlList;
+    int n = list.Count;
+    if (n <= 1) return;
+    
+    int currentMaxLevel = fieldManager.CurrentMaxLevel;
+    const int HARD_PAIR_SCAN_LIMIT = 80;
+    
+    float bestDistSqr = float.MaxValue;
+    GirlCharacter first = null, second = null;
+    
+    for (int i = 0; i < n; i++)
+    {
+        var gi = list[i];
+        if (!gi || _mergingSet.Contains(gi) || gi.IsFinal) continue;
+        if (gi.Level >= currentMaxLevel && currentMaxLevel > 0) continue; // 최대 레벨 보호
+        
+        var ri = gi.transform as RectTransform;
+        int level = gi.Level;
+        
+        for (int j = i + 1; j < n; j++)
+        {
+            var gj = list[j];
+            if (!gj || gj.Level != level) continue;
+            
+            var rj = gj.transform as RectTransform;
+            Vector3 delta = ri.localPosition - rj.localPosition;
+            float distSqr = delta.sqrMagnitude; // Vector2.Distance 대신 sqrMagnitude
+            
+            if (distSqr < bestDistSqr)
+            {
+                bestDistSqr = distSqr;
+                first = gi;
+                second = gj;
+                
+                // N > 80일 때 조기 종료로 O(N²) 스파이크 방지
+                if (n > HARD_PAIR_SCAN_LIMIT)
+                {
+                    StartCoroutine(MergeRoutine(first, second));
+                    return;
+                }
+            }
+        }
+    }
+    
+    if (first != null && second != null)
+        StartCoroutine(MergeRoutine(first, second));
+}
+```
+
+---
+
+## 💻 핵심 시스템 코드
+
+### 1. 저장 시스템 (ISaveable 패턴)
+
+```csharp
+// 인터페이스 정의
+public interface ISaveable
+{
+    void ApplyLoadedData(SaveData data);
+    void CollectSaveData(SaveData data);
+}
+
+// SaveManager: 모든 ISaveable 구현체 자동 수집
+public void SaveGame()
+{
+    SaveData data = new SaveData();
+    data.SetSaveTime();
+    
+    // 모든 ISaveable 구현체 찾기 (비활성화된 오브젝트도 포함)
+    var saveables = FindObjectsOfType<MonoBehaviour>(true)
+        .OfType<ISaveable>().ToList();
+    
+    foreach (var s in saveables)
+    {
+        s.CollectSaveData(data);
+    }
+    
+    string saveJson = JsonUtility.ToJson(data, true);
+    File.WriteAllText(SaveFilePath, saveJson);
+    
+    // 백업 파일 자동 생성
+    if (File.Exists(SaveFilePath))
+        File.Copy(SaveFilePath, BackupFilePath, true);
+}
+
+// EconomyManager: ISaveable 구현 예시
+public class EconomyManager : MonoBehaviour, ISaveable
+{
+    public void CollectSaveData(SaveData data)
+    {
+        data.gold = gold;
+        data.upgradeLevels = upgradeLevels;
+    }
+    
+    public void ApplyLoadedData(SaveData data)
+    {
+        gold = data.gold;
+        upgradeLevels = data.upgradeLevels;
+    }
+}
+```
+
+### 2. 이벤트 기반 통신
+
+```csharp
+// EconomyManager: 값 변경 시에만 이벤트 발생
+public class EconomyManager : MonoBehaviour
+{
+    public event Action<double> OnGoldChanged;
+    public event Action OnUpgradeChanged;
+    
+    private double gold = 0;
+    
+    public void SetGold(double amount)
+    {
+        amount = Math.Max(0, amount);
+        if (Math.Abs(gold - amount) < 1e-9) return; // 중복 갱신 방지
+        gold = amount;
+        OnGoldChanged?.Invoke(gold);
+        RefreshGoldHUD();
+    }
+    
+    public void AddGold(double amount)
+    {
+        if (amount <= 0) return;
+        amount = Math.Ceiling(amount); // 소수점 올림
+        gold += amount;
+        OnGoldChanged?.Invoke(gold);
+        RefreshGoldHUD();
+    }
+}
+
+// UI에서 이벤트 구독
+void Start()
+{
+    economy.OnGoldChanged += UpdateGoldDisplay;
+    economy.OnUpgradeChanged += RefreshShopUI;
+}
+```
+
+### 3. 리플렉션 기반 안전 호출
+
+```csharp
+// 외부 매니저가 없어도 안전하게 동작
+static Type FindTypeByName(string name)
+{
+    foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+    {
+        var t = asm.GetType(name);
+        if (t != null) return t;
+    }
+    return null;
+}
+
+// 델리게이트 캐싱으로 성능 최적화
+static Func<float> _legacyTwoStepCached;
+
+static float GetLegacyTwoStepChanceSafe()
+{
+    EnsureLegacyCache();
+    if (_legacyInst != null && _miLegacyTwoStep != null)
+    {
+        // 한 번만 delegate를 만들어 캐시
+        if (_legacyTwoStepCached == null)
+        {
+            _legacyTwoStepCached = (Func<float>)Delegate.CreateDelegate(
+                typeof(Func<float>), _legacyInst, _miLegacyTwoStep, false);
+        }
+        return _legacyTwoStepCached?.Invoke() ?? 0f;
+    }
+    return 0f;
+}
+```
+
+### 4. 객체 풀링
+
+```csharp
+// SimpleUIPool: 범용 UI 객체 풀링
+public class SimpleUIPool : MonoBehaviour
+{
+    public static SimpleUIPool Instance { get; private set; }
+    
+    private Dictionary<GameObject, Queue<GameObject>> pools = new();
+    
+    public GameObject Get(GameObject prefab)
+    {
+        if (!pools.ContainsKey(prefab))
+            pools[prefab] = new Queue<GameObject>();
+        
+        var pool = pools[prefab];
+        GameObject obj = pool.Count > 0 
+            ? pool.Dequeue() 
+            : Instantiate(prefab);
+        
+        obj.SetActive(true);
+        return obj;
+    }
+    
+    public void Return(GameObject prefab, GameObject obj)
+    {
+        obj.SetActive(false);
+        pools[prefab].Enqueue(obj);
+    }
+}
+
+// GoldGainPopupPool: 골드 팝업 전용 풀링
+public class GoldGainPopupPool : MonoBehaviour
+{
+    private Queue<GoldGainPopup> pool = new();
+    
+    public GoldGainPopup Get()
+    {
+        GoldGainPopup popup = pool.Count > 0 
+            ? pool.Dequeue() 
+            : Instantiate(popupPrefab);
+        popup.gameObject.SetActive(true);
+        return popup;
+    }
+    
+    public void Return(GoldGainPopup popup)
+    {
+        popup.gameObject.SetActive(false);
+        pool.Enqueue(popup);
+    }
+}
+```
+
+### 5. 클릭 골드 계산
+
+```csharp
+// GirlMergeManager: 클릭 보너스 적용
+public void AddIncomeGold(GirlCharacter girl)
+{
+    if (girl == null || economy == null) return;
+    
+    double baseIncome = economy.GetLevelIncomePerSec(girl.Level);
+    int clickBonusLevel = economy.GetClickBonusUpgradeLevel();
+    
+    // 10% + 강화 레벨 × 1% (예: 10% → 11% → 12%...)
+    double clickPercent = 0.10 + (clickBonusLevel * 0.01);
+    double gain = baseIncome * clickPercent;
+    
+    gain = Math.Ceiling(gain); // 소수점 올림
+    economy.AddGold(gain);
+    
+    // 골드 팝업 표시
+    ShowGoldPopup(girl.transform.position, gain);
+}
+```
+
+---
+
+## ⚡ 성능 최적화
+
+### 1. 거리 계산 최적화
+
+```csharp
+// ❌ 비효율: Vector2.Distance (제곱근 계산)
+float dist = Vector2.Distance(pos1, pos2);
+
+// ✅ 효율: sqrMagnitude (제곱근 계산 없음)
+float distSqr = delta.sqrMagnitude;
+if (distSqr < bestDistSqr) { ... }
+```
+
+### 2. 코루틴 GC 최소화
+
+```csharp
+// ❌ 비효율: 매번 새 객체 생성
+yield return new WaitForSeconds(jumpDelay);
+
+// ✅ 효율: 재사용
+WaitForSeconds cachedDelay = null;
+cachedDelay ??= new WaitForSeconds(jumpDelay);
+yield return cachedDelay;
+```
+
+### 3. 리플렉션 최적화
+
+```csharp
+// ❌ 비효율: 매번 MethodInfo.Invoke
+var result = _miLegacyTwoStep.Invoke(_legacyInst, null);
+
+// ✅ 효율: 델리게이트 캐싱
+static Func<float> _legacyTwoStepCached;
+if (_legacyTwoStepCached == null)
+{
+    _legacyTwoStepCached = (Func<float>)Delegate.CreateDelegate(
+        typeof(Func<float>), _legacyInst, _miLegacyTwoStep);
+}
+return _legacyTwoStepCached();
+```
+
+### 4. 이벤트 기반 UI 갱신
+
+```csharp
+// 값이 변경될 때만 UI 갱신 (중복 갱신 방지)
+public void SetGold(double amount)
+{
+    if (Math.Abs(gold - amount) < 1e-9) return; // 변경 없으면 스킵
+    gold = amount;
+    OnGoldChanged?.Invoke(gold);
+    RefreshGoldHUD();
+}
+```
+
+### 5. 자동 합성 알고리즘 최적화
+
+```csharp
+// O(N²) 최적화: N > 80일 때 조기 종료
+const int HARD_PAIR_SCAN_LIMIT = 80;
+
+if (n > HARD_PAIR_SCAN_LIMIT)
+{
+    // 첫 번째 유효한 쌍 발견 시 즉시 종료
+    StartCoroutine(MergeRoutine(first, second));
+    return;
+}
+
+// 중복 합성 방지
+private readonly HashSet<GirlCharacter> _mergingSet = new();
+if (_mergingSet.Contains(gi)) continue;
+```
+
+---
+
+## 🎨 설계 패턴
+
+### 1. 싱글톤 패턴
+
+```csharp
+public class GameSystem : MonoBehaviour
+{
+    public static GameSystem Instance { get; private set; }
+    
+    private void Awake()
+    {
+        if (Instance && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+}
+```
+
+**사용처**: `GameSystem`, `SaveManager`, `PremiumCurrencyManager`, `SimpleUIPool`, `GoldGainPopupPool`
+
+### 2. 인터페이스 기반 확장성
+
+```csharp
+// ISaveable: 저장 시스템 확장 가능
+public interface ISaveable
+{
+    void ApplyLoadedData(SaveData data);
+    void CollectSaveData(SaveData data);
+}
+
+// 새로운 저장 가능한 객체를 쉽게 추가
+public class NewManager : MonoBehaviour, ISaveable
+{
+    public void CollectSaveData(SaveData data) { /* ... */ }
+    public void ApplyLoadedData(SaveData data) { /* ... */ }
+}
+```
+
+### 3. 이벤트 기반 통신
+
+```csharp
+// 느슨한 결합: UI와 게임 로직 분리
+public event Action<double> OnGoldChanged;
+public event Action OnUpgradeChanged;
+
+// 구독자에서 구독
+economy.OnGoldChanged += UpdateGoldDisplay;
+economy.OnUpgradeChanged += RefreshShopUI;
+```
+
+### 4. 의존성 주입
+
+```csharp
+// GameSystem.Awake()에서 자동 연결
+if (fieldManager.dataManager == null) 
+    fieldManager.dataManager = girlDataManager;
+if (fieldManager.economy == null) 
+    fieldManager.economy = economy;
+```
 
 ---
 
@@ -45,60 +557,6 @@
 3. **업그레이드**: 수동 소환 최대치, 쿨타임, 필드 최대 칸수, 클릭 보너스(10% + 레벨×1%) 등
 4. **프레스티지 상점**: 환생 포인트로 수익 배수, +2단 확률, 시작 자금 등 구매 가능
 5. **프리미엄 통화**: 보석(Gem) 시스템으로 독립적인 업그레이드 경로 제공
-
----
-
-## 🏗️ 시스템 아키텍처
-
-### 초기화 플로우
-
-```
-SaveManager (ExecutionOrder: -200)
-  └─> GameSystem (ExecutionOrder: -100)
-      ├─> GirlDataManager.LoadAsync()        # CSV/TSV 데이터 로드
-      ├─> GirlSpriteAddressableLoader        # SD/LD 스프라이트 비동기 로드
-      └─> AssetsReadyEvent 브로드캐스트
-```
-
-### 게임 루프 구조
-
-```
-Update Loop:
-├─> GirlFieldManager.Update()
-│   ├─> ComputeIdleGoldPerSec()              # 1초마다 골드 지급
-│   ├─> TryAutoSpawn()                       # 자동 소환 타이머
-│   ├─> TryAutoMerge()                       # 자동 합성 타이머
-│   └─> UpdateSpawnCharge()                  # 수동 소환 차지
-│
-├─> EconomyManager
-│   └─> OnGoldChanged / OnUpgradeChanged 이벤트
-│
-└─> SaveManager
-    └─> 60초마다 자동 저장
-```
-
-### 골드 수익 계산 흐름
-
-```
-GirlFieldManager.ComputeIdleGoldPerSec()
-  └─> 각 GirlCharacter.GetIncome()
-      └─> EconomyManager.GetLevelIncomePerSec(level)
-          └─> baseIncome * Math.Pow(2, level - 1)
-      └─> 계승 등급 배수 × 환생 상점 배수 적용
-  └─> 1초마다 EconomyManager.AddGold() 호출
-```
-
-### 합성 시스템 흐름
-
-```
-사용자 드래그 또는 자동 합성
-  └─> GirlMergeManager.TryMerge()
-      ├─> 레벨 검증
-      ├─> +2단 도약 확률 계산 (LegacyRankManager/PrestigeShopManager)
-      ├─> 합성 애니메이션 (DOTween Sequence)
-      ├─> 새 캐릭터 생성
-      └─> 발견 이펙트 (LD → SD 전환)
-```
 
 ---
 
@@ -316,115 +774,6 @@ public class GirlData {
     public int initialDirection;  // 1=왼쪽, -1=오른쪽
 }
 ```
-
----
-
-## ⚡ 성능 최적화
-
-### 1. 객체 풀링
-
-- **SimpleUIPool**: 범용 UI 객체 풀링
-- **GoldGainPopupPool**: 골드 팝업 전용 풀링
-- **EncyclopediaPanelController**: 슬롯 재사용으로 인스턴스화 최소화
-
-### 2. 거리 계산 최적화
-
-```csharp
-// Vector2.Distance 대신 sqrMagnitude 사용
-float distSqr = delta.sqrMagnitude;
-if (distSqr < bestDistSqr) { ... }
-```
-
-### 3. 코루틴 GC 최소화
-
-```csharp
-// WaitForSeconds 재사용
-WaitForSeconds cachedDelay = null;
-cachedDelay ??= new WaitForSeconds(jumpDelay);
-```
-
-### 4. 리플렉션 최적화
-
-```csharp
-// MethodInfo.Invoke 대신 Func<float> 델리게이트 캐싱
-private Func<float> _getLegacyTwoStepChance;
-_getLegacyTwoStepChance = (Func<float>)Delegate.CreateDelegate(
-    typeof(Func<float>), _legacyRankManager, _miGetTwoStepChance);
-```
-
-### 5. 이벤트 기반 UI 갱신
-
-```csharp
-// 값이 변경될 때만 UI 갱신
-if (Math.Abs(gold - amount) < 1e-9) return;
-gold = amount;
-OnGoldChanged?.Invoke(gold);
-RefreshGoldHUD();
-```
-
-### 6. 자동 합성 최적화
-
-- N > 80일 때 조기 종료로 O(N²) 스파이크 방지
-- `_mergingSet`으로 중복 합성 방지
-- `IsFinal` 체크로 최종 레벨 제외
-
----
-
-## 🎨 설계 패턴
-
-### 1. 싱글톤 패턴
-
-```csharp
-public class GameSystem : MonoBehaviour {
-    public static GameSystem Instance { get; private set; }
-    // ...
-}
-```
-
-**사용처**: `GameSystem`, `SaveManager`, `PremiumCurrencyManager`, `SimpleUIPool`, `GoldGainPopupPool`
-
-### 2. 인터페이스 기반 확장성
-
-```csharp
-public interface ISaveable {
-    void ApplyLoadedData(SaveData data);
-    void CollectSaveData(SaveData data);
-}
-```
-
-**장점**: 새로운 저장 가능한 객체를 쉽게 추가 가능
-
-### 3. 이벤트 기반 통신
-
-```csharp
-public event Action<double> OnGoldChanged;
-public event Action OnUpgradeChanged;
-```
-
-**장점**: UI와 게임 로직 간 느슨한 결합 유지
-
-### 4. 리플렉션 기반 안전 호출
-
-```csharp
-// 외부 매니저가 없어도 안전하게 동작
-var t = FindTypeByName("PrestigeShopManager");
-if (t != null) {
-    var method = t.GetMethod("GetClickBonusMul");
-    // ...
-}
-```
-
-**장점**: 컴파일 타임 의존성 없이 선택적 기능 활성화
-
-### 5. 의존성 주입
-
-```csharp
-// GameSystem.Awake()에서 자동 연결
-if (fieldManager.dataManager == null) 
-    fieldManager.dataManager = girlDataManager;
-```
-
-**장점**: 매니저 간 의존성을 명확하게 관리
 
 ---
 

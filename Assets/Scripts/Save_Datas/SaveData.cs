@@ -55,6 +55,10 @@ public class SaveData
     // 메타
     public string savedAt;
     public void SetSaveTime(){ savedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); }
+    
+    // 언어 설정 (0=시스템 언어 미설정, 1=한국어, 2=영어)
+    // 0이면 최초 실행으로 간주하여 시스템 언어 사용
+    public int languageCode = 0;
 }
 
 [Serializable]

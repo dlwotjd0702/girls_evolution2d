@@ -21,7 +21,7 @@ public class GemStorePanelController : MonoBehaviour
 
         [Header("Optional Title Override")]
         public bool   useTitleOverride;   // true면 customTitle 사용
-        public string customTitle = "광고 제거";
+        public string customTitle = "광고 제거"; // This will be localized when used
         
         [Header("Ad Entry")]
         public bool isAdEntry = false;    // true면 광고 시청 Entry
@@ -86,7 +86,7 @@ public class GemStorePanelController : MonoBehaviour
             if (e.isAdEntry)
                 e.titleText.text = $"+{adGemReward:N0} Gems";
             else if (e.useTitleOverride || isRemoveAds)
-                e.titleText.text = string.IsNullOrWhiteSpace(e.customTitle) ? "광고 제거" : e.customTitle;
+                e.titleText.text = string.IsNullOrWhiteSpace(e.customTitle) ? LocalizationManager.GetText("광고 제거", "Remove Ads") : e.customTitle;
             else
                 e.titleText.text = $"{e.grantGems:N0} Gems";
         }
@@ -95,7 +95,7 @@ public class GemStorePanelController : MonoBehaviour
         if (e.priceText)
         {
             if (e.isAdEntry)
-                e.priceText.text = "광고 시청";
+                e.priceText.text = LocalizationManager.GetText("광고 시청", "Watch Ad");
             else
                 e.priceText.text = premium.GetLocalizedPrice(e.productId); // 콘솔 가격 자동 반영
         }
@@ -146,7 +146,10 @@ public class GemStorePanelController : MonoBehaviour
     {
         if (insufficientPanel != null)
         {
-            insufficientPanel.ShowGeneric("구매 실패", "보석 구매에 실패했습니다. 다시 시도해주세요.");
+            insufficientPanel.ShowGeneric(
+                LocalizationManager.GetText("구매 실패", "Purchase Failed"),
+                LocalizationManager.GetText("보석 구매에 실패했습니다. 다시 시도해주세요.", "Failed to purchase gems. Please try again.")
+            );
         }
     }
 
@@ -205,7 +208,10 @@ public class GemStorePanelController : MonoBehaviour
         {
             if (insufficientPanel != null)
             {
-                insufficientPanel.ShowGeneric("광고 미지원", "광고 서비스가 준비되지 않았습니다.");
+                insufficientPanel.ShowGeneric(
+                    LocalizationManager.GetText("광고 미지원", "Ad Not Supported"),
+                    LocalizationManager.GetText("광고 서비스가 준비되지 않았습니다.", "Ad service is not ready.")
+                );
             }
             return;
         }
@@ -214,7 +220,10 @@ public class GemStorePanelController : MonoBehaviour
         {
             if (insufficientPanel != null)
             {
-                insufficientPanel.ShowGeneric("광고 준비 중", "광고를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+                insufficientPanel.ShowGeneric(
+                    LocalizationManager.GetText("광고 준비 중", "Loading Ad"),
+                    LocalizationManager.GetText("광고를 불러오는 중입니다. 잠시 후 다시 시도해주세요.", "Loading ad. Please try again in a moment.")
+                );
             }
             adService.LoadRewarded();
             return;

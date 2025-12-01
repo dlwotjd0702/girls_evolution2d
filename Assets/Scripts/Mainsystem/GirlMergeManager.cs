@@ -28,10 +28,12 @@ public class GirlMergeManager : MonoBehaviour
     static bool _legacyCached = false;
     static object _legacyInst;
     static MethodInfo _miLegacyTwoStep; // float GetTwoStepMergeChance()
+    static Func<float> _legacyTwoStepCached;
 
     static bool _shopCached = false;
     static object _shopInst;
     static MethodInfo _miShopTwoStep;   // float GetTwoStepChance()
+    static Func<float> _shopTwoStepCached;
 
     static Type FindTypeByName(string name)
     {
@@ -68,6 +70,7 @@ public class GirlMergeManager : MonoBehaviour
         _shopInst = pi?.GetValue(null, null);
         _miShopTwoStep = t.GetMethod("GetTwoStepChance", BindingFlags.Public | BindingFlags.Instance);
     }
+    // 리플렉션 → 캐시된 delegate를 통한 경량 호출
     static float GetLegacyTwoStepChanceSafe()
     {
         try
@@ -75,8 +78,12 @@ public class GirlMergeManager : MonoBehaviour
             EnsureLegacyCache();
             if (_legacyInst != null && _miLegacyTwoStep != null)
             {
-                var v = _miLegacyTwoStep.Invoke(_legacyInst, null);
-                return Convert.ToSingle(v);
+                // 한 번만 delegate를 만들어 캐시
+                if (_legacyTwoStepCached == null)
+                {
+                    _legacyTwoStepCached = (Func<float>)Delegate.CreateDelegate(typeof(Func<float>), _legacyInst, _miLegacyTwoStep, false);
+                }
+                return _legacyTwoStepCached != null ? _legacyTwoStepCached() : 0f;
             }
         }
         catch { }
@@ -89,8 +96,11 @@ public class GirlMergeManager : MonoBehaviour
             EnsureShopCache();
             if (_shopInst != null && _miShopTwoStep != null)
             {
-                var v = _miShopTwoStep.Invoke(_shopInst, null);
-                return Convert.ToSingle(v);
+                if (_shopTwoStepCached == null)
+                {
+                    _shopTwoStepCached = (Func<float>)Delegate.CreateDelegate(typeof(Func<float>), _shopInst, _miShopTwoStep, false);
+                }
+                return _shopTwoStepCached != null ? _shopTwoStepCached() : 0f;
             }
         }
         catch { }
@@ -108,22 +118,38 @@ public class GirlMergeManager : MonoBehaviour
 
     public void UpdateMergeHighlight(GirlCharacter dragging)
     {
-        GirlCharacter bestTarget = null;
-        float bestDist = 180f;
+        if (dragging == null || fieldManager == null) return;
 
-        foreach (var g in fieldManager.girlList)
+        // 드래그 중인 위치/레벨만 미리 캐싱
+        var draggingRt = dragging.transform as RectTransform;
+        if (draggingRt == null) return;
+
+        Vector3 dragPos = draggingRt.localPosition;
+        int dragLevel = dragging.Level;
+
+        GirlCharacter bestTarget = null;
+        float bestDistSqr = 180f * 180f; // 최대 탐색 반경 제곱
+
+        var list = fieldManager.girlList;
+        int count = list.Count;
+
+        for (int i = 0; i < count; i++)
         {
+            var g = list[i];
             if (!g || g == dragging) continue;
-            if (g.Level != dragging.Level) continue;
-            float dist = Vector2.Distance(
-                ((RectTransform)g.transform).localPosition,
-                ((RectTransform)dragging.transform).localPosition
-            );
-            if (dist < bestDist)
-            {
-                bestDist = dist;
-                bestTarget = g;
-            }
+            if (g.Level != dragLevel) continue; // 같은 레벨만 대상
+
+            var rt = g.transform as RectTransform;
+            if (rt == null) continue;
+
+            Vector3 delta = rt.localPosition - dragPos;
+            float distSqr = delta.sqrMagnitude;
+
+            // 일정 거리 밖은 early-out (제곱 거리 기준)
+            if (distSqr >= bestDistSqr) continue;
+
+            bestDistSqr = distSqr;
+            bestTarget = g;
         }
 
         if (highlightedTarget && highlightedTarget != bestTarget)
@@ -149,8 +175,20 @@ public class GirlMergeManager : MonoBehaviour
 
         if (isClick)
         {
-            gain *= 0.1; // 클릭 기반: 생산 골드의 10%
-            gain *= economy.GetClickBonusMultiplier();
+            // 클릭 기반: 초당 수익의 (10% + 강화 레벨 × 1%)
+            // 0강화 = 10%, 1강화 = 11%, 2강화 = 12% ...
+            int clickBonusLevel = economy.GetClickBonusUpgradeLevel();
+            double clickPercent = 0.10 + (clickBonusLevel * 0.01);
+            gain *= clickPercent;
+            
+            // 소수점 아래 자리는 올림 처리
+            gain = Math.Ceiling(gain);
+            
+            // 클릭 효과음 재생
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayClickSFX();
+            }
         }
 
         economy.AddGold(gain);
@@ -159,38 +197,60 @@ public class GirlMergeManager : MonoBehaviour
 
     public void TryAutoMerge()
     {
-        if (_mergeBusy) return;
+        if (_mergeBusy || fieldManager == null) return;
 
         var list = fieldManager.girlList;
         int n = list.Count;
+        if (n <= 1) return;
 
-        float bestDist = float.MaxValue;
+        // 현재 필드에서 발견된 최대 레벨은 자동 합성 대상에서 제외
+        int currentMaxLevel = fieldManager.CurrentMaxLevel;
+
+        // N이 너무 크면 완전 탐색(O(N²)) 대신 "처음 찾은 페어"만 사용해 조기 종료
+        const int HARD_PAIR_SCAN_LIMIT = 80;
+
+        float bestDistSqr = float.MaxValue;
         GirlCharacter first = null, second = null;
 
         for (int i = 0; i < n; i++)
         {
             var gi = list[i];
-            if (!gi || _mergingSet.Contains(gi)) continue;
+            if (!gi || _mergingSet.Contains(gi) || gi.IsFinal) continue;
+
+            // 현재 발견 최대 레벨 이상은 자동 합성 금지 (직접 합성만 허용)
+            if (gi.Level >= currentMaxLevel && currentMaxLevel > 0) continue;
+
+            var ri = gi.transform as RectTransform;
+            if (ri == null) continue;
+
+            int level = gi.Level;
 
             for (int j = i + 1; j < n; j++)
             {
                 var gj = list[j];
-                if (!gj || _mergingSet.Contains(gj)) continue;
+                if (!gj || _mergingSet.Contains(gj) || gj.IsFinal) continue;
+                if (gj.Level != level) continue;
+                if (gj.Level >= currentMaxLevel && currentMaxLevel > 0) continue;
 
-                if (gi.Level != gj.Level) continue;
+                var rj = gj.transform as RectTransform;
+                if (rj == null) continue;
 
-                // 25 이상은 자동합성 대상 아님(이미 최종)
-                if (gi.IsFinal || gj.IsFinal) continue;
+                Vector3 delta = ri.localPosition - rj.localPosition;
+                float distSqr = delta.sqrMagnitude;
 
-                float dist = Vector2.Distance(
-                    ((RectTransform)gi.transform).localPosition,
-                    ((RectTransform)gj.transform).localPosition
-                );
-                if (dist < bestDist)
+                if (distSqr < bestDistSqr)
                 {
-                    bestDist = dist;
+                    bestDistSqr = distSqr;
                     first = gi;
                     second = gj;
+
+                    // 캐릭터 수가 많은 경우에는 "가장 가까운 페어"를 찾지 않고
+                    // 첫 번째로 발견한 유효 페어에서 바로 종료해 스파이크 방지
+                    if (n > HARD_PAIR_SCAN_LIMIT)
+                    {
+                        StartCoroutine(MergeRoutine(first, second));
+                        return;
+                    }
                 }
             }
         }
@@ -228,6 +288,12 @@ public class GirlMergeManager : MonoBehaviour
         b.enabled = false;
 
         yield return MergeAnimation(a, b, center);
+        
+        // 합성 효과음 재생
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayMergeSFX();
+        }
 
         // 풀 반환 전 다시 활성화(풀 재사용 안전)
         a.enabled = true;

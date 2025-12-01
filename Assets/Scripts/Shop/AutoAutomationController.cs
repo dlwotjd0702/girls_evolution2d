@@ -47,7 +47,15 @@ public class AutoAutomationController : MonoBehaviour
     public TextMeshProUGUI reasonLabel;
     public float reasonShowSeconds = 1.15f;
     Coroutine _reasonRoutine;
-    private const string GemAdHint = "광고 시청 보상으로 보석 5개를 받을 수 있어요!";
+    private static string GemAdHint => LocalizationManager.GetText("광고 시청 보상으로 보석 5개를 받을 수 있어요!", "Watch ads to get 5 gems as a reward!");
+
+    [Header("Gem Cost Curve (independent from gold)")]
+    [Tooltip("자동 합성 보석 업그레이드 기본값")]
+    [SerializeField] private int   autoMergeGemBase  = 20;
+    [SerializeField] private float autoMergeGemGrow  = 1.35f;
+    [Tooltip("자동 소환 보석 업그레이드 기본값")]
+    [SerializeField] private int   autoSpawnGemBase  = 25;
+    [SerializeField] private float autoSpawnGemGrow  = 1.35f;
 
     void Awake()
     {
@@ -94,13 +102,14 @@ public class AutoAutomationController : MonoBehaviour
                                               : economy.IsAutoSpawnOn();
 
         // ── 표시 값(현재 간격 + 환생 영구 단축 %) ──
-        string title = (type==AutoType.AutoMerge) ? "자동 합성" : "자동 소환";
+        string title = (type==AutoType.AutoMerge) ? LocalizationManager.GetText("자동 합성", "Auto Merge") : LocalizationManager.GetText("자동 소환", "Auto Spawn");
         string value;
-        if (lv <= 0) value = "잠김";
+        if (lv <= 0) value = LocalizationManager.GetText("잠김", "Locked");
         else
         {
-            float iv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeInterval()
-                                                  : economy.GetAutoSpawnInterval();
+            // UI에는 토글 상태와 상관없이 "현재 업그레이드/환생 기준 이론상 간격"을 보여준다.
+            float iv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeIntervalForDisplay()
+                                                  : economy.GetAutoSpawnIntervalForDisplay();
             value = (iv >= float.MaxValue*0.5f) ? "-" : $"{iv:0.0}s";
         }
 
@@ -121,8 +130,8 @@ public class AutoAutomationController : MonoBehaviour
             }
             else if (purchaseCurrency == PurchaseCurrency.Gem)
             {
-                // 보석 비용 계산 (골드 비용 * 변환율)
-                long gemCost = (long)Math.Max(1, Math.Ceiling(nextCost * 0.01)); // 기본 변환율 0.01
+                // 보석 비용: 골드와 독립적인 완만한 곡선 사용 (항상 정수)
+                long gemCost = GetGemCostForAuto(type);
                 costText.text = $"{gemCost:N0} gems";
             }
             else
@@ -148,13 +157,13 @@ public class AutoAutomationController : MonoBehaviour
 
     void OnClickBuyOrUpgrade()
     {
-        if (!economy) { ShowReason("시스템 미준비"); return; }
+        if (!economy) { ShowReason(LocalizationManager.GetText("시스템 미준비", "System not ready")); return; }
 
         int lv  = (type==AutoType.AutoMerge) ? economy.GetAutoMergeUpgradeLevel()
                                              : economy.GetAutoSpawnUpgradeLevel();
         int cap = (type==AutoType.AutoMerge) ? economy.GetAutoMergeCap()
                                              : economy.GetAutoSpawnCap();
-        if (lv >= cap) { ShowReason("최대 레벨입니다."); return; }
+        if (lv >= cap) { ShowReason(LocalizationManager.GetText("최대 레벨입니다.", "Max level reached")); return; }
 
         double needGold = (type==AutoType.AutoMerge) ? economy.GetAutoMergeNextCost()
                                                      : economy.GetAutoSpawnNextCost();
@@ -171,8 +180,8 @@ public class AutoAutomationController : MonoBehaviour
                 if (insufficientPanel) insufficientPanel.ShowForGoldShortage(needGold, economy.GetGold());
                 else
                 {
-                    if (economy.GetGold() < needGold) ShowReason("골드가 부족합니다.");
-                    else ShowReason("구매가 불가합니다.");
+                    if (economy.GetGold() < needGold) ShowReason(LocalizationManager.GetText("골드가 부족합니다.", "Not enough gold."));
+                    else ShowReason(LocalizationManager.GetText("구매가 불가합니다.", "Cannot purchase."));
                 }
                 return;
             }
@@ -181,12 +190,12 @@ public class AutoAutomationController : MonoBehaviour
         {
             if (premiumCurrency == null)
             {
-                ShowReason("보석 시스템 미준비");
+                ShowReason(LocalizationManager.GetText("보석 시스템 미준비", "Gem system not ready"));
                 return;
             }
 
-            // 보석 비용 계산
-            long gemCost = (long)Math.Max(1, Math.Ceiling(needGold * 0.01)); // 기본 변환율 0.01
+            // 보석 비용: 골드와 독립적인 완만한 곡선 사용 (항상 정수)
+            long gemCost = GetGemCostForAuto(type);
 
             // 보석 차감 시도
             if (!premiumCurrency.TrySpendGems(gemCost))
@@ -210,7 +219,7 @@ public class AutoAutomationController : MonoBehaviour
             {
                 // 최대 레벨 도달 시 보석 환불
                 premiumCurrency.AddGems(gemCost);
-                ShowReason("최대 레벨입니다.");
+                ShowReason(LocalizationManager.GetText("최대 레벨입니다.", "Max level reached."));
                 return;
             }
 
@@ -222,7 +231,7 @@ public class AutoAutomationController : MonoBehaviour
             {
                 // 구매 실패 시 보석 환불
                 premiumCurrency.AddGems(gemCost);
-                ShowReason("구매가 불가합니다.");
+                ShowReason(LocalizationManager.GetText("구매가 불가합니다.", "Cannot purchase."));
                 return;
             }
         }
@@ -233,11 +242,11 @@ public class AutoAutomationController : MonoBehaviour
 
     void OnClickToggle()
     {
-        if (!economy) { ShowReason("시스템 미준비"); return; }
+        if (!economy) { ShowReason(LocalizationManager.GetText("시스템 미준비", "System not ready")); return; }
 
         int lv = (type==AutoType.AutoMerge) ? economy.GetAutoMergeUpgradeLevel()
                                             : economy.GetAutoSpawnUpgradeLevel();
-        if (lv <= 0) { ShowReason("먼저 구매로 언락하세요."); return; }
+        if (lv <= 0) { ShowReason(LocalizationManager.GetText("먼저 구매로 언락하세요.", "Please unlock by purchasing first.")); return; }
 
         bool on = (type==AutoType.AutoMerge) ? economy.IsAutoMergeOn()
                                              : economy.IsAutoSpawnOn();
@@ -270,6 +279,24 @@ public class AutoAutomationController : MonoBehaviour
             _miGetAutoSpawnMul = t.GetMethod("GetAutoSpawnIntervalMul", BindingFlags.Public | BindingFlags.Instance);
         }
         catch { }
+    }
+
+    long GetGemCostForAuto(AutoType t)
+    {
+        if (economy == null) return 0;
+
+        int lv = (t == AutoType.AutoMerge)
+            ? economy.GetAutoMergeUpgradeLevel()
+            : economy.GetAutoSpawnUpgradeLevel();
+
+        lv = Mathf.Max(0, lv);
+
+        double baseCost = (t == AutoType.AutoMerge) ? autoMergeGemBase : autoSpawnGemBase;
+        double grow     = (t == AutoType.AutoMerge) ? autoMergeGemGrow : autoSpawnGemGrow;
+
+        double raw = baseCost * Math.Pow(grow, lv);
+        long gems  = (long)Math.Max(1, Math.Round(raw));
+        return gems;
     }
 
     string GetPrestigeAutoReducePercentText()
@@ -312,7 +339,7 @@ public class AutoAutomationController : MonoBehaviour
         if (insufficientPanel && !string.IsNullOrEmpty(msg))
         {
             // 골드/보석 부족 상황이 아니면 범용 메시지로
-            insufficientPanel.ShowGeneric("안내", msg);
+            insufficientPanel.ShowGeneric(LocalizationManager.GetText("안내", "Notice"), msg);
             return;
         }
         if (!reasonLabel) return;

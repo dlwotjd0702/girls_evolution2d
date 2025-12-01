@@ -107,11 +107,17 @@ public class OfflineRewardPanel : MonoBehaviour
             string timeStr = FormatDuration(payload.rawSeconds);
             if (payload.appliedSeconds + 0.5 < payload.rawSeconds)
             {
-                durationText.SetText($"오프라인: {timeStr}\n(최대 {FormatDuration(payload.appliedSeconds)}만 적용)");
+                durationText.SetText(LocalizationManager.GetText(
+                    $"오프라인: {timeStr}\n(최대 {FormatDuration(payload.appliedSeconds)}만 적용)",
+                    $"Offline: {timeStr}\n(Max {FormatDuration(payload.appliedSeconds)} applied)"
+                ));
             }
             else
             {
-                durationText.SetText($"오프라인: {timeStr}");
+                durationText.SetText(LocalizationManager.GetText(
+                    $"오프라인: {timeStr}",
+                    $"Offline: {timeStr}"
+                ));
             }
         }
 
@@ -124,10 +130,19 @@ public class OfflineRewardPanel : MonoBehaviour
     {
         var span = TimeSpan.FromSeconds(Math.Max(0, seconds));
         if (span.TotalHours >= 1.0)
-            return $"{(int)span.TotalHours}시간 {span.Minutes}분";
+            return LocalizationManager.GetText(
+                $"{(int)span.TotalHours}시간 {span.Minutes}분",
+                $"{(int)span.TotalHours}h {span.Minutes}m"
+            );
         if (span.TotalMinutes >= 1.0)
-            return $"{(int)span.TotalMinutes}분 {span.Seconds}초";
-        return $"{Mathf.Max(1, (int)Math.Round((float)span.TotalSeconds))}초";
+            return LocalizationManager.GetText(
+                $"{(int)span.TotalMinutes}분 {span.Seconds}초",
+                $"{(int)span.TotalMinutes}m {span.Seconds}s"
+            );
+        return LocalizationManager.GetText(
+            $"{Mathf.Max(1, (int)Math.Round((float)span.TotalSeconds))}초",
+            $"{Mathf.Max(1, (int)Math.Round((float)span.TotalSeconds))}s"
+        );
     }
 
     void UpdateAdButtonVisual()

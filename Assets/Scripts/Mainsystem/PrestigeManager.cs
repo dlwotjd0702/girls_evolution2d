@@ -246,6 +246,13 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     {
         if (!girlFieldManager || !economy) return;
         if (!HasAnyFinalGirl()) return;
+        
+        // 환생 효과음 재생
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayPrestigeSFX();
+        }
+        
         economy.ResetGoldUpgradesForPrestige();
         // 1) 포인트 적용
         int baseGain = PreviewPrestigeGain();

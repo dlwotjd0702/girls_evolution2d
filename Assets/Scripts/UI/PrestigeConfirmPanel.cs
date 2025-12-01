@@ -120,29 +120,47 @@ public class PrestigeConfirmPanel : MonoBehaviour
         
         if (level25Stacks > 0)
         {
-            breakdowns.Add($"25단계 {level25Stacks}레벨 - 100*{level25Stacks} point");
+            breakdowns.Add(LocalizationManager.GetText(
+                $"25단계 {level25Stacks}레벨 - 100*{level25Stacks} point",
+                $"Level 25 x{level25Stacks} - 100*{level25Stacks} point"
+            ));
         }
         
         if (lowerLevelPoints > 0)
         {
-            breakdowns.Add($"하위단계(합산) - {lowerLevelPoints:N0} point");
+            breakdowns.Add(LocalizationManager.GetText(
+                $"하위단계(합산) - {lowerLevelPoints:N0} point",
+                $"Lower Tiers (Sum) - {lowerLevelPoints:N0} point"
+            ));
         }
         
         if (upgradePoints > 0)
         {
-            breakdowns.Add($"강화수치 - {upgradePoints:N0} point");
+            breakdowns.Add(LocalizationManager.GetText(
+                $"강화수치 - {upgradePoints:N0} point",
+                $"Upgrade Points - {upgradePoints:N0} point"
+            ));
         }
         
         int totalBasePoints = level25Stacks * 100 + lowerLevelPoints + upgradePoints;
         if (totalBasePoints > 0)
         {
             breakdowns.Add("------------------------");
-            breakdowns.Add($"합산 = {totalBasePoints:N0} point");
+            breakdowns.Add(LocalizationManager.GetText(
+                $"합산 = {totalBasePoints:N0} point",
+                $"Total = {totalBasePoints:N0} point"
+            ));
         }
         
-        breakdowns.Add($"환생 포인트 배율 x{gainMul:F2}");
+        breakdowns.Add(LocalizationManager.GetText(
+            $"환생 포인트 배율 x{gainMul:F2}",
+            $"Prestige Point Multiplier x{gainMul:F2}"
+        ));
         breakdowns.Add("------------------------");
-        breakdowns.Add($"최종 예상: {CalculatePrestigePoints():N0} point");
+        breakdowns.Add(LocalizationManager.GetText(
+            $"최종 예상: {CalculatePrestigePoints():N0} point",
+            $"Final Expected: {CalculatePrestigePoints():N0} point"
+        ));
         
         return breakdowns;
     }

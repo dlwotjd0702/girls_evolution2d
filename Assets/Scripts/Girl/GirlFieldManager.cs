@@ -95,7 +95,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     [Header("Gold Popup")]
     [SerializeField] private GoldGainPopupPool goldPopupPool;
-    [SerializeField] private Vector2 goldPopupOffset = new Vector2(0f, 120f);
+    [SerializeField] private Vector2 goldPopupOffset = new Vector2(0f, 0f); // 팝업은 하단에서 시작하므로 오프셋 0
 
     [Header("Offline Reward")]
     [SerializeField] private OfflineRewardPanel offlineRewardPanel;
@@ -618,6 +618,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         MoveGirlToDiscoveryCenter(rect, out var originalParent, out var originalSiblingIndex);
 
         SetDiscoverySpotlight(true);
+        
+        // 새로운 단계 발견 효과음 재생
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayDiscoverySFX();
+        }
 
         girl.KillAllTweens();
         girl.StopAllCoroutines();

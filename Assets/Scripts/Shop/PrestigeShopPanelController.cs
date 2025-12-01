@@ -88,23 +88,23 @@ public class PrestigeShopPanelController : MonoBehaviour
     // ───────────────────────── 클릭 ─────────────────────────
     void OnClickBuy(EntryUI e)
     {
-        if (prestige == null) { ShowReasonTemp("시스템 미준비"); return; }
+        if (prestige == null) { ShowReasonTemp(LocalizationManager.GetText("시스템 미준비", "System not ready")); return; }
 
         int lv  = GetLevel(e.type);
         int cap = e.levelCap;
-        if (cap >= 0 && lv >= cap) { ShowReasonTemp("최대 레벨입니다."); return; }
+        if (cap >= 0 && lv >= cap) { ShowReasonTemp(LocalizationManager.GetText("최대 레벨입니다.", "Max level reached")); return; }
 
         // TwoStep 확률 상한(50%p)
         if (e.type == ShopItemType.TwoStepChance && prestige.GetTwoStepChance() >= 0.5f - 1e-6f)
-        { ShowReasonTemp("최대치에 도달했습니다."); return; }
+        { ShowReasonTemp(LocalizationManager.GetText("최대치에 도달했습니다.", "Maximum value reached")); return; }
 
         int need = GetNextCost(e.type);
         int have = prestige.GetPrestigePoints();
-        if (need <= 0) { ShowReasonTemp("구매 불가"); return; }
-        if (have < need){ ShowReasonTemp("포인트가 부족합니다."); return; }
+        if (need <= 0) { ShowReasonTemp(LocalizationManager.GetText("구매 불가", "Cannot purchase")); return; }
+        if (have < need){ ShowReasonTemp(LocalizationManager.GetText("포인트가 부족합니다.", "Not enough points")); return; }
 
         bool ok = TryBuy(e.type);
-        if (!ok){ ShowReasonTemp("구매 실패"); return; }
+        if (!ok){ ShowReasonTemp(LocalizationManager.GetText("구매 실패", "Purchase failed")); return; }
 
         HideReasonImmediate();
         RefreshEntry(e);
@@ -144,19 +144,19 @@ public class PrestigeShopPanelController : MonoBehaviour
     // ───────────────────────── 표시 문자열 ─────────────────────────
     string ComposeName(ShopItemType t) => t switch
     {
-        ShopItemType.IncomeMultiplier      => "초당 수익 배수",
-        ShopItemType.TwoStepChance         => "합성 +2단 확률",
-        ShopItemType.StartGoldMultiplier   => "환생 시작 자금",
-        ShopItemType.PrestigePointGain     => "환생 포인트 획득",
-        ShopItemType.ManualSpawnMaxPlus    => "수동 소환 최대치",
-        ShopItemType.ManualSpawnSpeedPlus  => "수동 소환 쿨다운",
-        ShopItemType.AutoMergeSpeedPlus    => "자동 합성 주기",
-        ShopItemType.AutoSpawnSpeedPlus    => "자동 소환 주기",
-        ShopItemType.FieldMaxPlus          => "필드 슬롯",
-        ShopItemType.ClickBonusPlus        => "클릭 보너스(배수)",
-        ShopItemType.OfflineRewardPlus     => "오프라인 보상",
-        ShopItemType.OfflineMaxTimePlus    => "오프라인 상한",
-        _ => "업그레이드"
+        ShopItemType.IncomeMultiplier      => LocalizationManager.GetText("초당 수익 배수", "Income Multiplier"),
+        ShopItemType.TwoStepChance         => LocalizationManager.GetText("합성 +2단 확률", "Merge +2 Chance"),
+        ShopItemType.StartGoldMultiplier   => LocalizationManager.GetText("환생 시작 자금", "Prestige Start Gold"),
+        ShopItemType.PrestigePointGain     => LocalizationManager.GetText(" 환생 포인트 획득", "Prestige Point Gain"),
+        ShopItemType.ManualSpawnMaxPlus    => LocalizationManager.GetText("두루마리 최대치", "Scroll Max"),
+        ShopItemType.ManualSpawnSpeedPlus  => LocalizationManager.GetText("두루마리 쿨다운", "Scroll Cooldown"),
+        ShopItemType.AutoMergeSpeedPlus    => LocalizationManager.GetText("자동 합성 주기", "Auto Merge Interval"),
+        ShopItemType.AutoSpawnSpeedPlus    => LocalizationManager.GetText("자동 소환 주기", "Auto Spawn Interval"),
+        ShopItemType.FieldMaxPlus          => LocalizationManager.GetText("필드 슬롯", "Field Slots"),
+        ShopItemType.ClickBonusPlus        => LocalizationManager.GetText("클릭 보너스(배수)", "Click Bonus (Multiplier)"),
+        ShopItemType.OfflineRewardPlus     => LocalizationManager.GetText("오프라인 보상", "Offline Reward"),
+        ShopItemType.OfflineMaxTimePlus    => LocalizationManager.GetText("오프라인 상한", "Offline Max Time"),
+        _ => LocalizationManager.GetText("업그레이드", "Upgrade")
     };
 
     string ComposeValue(ShopItemType t)

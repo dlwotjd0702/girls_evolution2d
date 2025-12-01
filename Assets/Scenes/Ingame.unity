@@ -9303,8 +9303,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25, y: -60.000122}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -5.2384, y: -60.00013}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &581829230
 MonoBehaviour:
@@ -20490,10 +20490,10 @@ MonoBehaviour:
   bgmClip: {fileID: 8300000, guid: 7b24a567005a70847a6ea4037dd5a425, type: 3}
   playBGMOnStart: 1
   loopBGM: 1
-  clickSFX: {fileID: 0}
-  mergeSFX: {fileID: 0}
-  discoverySFX: {fileID: 0}
-  prestigeSFX: {fileID: 0}
+  clickSFX: {fileID: 8300000, guid: 8a1d2f568cdfffe4e8630ac1fe5d2cb5, type: 3}
+  mergeSFX: {fileID: 8300000, guid: b431feb53f9227d41b188061c26587d4, type: 3}
+  discoverySFX: {fileID: 8300000, guid: efdbc5398cb801a4bbf6a98545b51f3c, type: 3}
+  prestigeSFX: {fileID: 8300000, guid: 5b711595d9e885946a9e89be2a5248c7, type: 3}
   masterVolume: 1
 --- !u!4 &1161605424
 Transform:
@@ -21048,7 +21048,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7b24a567005a70847a6ea4037dd5a425, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -32900,8 +32900,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25, y: -0.00012207031}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -6, y: -0.00012207031}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1842328578
 MonoBehaviour:
@@ -35973,7 +35973,7 @@ MonoBehaviour:
   goldPerSecText: {fileID: 839886363}
   goldUnitSuffix: G
   showPlusOnPerSec: 1
-  hidePerSecWhenZero: 1
+  hidePerSecWhenZero: 0
 --- !u!1 &1974761968
 GameObject:
   m_ObjectHideFlags: 0

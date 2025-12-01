@@ -43,6 +43,8 @@ public class EconomyManager : MonoBehaviour, ISaveable
     public void AddGold(double amount)
     {
         if (amount <= 0) return;
+        // 소수점 아래 자리는 올림 처리
+        amount = Math.Ceiling(amount);
         gold += amount;
         OnGoldChanged?.Invoke(gold);
         RefreshGoldHUD();

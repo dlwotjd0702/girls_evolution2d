@@ -175,8 +175,14 @@ public class GirlMergeManager : MonoBehaviour
 
         if (isClick)
         {
-            gain *= 0.1; // 클릭 기반: 생산 골드의 10%
-            gain *= economy.GetClickBonusMultiplier();
+            // 클릭 기반: 초당 수익의 (10% + 강화 레벨 × 1%)
+            // 0강화 = 10%, 1강화 = 11%, 2강화 = 12% ...
+            int clickBonusLevel = economy.GetClickBonusUpgradeLevel();
+            double clickPercent = 0.10 + (clickBonusLevel * 0.01);
+            gain *= clickPercent;
+            
+            // 소수점 아래 자리는 올림 처리
+            gain = Math.Ceiling(gain);
             
             // 클릭 효과음 재생
             if (AudioManager.Instance != null)

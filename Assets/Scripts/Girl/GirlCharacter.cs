@@ -38,8 +38,8 @@ public class GirlCharacter : MonoBehaviour,
     private float jumpPower = 120f;
     private float moveDistance = 200f;
     private float jumpDuration = 0.38f;
-    private float jumpIntervalMin = 2.25f;
-    private float jumpIntervalMax = 4.5f;
+    private float jumpIntervalMin = 4.5f; // 2.25f * 2
+    private float jumpIntervalMax = 9.0f; // 4.5f * 2
     private float minX = -450f, maxX = 450f, minY = -670f, maxY = 670f;
 
     // 상태/플래그 (인스펙터에서 직접 관찰/디버그 가능하도록 SerializeField)
@@ -202,16 +202,27 @@ public class GirlCharacter : MonoBehaviour,
         
         Vector3 baseS = GetOrientedBaseScale();
         float grooveAmount = 0.03f; // 3% 미세한 변화
-        float grooveDuration = 2.5f + UnityEngine.Random.Range(-0.5f, 0.5f); // 랜덤 타이밍
+        
+        // 각 단계의 속도는 이전과 같게 유지 (2.5초 기준)
+        float step1Duration = 1.25f; // 2.5 * 0.5
+        float step2Duration = 1.25f; // 2.5 * 0.5
+        float step3Duration = 0.75f; // 2.5 * 0.3
+        
+        // 전체 그루브 시간을 더 길게 (루프 사이 대기 시간 추가)
+        float pauseBetweenLoops = 3.0f + UnityEngine.Random.Range(-0.5f, 0.5f); // 루프 사이 대기 시간
         
         // 미세한 스케일 변화와 약간의 회전
         Sequence groove = DOTween.Sequence();
         
-        // 스케일: 약간 커졌다 작아졌다
-        groove.Append(transform.DOScale(baseS * (1f + grooveAmount), grooveDuration * 0.5f).SetEase(Ease.InOutSine));
-        groove.Append(transform.DOScale(baseS * (1f - grooveAmount * 0.7f), grooveDuration * 0.5f).SetEase(Ease.InOutSine));
-        groove.Append(transform.DOScale(baseS, grooveDuration * 0.3f).SetEase(Ease.InOutSine));
+        // 스케일: 약간 커졌다 작아졌다 (속도는 이전과 동일)
+        groove.Append(transform.DOScale(baseS * (1f + grooveAmount), step1Duration).SetEase(Ease.InOutSine));
+        groove.Append(transform.DOScale(baseS * (1f - grooveAmount * 0.7f), step2Duration).SetEase(Ease.InOutSine));
+        groove.Append(transform.DOScale(baseS, step3Duration).SetEase(Ease.InOutSine));
         
+        // 루프 사이 대기 시간 추가 (전체 그루브 시간을 더 길게)
+        groove.AppendInterval(pauseBetweenLoops);
+        
+        // 무한 반복
         groove.SetLoops(-1, LoopType.Restart);
         groove.SetUpdate(true); // TimeScale 무시
         

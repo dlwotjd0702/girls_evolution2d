@@ -2,7 +2,7 @@
     "dataVersion": 2,
     "autoMergeOn": true,
     "autoSpawnOn": true,
-    "gold": 10482.499999999982,
+    "gold": 16205.630000000067,
     "gems": 0,
     "adsRemoved": 0,
     "currentTierIndex": 0,
@@ -17,6 +17,15 @@
         },
         {
             "level": 2
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 1
         }
     ],
     "maxLevelReached": 5,
@@ -89,6 +98,6 @@
     "prestigeShopIncomeLv": 0,
     "prestigeShopTwoStepLv": 0,
     "prestigeShopStartGoldLv": 0,
-    "savedAt": "2025-12-01 06:49:36",
+    "savedAt": "2025-12-01 09:47:32",
     "languageCode": 1
 }

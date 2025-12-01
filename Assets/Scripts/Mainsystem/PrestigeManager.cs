@@ -288,9 +288,10 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         { 
             if (tierManager != null)
             {
-                tierManager.SwitchTo(0);
-                // 티어 언락 초기화 (0층만 해금)
+                // 티어 언락 초기화 (0층만 해금) - 먼저 실행하여 0층이 확실히 해금된 상태로 만듦
                 tierManager.ResetTierUnlocks();
+                // 환생 직후 제일 낮은 계층(0층)으로 강제 이동
+                tierManager.ForceSwitchTo(0);
             }
         } catch {}
 

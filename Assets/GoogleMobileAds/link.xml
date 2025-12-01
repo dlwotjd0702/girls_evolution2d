@@ -15,4 +15,12 @@
     <namespace fullname="GoogleMobileAds" preserve="all" />
     <namespace fullname="GoogleMobileAds.Ump.iOS" preserve="all" />
   </assembly>
+  
+  <!-- Android WebView 및 JavaScript 엔진 관련 클래스 보존 -->
+  <assembly fullname="UnityEngine.AndroidJNIModule" ignoreIfMissing="1">
+    <namespace fullname="UnityEngine" preserve="all" />
+  </assembly>
+  <assembly fullname="mscorlib" ignoreIfMissing="1">
+    <type fullname="System.Reflection" preserve="all" />
+  </assembly>
 </linker>

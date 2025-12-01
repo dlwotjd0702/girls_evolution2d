@@ -1,19 +1,16 @@
 {
     "dataVersion": 2,
-    "autoMergeOn": true,
-    "autoSpawnOn": true,
-    "gold": 17214.99000000009,
+    "autoMergeOn": false,
+    "autoSpawnOn": false,
+    "gold": 1293.0,
     "gems": 0,
     "adsRemoved": 0,
     "currentTierIndex": 0,
     "unlockedTierMask": 1,
-    "discoveredMask": 31,
+    "discoveredMask": 25165919,
     "girls": [
         {
-            "level": 5
-        },
-        {
-            "level": 3
+            "level": 4
         },
         {
             "level": 2
@@ -22,20 +19,17 @@
             "level": 1
         },
         {
-            "level": 1
-        },
-        {
-            "level": 1
+            "level": 2
         }
     ],
-    "maxLevelReached": 5,
+    "maxLevelReached": 25,
     "level25UpgradeLevel": 0,
-    "prestigePoint": 0,
-    "totalPrestigeCount": 0,
+    "prestigePoint": 100,
+    "totalPrestigeCount": 1,
     "manualSpawnMaxUpgrade": 0,
     "manualSpawnSpeedUpgrade": 0,
-    "autoMergeUpgrade": 2,
-    "autoSpawnUpgrade": 2,
+    "autoMergeUpgrade": 0,
+    "autoSpawnUpgrade": 0,
     "maxFieldCountUpgrade": 0,
     "clickBonusUpgrade": 0,
     "offlineRewardUpgrade": 0,
@@ -98,6 +92,6 @@
     "prestigeShopIncomeLv": 0,
     "prestigeShopTwoStepLv": 0,
     "prestigeShopStartGoldLv": 0,
-    "savedAt": "2025-12-01 11:33:46",
+    "savedAt": "2025-12-01 18:20:34",
     "languageCode": 1
 }

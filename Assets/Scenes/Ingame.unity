@@ -2032,7 +2032,6 @@ Transform:
   - {fileID: 1652641553}
   - {fileID: 1973007491}
   - {fileID: 1202033180}
-  - {fileID: 149633640}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &113724681
@@ -2739,12 +2738,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149633639}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.8626819, y: -0.13590118, z: -9.924765}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 104149126}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &149633641
 MonoBehaviour:
@@ -7779,7 +7778,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 24
+          m_IntArgument: 7
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -15433,7 +15432,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 950840871}
-  - component: {fileID: 950840872}
   m_Layer: 5
   m_Name: "\uC6B0\uD3B8\uD568"
   m_TagString: Untagged
@@ -15461,18 +15459,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.000061035156}
   m_SizeDelta: {x: 1000, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &950840872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 950840870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db6cfa3a2dc508d48b4f08ff75e90878, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &951325266
 GameObject:
   m_ObjectHideFlags: 0
@@ -19001,19 +18987,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1091790654}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 332775210}
-        m_TargetAssemblyTypeName: ExitPanelToggler, Assembly-CSharp
-        m_MethodName: ConfirmExit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1091790654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33262,6 +33236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8dbeca1ffd44171b21669c6c6616089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableDebugLogs: 1
 --- !u!4 &1854510736
 Transform:
   m_ObjectHideFlags: 0
@@ -36704,7 +36679,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e86339e74c405c855efd7b9cecee0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardedAdUnitId: ca-app-pub-3940256099942544~3347511713
+  rewardedAdUnitId: ca-app-pub-3940256099942544/5224354917
+  enableDebugLogs: 1
 --- !u!1 &2022812788
 GameObject:
   m_ObjectHideFlags: 0
@@ -41658,6 +41634,7 @@ SceneRoots:
   - {fileID: 2020459369}
   - {fileID: 1161605424}
   - {fileID: 1850987598}
+  - {fileID: 149633640}
   - {fileID: 104149126}
   - {fileID: 1179801883}
   - {fileID: 628066442}

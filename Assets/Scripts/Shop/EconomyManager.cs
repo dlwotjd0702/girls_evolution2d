@@ -146,13 +146,18 @@ public class EconomyManager : MonoBehaviour, ISaveable
     // ───────── Balance consts ─────────
     private const double INCOME_BASE_PER_SEC   = 1.0;  // 2^(Lv-1)/s
 
-    private const double SUMMON_BASE_SECONDS   = 60.0;
+    // 소환 가격: 25단계 도달 시간을 약 3시간으로 조정 (기존 1시간 → 3시간)
+    // 60초 → 200초로 변경하여 소환 가격을 약 3.33배로 증가
+    // 200초로 설정하면 반올림 후 가격이 깔끔하게 나옴 (200G, 400G, 800G, 1600G...)
+    private const double SUMMON_BASE_SECONDS   = 200.0;  // 60.0 → 200.0 (약 3.33배 증가)
     private const double SUMMON_BUY_GROWTH     = 1.12;
 
+    // 골드 강화 재화 밸런싱: 기본값과 배율 조정
+    // 배율 2.00 = 레벨당 2배씩 증가 (일관성 유지)
     private const double UPG_SPAWN_MAX_BASE    = 400;  private const double UPG_SPAWN_MAX_GROW    = 2.00;
-    private const double UPG_SPAWN_SPEED_BASE  = 420;  private const double UPG_SPAWN_SPEED_GROW  = 2.05;
+    private const double UPG_SPAWN_SPEED_BASE  = 420;  private const double UPG_SPAWN_SPEED_GROW  = 2.00; // 2.05 → 2.00으로 조정
     private const double UPG_FIELD_MAX_BASE    = 500;  private const double UPG_FIELD_MAX_GROW    = 2.00;
-    private const double UPG_CLICK_BONUS_BASE  = 360;  private const double UPG_CLICK_BONUS_GROW  = 2.05;
+    private const double UPG_CLICK_BONUS_BASE  = 360;  private const double UPG_CLICK_BONUS_GROW  = 2.00; // 2.05 → 2.00으로 조정
 
     private const double UPG_OFFLINE_REWARD_BASE  = 420; private const double UPG_OFFLINE_REWARD_GROW  = 2.00;
     private const double UPG_OFFLINE_MAXTIME_BASE = 420; private const double UPG_OFFLINE_MAXTIME_GROW = 2.00;

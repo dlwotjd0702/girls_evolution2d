@@ -170,16 +170,20 @@ public class GirlMergeManager : MonoBehaviour
     {
         if (economy == null || girl == null) return;
 
-        double gain = girl.GetIncome();
-        if (gain <= 0) return;
+        // 클릭 골드는 해당 레벨의 초당 수익 기준으로 계산
+        // GetLevelIncomePerSec을 사용하여 2^(level-1) 공식과 일치시킴
+        double baseIncome = economy.GetLevelIncomePerSec(girl.Level);
+        if (baseIncome <= 0) return;
 
+        double gain = baseIncome;
+        
         if (isClick)
         {
-            // 클릭 기반: 초당 수익의 (10% + 강화 레벨 × 1%)
+            // 클릭 기반: 해당 레벨 초당 수익의 (10% + 강화 레벨 × 1%)
             // 0강화 = 10%, 1강화 = 11%, 2강화 = 12% ...
             int clickBonusLevel = economy.GetClickBonusUpgradeLevel();
             double clickPercent = 0.10 + (clickBonusLevel * 0.01);
-            gain *= clickPercent;
+            gain = baseIncome * clickPercent;
             
             // 소수점 아래 자리는 올림 처리
             gain = Math.Ceiling(gain);
@@ -189,6 +193,11 @@ public class GirlMergeManager : MonoBehaviour
             {
                 AudioManager.Instance.PlayClickSFX();
             }
+        }
+        else
+        {
+            // 자동 수익은 그대로 사용 (이미 GetLevelIncomePerSec 사용)
+            gain = baseIncome;
         }
 
         economy.AddGold(gain);

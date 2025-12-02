@@ -179,10 +179,10 @@ public class GirlMergeManager : MonoBehaviour
         
         if (isClick)
         {
-            // 클릭 기반: 해당 레벨 초당 수익의 (10% + 강화 레벨 × 1%)
-            // 0강화 = 10%, 1강화 = 11%, 2강화 = 12% ...
+            // 클릭 기반: 해당 레벨 초당 수익의 (50% + 강화 레벨 × 5%)
+            // 0강화 = 50%, 1강화 = 55%, 2강화 = 60% ...
             int clickBonusLevel = economy.GetClickBonusUpgradeLevel();
-            double clickPercent = 0.10 + (clickBonusLevel * 0.01);
+            double clickPercent = 0.50 + (clickBonusLevel * 0.05);
             gain = baseIncome * clickPercent;
             
             // 소수점 아래 자리는 올림 처리

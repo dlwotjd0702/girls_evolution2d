@@ -150,17 +150,19 @@ public class EconomyManager : MonoBehaviour, ISaveable
     // 60초 → 200초로 변경하여 소환 가격을 약 3.33배로 증가
     // 200초로 설정하면 반올림 후 가격이 깔끔하게 나옴 (200G, 400G, 800G, 1600G...)
     private const double SUMMON_BASE_SECONDS   = 200.0;  // 60.0 → 200.0 (약 3.33배 증가)
-    private const double SUMMON_BUY_GROWTH     = 1.12;
+    private const double SUMMON_LEVEL_GROWTH    = 2.2;    // 레벨별 기본 소환비용이 2.2배씩 증가
+    private const double SUMMON_BUY_GROWTH      = 1.1;    // 같은 레벨을 반복 구매할 때마다 1.1배씩 증가
 
     // 골드 강화 재화 밸런싱: 기본값과 배율 조정
-    // 배율 2.00 = 레벨당 2배씩 증가 (일관성 유지)
-    private const double UPG_SPAWN_MAX_BASE    = 400;  private const double UPG_SPAWN_MAX_GROW    = 2.00;
-    private const double UPG_SPAWN_SPEED_BASE  = 420;  private const double UPG_SPAWN_SPEED_GROW  = 2.00; // 2.05 → 2.00으로 조정
-    private const double UPG_FIELD_MAX_BASE    = 500;  private const double UPG_FIELD_MAX_GROW    = 2.00;
-    private const double UPG_CLICK_BONUS_BASE  = 360;  private const double UPG_CLICK_BONUS_GROW  = 2.00; // 2.05 → 2.00으로 조정
+    // 18~20단계 수익 기준으로 10분 수익(약 1.5억)으로 max 레벨을 찍을 수 있도록 배율 조정
+    // BASE는 유지하고 GROW만 조정하여 총 비용이 목표에 맞도록 함
+    private const double UPG_SPAWN_MAX_BASE    = 400;  private const double UPG_SPAWN_MAX_GROW    = 2.20;
+    private const double UPG_SPAWN_SPEED_BASE  = 420;  private const double UPG_SPAWN_SPEED_GROW  = 2.20;
+    private const double UPG_FIELD_MAX_BASE    = 500;  private const double UPG_FIELD_MAX_GROW    = 2.20;
+    private const double UPG_CLICK_BONUS_BASE  = 360;  private const double UPG_CLICK_BONUS_GROW  = 2.20;
 
-    private const double UPG_OFFLINE_REWARD_BASE  = 420; private const double UPG_OFFLINE_REWARD_GROW  = 2.00;
-    private const double UPG_OFFLINE_MAXTIME_BASE = 420; private const double UPG_OFFLINE_MAXTIME_GROW = 2.00;
+    private const double UPG_OFFLINE_REWARD_BASE  = 420; private const double UPG_OFFLINE_REWARD_GROW  = 2.20;
+    private const double UPG_OFFLINE_MAXTIME_BASE = 420; private const double UPG_OFFLINE_MAXTIME_GROW = 2.20;
 
     // 자동(Auto)
     private const double AUTO_MERGE_BASE  = 900;  private const double AUTO_MERGE_GROW  = 2.00;
@@ -223,7 +225,9 @@ public class EconomyManager : MonoBehaviour, ISaveable
     {
         level = Mathf.Clamp(level, 1, 25);
         int idx = level - 1;
-        double baseCost = SUMMON_BASE_SECONDS * GetLevelIncomePerSec(level);
+        // 레벨별 기본 소환비용: 레벨 1 기준으로 2.2배씩 증가
+        double baseCost = SUMMON_BASE_SECONDS * Math.Pow(SUMMON_LEVEL_GROWTH, level - 1);
+        // 같은 레벨을 반복 구매할 때마다 추가 증가
         double byBuy    = Math.Pow(SUMMON_BUY_GROWTH, summonPurchaseCounts[idx]);
         return RoundToHundred(baseCost * byBuy);
     }

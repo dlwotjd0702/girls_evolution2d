@@ -17,6 +17,7 @@ public class AutoAutomationController : MonoBehaviour
     [Header("Refs")]
     public EconomyManager economy;
     [SerializeField] private PremiumCurrencyManager premiumCurrency; // 보석 관리자
+    [SerializeField] private GirlFieldManager fieldManager; // 타이머 진행률 가져오기 위해
     [Tooltip("선택: 보석 부족/골드 부족 시 띄울 패널(광고/상점 유도)")]
     public InsufficientFundsPanel insufficientPanel;
 
@@ -42,6 +43,10 @@ public class AutoAutomationController : MonoBehaviour
     public Image  toggleIconTarget;   // 온/오프 이미지 교체
     public Sprite toggleOnSprite;
     public Sprite toggleOffSprite;
+    
+    [Header("Fill Image (Timer Visual)")]
+    [Tooltip("타이머 진행률을 시각화할 Fill 이미지 (Image Type = Filled, Fill Method = Radial 360)")]
+    public Image fillImage;           // 시계처럼 차오르는 fill 이미지
 
     [Header("Reason Label (Fallback)")]
     public TextMeshProUGUI reasonLabel;
@@ -61,11 +66,22 @@ public class AutoAutomationController : MonoBehaviour
     {
         if (!economy) economy = FindObjectOfType<EconomyManager>();
         if (premiumCurrency == null) premiumCurrency = FindObjectOfType<PremiumCurrencyManager>(true);
+        if (fieldManager == null) fieldManager = FindObjectOfType<GirlFieldManager>(true);
 
         if (buyOrUpgradeButton) buyOrUpgradeButton.onClick.AddListener(OnClickBuyOrUpgrade);
         if (toggleButton)       toggleButton.onClick.AddListener(OnClickToggle);
 
         if (reasonLabel) reasonLabel.gameObject.SetActive(false);
+        
+        // Fill 이미지 초기화
+        if (fillImage != null)
+        {
+            fillImage.type = Image.Type.Filled;
+            fillImage.fillMethod = Image.FillMethod.Radial360;
+            fillImage.fillOrigin = (int)Image.Origin360.Top; // 12시 방향부터 시작
+            fillImage.fillClockwise = true; // 시계 방향으로 채우기
+            fillImage.fillAmount = 0f;
+        }
 
         CachePrestigeShop();
     }
@@ -89,6 +105,39 @@ public class AutoAutomationController : MonoBehaviour
     }
     void HandleGoldChanged(double _) => Refresh();
     void HandleUpgradeChanged() => Refresh();
+    
+    void Update()
+    {
+        // Fill 이미지 업데이트 (타이머 진행률 표시)
+        UpdateFillImage();
+    }
+    
+    void UpdateFillImage()
+    {
+        if (fillImage == null || fieldManager == null || economy == null) return;
+        
+        // 자동화가 켜져 있고 업그레이드가 되어 있을 때만 표시
+        int lv = (type == AutoType.AutoMerge) ? economy.GetAutoMergeUpgradeLevel()
+                                              : economy.GetAutoSpawnUpgradeLevel();
+        bool on = (type == AutoType.AutoMerge) ? economy.IsAutoMergeOn()
+                                              : economy.IsAutoSpawnOn();
+        
+        if (lv <= 0 || !on)
+        {
+            fillImage.fillAmount = 0f;
+            fillImage.enabled = false;
+            return;
+        }
+        
+        fillImage.enabled = true;
+        
+        // 타이머 진행률 가져오기 (0.0 ~ 1.0)
+        float progress = (type == AutoType.AutoMerge) 
+            ? fieldManager.GetAutoMergeTimerProgress()
+            : fieldManager.GetAutoSpawnTimerProgress();
+        
+        fillImage.fillAmount = progress;
+    }
 
     public void Refresh()
     {

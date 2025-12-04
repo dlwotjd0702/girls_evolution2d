@@ -66,8 +66,9 @@ public class EncyclopediaDetailPanel : MonoBehaviour
         // 수익
         if (incomeText != null)
         {
-            string format = LocalizationManager.GetText("수익: {0:N0}", "Income: {0:N0}");
-            incomeText.text = string.Format(format, income)+"G/s";
+            string format = LocalizationManager.GetText("수익: {0}", "Income: {0}");
+            string formattedIncome = EconomyManager.FormatAbbrev(income, 1, ""); // 단위 없이 숫자만
+            incomeText.text = string.Format(format, formattedIncome) + "/s";
         }
     }
     

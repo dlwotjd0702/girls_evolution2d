@@ -45,6 +45,27 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     private float autoSpawnTimer = 0f;
     private float autoMergeTimer = 0f;
 
+    // 타이머 진행률을 외부에서 가져올 수 있도록 (0.0 ~ 1.0)
+    public float GetAutoSpawnTimerProgress()
+    {
+        if (economy == null || !economy.IsAutoSpawnOn()) return 0f;
+        float interval = economy.GetAutoSpawnInterval();
+        if (interval >= float.MaxValue) return 0f;
+        interval = ApplyAutoSpawnMul(interval);
+        if (interval >= float.MaxValue) return 0f;
+        return Mathf.Clamp01(autoSpawnTimer / interval);
+    }
+    
+    public float GetAutoMergeTimerProgress()
+    {
+        if (economy == null || !economy.IsAutoMergeOn() || mergeManager == null) return 0f;
+        float interval = economy.GetAutoMergeInterval();
+        if (interval >= float.MaxValue) return 0f;
+        interval = ApplyAutoMergeMul(interval);
+        if (interval >= float.MaxValue) return 0f;
+        return Mathf.Clamp01(autoMergeTimer / interval);
+    }
+
     // ── Idle 수익 지급 ──
     [Header("Idle Income")]
     [SerializeField] private float idleTickSeconds = 1.0f; // 1초 단위 지급
@@ -788,8 +809,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private Vector2 GetRandomSpawnPos()
     {
-        float x = URandom.Range(-350f, 350f);
-        float y = URandom.Range(-600f, 600f);
+        // 맵 경계 축소: 기존의 약 70%로 축소
+        float x = URandom.Range(-320f, 320f);  // -350~350 -> -245~245
+        float y = URandom.Range(-500f, 500f);  // -600~600 -> -420~420
         return new Vector2(x, y);
     }
 

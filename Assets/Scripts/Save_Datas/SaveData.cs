@@ -59,6 +59,9 @@ public class SaveData
     // 언어 설정 (0=시스템 언어 미설정, 1=한국어, 2=영어)
     // 0이면 최초 실행으로 간주하여 시스템 언어 사용
     public int languageCode = 0;
+    
+    // 쿠폰 시스템
+    public List<string> usedCoupons = new List<string>(); // 사용한 쿠폰 코드 목록
 }
 
 [Serializable]

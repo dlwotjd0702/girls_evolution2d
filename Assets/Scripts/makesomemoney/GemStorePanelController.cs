@@ -106,7 +106,15 @@ public class GemStorePanelController : MonoBehaviour
             if (e.isAdEntry)
                 e.priceText.text = LocalizationManager.GetText("광고 시청", "Watch Ad");
             else
-                e.priceText.text = premium.GetLocalizedPrice(e.productId); // 콘솔 가격 자동 반영
+            {
+                string price = premium.GetLocalizedPrice(e.productId); // 콘솔 가격 자동 반영
+                // 가격이 아직 로드되지 않았을 경우 빈 문자열 대신 기본 메시지 표시
+                if (string.IsNullOrEmpty(price))
+                {
+                    price = LocalizationManager.GetText("가격 로딩 중...", "Loading price...");
+                }
+                e.priceText.text = price;
+            }
         }
 
         // ── 구매 버튼 ─────────────────────────────────────────

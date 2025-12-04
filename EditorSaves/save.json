@@ -2,7 +2,7 @@
     "dataVersion": 2,
     "autoMergeOn": true,
     "autoSpawnOn": true,
-    "gold": 3411.0,
+    "gold": 4417.0,
     "gems": 0,
     "adsRemoved": 0,
     "currentTierIndex": 0,
@@ -13,10 +13,25 @@
             "level": 5
         },
         {
-            "level": 3
+            "level": 4
         },
         {
-            "level": 3
+            "level": 1
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 1
         }
     ],
     "maxLevelReached": 25,
@@ -25,14 +40,14 @@
     "totalPrestigeCount": 1,
     "manualSpawnMaxUpgrade": 0,
     "manualSpawnSpeedUpgrade": 0,
-    "autoMergeUpgrade": 1,
-    "autoSpawnUpgrade": 2,
+    "autoMergeUpgrade": 2,
+    "autoSpawnUpgrade": 3,
     "maxFieldCountUpgrade": 0,
     "clickBonusUpgrade": 0,
     "offlineRewardUpgrade": 0,
     "offlineMaxTimeUpgrade": 0,
     "summonPurchaseCounts": [
-        0,
+        5,
         0,
         0,
         0,
@@ -89,6 +104,7 @@
     "prestigeShopIncomeLv": 0,
     "prestigeShopTwoStepLv": 0,
     "prestigeShopStartGoldLv": 0,
-    "savedAt": "2025-12-04 09:56:35",
-    "languageCode": 1
+    "savedAt": "2025-12-04 13:46:05",
+    "languageCode": 1,
+    "usedCoupons": []
 }

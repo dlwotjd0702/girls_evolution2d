@@ -90,15 +90,25 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     public string GetLocalizedPrice(string productId)
     {
         if (string.IsNullOrEmpty(productId)) return "";
-        if (priceCache.TryGetValue(productId, out var s) && !string.IsNullOrEmpty(s)) return s;
+        
+        // 캐시에서 먼저 확인
+        if (priceCache.TryGetValue(productId, out var s) && !string.IsNullOrEmpty(s)) 
+            return s;
 
+        // 캐시에 없으면 storeController에서 직접 가져오기
         var p = storeController?.GetProductById(productId);
         if (p?.metadata != null)
         {
             s = p.metadata.localizedPriceString;
-            priceCache[productId] = s;
-            return s;
+            // 가격이 비어있지 않을 때만 캐시에 저장하고 반환
+            if (!string.IsNullOrEmpty(s))
+            {
+                priceCache[productId] = s;
+                return s;
+            }
         }
+        
+        // 가격을 찾을 수 없으면 빈 문자열 반환
         return "";
     }
 
@@ -142,8 +152,17 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     void OnProductsFetched(List<Product> fetchedProducts)
     {
         foreach (var prod in fetchedProducts)
-            if (prod?.metadata != null)
-                priceCache[prod.definition.id] = prod.metadata.localizedPriceString;
+        {
+            if (prod?.metadata != null && !string.IsNullOrEmpty(prod.definition.id))
+            {
+                string price = prod.metadata.localizedPriceString;
+                // 가격이 비어있지 않을 때만 캐시에 저장
+                if (!string.IsNullOrEmpty(price))
+                {
+                    priceCache[prod.definition.id] = price;
+                }
+            }
+        }
 
         OnCatalogReady?.Invoke();
         storeController.FetchPurchases();

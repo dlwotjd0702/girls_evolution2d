@@ -462,6 +462,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
         UpdateLevel25Text();
         NotifySpawnedLevel(TierRules.MaxLevel);
+        
+        // 통계 기록: 레벨 25 달성 (최초 생성 시에만)
+        if (PlayStatsTracker.Instance != null && exist == null)
+        {
+            PlayStatsTracker.Instance.RecordLevel25Reached();
+        }
     }
 
     private GirlCharacter GetFinalGirl()
@@ -547,6 +553,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         NotifySpawnedLevel(level);
+        
+        // 통계 기록: 소환
+        if (PlayStatsTracker.Instance != null && !_isRestoring)
+        {
+            PlayStatsTracker.Instance.RecordSpawn();
+        }
     }
 
     private void ConfigureLevel25(GirlCharacter girl)

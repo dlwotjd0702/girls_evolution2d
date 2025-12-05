@@ -37,6 +37,13 @@ public class EconomyManager : MonoBehaviour, ISaveable
         gold -= amount;
         OnGoldChanged?.Invoke(gold);
         RefreshGoldHUD();
+        
+        // 통계 기록: 골드 소비
+        if (PlayStatsTracker.Instance != null)
+        {
+            PlayStatsTracker.Instance.RecordGoldSpent(amount);
+        }
+        
         return true;
     }
 
@@ -48,6 +55,12 @@ public class EconomyManager : MonoBehaviour, ISaveable
         gold += amount;
         OnGoldChanged?.Invoke(gold);
         RefreshGoldHUD();
+        
+        // 통계 기록: 골드 획득
+        if (PlayStatsTracker.Instance != null)
+        {
+            PlayStatsTracker.Instance.RecordGoldEarned(amount);
+        }
     }
 
     // ───────── UI (TMP) ─────────

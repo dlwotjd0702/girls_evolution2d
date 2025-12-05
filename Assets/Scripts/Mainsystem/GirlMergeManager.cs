@@ -325,6 +325,12 @@ public class GirlMergeManager : MonoBehaviour
         if (nextData != null && economy != null)
             economy.AddGold(nextData.incomePerSec);
 
+        // 통계 기록: 합성
+        if (PlayStatsTracker.Instance != null)
+        {
+            PlayStatsTracker.Instance.RecordMerge();
+        }
+
         _mergingSet.Remove(a);
         _mergingSet.Remove(b);
         _mergeBusy = false;

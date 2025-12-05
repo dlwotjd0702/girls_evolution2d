@@ -62,6 +62,18 @@ public class SaveData
     
     // 쿠폰 시스템
     public List<string> usedCoupons = new List<string>(); // 사용한 쿠폰 코드 목록
+    
+    // ── 플레이 디버그 정보 (밸런스 패치용 통계) ──
+    public double totalPlayTimeSeconds = 0.0; // 총 플레이타임 (초)
+    public string firstPlayTime = ""; // 최초 플레이 시간
+    public string lastPlayTime = ""; // 마지막 플레이 시간
+    public int level25ReachedCount = 0; // 레벨 25 달성 횟수
+    public List<string> level25ReachedTimes = new List<string>(); // 레벨 25 달성 시간 목록
+    public long totalClicks = 0; // 총 클릭 횟수
+    public long totalMerges = 0; // 총 합성 횟수
+    public long totalSpawns = 0; // 총 소환 횟수
+    public double totalGoldEarned = 0.0; // 총 획득 골드
+    public double totalGoldSpent = 0.0; // 총 소비 골드
 }
 
 [Serializable]

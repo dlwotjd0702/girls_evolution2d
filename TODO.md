@@ -1,6 +1,6 @@
 # Girls Evolution 2D - TODO 리스트
 
-> **마지막 업데이트**: 쿠폰 시스템 구현 완료
+> **마지막 업데이트**: 플레이 디버그 정보 시스템 구현 완료
 
 ---
 
@@ -44,29 +44,31 @@
   - `Assets/Scripts/Save_Datas/CloudSaveManager.cs` (신규 생성)
   - `Assets/Scripts/Save_Datas/SaveManager.cs` (클라우드 저장 연동)
 
-### 3. 플레이 디버그 정보 (SaveData 추가)
+### 3. 플레이 디버그 정보 (SaveData 추가) ✅ 완료
 - **설명**: 밸런스 패치용 플레이 통계 수집
 - **추가할 필드** (`SaveData.cs`):
-  - [ ] `totalPlayTimeSeconds` (double) - 총 플레이타임 (초)
-  - [ ] `firstPlayTime` (string) - 최초 플레이 시간
-  - [ ] `lastPlayTime` (string) - 마지막 플레이 시간
-  - [ ] `level25ReachedCount` (int) - 레벨 25 달성 횟수
-  - [ ] `level25ReachedTimes` (List<string>) - 레벨 25 달성 시간 목록
-  - [ ] `totalClicks` (long) - 총 클릭 횟수
-  - [ ] `totalMerges` (long) - 총 합성 횟수
-  - [ ] `totalSpawns` (long) - 총 소환 횟수
-  - [ ] `totalGoldEarned` (double) - 총 획득 골드
-  - [ ] `totalGoldSpent` (double) - 총 소비 골드
+  - [x] `totalPlayTimeSeconds` (double) - 총 플레이타임 (초)
+  - [x] `firstPlayTime` (string) - 최초 플레이 시간
+  - [x] `lastPlayTime` (string) - 마지막 플레이 시간
+  - [x] `level25ReachedCount` (int) - 레벨 25 달성 횟수
+  - [x] `level25ReachedTimes` (List<string>) - 레벨 25 달성 시간 목록
+  - [x] `totalClicks` (long) - 총 클릭 횟수
+  - [x] `totalMerges` (long) - 총 합성 횟수
+  - [x] `totalSpawns` (long) - 총 소환 횟수
+  - [x] `totalGoldEarned` (double) - 총 획득 골드
+  - [x] `totalGoldSpent` (double) - 총 소비 골드
 - **구현 작업**:
-  - [ ] `PlayStatsTracker.cs` 클래스 생성 (통계 수집)
-  - [ ] 각 매니저에서 통계 업데이트 호출
-  - [ ] 세이브/로드 시 통계 저장/복원
+  - [x] `PlayStatsTracker.cs` 클래스 생성 (통계 수집)
+  - [x] 각 매니저에서 통계 업데이트 호출
+  - [x] 세이브/로드 시 통계 저장/복원 (ISaveable 인터페이스로 자동 연동)
 - **관련 파일**: 
-  - `Assets/Scripts/Save_Datas/SaveData.cs` (필드 추가)
-  - `Assets/Scripts/PlayStatsTracker.cs` (신규 생성)
-  - `Assets/Scripts/Girl/GirlFieldManager.cs` (통계 업데이트)
-  - `Assets/Scripts/Mainsystem/GirlMergeManager.cs` (통계 업데이트)
-  - `Assets/Scripts/Shop/EconomyManager.cs` (통계 업데이트)
+  - `Assets/Scripts/Save_Datas/SaveData.cs` (필드 추가 완료)
+  - `Assets/Scripts/PlayStatsTracker.cs` (생성 완료)
+  - `Assets/Scripts/Girl/GirlFieldManager.cs` (통계 업데이트 완료)
+  - `Assets/Scripts/Mainsystem/GirlMergeManager.cs` (통계 업데이트 완료)
+  - `Assets/Scripts/Shop/EconomyManager.cs` (통계 업데이트 완료)
+  - `Assets/Scripts/Girl/GirlCharacter.cs` (클릭 통계 업데이트 완료)
+- **참고**: PlayStatsTracker는 씬에 GameObject로 추가되어야 합니다 (DontDestroyOnLoad 적용)
 
 ---
 
@@ -161,7 +163,7 @@
 ## 🎯 작업 우선순위 순서
 
 ### 1단계: 핵심 기능 구현 (즉시)
-1. **플레이 디버그 정보 추가** - SaveData에 필드 추가 및 통계 수집 시스템
+1. ✅ **플레이 디버그 정보 추가** - SaveData에 필드 추가 및 통계 수집 시스템 (완료)
 2. **튜토리얼 시스템** - 첫 실행 가이드
 3. **온라인 저장** - Google Play Games 연동
 
@@ -201,4 +203,4 @@
 
 ---
 
-**마지막 업데이트**: 쿠폰 시스템 구현 완료 (2024년)
+**마지막 업데이트**: 플레이 디버그 정보 시스템 구현 완료 (2024년)

@@ -1,4 +1,4 @@
-﻿// ============================
+// ============================
 // GirlFieldManager.cs (FULL, 환생 상점/계승 등급 보너스 + 상점 Plus 효과 반영 버전)
 // - ComputeIdleGoldPerSec(): "계승 등급 + 환생 상점" 수익 배수 곱
 // - 수동 소환 최대/쿨타임, 자동 소환/합성 주기, 필드 최대칸에 "PrestigeShop Plus" 반영
@@ -609,6 +609,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         {
             CurrentMaxLevel = achievedLevel;
             OnMaxLevelChanged?.Invoke(CurrentMaxLevel);
+            
+            // 리더보드 점수 제출 (최고 레벨 달성)
+            if (LeaderboardManager.Instance != null)
+            {
+                LeaderboardManager.Instance.SubmitMaxLevel(CurrentMaxLevel);
+            }
         }
     }
 

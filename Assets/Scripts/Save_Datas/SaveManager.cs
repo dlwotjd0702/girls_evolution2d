@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
@@ -38,6 +38,14 @@ public class SaveManager : MonoBehaviour
     [Tooltip("자동 저장 간격 (초)")]
     [SerializeField] private float autoSaveInterval = 60f; // 1분
     
+    [Header("Cloud Save Settings")]
+    [Tooltip("클라우드 저장 활성화")]
+    [SerializeField] private bool enableCloudSave = true;
+    [Tooltip("로컬 저장 후 클라우드에도 자동 저장")]
+    [SerializeField] private bool autoCloudSave = true;
+    [Tooltip("게임 시작 시 클라우드와 동기화")]
+    [SerializeField] private bool syncOnStart = true;
+    
     [Header("Debug / Maintenance")]
     [Tooltip("시작 시 세이브 데이터를 삭제하고 새 게임으로 시작합니다.")]
     [SerializeField] private bool resetSaveOnStart = false;
@@ -65,8 +73,28 @@ public class SaveManager : MonoBehaviour
             Debug.LogWarning("[SaveManager] resetSaveOnStart가 활성화되어 세이브 데이터를 삭제합니다.");
             ResetSaveFile();
         }
+        
         LoadGame();
+        
+        // 클라우드 동기화 설정
+        if (enableCloudSave && syncOnStart)
+        {
+            // CloudSaveManager가 준비되면 동기화
+            StartCoroutine(DelayedCloudSync());
+        }
+        
         autoSaveTimer = 0f;
+    }
+
+    private System.Collections.IEnumerator DelayedCloudSync()
+    {
+        // CloudSaveManager 초기화 대기
+        yield return new WaitForSeconds(2f);
+        
+        if (CloudSaveManager.Instance != null && CloudSaveManager.Instance.IsAuthenticated)
+        {
+            CloudSaveManager.Instance.SyncWithCloud();
+        }
     }
     
     void Update()
@@ -127,11 +155,87 @@ public class SaveManager : MonoBehaviour
             // PlayerPrefs도 병행 저장 (호환성 유지)
             PlayerPrefs.SetString("SaveData", saveJson);
             PlayerPrefs.Save();
+            
+            // 클라우드 저장 (옵션)
+            if (enableCloudSave && autoCloudSave && CloudSaveManager.Instance != null)
+            {
+                CloudSaveManager.Instance.SaveToCloud(data);
+            }
         }
         catch (System.Exception e)
         {
             Debug.LogError($"[SaveManager] 저장 실패: {e.Message}");
         }
+    }
+
+    /// <summary>
+    /// 클라우드에서 로드 (수동 동기화)
+    /// </summary>
+    public void LoadFromCloud()
+    {
+        if (!enableCloudSave || CloudSaveManager.Instance == null)
+        {
+            Debug.LogWarning("[SaveManager] 클라우드 저장이 비활성화되어 있습니다.");
+            return;
+        }
+
+        CloudSaveManager.Instance.LoadFromCloud((cloudData) =>
+        {
+            if (cloudData != null)
+            {
+                // 클라우드 데이터 적용
+                var saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>().ToList();
+                foreach (var s in saveables)
+                {
+                    try
+                    {
+                        s.ApplyLoadedData(cloudData);
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError($"[SaveManager] 클라우드 데이터 적용 실패 ({s.GetType().Name}): {e.Message}");
+                    }
+                }
+                
+                // 로컬에도 저장
+                SaveGame();
+                Debug.Log("[SaveManager] 클라우드 데이터 로드 및 적용 완료");
+            }
+            else
+            {
+                Debug.LogWarning("[SaveManager] 클라우드에서 로드할 데이터가 없습니다.");
+            }
+        });
+    }
+
+    /// <summary>
+    /// 클라우드에 수동 저장
+    /// </summary>
+    public void SaveToCloud()
+    {
+        if (!enableCloudSave || CloudSaveManager.Instance == null)
+        {
+            Debug.LogWarning("[SaveManager] 클라우드 저장이 비활성화되어 있습니다.");
+            return;
+        }
+
+        SaveData data = new SaveData();
+        data.SetSaveTime();
+        
+        var saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>().ToList();
+        foreach (var s in saveables)
+        {
+            try
+            {
+                s.CollectSaveData(data);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"[SaveManager] {s.GetType().Name} 데이터 수집 실패: {e.Message}");
+            }
+        }
+
+        CloudSaveManager.Instance.SaveToCloud(data);
     }
 
     // 게임 데이터 불러오기

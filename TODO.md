@@ -1,6 +1,6 @@
 # Girls Evolution 2D - TODO 리스트
 
-> **마지막 업데이트**: 플레이 디버그 정보 시스템 구현 완료
+> **마지막 업데이트**: Google Play Games 클라우드 저장 및 리더보드 시스템 구현 완료
 
 ---
 
@@ -31,18 +31,32 @@
   - `Assets/Scripts/UI/TutorialManager.cs` (신규 생성)
   - `Assets/Scripts/Save_Datas/SaveData.cs` (필드 추가)
 
-### 2. 온라인 저장 (Google Play Games)
+### 2. 온라인 저장 (Google Play Games) ✅ 완료
 - **설명**: Google Play Games 로그인 연동 및 클라우드 저장
 - **기능 요구사항**:
-  - [ ] Google Play Games SDK 연동
-  - [ ] 로그인/로그아웃 기능
-  - [ ] 클라우드 저장/로드 기능
-  - [ ] 기기 간 동기화
-  - [ ] 로컬 저장과 클라우드 저장 병행
-  - [ ] 충돌 해결 로직 (최신 세이브 우선 또는 사용자 선택)
+  - [x] Google Play Games SDK 연동
+  - [x] 로그인/로그아웃 기능
+  - [x] 클라우드 저장/로드 기능
+  - [x] 기기 간 동기화
+  - [x] 로컬 저장과 클라우드 저장 병행
+  - [x] 충돌 해결 로직 (최신 세이브 우선 또는 사용자 선택)
 - **관련 파일**: 
-  - `Assets/Scripts/Save_Datas/CloudSaveManager.cs` (신규 생성)
-  - `Assets/Scripts/Save_Datas/SaveManager.cs` (클라우드 저장 연동)
+  - `Assets/Scripts/Save_Datas/CloudSaveManager.cs` (생성 완료)
+  - `Assets/Scripts/Save_Datas/SaveManager.cs` (클라우드 저장 연동 완료)
+- **참고 문서**: 
+  - `Assets/Scripts/Save_Datas/GOOGLE_PLAY_GAMES_SETUP.md` (설정 가이드)
+  - `Assets/Scripts/Save_Datas/CLOUD_SAVE_AND_LEADERBOARD_SUMMARY.md` (구현 요약)
+
+### 2-1. 리더보드 시스템 ✅ 완료
+- **설명**: Google Play Games 리더보드 연동
+- **기능 요구사항**:
+  - [x] 리더보드 점수 제출 (최고 레벨, 총 골드, 환생 횟수, 플레이타임)
+  - [x] 리더보드 UI 표시
+  - [x] 자동 점수 제출 (환생 시, 최고 레벨 달성 시)
+- **관련 파일**:
+  - `Assets/Scripts/LeaderboardManager.cs` (생성 완료)
+  - `Assets/Scripts/Mainsystem/PrestigeManager.cs` (환생 시 점수 제출 통합)
+  - `Assets/Scripts/Girl/GirlFieldManager.cs` (최고 레벨 달성 시 점수 제출 통합)
 
 ### 3. 플레이 디버그 정보 (SaveData 추가) ✅ 완료
 - **설명**: 밸런스 패치용 플레이 통계 수집
@@ -164,8 +178,9 @@
 
 ### 1단계: 핵심 기능 구현 (즉시)
 1. ✅ **플레이 디버그 정보 추가** - SaveData에 필드 추가 및 통계 수집 시스템 (완료)
-2. **튜토리얼 시스템** - 첫 실행 가이드
-3. **온라인 저장** - Google Play Games 연동
+2. ✅ **온라인 저장** - Google Play Games 연동 및 클라우드 저장 (완료)
+3. ✅ **리더보드 시스템** - Google Play Games 리더보드 연동 (완료)
+4. **튜토리얼 시스템** - 첫 실행 가이드
 
 ### 2단계: 간단한 최적화 (1-2주)
 4. 디버그 로그 레벨링

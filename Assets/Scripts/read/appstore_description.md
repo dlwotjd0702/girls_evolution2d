@@ -117,3 +117,5 @@ Easy controls make it accessible to everyone, and the automation system allows f
 Merge game, Idle game, Evolution game, Collection game, Casual game, Offline game, Automation game, Prestige game
 
 
+
+

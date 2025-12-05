@@ -2,7 +2,7 @@
     "dataVersion": 2,
     "autoMergeOn": true,
     "autoSpawnOn": true,
-    "gold": 3632.0,
+    "gold": 11266.0,
     "gems": 0,
     "adsRemoved": 0,
     "currentTierIndex": 0,
@@ -16,19 +16,13 @@
             "level": 4
         },
         {
-            "level": 1
+            "level": 3
         },
         {
-            "level": 1
+            "level": 7
         },
         {
-            "level": 1
-        },
-        {
-            "level": 1
-        },
-        {
-            "level": 1
+            "level": 2
         },
         {
             "level": 1
@@ -104,7 +98,17 @@
     "prestigeShopIncomeLv": 0,
     "prestigeShopTwoStepLv": 0,
     "prestigeShopStartGoldLv": 0,
-    "savedAt": "2025-12-04 13:43:46",
+    "savedAt": "2025-12-05 10:18:39",
     "languageCode": 1,
-    "usedCoupons": []
+    "usedCoupons": [],
+    "totalPlayTimeSeconds": 0.0,
+    "firstPlayTime": "",
+    "lastPlayTime": "",
+    "level25ReachedCount": 0,
+    "level25ReachedTimes": [],
+    "totalClicks": 0,
+    "totalMerges": 0,
+    "totalSpawns": 0,
+    "totalGoldEarned": 0.0,
+    "totalGoldSpent": 0.0
 }

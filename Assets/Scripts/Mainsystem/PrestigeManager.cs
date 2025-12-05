@@ -1,4 +1,4 @@
-﻿// ============================================================================
+// ============================================================================
 // PrestigeManager.cs  (DROP-IN, Shop 패널 완전 호환 + 환생 버튼 관리)
 // - 환생 포인트/환생 상점 12종 통합 관리
 // - SaveData v2 호환(필드명 유지; 리플렉션 저장/로드)
@@ -272,6 +272,12 @@ public class PrestigeManager : MonoBehaviour, ISaveable
             if (inst != null && mi != null) mi.Invoke(inst, new object[]{ baseGain });
         }
         catch {}
+
+        // 리더보드 점수 제출 (환생 횟수)
+        if (LeaderboardManager.Instance != null)
+        {
+            LeaderboardManager.Instance.SubmitPrestigeCount(totalPrestigeCount);
+        }
 
         // 2) 필드 비우기 (도감 해금 정보는 유지)
         var snapshot = new List<GirlCharacter>(girlFieldManager.girlList);

@@ -1,4 +1,4 @@
-﻿// ============================================================================
+// ============================================================================
 // PrestigeManager.cs  (DROP-IN, Shop 패널 완전 호환 + 환생 버튼 관리)
 // - 환생 포인트/환생 상점 12종 통합 관리
 // - SaveData v2 호환(필드명 유지; 리플렉션 저장/로드)
@@ -246,6 +246,13 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     {
         if (!girlFieldManager || !economy) return;
         if (!HasAnyFinalGirl()) return;
+        
+        // 환생 효과음 재생
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayPrestigeSFX();
+        }
+        
         economy.ResetGoldUpgradesForPrestige();
         // 1) 포인트 적용
         int baseGain = PreviewPrestigeGain();
@@ -266,6 +273,12 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         }
         catch {}
 
+        // 리더보드 점수 제출 (환생 횟수)
+        if (LeaderboardManager.Instance != null)
+        {
+            LeaderboardManager.Instance.SubmitPrestigeCount(totalPrestigeCount);
+        }
+
         // 2) 필드 비우기 (도감 해금 정보는 유지)
         var snapshot = new List<GirlCharacter>(girlFieldManager.girlList);
         foreach (var g in snapshot) if (g != null) girlFieldManager.RemoveGirl(g);
@@ -281,9 +294,10 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         { 
             if (tierManager != null)
             {
-                tierManager.SwitchTo(0);
-                // 티어 언락 초기화 (0층만 해금)
+                // 티어 언락 초기화 (0층만 해금) - 먼저 실행하여 0층이 확실히 해금된 상태로 만듦
                 tierManager.ResetTierUnlocks();
+                // 환생 직후 제일 낮은 계층(0층)으로 강제 이동
+                tierManager.ForceSwitchTo(0);
             }
         } catch {}
 

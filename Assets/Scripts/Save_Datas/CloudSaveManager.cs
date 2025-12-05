@@ -1,0 +1,409 @@
+// ============================================================================
+// CloudSaveManager.cs
+// - Google Play Games SDK 기반 클라우드 저장 시스템
+// - 로그인, 클라우드 저장/로드, 충돌 해결 기능 제공
+// - 로컬 저장과 병행하여 안정성 확보
+// ============================================================================
+
+using System;
+using System.Text;
+using UnityEngine;
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using GooglePlayGames.BasicApi.SavedGame;
+#endif
+
+public class CloudSaveManager : MonoBehaviour
+{
+    public static CloudSaveManager Instance { get; private set; }
+
+    // ── 이벤트 ──
+    public event Action<bool> OnLoginStatusChanged; // 로그인 상태 변경
+    public event Action<bool, string> OnCloudSaveComplete; // 클라우드 저장 완료 (성공 여부, 에러 메시지)
+    public event Action<bool, SaveData> OnCloudLoadComplete; // 클라우드 로드 완료 (성공 여부, 로드된 데이터)
+    public event Action<SaveData, SaveData> OnConflictDetected; // 충돌 감지 (로컬, 클라우드)
+
+    // ── 상태 ──
+    public bool IsAuthenticated { get; private set; } = false;
+    public bool IsSaving { get; private set; } = false;
+    public bool IsLoading { get; private set; } = false;
+
+    private const string CLOUD_SAVE_FILENAME = "girls_evolution_save";
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    private ISavedGameClient savedGameClient;
+#endif
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        InitializeGooglePlayGames();
+    }
+
+    /// <summary>
+    /// Google Play Games 초기화 및 로그인 시도
+    /// </summary>
+    private void InitializeGooglePlayGames()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        try
+        {
+            PlayGamesPlatform.Activate();
+            
+            PlayGamesPlatform.Instance.Authenticate((success, error) =>
+            {
+                IsAuthenticated = success;
+                Debug.Log($"[CloudSaveManager] 로그인 결과: {success}, 에러: {error}");
+                OnLoginStatusChanged?.Invoke(success);
+                
+                if (success)
+                {
+                    savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+                    Debug.Log("[CloudSaveManager] Google Play Games 로그인 성공");
+                }
+                else
+                {
+                    Debug.LogWarning($"[CloudSaveManager] Google Play Games 로그인 실패: {error}");
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[CloudSaveManager] 초기화 실패: {e.Message}");
+            IsAuthenticated = false;
+            OnLoginStatusChanged?.Invoke(false);
+        }
+#else
+        Debug.Log("[CloudSaveManager] 에디터 또는 비 Android 플랫폼에서는 클라우드 저장이 비활성화됩니다.");
+        IsAuthenticated = false;
+        OnLoginStatusChanged?.Invoke(false);
+#endif
+    }
+
+    /// <summary>
+    /// 수동 로그인 시도
+    /// </summary>
+    public void SignIn(Action<bool> callback = null)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        if (IsAuthenticated)
+        {
+            Debug.Log("[CloudSaveManager] 이미 로그인되어 있습니다.");
+            callback?.Invoke(true);
+            return;
+        }
+
+        PlayGamesPlatform.Instance.Authenticate((success, error) =>
+        {
+            IsAuthenticated = success;
+            Debug.Log($"[CloudSaveManager] 수동 로그인 결과: {success}, 에러: {error}");
+            OnLoginStatusChanged?.Invoke(success);
+            callback?.Invoke(success);
+            
+            if (success)
+            {
+                savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+            }
+        });
+#else
+        Debug.Log("[CloudSaveManager] 에디터에서는 로그인할 수 없습니다.");
+        callback?.Invoke(false);
+#endif
+    }
+
+    /// <summary>
+    /// 로그아웃
+    /// </summary>
+    public void SignOut()
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        PlayGamesPlatform.Instance.SignOut();
+        IsAuthenticated = false;
+        savedGameClient = null;
+        Debug.Log("[CloudSaveManager] 로그아웃 완료");
+        OnLoginStatusChanged?.Invoke(false);
+#else
+        Debug.Log("[CloudSaveManager] 에디터에서는 로그아웃할 수 없습니다.");
+#endif
+    }
+
+    /// <summary>
+    /// 클라우드에 저장
+    /// </summary>
+    public void SaveToCloud(SaveData saveData, bool forceOverwrite = false)
+    {
+        if (!IsAuthenticated)
+        {
+            Debug.LogWarning("[CloudSaveManager] 로그인되지 않아 클라우드 저장을 건너뜁니다.");
+            OnCloudSaveComplete?.Invoke(false, "로그인되지 않음");
+            return;
+        }
+
+        if (IsSaving)
+        {
+            Debug.LogWarning("[CloudSaveManager] 이미 저장 중입니다.");
+            return;
+        }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        IsSaving = true;
+        string saveJson = JsonUtility.ToJson(saveData, true);
+        byte[] saveBytes = Encoding.UTF8.GetBytes(saveJson);
+
+        SavedGameMetadataUpdate.Builder updateBuilder = new SavedGameMetadataUpdate.Builder()
+            .WithUpdatedDescription($"Saved at {DateTime.Now:yyyy-MM-dd HH:mm:ss}")
+            .WithUpdatedPlayedTime(TimeSpan.FromSeconds(saveData.totalPlayTimeSeconds));
+
+        SavedGameMetadataUpdate metadataUpdate = updateBuilder.Build();
+
+        savedGameClient.OpenWithAutomaticConflictResolution(
+            CLOUD_SAVE_FILENAME,
+            forceOverwrite ? DataSource.ReadCacheOrNetwork : DataSource.ReadNetworkOnly,
+            forceOverwrite ? ConflictResolutionStrategy.UseLongestPlaytime : ConflictResolutionStrategy.UseManual,
+            (status, game) =>
+            {
+                if (status == SavedGameRequestStatus.Success)
+                {
+                    savedGameClient.CommitUpdate(
+                        game,
+                        metadataUpdate,
+                        saveBytes,
+                        (commitStatus, committedGame) =>
+                        {
+                            IsSaving = false;
+                            if (commitStatus == SavedGameRequestStatus.Success)
+                            {
+                                Debug.Log("[CloudSaveManager] 클라우드 저장 성공");
+                                OnCloudSaveComplete?.Invoke(true, null);
+                            }
+                            else
+                            {
+                                Debug.LogError($"[CloudSaveManager] 클라우드 저장 실패: {commitStatus}");
+                                OnCloudSaveComplete?.Invoke(false, commitStatus.ToString());
+                            }
+                        });
+                }
+                else
+                {
+                    IsSaving = false;
+                    Debug.LogError($"[CloudSaveManager] 클라우드 파일 열기 실패: {status}");
+                    OnCloudSaveComplete?.Invoke(false, status.ToString());
+                }
+            });
+#else
+        IsSaving = false;
+        Debug.Log("[CloudSaveManager] 에디터에서는 클라우드 저장을 건너뜁니다.");
+        OnCloudSaveComplete?.Invoke(false, "에디터 모드");
+#endif
+    }
+
+    /// <summary>
+    /// 클라우드에서 로드
+    /// </summary>
+    public void LoadFromCloud(Action<SaveData> onComplete = null)
+    {
+        if (!IsAuthenticated)
+        {
+            Debug.LogWarning("[CloudSaveManager] 로그인되지 않아 클라우드 로드를 건너뜁니다.");
+            OnCloudLoadComplete?.Invoke(false, null);
+            onComplete?.Invoke(null);
+            return;
+        }
+
+        if (IsLoading)
+        {
+            Debug.LogWarning("[CloudSaveManager] 이미 로드 중입니다.");
+            return;
+        }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        IsLoading = true;
+
+        savedGameClient.OpenWithAutomaticConflictResolution(
+            CLOUD_SAVE_FILENAME,
+            DataSource.ReadCacheOrNetwork,
+            ConflictResolutionStrategy.UseLongestPlaytime,
+            (status, game) =>
+            {
+                if (status == SavedGameRequestStatus.Success)
+                {
+                    savedGameClient.ReadBinaryData(
+                        game,
+                        (readStatus, data) =>
+                        {
+                            IsLoading = false;
+                            if (readStatus == SavedGameRequestStatus.Success && data != null)
+                            {
+                                try
+                                {
+                                    string saveJson = Encoding.UTF8.GetString(data);
+                                    SaveData saveData = JsonUtility.FromJson<SaveData>(saveJson);
+                                    Debug.Log("[CloudSaveManager] 클라우드 로드 성공");
+                                    OnCloudLoadComplete?.Invoke(true, saveData);
+                                    onComplete?.Invoke(saveData);
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.LogError($"[CloudSaveManager] 클라우드 데이터 파싱 실패: {e.Message}");
+                                    OnCloudLoadComplete?.Invoke(false, null);
+                                    onComplete?.Invoke(null);
+                                }
+                            }
+                            else
+                            {
+                                Debug.LogWarning("[CloudSaveManager] 클라우드 저장 파일이 없습니다.");
+                                OnCloudLoadComplete?.Invoke(false, null);
+                                onComplete?.Invoke(null);
+                            }
+                        });
+                }
+                else
+                {
+                    IsLoading = false;
+                    Debug.LogWarning($"[CloudSaveManager] 클라우드 파일 열기 실패: {status}");
+                    OnCloudLoadComplete?.Invoke(false, null);
+                    onComplete?.Invoke(null);
+                }
+            });
+#else
+        IsLoading = false;
+        Debug.Log("[CloudSaveManager] 에디터에서는 클라우드 로드를 건너뜁니다.");
+        OnCloudLoadComplete?.Invoke(false, null);
+        onComplete?.Invoke(null);
+#endif
+    }
+
+    /// <summary>
+    /// 충돌 해결을 위한 수동 비교 및 선택
+    /// </summary>
+    public void ResolveConflict(SaveData localData, SaveData cloudData, bool useCloud)
+    {
+        if (useCloud)
+        {
+            // 클라우드 데이터 사용
+            SaveManager.Instance?.LoadGame(); // 일단 로컬 로드
+            // 이후 클라우드 데이터를 적용하도록 처리 필요
+            Debug.Log("[CloudSaveManager] 클라우드 데이터를 사용합니다.");
+        }
+        else
+        {
+            // 로컬 데이터 사용 (강제 업로드)
+            SaveToCloud(localData, forceOverwrite: true);
+            Debug.Log("[CloudSaveManager] 로컬 데이터를 클라우드에 강제 업로드합니다.");
+        }
+    }
+
+    /// <summary>
+    /// 로컬과 클라우드 동기화 (자동 충돌 해결)
+    /// </summary>
+    public void SyncWithCloud()
+    {
+        if (!IsAuthenticated)
+        {
+            Debug.LogWarning("[CloudSaveManager] 로그인되지 않아 동기화를 건너뜁니다.");
+            return;
+        }
+
+        LoadFromCloud((cloudData) =>
+        {
+            if (cloudData == null)
+            {
+                // 클라우드에 저장 파일이 없으면 로컬을 업로드
+                if (SaveManager.Instance != null && System.IO.File.Exists(SaveManager.Instance.GetSaveFilePath()))
+                {
+                    try
+                    {
+                        string localJson = System.IO.File.ReadAllText(SaveManager.Instance.GetSaveFilePath());
+                        SaveData localSaveData = JsonUtility.FromJson<SaveData>(localJson);
+                        if (localSaveData != null)
+                        {
+                            SaveToCloud(localSaveData);
+                            Debug.Log("[CloudSaveManager] 클라우드에 저장 파일이 없어 로컬 데이터를 업로드합니다.");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError($"[CloudSaveManager] 로컬 데이터 업로드 실패: {e.Message}");
+                    }
+                }
+                return;
+            }
+
+            // 클라우드 데이터가 있으면 최신 세이브 시간 비교
+            SaveData localData = null;
+            if (SaveManager.Instance != null && System.IO.File.Exists(SaveManager.Instance.GetSaveFilePath()))
+            {
+                try
+                {
+                    string localJson = System.IO.File.ReadAllText(SaveManager.Instance.GetSaveFilePath());
+                    localData = JsonUtility.FromJson<SaveData>(localJson);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning($"[CloudSaveManager] 로컬 데이터 읽기 실패: {e.Message}");
+                }
+            }
+
+            if (localData != null)
+            {
+                DateTime localTime = DateTime.MinValue;
+                DateTime cloudTime = DateTime.MinValue;
+                
+                bool localTimeValid = !string.IsNullOrEmpty(localData.savedAt) && 
+                                      DateTime.TryParse(localData.savedAt, out localTime);
+                bool cloudTimeValid = !string.IsNullOrEmpty(cloudData.savedAt) && 
+                                      DateTime.TryParse(cloudData.savedAt, out cloudTime);
+
+                if (cloudTimeValid && localTimeValid)
+                {
+                    if (cloudTime > localTime)
+                    {
+                        // 클라우드가 더 최신 - 클라우드 데이터 사용 권장
+                        Debug.Log("[CloudSaveManager] 클라우드 데이터가 더 최신입니다. 클라우드 데이터 사용을 권장합니다.");
+                        OnConflictDetected?.Invoke(localData, cloudData);
+                    }
+                    else if (localTime > cloudTime)
+                    {
+                        // 로컬이 더 최신 - 로컬 데이터 업로드
+                        Debug.Log("[CloudSaveManager] 로컬 데이터가 더 최신입니다. 클라우드에 업로드합니다.");
+                        SaveToCloud(localData);
+                    }
+                    else
+                    {
+                        // 시간이 같으면 충돌 없음
+                        Debug.Log("[CloudSaveManager] 로컬과 클라우드 데이터가 동일한 시간입니다.");
+                    }
+                }
+                else if (cloudTimeValid)
+                {
+                    // 로컬 시간이 유효하지 않으면 클라우드 사용
+                    Debug.Log("[CloudSaveManager] 로컬 데이터 시간이 유효하지 않아 클라우드 데이터 사용을 권장합니다.");
+                    OnConflictDetected?.Invoke(localData, cloudData);
+                }
+                else if (localTimeValid)
+                {
+                    // 클라우드 시간이 유효하지 않으면 로컬 업로드
+                    Debug.Log("[CloudSaveManager] 클라우드 데이터 시간이 유효하지 않아 로컬 데이터를 업로드합니다.");
+                    SaveToCloud(localData);
+                }
+            }
+            else
+            {
+                // 로컬 데이터가 없으면 클라우드 데이터를 로드할 수 있음 (UI에서 처리)
+                Debug.Log("[CloudSaveManager] 로컬 데이터가 없습니다. 클라우드 데이터 사용 가능.");
+            }
+        });
+    }
+}

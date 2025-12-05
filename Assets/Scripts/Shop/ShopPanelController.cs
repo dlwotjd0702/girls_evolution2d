@@ -41,9 +41,6 @@ public class ShopPanelController : MonoBehaviour
     [Header("Routing")]
     public CurrencyTab currentTab = CurrencyTab.Gold;
 
-    [Tooltip("보석 탭 가격 계산시: gem = ceil(goldCost * factor)")]
-    public double goldToGemFactor = 0.01;
-
     [Header("Refs")]
     public EconomyManager economy;
     [SerializeField] private PremiumCurrencyManager premiumCurrency; // 보석 관리자
@@ -59,7 +56,7 @@ public class ShopPanelController : MonoBehaviour
     [Header("Entries")]
     public List<EntryUI> entries = new List<EntryUI>();
 
-    private const string GemAdHint = "광고 시청 보상으로 보석 5개를 받을 수 있어요!";
+    private static string GemAdHint => LocalizationManager.GetText("광고 시청 보상으로 보석 5개를 받을 수 있어요!", "Watch ads to get 5 gems as a reward!");
 
     void Awake()
     {
@@ -120,11 +117,11 @@ public class ShopPanelController : MonoBehaviour
 
     void BuyWithGold(EntryUI e)
     {
-        if (economy == null) { ShowReasonTemp("시스템 미준비"); return; }
+        if (economy == null) { ShowReasonTemp(LocalizationManager.GetText("시스템 미준비", "System not ready")); return; }
 
         int lv  = GetLevel(e.type);
         int cap = GetCap(e.type);
-        if (cap >= 0 && lv >= cap) { ShowReasonTemp("최대 레벨입니다."); return; }
+        if (cap >= 0 && lv >= cap) { ShowReasonTemp(LocalizationManager.GetText("최대 레벨입니다.", "Max level reached")); return; }
 
         bool ok = false;
         double need = GetNextGoldCost(e.type);
@@ -151,12 +148,12 @@ public class ShopPanelController : MonoBehaviour
                 }
                 else
                 {
-                    ShowReasonTemp("골드가 부족합니다.");
+                    ShowReasonTemp(LocalizationManager.GetText("골드가 부족합니다.", "Not enough gold."));
                 }
             }
             else
             {
-                ShowReasonTemp("구매가 불가합니다.");
+                ShowReasonTemp(LocalizationManager.GetText("구매가 불가합니다.", "Cannot purchase."));
             }
             return;
         }
@@ -167,18 +164,14 @@ public class ShopPanelController : MonoBehaviour
 
     void BuyWithGems(EntryUI e)
     {
-        if (economy == null) { ShowReasonTemp("시스템 미준비"); return; }
-        if (premiumCurrency == null) { ShowReasonTemp("보석 시스템 미준비"); return; }
+        if (economy == null) { ShowReasonTemp(LocalizationManager.GetText("시스템 미준비", "System not ready")); return; }
+        if (premiumCurrency == null) { ShowReasonTemp(LocalizationManager.GetText("보석 시스템 미준비", "Gem system not ready")); return; }
 
         int lv  = GetLevel(e.type);
         int cap = GetCap(e.type);
-        if (cap >= 0 && lv >= cap) { ShowReasonTemp("최대 레벨입니다."); return; }
-
-        // 보석 비용 계산
-        double goldCost = GetNextGoldCost(e.type);
-        long gemCost = (double.IsInfinity(goldCost) || goldCost <= 0)
-            ? 0
-            : (long)Math.Max(1, Math.Ceiling(goldCost * Math.Max(1e-6, goldToGemFactor)));
+        if (cap >= 0 && lv >= cap) { ShowReasonTemp(LocalizationManager.GetText("최대 레벨입니다.", "Max level reached")); return; }
+        // 보석 비용 계산 → 항상 정수, 골드와 독립적인 곡선 사용
+        long gemCost = GetGemCostForEntry(e.type, lv);
 
         // 보석 차감 시도
         if (!premiumCurrency.TrySpendGems(gemCost))
@@ -212,7 +205,7 @@ public class ShopPanelController : MonoBehaviour
         {
             // 구매 실패 시 보석 환불
             premiumCurrency.AddGems(gemCost);
-            ShowReasonTemp("구매가 불가합니다.");
+            ShowReasonTemp(LocalizationManager.GetText("구매가 불가합니다.", "Cannot purchase."));
             return;
         }
 
@@ -244,9 +237,7 @@ public class ShopPanelController : MonoBehaviour
             if (currentTab == CurrencyTab.Gem)
             {
                 double goldCost = GetNextGoldCost(e.type);
-                long gemCost = (double.IsInfinity(goldCost) || goldCost <= 0)
-                    ? 0
-                    : (long)Math.Max(1, Math.Ceiling(goldCost * Math.Max(1e-6, goldToGemFactor)));
+                long gemCost = GetGemCostForEntry(e.type, lv);
                 string value = ComposeValueGoldEconomy(e.type);
                 e.costText.text = (isMax || gemCost <= 0) ? value : $"{value}\n{gemCost:N0} gems";
             }
@@ -266,13 +257,13 @@ public class ShopPanelController : MonoBehaviour
     // Name / Value
     string ComposeName(ShopItemType t) => t switch
     {
-        ShopItemType.ManualSpawnMax   => "수동 소환 최대치",
-        ShopItemType.ManualSpawnSpeed => "수동 소환 쿨다운",
-        ShopItemType.FieldMax         => "필드 최대 슬롯",
-        ShopItemType.ClickBonus       => "클릭 보너스",
-        ShopItemType.OfflineReward    => "오프라인 보상",
-        ShopItemType.OfflineMaxTime   => "오프라인 시간",
-        _ => "업그레이드"
+        ShopItemType.ManualSpawnMax   => LocalizationManager.GetText("두루마리 최대치", "Scroll Max"),
+        ShopItemType.ManualSpawnSpeed => LocalizationManager.GetText("두루마리 쿨다운", "Scroll Cooldown"),
+        ShopItemType.FieldMax         => LocalizationManager.GetText("필드 최대 슬롯", "Field Max Slots"),
+        ShopItemType.ClickBonus       => LocalizationManager.GetText("클릭 보너스", "Click Bonus"),
+        ShopItemType.OfflineReward    => LocalizationManager.GetText("오프라인 보상", "Offline Reward"),
+        ShopItemType.OfflineMaxTime   => LocalizationManager.GetText("오프라인 시간", "Offline Time"),
+        _ => LocalizationManager.GetText("업그레이드", "Upgrade")
     };
 
     string ComposeValueGoldEconomy(ShopItemType t)
@@ -280,12 +271,18 @@ public class ShopPanelController : MonoBehaviour
         if (economy == null) return "-";
         switch (t)
         {
-            case ShopItemType.ManualSpawnMax:   return $"MAX {economy.GetMaxManualSpawnCount()}개";
-            case ShopItemType.ManualSpawnSpeed: return $"쿨타임 {economy.GetManualSpawnInterval():0.0}s";
-            case ShopItemType.FieldMax:         return $"필드 {economy.GetMaxFieldCount()}칸";
-            case ShopItemType.ClickBonus:       return $"클릭 x{economy.GetClickBonusMultiplier():0.0}";
-            case ShopItemType.OfflineReward:    return $"오프라인 x{economy.GetOfflineRewardMultiplier():0.00}";
-            case ShopItemType.OfflineMaxTime:   return $"상한 {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h";
+            case ShopItemType.ManualSpawnMax:   return LocalizationManager.GetText($"MAX {economy.GetMaxManualSpawnCount()}개", $"MAX {economy.GetMaxManualSpawnCount()}");
+            case ShopItemType.ManualSpawnSpeed: return LocalizationManager.GetText($"쿨타임 {economy.GetManualSpawnInterval():0.0}s", $"Cooldown {economy.GetManualSpawnInterval():0.0}s");
+            case ShopItemType.FieldMax:         return LocalizationManager.GetText($"필드 {economy.GetMaxFieldCount()}칸", $"Field {economy.GetMaxFieldCount()} slots");
+            case ShopItemType.ClickBonus:
+                {
+                    // 클릭 보너스: 10% + 강화 레벨 × 1%
+                    int level = economy.GetClickBonusUpgradeLevel();
+                    double clickPercent = 10.0 + (level * 1.0);
+                    return LocalizationManager.GetText($"클릭 {clickPercent:0}%", $"Click {clickPercent:0}%");
+                }
+            case ShopItemType.OfflineReward:    return LocalizationManager.GetText($"오프라인 x{economy.GetOfflineRewardMultiplier():0.00}", $"Offline x{economy.GetOfflineRewardMultiplier():0.00}");
+            case ShopItemType.OfflineMaxTime:   return LocalizationManager.GetText($"상한 {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h", $"Max {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h");
         }
         return "-";
     }
@@ -337,6 +334,40 @@ public class ShopPanelController : MonoBehaviour
             ShopItemType.OfflineMaxTime   => economy.GetOfflineMaxTimeUpgradeCost(economy.GetOfflineMaxTimeUpgradeLevel()),
             _ => double.PositiveInfinity
         };
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Gem 가격 체계 (골드와 독립, 완만한 성장)
+    long GetGemCostForEntry(ShopItemType t, int level)
+    {
+        if (economy == null) return 0;
+
+        level = Mathf.Max(0, level); // 현재 레벨 기준으로 다음 레벨 비용 계산
+
+        double baseCost;
+        double grow;
+
+        switch (t)
+        {
+            case ShopItemType.ManualSpawnMax:   // 두루마리 최대치
+                baseCost = 5;  grow = 1.35; break;
+            case ShopItemType.ManualSpawnSpeed: // 두루마리 쿨다운
+                baseCost = 5;  grow = 1.35; break;
+            case ShopItemType.FieldMax:         // 필드 최대 슬롯
+                baseCost = 8;  grow = 1.4;  break;
+            case ShopItemType.ClickBonus:       // 클릭 보너스
+                baseCost = 8;  grow = 1.4;  break;
+            case ShopItemType.OfflineReward:    // 오프라인 보상 배수
+                baseCost = 6;  grow = 1.3;  break;
+            case ShopItemType.OfflineMaxTime:   // 오프라인 시간 상한
+                baseCost = 6;  grow = 1.3;  break;
+            default:
+                baseCost = 5;  grow = 1.3;  break;
+        }
+
+        double raw = baseCost * Math.Pow(grow, level);
+        long gems  = (long)Math.Max(1, Math.Round(raw));
+        return gems;
     }
 
     // ─────────────────────────────────────────────────────────────

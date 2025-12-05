@@ -1,4 +1,4 @@
-﻿// ============================
+// ============================
 // GirlFieldManager.cs (FULL, 환생 상점/계승 등급 보너스 + 상점 Plus 효과 반영 버전)
 // - ComputeIdleGoldPerSec(): "계승 등급 + 환생 상점" 수익 배수 곱
 // - 수동 소환 최대/쿨타임, 자동 소환/합성 주기, 필드 최대칸에 "PrestigeShop Plus" 반영
@@ -44,6 +44,27 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     // ── 자동 타이머 ──
     private float autoSpawnTimer = 0f;
     private float autoMergeTimer = 0f;
+
+    // 타이머 진행률을 외부에서 가져올 수 있도록 (0.0 ~ 1.0)
+    public float GetAutoSpawnTimerProgress()
+    {
+        if (economy == null || !economy.IsAutoSpawnOn()) return 0f;
+        float interval = economy.GetAutoSpawnInterval();
+        if (interval >= float.MaxValue) return 0f;
+        interval = ApplyAutoSpawnMul(interval);
+        if (interval >= float.MaxValue) return 0f;
+        return Mathf.Clamp01(autoSpawnTimer / interval);
+    }
+    
+    public float GetAutoMergeTimerProgress()
+    {
+        if (economy == null || !economy.IsAutoMergeOn() || mergeManager == null) return 0f;
+        float interval = economy.GetAutoMergeInterval();
+        if (interval >= float.MaxValue) return 0f;
+        interval = ApplyAutoMergeMul(interval);
+        if (interval >= float.MaxValue) return 0f;
+        return Mathf.Clamp01(autoMergeTimer / interval);
+    }
 
     // ── Idle 수익 지급 ──
     [Header("Idle Income")]
@@ -95,7 +116,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     [Header("Gold Popup")]
     [SerializeField] private GoldGainPopupPool goldPopupPool;
-    [SerializeField] private Vector2 goldPopupOffset = new Vector2(0f, 120f);
+    [SerializeField] private Vector2 goldPopupOffset = new Vector2(0f, 0f); // 팝업은 하단에서 시작하므로 오프셋 0
 
     [Header("Offline Reward")]
     [SerializeField] private OfflineRewardPanel offlineRewardPanel;
@@ -441,6 +462,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
         UpdateLevel25Text();
         NotifySpawnedLevel(TierRules.MaxLevel);
+        
+        // 통계 기록: 레벨 25 달성 (최초 생성 시에만)
+        if (PlayStatsTracker.Instance != null && exist == null)
+        {
+            PlayStatsTracker.Instance.RecordLevel25Reached();
+        }
     }
 
     private GirlCharacter GetFinalGirl()
@@ -526,6 +553,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         NotifySpawnedLevel(level);
+        
+        // 통계 기록: 소환
+        if (PlayStatsTracker.Instance != null && !_isRestoring)
+        {
+            PlayStatsTracker.Instance.RecordSpawn();
+        }
     }
 
     private void ConfigureLevel25(GirlCharacter girl)
@@ -576,6 +609,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         {
             CurrentMaxLevel = achievedLevel;
             OnMaxLevelChanged?.Invoke(CurrentMaxLevel);
+            
+            // 리더보드 점수 제출 (최고 레벨 달성)
+            if (LeaderboardManager.Instance != null)
+            {
+                LeaderboardManager.Instance.SubmitMaxLevel(CurrentMaxLevel);
+            }
         }
     }
 
@@ -618,6 +657,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         MoveGirlToDiscoveryCenter(rect, out var originalParent, out var originalSiblingIndex);
 
         SetDiscoverySpotlight(true);
+        
+        // 새로운 단계 발견 효과음 재생
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayDiscoverySFX();
+        }
 
         girl.KillAllTweens();
         girl.StopAllCoroutines();
@@ -782,8 +827,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private Vector2 GetRandomSpawnPos()
     {
-        float x = URandom.Range(-350f, 350f);
-        float y = URandom.Range(-600f, 600f);
+        // 맵 경계 축소: 기존의 약 70%로 축소
+        float x = URandom.Range(-320f, 320f);  // -350~350 -> -245~245
+        float y = URandom.Range(-500f, 500f);  // -600~600 -> -420~420
         return new Vector2(x, y);
     }
 

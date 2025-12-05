@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class GemStorePanelController : MonoBehaviour
 
         [Header("Optional Title Override")]
         public bool   useTitleOverride;   // true면 customTitle 사용
-        public string customTitle = "광고 제거";
+        public string customTitle = "광고 제거"; // This will be localized when used
         
         [Header("Ad Entry")]
         public bool isAdEntry = false;    // true면 광고 시청 Entry
@@ -30,8 +31,10 @@ public class GemStorePanelController : MonoBehaviour
     public PremiumCurrencyManager premium;
     public List<Entry> entries = new();
 
-    [Header("Insufficient Funds Panel")]
-    [SerializeField] private InsufficientFundsPanel insufficientPanel;
+    [Header("Reason Label")]
+    [SerializeField] private TextMeshProUGUI reasonLabel;
+    [SerializeField] private float reasonShowSeconds = 1.5f;
+    private Coroutine _reasonRoutine;
 
     [Header("Ad Service")]
     [SerializeField] private MonoBehaviour adServiceBehaviour;
@@ -46,6 +49,11 @@ public class GemStorePanelController : MonoBehaviour
 
     private Action<bool> adReadyHandler;
     private Action<bool> adsRemovedHandler;
+
+    void Awake()
+    {
+        if (reasonLabel != null) reasonLabel.gameObject.SetActive(false);
+    }
 
     void OnEnable()
     {
@@ -67,6 +75,7 @@ public class GemStorePanelController : MonoBehaviour
             premium.OnPurchaseFailed -= OnPurchaseFailed;
         }
         UnbindAdService();
+        HideReasonImmediate();
     }
 
     void Refresh()
@@ -86,7 +95,7 @@ public class GemStorePanelController : MonoBehaviour
             if (e.isAdEntry)
                 e.titleText.text = $"+{adGemReward:N0} Gems";
             else if (e.useTitleOverride || isRemoveAds)
-                e.titleText.text = string.IsNullOrWhiteSpace(e.customTitle) ? "광고 제거" : e.customTitle;
+                e.titleText.text = string.IsNullOrWhiteSpace(e.customTitle) ? LocalizationManager.GetText("광고 제거", "Remove Ads") : e.customTitle;
             else
                 e.titleText.text = $"{e.grantGems:N0} Gems";
         }
@@ -95,9 +104,17 @@ public class GemStorePanelController : MonoBehaviour
         if (e.priceText)
         {
             if (e.isAdEntry)
-                e.priceText.text = "광고 시청";
+                e.priceText.text = LocalizationManager.GetText("광고 시청", "Watch Ad");
             else
-                e.priceText.text = premium.GetLocalizedPrice(e.productId); // 콘솔 가격 자동 반영
+            {
+                string price = premium.GetLocalizedPrice(e.productId); // 콘솔 가격 자동 반영
+                // 가격이 아직 로드되지 않았을 경우 빈 문자열 대신 기본 메시지 표시
+                if (string.IsNullOrEmpty(price))
+                {
+                    price = LocalizationManager.GetText("가격 로딩 중...", "Loading price...");
+                }
+                e.priceText.text = price;
+            }
         }
 
         // ── 구매 버튼 ─────────────────────────────────────────
@@ -144,10 +161,21 @@ public class GemStorePanelController : MonoBehaviour
 
     void OnPurchaseFailed(string productId, string reason)
     {
-        if (insufficientPanel != null)
+        // 모든 구매 버튼 비활성화
+        foreach (var e in entries)
         {
-            insufficientPanel.ShowGeneric("구매 실패", "보석 구매에 실패했습니다. 다시 시도해주세요.");
+            if (e.buyButton != null)
+            {
+                e.buyButton.interactable = false;
+            }
         }
+        
+        // Reason label로 실패 메시지 표시
+        string failMessage = LocalizationManager.GetText(
+            "구매에 실패했습니다.\n잠시 후 다시 시도해주세요.", 
+            "Purchase failed.\nPlease try again later."
+        );
+        ShowReasonTemp(failMessage);
     }
 
     void BindAdService()
@@ -203,19 +231,19 @@ public class GemStorePanelController : MonoBehaviour
 
         if (adService == null)
         {
-            if (insufficientPanel != null)
-            {
-                insufficientPanel.ShowGeneric("광고 미지원", "광고 서비스가 준비되지 않았습니다.");
-            }
+            ShowReasonTemp(LocalizationManager.GetText(
+                "광고 서비스가 준비되지 않았습니다.", 
+                "Ad service is not ready."
+            ));
             return;
         }
 
         if (!adService.IsRewardedReady())
         {
-            if (insufficientPanel != null)
-            {
-                insufficientPanel.ShowGeneric("광고 준비 중", "광고를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
-            }
+            ShowReasonTemp(LocalizationManager.GetText(
+                "광고를 불러오는 중입니다.\n잠시 후 다시 시도해주세요.", 
+                "Loading ad.\nPlease try again in a moment."
+            ));
             adService.LoadRewarded();
             return;
         }
@@ -234,6 +262,57 @@ public class GemStorePanelController : MonoBehaviour
         {
             pcm.AddGems(adGemReward);
             Refresh();
+        }
+    }
+
+    // Reason helpers
+    void ShowReasonTemp(string msg)
+    {
+        if (reasonLabel == null) return;
+        HideReasonImmediate();
+        reasonLabel.text = msg;
+        reasonLabel.gameObject.SetActive(true);
+        _reasonRoutine = StartCoroutine(HideReasonAfter(reasonShowSeconds));
+    }
+    
+    System.Collections.IEnumerator HideReasonAfter(float sec)
+    {
+        yield return new WaitForSecondsRealtime(sec);
+        HideReasonImmediate();
+    }
+    
+    void HideReasonImmediate()
+    {
+        if (reasonLabel == null) return;
+        if (_reasonRoutine != null)
+        {
+            StopCoroutine(_reasonRoutine);
+            _reasonRoutine = null;
+        }
+        reasonLabel.text = "";
+        reasonLabel.gameObject.SetActive(false);
+        
+        // Reason이 사라질 때 버튼들 다시 활성화
+        foreach (var e in entries)
+        {
+            if (e.buyButton != null)
+            {
+                // 광고 Entry는 광고 준비 상태에 따라 활성화
+                if (e.isAdEntry)
+                {
+                    bool ready = false;
+                    bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+                    if (!adsRemoved && adService != null)
+                    {
+                        try { ready = adService.IsRewardedReady(); } catch { }
+                    }
+                    e.buyButton.interactable = ready && !adsRemoved;
+                }
+                else
+                {
+                    e.buyButton.interactable = true;
+                }
+            }
         }
     }
 }

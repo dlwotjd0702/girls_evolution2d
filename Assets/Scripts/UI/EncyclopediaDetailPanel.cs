@@ -17,9 +17,7 @@ public class EncyclopediaDetailPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI incomeText;
     [SerializeField] private Button closeButton;
     
-    [Header("Settings")]
-    [SerializeField] private string incomeFormat = "수익: {0:N0}";
-    
+
     void Awake()
     {
         if (closeButton != null)
@@ -56,19 +54,21 @@ public class EncyclopediaDetailPanel : MonoBehaviour
         // 이름
         if (nameText != null)
         {
-            nameText.text = name ?? "알 수 없음";
+            nameText.text = name ?? LocalizationManager.GetText("알 수 없음", "Unknown");
         }
         
         // 레벨
         if (levelText != null)
         {
-            levelText.text = $"{level} 단계";
+            levelText.text = LocalizationManager.GetText($"{level} 단계", $"Level {level}");
         }
         
         // 수익
         if (incomeText != null)
         {
-            incomeText.text = string.Format(incomeFormat, income)+"G/s";
+            string format = LocalizationManager.GetText("수익: {0}", "Income: {0}");
+            string formattedIncome = EconomyManager.FormatAbbrev(income, 1, ""); // 단위 없이 숫자만
+            incomeText.text = string.Format(format, formattedIncome) + "/s";
         }
     }
     

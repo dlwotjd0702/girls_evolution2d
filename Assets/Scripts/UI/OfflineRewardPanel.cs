@@ -17,6 +17,7 @@ public class OfflineRewardPanel : MonoBehaviour
 
     [Header("Refs")]
     [SerializeField] private EconomyManager economy;
+    [SerializeField] private PremiumCurrencyManager premiumCurrency;
     [SerializeField] private MonoBehaviour adServiceBehaviour;
 
     [Header("UI")]
@@ -37,10 +38,13 @@ public class OfflineRewardPanel : MonoBehaviour
     private Action<bool> adReadyHandler;
     private Payload currentPayload;
     private bool hasPayload = false;
+    private bool isCouponReward = false; // 쿠폰 보상인지 여부
+    private long couponGemReward = 0; // 쿠폰 보석 보상
 
     void Awake()
     {
         if (!economy) economy = FindObjectOfType<EconomyManager>(true);
+        if (!premiumCurrency) premiumCurrency = FindObjectOfType<PremiumCurrencyManager>(true);
         BindButtons();
         BindAdService();
         if (panelRoot) panelRoot.SetActive(false);
@@ -94,6 +98,8 @@ public class OfflineRewardPanel : MonoBehaviour
         if (payload.totalReward <= 0) return;
         currentPayload = payload;
         hasPayload = true;
+        isCouponReward = false;
+        couponGemReward = 0;
 
         // 보상 금액 표시
         if (rewardText != null)
@@ -107,14 +113,69 @@ public class OfflineRewardPanel : MonoBehaviour
             string timeStr = FormatDuration(payload.rawSeconds);
             if (payload.appliedSeconds + 0.5 < payload.rawSeconds)
             {
-                durationText.SetText($"오프라인: {timeStr}\n(최대 {FormatDuration(payload.appliedSeconds)}만 적용)");
+                durationText.SetText(LocalizationManager.GetText(
+                    $"오프라인: {timeStr}\n(최대 {FormatDuration(payload.appliedSeconds)}만 적용)",
+                    $"Offline: {timeStr}\n(Max {FormatDuration(payload.appliedSeconds)} applied)"
+                ));
             }
             else
             {
-                durationText.SetText($"오프라인: {timeStr}");
+                durationText.SetText(LocalizationManager.GetText(
+                    $"오프라인: {timeStr}",
+                    $"Offline: {timeStr}"
+                ));
             }
         }
 
+        UpdateAdButtonVisual();
+
+        if (panelRoot) panelRoot.SetActive(true);
+    }
+    
+    /// <summary>
+    /// 쿠폰 보상을 표시합니다
+    /// </summary>
+    public void ShowCouponReward(Payload payload, CouponReward couponReward)
+    {
+        // 골드 또는 보석 중 하나만 있으면 됨
+        bool hasGold = payload.totalReward > 0;
+        bool hasGem = !couponReward.isGoldReward && couponReward.rewardAmount > 0;
+        
+        if (!hasGold && !hasGem) return;
+        
+        currentPayload = payload;
+        hasPayload = true;
+        isCouponReward = true;
+        couponGemReward = hasGem ? (long)couponReward.rewardAmount : 0;
+
+        // 보상 금액 표시 (골드 또는 보석 중 하나)
+        if (rewardText != null)
+        {
+            string rewardStr = "";
+            if (hasGold)
+            {
+                rewardStr = $"+{EconomyManager.FormatAbbrev(payload.totalReward)}";
+            }
+            else if (hasGem)
+            {
+                rewardStr = $"+{couponReward.rewardAmount:N0} Gem";
+            }
+            rewardText.SetText(rewardStr);
+        }
+
+        // 쿠폰 보상임을 표시
+        if (durationText != null)
+        {
+            durationText.SetText(LocalizationManager.GetText(
+                "쿠폰 보상",
+                "Coupon Reward"
+            ));
+        }
+        
+        // 광고 버튼 업데이트 (보석만 있어도 광고 2배 받기 가능)
+        UpdateAdButtonVisual();
+
+        // 광고 버튼 업데이트 (골드 보상이 있을 때만 광고 2배 받기 가능)
         UpdateAdButtonVisual();
 
         if (panelRoot) panelRoot.SetActive(true);
@@ -124,10 +185,19 @@ public class OfflineRewardPanel : MonoBehaviour
     {
         var span = TimeSpan.FromSeconds(Math.Max(0, seconds));
         if (span.TotalHours >= 1.0)
-            return $"{(int)span.TotalHours}시간 {span.Minutes}분";
+            return LocalizationManager.GetText(
+                $"{(int)span.TotalHours}시간 {span.Minutes}분",
+                $"{(int)span.TotalHours}h {span.Minutes}m"
+            );
         if (span.TotalMinutes >= 1.0)
-            return $"{(int)span.TotalMinutes}분 {span.Seconds}초";
-        return $"{Mathf.Max(1, (int)Math.Round((float)span.TotalSeconds))}초";
+            return LocalizationManager.GetText(
+                $"{(int)span.TotalMinutes}분 {span.Seconds}초",
+                $"{(int)span.TotalMinutes}m {span.Seconds}s"
+            );
+        return LocalizationManager.GetText(
+            $"{Mathf.Max(1, (int)Math.Round((float)span.TotalSeconds))}초",
+            $"{Mathf.Max(1, (int)Math.Round((float)span.TotalSeconds))}s"
+        );
     }
 
     void UpdateAdButtonVisual()
@@ -135,7 +205,11 @@ public class OfflineRewardPanel : MonoBehaviour
         if (claimAdButton == null) return;
 
         bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
-        bool showButton = adService != null && !adsRemoved;
+        // 골드 또는 보석 보상이 있을 때 광고 버튼 표시
+        bool hasGoldReward = currentPayload.totalReward > 0;
+        bool hasGemReward = isCouponReward && couponGemReward > 0;
+        bool hasAnyReward = hasGoldReward || hasGemReward;
+        bool showButton = adService != null && !adsRemoved && hasAnyReward;
         claimAdButton.gameObject.SetActive(showButton);
 
         if (!showButton)
@@ -187,11 +261,24 @@ public class OfflineRewardPanel : MonoBehaviour
     void GrantReward(float multiplier)
     {
         if (!hasPayload) return;
-        double amount = currentPayload.totalReward * Math.Max(1f, multiplier);
-        if (economy != null && amount > 0)
-            economy.AddGold(amount);
+        
+        // 골드 보상 지급 (광고 2배 받기 적용)
+        double goldAmount = currentPayload.totalReward * Math.Max(1f, multiplier);
+        if (economy != null && goldAmount > 0)
+        {
+            economy.AddGold(goldAmount);
+        }
+        
+        // 쿠폰 보상인 경우 보석도 지급 (광고 2배 받기 적용)
+        if (isCouponReward && couponGemReward > 0 && premiumCurrency != null)
+        {
+            long gemAmount = (long)(couponGemReward * Math.Max(1f, multiplier));
+            premiumCurrency.AddGems(gemAmount);
+        }
 
         hasPayload = false;
+        isCouponReward = false;
+        couponGemReward = 0;
         if (panelRoot) panelRoot.SetActive(false);
     }
 }

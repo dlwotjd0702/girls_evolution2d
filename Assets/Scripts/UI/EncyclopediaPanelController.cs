@@ -61,39 +61,34 @@ public class EncyclopediaPanelController : MonoBehaviour
     void BuildSlots()
     {
         if (slotContainer == null || slotPrefab == null || dataManager == null) return;
-        
-        // 기존 슬롯 정리
-        foreach (Transform child in slotContainer)
-        {
-            Destroy(child.gameObject);
-        }
-        slots.Clear();
-        
-        // 25개 슬롯 생성
+
+        // 최초 1회 생성 후 재사용: 이미 생성된 슬롯이 있으면 파괴하지 않고 재활용
         for (int level = 1; level <= TierRules.MaxLevel; level++)
         {
             var data = dataManager.GetDataByLevel(level);
             if (data == null) continue;
-            
-            var go = Instantiate(slotPrefab, slotContainer);
-            var slot = go.GetComponent<EncyclopediaSlot>();
-            if (slot == null)
+
+            EncyclopediaSlot slot;
+            if (!slots.TryGetValue(level, out slot) || slot == null)
             {
-                slot = go.AddComponent<EncyclopediaSlot>();
+                var go = Instantiate(slotPrefab, slotContainer);
+                slot = go.GetComponent<EncyclopediaSlot>();
+                if (slot == null)
+                    slot = go.AddComponent<EncyclopediaSlot>();
+                slots[level] = slot;
             }
-            
+
             bool isUnlocked = discoveredLevels.Contains(level);
             Sprite iconSprite = null;
-            
+
             if (isUnlocked && spriteLoader != null)
             {
                 // 언락된 경우 SD 스프라이트 사용 (슬롯은 작으므로)
                 iconSprite = spriteLoader.GetSpriteForData(data, preferLD: false);
             }
-            
-            // 클로저에서 level 변수 캡처 문제 해결을 위해 로컬 변수에 복사
+
             int capturedLevel = level;
-            
+
             slot.Setup(
                 level: capturedLevel,
                 name: data.name,
@@ -101,8 +96,6 @@ public class EncyclopediaPanelController : MonoBehaviour
                 isUnlocked: isUnlocked,
                 onClick: () => OnSlotClicked(capturedLevel)
             );
-            
-            slots[level] = slot;
         }
     }
     
@@ -113,7 +106,8 @@ public class EncyclopediaPanelController : MonoBehaviour
         
         if (!discoveredLevels.Contains(level))
         {
-            Debug.Log($"[Encyclopedia] 레벨 {level}은 아직 해방되지 않았습니다. discoveredLevels: [{string.Join(", ", discoveredLevels)}]");
+            // 개발용 로그는 필요 시만 사용
+            // Debug.Log($"[Encyclopedia] 레벨 {level}은 아직 해방되지 않았습니다.");
             return;
         }
         

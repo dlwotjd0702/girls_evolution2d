@@ -321,6 +321,16 @@ public class TierManager : MonoBehaviour, ISaveable
         RefreshAscendUI();
     }
 
+    /// <summary>
+    /// 환생 시 사용: 언락 체크 없이 강제로 특정 계층으로 이동
+    /// </summary>
+    public void ForceSwitchTo(int tierIndex)
+    {
+        if ((uint)tierIndex > 3u) return;
+        if (CurrentTierIndex == tierIndex) return;
+        SwitchToInternal(tierIndex);
+    }
+
     IEnumerator SwitchDownSequence(int targetTier)
     {
         isSequenceRunning = true;
@@ -357,13 +367,18 @@ public class TierManager : MonoBehaviour, ISaveable
 
     public void ApplyLoadedData(SaveData data)
     {
-        CurrentTierIndex = Mathf.Clamp(data.currentTierIndex, 0, 3);
+        // 저장된 계층 정보 복원
+        int savedTierIndex = Mathf.Clamp(data.currentTierIndex, 0, 3);
 
         for (int i = 0; i < 4; i++)
             Unlocked[i] = (data.unlockedTierMask & (1 << i)) != 0;
 
-        Unlocked[0] = true; // 안전장치
+        Unlocked[0] = true; // 안전장치: 0층은 항상 해금
 
+        // 게임 시작 시 제일 낮은 계층(0층)으로 강제 이동
+        // 저장된 계층이 0층이 아니더라도 0층으로 시작
+        CurrentTierIndex = 0;
+        
         SyncImmediate(CurrentTierIndex);
         RefreshAscendUI();
         OnTierChanged?.Invoke(CurrentTierIndex);

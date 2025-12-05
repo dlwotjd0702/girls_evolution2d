@@ -2,6 +2,8 @@
 
 # 파일 하나만 정확히
 "NotoSansKR-Regular SDF.asset" filter=lfs diff=lfs merge=lfs -text
+Assets/Firebase/Plugins/x86_64/FirebaseCppApp-13_6_0.bundle filter=lfs diff=lfs merge=lfs -text
+Assets/Firebase/Plugins/x86_64/FirebaseCppApp-13_6_0.so     filter=lfs diff=lfs merge=lfs -text
 
 # 혹은 확장자/경로 기준(원하는 폴더로 좁히면 안전)
 *.asset filter=lfs diff=lfs merge=lfs -text

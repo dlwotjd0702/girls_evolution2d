@@ -28,7 +28,43 @@
 1. `연결된 앱` 섹션에서 Android 앱 연결
 2. SHA-1 인증서 지문 등록 (keystore 파일 기준)
    - 키스토어 파일 위치: `Assets/keystore.keystore`
+   - 키 별칭: `evolution`
    - 키스토어 비밀번호는 프로젝트 설정에서 확인
+3. **참고**: OAuth 클라이언트 ID는 Google이 자동으로 생성합니다
+   - Unity에서는 이 클라이언트 ID를 직접 입력할 필요가 없습니다
+   - SHA-1만 등록하면 자동으로 연결됩니다
+
+#### SHA-1 인증서 지문 확인 방법
+
+**방법 1: keytool 명령어 사용 (권장)**
+
+1. 명령 프롬프트(CMD) 또는 PowerShell 열기
+2. 프로젝트 루트 디렉토리로 이동
+3. 다음 명령어 실행:
+   ```bash
+   keytool -list -v -keystore Assets/keystore.keystore -alias evolution
+   ```
+4. 비밀번호 입력 (프로젝트 설정에서 확인)
+5. 출력 결과에서 `SHA1:` 또는 `SHA-1:` 뒤의 값을 복사
+   - 예: `AA:BB:CC:DD:EE:FF:00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD`
+
+**방법 2: Unity 에디터에서 확인**
+
+1. Unity 에디터에서 `Edit` > `Project Settings` > `Player` > `Android` > `Publishing Settings` 이동
+2. `Keystore Manager` 클릭
+3. 키스토어 정보 확인 (SHA-1 표시 여부는 Unity 버전에 따라 다름)
+
+**방법 3: Google Play Console에서 확인 (이미 업로드된 앱인 경우)**
+
+1. Google Play Console > `릴리스` > `프로덕션` 이동
+2. 최신 앱 번들/APK의 `앱 서명` 섹션에서 SHA-1 확인
+
+**참고:**
+- 개발용 디버그 키스토어의 SHA-1도 필요할 수 있습니다
+- 디버그 키스토어 SHA-1 확인:
+  ```bash
+  keytool -list -v -keystore "%USERPROFILE%\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+  ```
 
 ### 2.3 리더보드 생성
 1. `게임 서비스` > `리더보드` 이동
@@ -41,10 +77,26 @@
 
 ## 3. Unity 프로젝트 설정
 
-### 3.1 게임 ID 설정
+### 3.1 게임 ID 설정 (중요!)
 1. Unity 에디터에서 `Window` > `Google Play Games` > `Setup` 열기
-2. Google Play Console에서 복사한 `게임 ID` 입력
-3. Android 패키지 이름 확인 (`Project Settings` > `Player` > `Android`)
+2. **"Resources Definition" 필드에 Android Resources XML 붙여넣기**
+   - Google Play Console에서 Android Resources 다운로드:
+     - Google Play Console > `게임 서비스` > `설정 및 관리` > `설정`
+     - `연결된 앱` 섹션에서 "Android Resources 다운로드" 클릭
+     - 다운로드된 XML 파일 내용을 복사
+   - Unity의 "Resources Definition" 큰 텍스트 영역에 붙여넣기
+   - ⚠️ **이 XML 안에 게임 ID가 포함되어 있습니다!**
+
+3. **"Web App Client ID (Optional)" 필드는 비워두세요**
+   - 설명에 "It is not required for Game Services"라고 명시되어 있습니다
+   - 클라우드 저장/리더보드 기능에는 필요 없습니다
+   - 고급 기능(사용자 ID 토큰 접근 등)을 사용할 때만 필요합니다
+
+4. Android 패키지 이름 확인 (`Project Settings` > `Player` > `Android`)
+   - 패키지 이름이 Google Play Console에 등록된 것과 일치해야 합니다
+
+5. "Setup" 버튼 클릭
+   - 자동으로 `GameInfo.cs` 파일이 생성되고 게임 ID가 설정됩니다
 
 ### 3.2 리더보드 ID 설정
 1. `Assets/Scripts/LeaderboardManager.cs` 파일 열기

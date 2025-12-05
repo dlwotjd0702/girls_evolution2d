@@ -617,7 +617,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
     }
 
-    private void RecomputeMaxLevelAndNotify()
+    public void RecomputeMaxLevelAndNotify()
     {
         int maxLv = 1;
         for (int i = 0; i < girlList.Count; i++)

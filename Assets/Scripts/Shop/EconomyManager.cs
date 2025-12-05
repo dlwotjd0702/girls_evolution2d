@@ -1,4 +1,4 @@
-﻿// ============================================================================
+// ============================================================================
 // EconomyManager.cs  (DROP-IN, HUD는 "값 바뀔 때만" 즉시 갱신)
 // - DOTween/Update 의존 X
 // - SetGold/SpendGold/AddGold/SetGoldPerSecEstimate 에 '중복 갱신 가드' 추가
@@ -195,7 +195,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
     [Header("Level Caps)")]
     private int spawnMaxUpgradeCap     = 10;
     private int spawnSpeedUpgradeCap   = 10;
-    private int fieldMaxUpgradeCap     = 10;
+    private int fieldMaxUpgradeCap     = 12; // 인구수 30 달성: 8 + 12*2 = 32
     private int clickBonusUpgradeCap   = 15;
     private int offlineRewardCap       = 10;
     private int offlineMaxTimeCap      = 10;

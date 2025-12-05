@@ -31,6 +31,7 @@ public class CloudSaveManager : MonoBehaviour
     public bool IsLoading { get; private set; } = false;
 
     private const string CLOUD_SAVE_FILENAME = "girls_evolution_save";
+    private const string FIRST_RUN_KEY = "CloudSaveManager_FirstRun";
 
 #if UNITY_ANDROID && !UNITY_EDITOR
     private ISavedGameClient savedGameClient;
@@ -53,29 +54,70 @@ public class CloudSaveManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Google Play Games 초기화 및 로그인 시도
+    /// Google Play Games 초기화 및 로그인 시도 (최초 실행 시에만)
     /// </summary>
     private void InitializeGooglePlayGames()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
+        // 최초 실행 여부 확인
+        bool isFirstRun = !PlayerPrefs.HasKey(FIRST_RUN_KEY);
+        
+        if (!isFirstRun)
+        {
+            // 최초 실행이 아니면 SDK만 활성화하고 로그인 시도하지 않음
+            try
+            {
+                PlayGamesPlatform.Activate();
+                Debug.Log("[CloudSaveManager] SDK 활성화 완료 (최초 실행이 아니므로 자동 로그인 시도 안 함)");
+                
+                // 이미 로그인되어 있을 수 있으므로 확인
+                if (PlayGamesPlatform.Instance != null && PlayGamesPlatform.Instance.IsAuthenticated())
+                {
+                    IsAuthenticated = true;
+                    savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+                    Debug.Log("[CloudSaveManager] 이미 로그인되어 있습니다.");
+                    OnLoginStatusChanged?.Invoke(true);
+                }
+                else
+                {
+                    IsAuthenticated = false;
+                    OnLoginStatusChanged?.Invoke(false);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[CloudSaveManager] SDK 활성화 실패: {e.Message}");
+                IsAuthenticated = false;
+                OnLoginStatusChanged?.Invoke(false);
+            }
+            return;
+        }
+        
+        // 최초 실행 시에만 로그인 시도
         try
         {
             PlayGamesPlatform.Activate();
             
-            PlayGamesPlatform.Instance.Authenticate((success, error) =>
+            PlayGamesPlatform.Instance.Authenticate((status) =>
             {
+                bool success = (status == SignInStatus.Success);
                 IsAuthenticated = success;
-                Debug.Log($"[CloudSaveManager] 로그인 결과: {success}, 에러: {error}");
+                
+                // 최초 실행 플래그 저장 (로그인 시도 완료 후 저장)
+                PlayerPrefs.SetInt(FIRST_RUN_KEY, 1);
+                PlayerPrefs.Save();
+                
+                Debug.Log($"[CloudSaveManager] 최초 실행 로그인 결과: {success}, 상태: {status}");
                 OnLoginStatusChanged?.Invoke(success);
                 
                 if (success)
                 {
                     savedGameClient = PlayGamesPlatform.Instance.SavedGame;
-                    Debug.Log("[CloudSaveManager] Google Play Games 로그인 성공");
+                    Debug.Log("[CloudSaveManager] Google Play Games 로그인 성공 (최초 실행)");
                 }
                 else
                 {
-                    Debug.LogWarning($"[CloudSaveManager] Google Play Games 로그인 실패: {error}");
+                    Debug.LogWarning($"[CloudSaveManager] Google Play Games 로그인 실패 (최초 실행): {status}");
                 }
             });
         }
@@ -105,10 +147,11 @@ public class CloudSaveManager : MonoBehaviour
             return;
         }
 
-        PlayGamesPlatform.Instance.Authenticate((success, error) =>
+        PlayGamesPlatform.Instance.Authenticate((status) =>
         {
+            bool success = (status == SignInStatus.Success);
             IsAuthenticated = success;
-            Debug.Log($"[CloudSaveManager] 수동 로그인 결과: {success}, 에러: {error}");
+            Debug.Log($"[CloudSaveManager] 수동 로그인 결과: {success}, 상태: {status}");
             OnLoginStatusChanged?.Invoke(success);
             callback?.Invoke(success);
             
@@ -124,15 +167,17 @@ public class CloudSaveManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 로그아웃
+    /// 로그아웃 (Google Play Games SDK에서는 SignOut 메서드가 제거됨)
+    /// 상태만 초기화하고 실제 로그아웃은 사용자가 시스템 설정에서 처리해야 함
     /// </summary>
     public void SignOut()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
-        PlayGamesPlatform.Instance.SignOut();
+        // Google Play Games SDK v2.1.0 이상에서는 SignOut 메서드가 제거됨
+        // 사용자는 시스템 설정에서 Google 계정 로그아웃을 해야 함
         IsAuthenticated = false;
         savedGameClient = null;
-        Debug.Log("[CloudSaveManager] 로그아웃 완료");
+        Debug.Log("[CloudSaveManager] 로그아웃 상태로 초기화 완료 (실제 로그아웃은 시스템 설정에서 처리 필요)");
         OnLoginStatusChanged?.Invoke(false);
 #else
         Debug.Log("[CloudSaveManager] 에디터에서는 로그아웃할 수 없습니다.");

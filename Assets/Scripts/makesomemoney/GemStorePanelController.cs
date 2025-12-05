@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,17 +24,26 @@ public class GemStorePanelController : MonoBehaviour
         public bool   useTitleOverride;   // true면 customTitle 사용
         public string customTitle = "광고 제거"; // This will be localized when used
         
-        [Header("Ad Entry")]
-        public bool isAdEntry = false;    // true면 광고 시청 Entry
+        [Header("Entry Type")]
+        public bool isAdEntry = false;    // true면 광고 시청 Entry (젬 보상)
+        public bool isGoldAdEntry = false; // true면 골드 광고 시청 Entry (골드 10분치)
+        public bool isGoldGemEntry = false; // true면 골드 보석 구매 Entry (골드 10분치)
+        
+        [Header("Gold Entry Settings")]
+        public int goldGemCost = 10;      // 골드 보석 구매 시 필요한 보석 수
     }
 
     public PremiumCurrencyManager premium;
+    public EconomyManager economy;
     public List<Entry> entries = new();
 
     [Header("Reason Label")]
     [SerializeField] private TextMeshProUGUI reasonLabel;
     [SerializeField] private float reasonShowSeconds = 1.5f;
     private Coroutine _reasonRoutine;
+    
+    [Header("Gold Reward Settings")]
+    [SerializeField] private int goldRewardMinutes = 10; // 골드 보상 시간 (분)
 
     [Header("Ad Service")]
     [SerializeField] private MonoBehaviour adServiceBehaviour;
@@ -58,6 +67,7 @@ public class GemStorePanelController : MonoBehaviour
     void OnEnable()
     {
         if (!premium) premium = FindObjectOfType<PremiumCurrencyManager>(true);
+        if (!economy) economy = FindObjectOfType<EconomyManager>(true);
         if (premium != null)
         {
             premium.OnCatalogReady += Refresh; // 가격 가져온 뒤 갱신
@@ -94,6 +104,12 @@ public class GemStorePanelController : MonoBehaviour
         {
             if (e.isAdEntry)
                 e.titleText.text = $"+{adGemReward:N0} Gems";
+            else if (e.isGoldAdEntry || e.isGoldGemEntry)
+            {
+                // 골드 10분치 계산
+                double goldAmount = CalculateGoldReward();
+                e.titleText.text = $"{FormatGoldAmount(goldAmount)}";
+            }
             else if (e.useTitleOverride || isRemoveAds)
                 e.titleText.text = string.IsNullOrWhiteSpace(e.customTitle) ? LocalizationManager.GetText("광고 제거", "Remove Ads") : e.customTitle;
             else
@@ -103,8 +119,10 @@ public class GemStorePanelController : MonoBehaviour
         // ── 가격 ─────────────────────────────────────────────
         if (e.priceText)
         {
-            if (e.isAdEntry)
+            if (e.isAdEntry || e.isGoldAdEntry)
                 e.priceText.text = LocalizationManager.GetText("광고 시청", "Watch Ad");
+            else if (e.isGoldGemEntry)
+                e.priceText.text = $"{e.goldGemCost:N0} Gems";
             else
             {
                 string price = premium.GetLocalizedPrice(e.productId); // 콘솔 가격 자동 반영
@@ -125,6 +143,14 @@ public class GemStorePanelController : MonoBehaviour
             {
                 e.buyButton.onClick.AddListener(() => OnClickWatchAd(e));
             }
+            else if (e.isGoldAdEntry)
+            {
+                e.buyButton.onClick.AddListener(() => OnClickWatchAdForGold(e));
+            }
+            else if (e.isGoldGemEntry)
+            {
+                e.buyButton.onClick.AddListener(() => OnClickBuyGoldWithGems(e));
+            }
             else
             {
                 e.buyButton.onClick.AddListener(() => premium.Purchase(e.productId));
@@ -132,7 +158,7 @@ public class GemStorePanelController : MonoBehaviour
         }
 
         // ── 광고 버튼 아이콘 업데이트 ─────────────────────────
-        if (e.isAdEntry && e.buttonIcon != null)
+        if ((e.isAdEntry || e.isGoldAdEntry) && e.buttonIcon != null)
         {
             bool ready = false;
             bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
@@ -155,6 +181,13 @@ public class GemStorePanelController : MonoBehaviour
             
             e.buttonIcon.sprite = ready ? adReadySprite : adNotReadySprite;
             if (e.buyButton) e.buyButton.interactable = ready && !adsRemoved;
+        }
+        
+        // ── 골드 보석 구매 버튼 활성화 상태 ──────────────────
+        if (e.isGoldGemEntry && e.buyButton != null)
+        {
+            long currentGems = premium != null ? premium.GetGems() : 0;
+            e.buyButton.interactable = currentGems >= e.goldGemCost;
         }
     }
 
@@ -264,6 +297,125 @@ public class GemStorePanelController : MonoBehaviour
             Refresh();
         }
     }
+    
+    // 골드 10분치 계산
+    double CalculateGoldReward()
+    {
+        if (economy == null) return 0;
+        double perSec = economy.GetGoldPerSecEstimate();
+        double reward = perSec * 60.0 * goldRewardMinutes; // 10분치
+        if (reward < 100.0) reward = 100.0; // 최소 100G 보장
+        return reward;
+    }
+    
+    // 골드 양 포맷팅
+    string FormatGoldAmount(double amount)
+    {
+        if (economy != null)
+        {
+            return EconomyManager.FormatAbbrev(amount, 1, "G");
+        }
+        return $"{amount:N0} G";
+    }
+    
+    // 골드 광고 시청 클릭
+    void OnClickWatchAdForGold(Entry e)
+    {
+        var pcm = premium ?? PremiumCurrencyManager.Instance;
+        if (pcm != null && pcm.AdsRemoved)
+        {
+            GrantGoldReward();
+            return;
+        }
+
+        if (adService == null)
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                "광고 서비스가 준비되지 않았습니다.", 
+                "Ad service is not ready."
+            ));
+            return;
+        }
+
+        if (!adService.IsRewardedReady())
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                "광고를 불러오는 중입니다.\n잠시 후 다시 시도해주세요.", 
+                "Loading ad.\nPlease try again in a moment."
+            ));
+            adService.LoadRewarded();
+            return;
+        }
+
+        adService.ShowRewarded(() =>
+        {
+            GrantGoldReward();
+        });
+    }
+    
+    // 골드 보상 지급
+    void GrantGoldReward()
+    {
+        if (economy == null) return;
+        double reward = CalculateGoldReward();
+        if (reward > 0)
+        {
+            economy.AddGold(reward);
+            ShowReasonTemp(LocalizationManager.GetText(
+                $"골드 {FormatGoldAmount(reward)}를 획득했습니다!", 
+                $"You earned {FormatGoldAmount(reward)}!"
+            ));
+            Refresh();
+        }
+    }
+    
+    // 보석으로 골드 구매 클릭
+    void OnClickBuyGoldWithGems(Entry e)
+    {
+        if (premium == null) premium = FindObjectOfType<PremiumCurrencyManager>(true);
+        if (economy == null) economy = FindObjectOfType<EconomyManager>(true);
+        
+        if (premium == null || economy == null)
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                "시스템이 준비되지 않았습니다.", 
+                "System is not ready."
+            ));
+            return;
+        }
+        
+        long currentGems = premium.GetGems();
+        if (currentGems < e.goldGemCost)
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                $"보석이 부족합니다.\n필요: {e.goldGemCost:N0}, 보유: {currentGems:N0}", 
+                $"Not enough gems.\nNeed: {e.goldGemCost:N0}, Have: {currentGems:N0}"
+            ));
+            return;
+        }
+        
+        // 보석 차감
+        if (!premium.TrySpendGems(e.goldGemCost))
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                "보석 차감에 실패했습니다.", 
+                "Failed to spend gems."
+            ));
+            return;
+        }
+        
+        // 골드 지급
+        double reward = CalculateGoldReward();
+        if (reward > 0)
+        {
+            economy.AddGold(reward);
+            ShowReasonTemp(LocalizationManager.GetText(
+                $"골드 {FormatGoldAmount(reward)}를 구매했습니다!", 
+                $"You purchased {FormatGoldAmount(reward)}!"
+            ));
+            Refresh();
+        }
+    }
 
     // Reason helpers
     void ShowReasonTemp(string msg)
@@ -298,7 +450,7 @@ public class GemStorePanelController : MonoBehaviour
             if (e.buyButton != null)
             {
                 // 광고 Entry는 광고 준비 상태에 따라 활성화
-                if (e.isAdEntry)
+                if (e.isAdEntry || e.isGoldAdEntry)
                 {
                     bool ready = false;
                     bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
@@ -307,6 +459,11 @@ public class GemStorePanelController : MonoBehaviour
                         try { ready = adService.IsRewardedReady(); } catch { }
                     }
                     e.buyButton.interactable = ready && !adsRemoved;
+                }
+                else if (e.isGoldGemEntry)
+                {
+                    long currentGems = premium != null ? premium.GetGems() : 0;
+                    e.buyButton.interactable = currentGems >= e.goldGemCost;
                 }
                 else
                 {

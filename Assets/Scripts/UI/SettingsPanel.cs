@@ -15,7 +15,8 @@ public class SettingsPanel : MonoBehaviour
     [Header("Settings Buttons")]
     [SerializeField] private Button languageButton;      // 언어 설정 버튼
     [SerializeField] private Button volumeButton;        // 볼륨 조절 버튼
-          // 새로 시작하기 버튼
+    [SerializeField] private Button manualSaveButton;   // 수동 저장 버튼
+    [SerializeField] private Button googleLoginButton;  // 구글플레이 로그인 시도 버튼
     [SerializeField] private Button sendEmailButton;     // 메일 보내기 버튼
     [SerializeField] private Button discordButton;       // 디스코드 링크 버튼
     
@@ -74,7 +75,19 @@ public class SettingsPanel : MonoBehaviour
             volumeButton.onClick.AddListener(OnClickVolume);
         }
         
-      
+        // 수동 저장 버튼
+        if (manualSaveButton != null)
+        {
+            manualSaveButton.onClick.RemoveAllListeners();
+            manualSaveButton.onClick.AddListener(OnClickManualSave);
+        }
+        
+        // 구글플레이 로그인 시도 버튼
+        if (googleLoginButton != null)
+        {
+            googleLoginButton.onClick.RemoveAllListeners();
+            googleLoginButton.onClick.AddListener(OnClickGoogleLogin);
+        }
         
         // 메일 보내기 버튼
         if (sendEmailButton != null)
@@ -127,6 +140,9 @@ public class SettingsPanel : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// 수동 저장 버튼 클릭
+    /// </summary>
     void OnClickManualSave()
     {
         if (SaveManager.Instance == null)
@@ -148,6 +164,40 @@ public class SettingsPanel : MonoBehaviour
             // 클라우드 저장이 비활성화된 경우 로컬 저장만 성공 메시지
             ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
         }
+    }
+    
+    /// <summary>
+    /// 구글플레이 로그인 시도 버튼 클릭
+    /// </summary>
+    void OnClickGoogleLogin()
+    {
+        if (CloudSaveManager.Instance == null)
+        {
+            ShowSaveFeedback(LocalizationManager.GetText("클라우드 저장이 사용 불가능합니다.", "Cloud save is not available."));
+            return;
+        }
+        
+        // 이미 로그인되어 있으면 안내
+        if (CloudSaveManager.Instance.IsAuthenticated)
+        {
+            ShowSaveFeedback(LocalizationManager.GetText("이미 로그인되어 있습니다.", "Already logged in."));
+            return;
+        }
+        
+        // 로그인 시도
+        ShowSaveFeedback(LocalizationManager.GetText("로그인 시도 중...", "Attempting to sign in..."));
+        
+        CloudSaveManager.Instance.SignIn((success) =>
+        {
+            if (success)
+            {
+                ShowSaveFeedback(LocalizationManager.GetText("로그인 성공!", "Login successful!"));
+            }
+            else
+            {
+                ShowSaveFeedback(LocalizationManager.GetText("로그인 실패. 다시 시도해주세요.", "Login failed. Please try again."));
+            }
+        });
     }
 
     /// <summary>
@@ -179,7 +229,7 @@ public class SettingsPanel : MonoBehaviour
             else
             {
                 // 로그인 실패해도 로컬 저장은 성공 (오프라인 환경)
-                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다 (오프라인)", "Saved (Offline)"));
+                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved (Offline)"));
             }
         });
     }
@@ -208,7 +258,7 @@ public class SettingsPanel : MonoBehaviour
             else
             {
                 // 클라우드 저장 실패해도 로컬 저장은 성공
-                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다 (오프라인)", "Saved (Offline)"));
+                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved (Offline)"));
             }
         };
 

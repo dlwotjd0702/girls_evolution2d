@@ -49,13 +49,13 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     [SerializeField] private int plusOfflineMaxTimeLv = 0;
 
     // ───────── 비용 곡선 ─────────
-    // 리밸런싱: 총 12개 항목 만렙 찍는데 10만 포인트 (항목당 평균 약 8,333 포인트)
-    // 만렙 50레벨 기준: base=70, grow=1.08 → 약 8,300 포인트 (목표에 근접)
+    // 리밸런싱: 총 12개 항목 만렙 찍는데 50만 포인트 (만렙 25레벨 기준)
+    // 골드 강화와 환생 업그레이드를 함께 고려하여 적절한 레벨 캡 설정
     [Header("Costs (Core)")]
-    [SerializeField] private int   incomeBase  = 30;  [SerializeField] private float incomeGrow  = 1.2f;
-    [SerializeField] private int   twoStepBase = 40;  [SerializeField] private float twoStepGrow = 1.2f;
-    [SerializeField] private int   startBase   = 30;  [SerializeField] private float startGrow   = 1.2f;
-    [SerializeField] private int   ppgBase     = 50;  [SerializeField] private float ppgGrow     = 1.2f;
+    [SerializeField] private int   incomeBase  = 100;  [SerializeField] private float incomeGrow  = 1.2f;
+    [SerializeField] private int   twoStepBase = 100;  [SerializeField] private float twoStepGrow = 1.2f;
+    [SerializeField] private int   startBase   = 100;  [SerializeField] private float startGrow   = 1.2f;
+    [SerializeField] private int   ppgBase     = 100;  [SerializeField] private float ppgGrow     = 1.2f;
 
     [Header("Costs (Plus)")]
     [SerializeField] private int plusManualSpawnMaxBase   = 100;  [SerializeField] private float plusManualSpawnMaxGrow   = 1.1f;
@@ -64,8 +64,8 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     [SerializeField] private int plusAutoSpawnSpeedBase   = 200;  [SerializeField] private float plusAutoSpawnSpeedGrow   = 1.2f;
     [SerializeField] private int plusFieldMaxBase         = 100;  [SerializeField] private float plusFieldMaxGrow         = 1.1f;
     [SerializeField] private int plusClickBonusBase       = 100;  [SerializeField] private float plusClickBonusGrow       = 1.1f;
-    [SerializeField] private int plusOfflineRewardBase    = 100;  [SerializeField] private float plusOfflineRewardGrow    = 1.1f;
-    [SerializeField] private int plusOfflineMaxTimeBase   = 100;  [SerializeField] private float plusOfflineMaxTimeGrow   = 1.1f;
+    [SerializeField] private int plusOfflineRewardBase    = 100;  [SerializeField] private float plusOfflineRewardGrow     = 1.1f;
+    [SerializeField] private int plusOfflineMaxTimeBase   = 100;  [SerializeField] private float plusOfflineMaxTimeGrow    = 1.1f;
 
     // ───────── UI (옵션) ─────────
     [Header("UI (Optional)")]
@@ -210,9 +210,10 @@ public class PrestigeManager : MonoBehaviour, ISaveable
 
     // 25단계 기준 1000 포인트, 하위 단계는 1/2씩 감소
     // level25UpgradeLevel과 필드의 모든 캐릭터 레벨을 고려하여 포인트 계산
+    // 골드/보석 강화 레벨에 대한 포인트도 추가 (이전 10포인트/레벨 → 지금 100포인트/레벨로 10배 증가)
     public int PreviewPrestigeGain()
     {
-        if (girlFieldManager == null) return 0;
+        if (girlFieldManager == null || economy == null) return 0;
         
         int totalPoints = 0;
         int level25UpgradeLevel = girlFieldManager.Level25UpgradeLevel;
@@ -241,9 +242,24 @@ public class PrestigeManager : MonoBehaviour, ISaveable
             totalPoints += Mathf.CeilToInt((float)points); // 소수점 올림 처리
         }
         
+        // 3. 골드/보석 강화 레벨에 대한 포인트 추가 (10배 증가: 이전 10포인트/레벨 → 지금 100포인트/레벨)
+        const int POINTS_PER_UPGRADE_LEVEL = 100; // 이전 10포인트에서 10배 증가
+        
+        int upgradePoints = 0;
+        upgradePoints += economy.GetSpawnMaxUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economy.GetSpawnSpeedUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economy.GetFieldMaxUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economy.GetClickBonusUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economy.GetAutoMergeUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economy.GetAutoSpawnUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economy.GetOfflineRewardUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economy.GetOfflineMaxTimeUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        
+        totalPoints += upgradePoints;
+        
         if (totalPoints > 0)
         {
-            Debug.Log($"[PrestigeManager] PreviewPrestigeGain: {totalPoints} 포인트 (level25UpgradeLevel: {level25UpgradeLevel}, 필드 캐릭터 수: {girlFieldManager.girlList.Count})");
+            Debug.Log($"[PrestigeManager] PreviewPrestigeGain: {totalPoints} 포인트 (level25UpgradeLevel: {level25UpgradeLevel}, 필드 캐릭터 수: {girlFieldManager.girlList.Count}, 강화 포인트: {upgradePoints})");
         }
         else
         {

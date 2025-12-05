@@ -140,7 +140,7 @@ public class CloudSaveManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 클라우드에 저장
+    /// 클라우드에 저장 (오프라인 환경에서도 안전하게 처리)
     /// </summary>
     public void SaveToCloud(SaveData saveData, bool forceOverwrite = false)
     {
@@ -158,50 +158,71 @@ public class CloudSaveManager : MonoBehaviour
         }
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-        IsSaving = true;
-        string saveJson = JsonUtility.ToJson(saveData, true);
-        byte[] saveBytes = Encoding.UTF8.GetBytes(saveJson);
+        try
+        {
+            IsSaving = true;
+            string saveJson = JsonUtility.ToJson(saveData, true);
+            byte[] saveBytes = Encoding.UTF8.GetBytes(saveJson);
 
-        SavedGameMetadataUpdate.Builder updateBuilder = new SavedGameMetadataUpdate.Builder()
-            .WithUpdatedDescription($"Saved at {DateTime.Now:yyyy-MM-dd HH:mm:ss}")
-            .WithUpdatedPlayedTime(TimeSpan.FromSeconds(saveData.totalPlayTimeSeconds));
+            SavedGameMetadataUpdate.Builder updateBuilder = new SavedGameMetadataUpdate.Builder()
+                .WithUpdatedDescription($"Saved at {DateTime.Now:yyyy-MM-dd HH:mm:ss}")
+                .WithUpdatedPlayedTime(TimeSpan.FromSeconds(saveData.totalPlayTimeSeconds));
 
-        SavedGameMetadataUpdate metadataUpdate = updateBuilder.Build();
+            SavedGameMetadataUpdate metadataUpdate = updateBuilder.Build();
 
-        savedGameClient.OpenWithAutomaticConflictResolution(
-            CLOUD_SAVE_FILENAME,
-            forceOverwrite ? DataSource.ReadCacheOrNetwork : DataSource.ReadNetworkOnly,
-            forceOverwrite ? ConflictResolutionStrategy.UseLongestPlaytime : ConflictResolutionStrategy.UseManual,
-            (status, game) =>
-            {
-                if (status == SavedGameRequestStatus.Success)
+            // 오프라인 환경을 고려하여 ReadCacheOrNetwork 사용 (캐시 우선)
+            savedGameClient.OpenWithAutomaticConflictResolution(
+                CLOUD_SAVE_FILENAME,
+                DataSource.ReadCacheOrNetwork, // 오프라인에서도 캐시 사용 가능
+                forceOverwrite ? ConflictResolutionStrategy.UseLongestPlaytime : ConflictResolutionStrategy.UseManual,
+                (status, game) =>
                 {
-                    savedGameClient.CommitUpdate(
-                        game,
-                        metadataUpdate,
-                        saveBytes,
-                        (commitStatus, committedGame) =>
+                    try
+                    {
+                        if (status == SavedGameRequestStatus.Success)
+                        {
+                            savedGameClient.CommitUpdate(
+                                game,
+                                metadataUpdate,
+                                saveBytes,
+                                (commitStatus, committedGame) =>
+                                {
+                                    IsSaving = false;
+                                    if (commitStatus == SavedGameRequestStatus.Success)
+                                    {
+                                        Debug.Log("[CloudSaveManager] 클라우드 저장 성공");
+                                        OnCloudSaveComplete?.Invoke(true, null);
+                                    }
+                                    else
+                                    {
+                                        // 네트워크 오류 등으로 실패해도 예외 발생하지 않음
+                                        Debug.LogWarning($"[CloudSaveManager] 클라우드 저장 실패 (오프라인 가능): {commitStatus}");
+                                        OnCloudSaveComplete?.Invoke(false, commitStatus.ToString());
+                                    }
+                                });
+                        }
+                        else
                         {
                             IsSaving = false;
-                            if (commitStatus == SavedGameRequestStatus.Success)
-                            {
-                                Debug.Log("[CloudSaveManager] 클라우드 저장 성공");
-                                OnCloudSaveComplete?.Invoke(true, null);
-                            }
-                            else
-                            {
-                                Debug.LogError($"[CloudSaveManager] 클라우드 저장 실패: {commitStatus}");
-                                OnCloudSaveComplete?.Invoke(false, commitStatus.ToString());
-                            }
-                        });
-                }
-                else
-                {
-                    IsSaving = false;
-                    Debug.LogError($"[CloudSaveManager] 클라우드 파일 열기 실패: {status}");
-                    OnCloudSaveComplete?.Invoke(false, status.ToString());
-                }
-            });
+                            // 네트워크 오류 등으로 실패해도 예외 발생하지 않음
+                            Debug.LogWarning($"[CloudSaveManager] 클라우드 파일 열기 실패 (오프라인 가능): {status}");
+                            OnCloudSaveComplete?.Invoke(false, status.ToString());
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        IsSaving = false;
+                        Debug.LogError($"[CloudSaveManager] 클라우드 저장 중 예외 발생: {e.Message}");
+                        OnCloudSaveComplete?.Invoke(false, $"예외: {e.Message}");
+                    }
+                });
+        }
+        catch (Exception e)
+        {
+            IsSaving = false;
+            Debug.LogError($"[CloudSaveManager] 클라우드 저장 초기화 중 예외 발생: {e.Message}");
+            OnCloudSaveComplete?.Invoke(false, $"예외: {e.Message}");
+        }
 #else
         IsSaving = false;
         Debug.Log("[CloudSaveManager] 에디터에서는 클라우드 저장을 건너뜁니다.");
@@ -229,54 +250,76 @@ public class CloudSaveManager : MonoBehaviour
         }
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-        IsLoading = true;
+        try
+        {
+            IsLoading = true;
 
-        savedGameClient.OpenWithAutomaticConflictResolution(
-            CLOUD_SAVE_FILENAME,
-            DataSource.ReadCacheOrNetwork,
-            ConflictResolutionStrategy.UseLongestPlaytime,
-            (status, game) =>
-            {
-                if (status == SavedGameRequestStatus.Success)
+            savedGameClient.OpenWithAutomaticConflictResolution(
+                CLOUD_SAVE_FILENAME,
+                DataSource.ReadCacheOrNetwork, // 오프라인에서도 캐시 사용 가능
+                ConflictResolutionStrategy.UseLongestPlaytime,
+                (status, game) =>
                 {
-                    savedGameClient.ReadBinaryData(
-                        game,
-                        (readStatus, data) =>
+                    try
+                    {
+                        if (status == SavedGameRequestStatus.Success)
+                        {
+                            savedGameClient.ReadBinaryData(
+                                game,
+                                (readStatus, data) =>
+                                {
+                                    IsLoading = false;
+                                    if (readStatus == SavedGameRequestStatus.Success && data != null)
+                                    {
+                                        try
+                                        {
+                                            string saveJson = Encoding.UTF8.GetString(data);
+                                            SaveData saveData = JsonUtility.FromJson<SaveData>(saveJson);
+                                            Debug.Log("[CloudSaveManager] 클라우드 로드 성공");
+                                            OnCloudLoadComplete?.Invoke(true, saveData);
+                                            onComplete?.Invoke(saveData);
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            Debug.LogError($"[CloudSaveManager] 클라우드 데이터 파싱 실패: {e.Message}");
+                                            OnCloudLoadComplete?.Invoke(false, null);
+                                            onComplete?.Invoke(null);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // 네트워크 오류 등으로 실패해도 예외 발생하지 않음
+                                        Debug.LogWarning($"[CloudSaveManager] 클라우드 저장 파일이 없거나 오프라인: {readStatus}");
+                                        OnCloudLoadComplete?.Invoke(false, null);
+                                        onComplete?.Invoke(null);
+                                    }
+                                });
+                        }
+                        else
                         {
                             IsLoading = false;
-                            if (readStatus == SavedGameRequestStatus.Success && data != null)
-                            {
-                                try
-                                {
-                                    string saveJson = Encoding.UTF8.GetString(data);
-                                    SaveData saveData = JsonUtility.FromJson<SaveData>(saveJson);
-                                    Debug.Log("[CloudSaveManager] 클라우드 로드 성공");
-                                    OnCloudLoadComplete?.Invoke(true, saveData);
-                                    onComplete?.Invoke(saveData);
-                                }
-                                catch (Exception e)
-                                {
-                                    Debug.LogError($"[CloudSaveManager] 클라우드 데이터 파싱 실패: {e.Message}");
-                                    OnCloudLoadComplete?.Invoke(false, null);
-                                    onComplete?.Invoke(null);
-                                }
-                            }
-                            else
-                            {
-                                Debug.LogWarning("[CloudSaveManager] 클라우드 저장 파일이 없습니다.");
-                                OnCloudLoadComplete?.Invoke(false, null);
-                                onComplete?.Invoke(null);
-                            }
-                        });
-                }
-                else
-                {
-                    IsLoading = false;
-                    Debug.LogWarning($"[CloudSaveManager] 클라우드 파일 열기 실패: {status}");
-                    OnCloudLoadComplete?.Invoke(false, null);
-                    onComplete?.Invoke(null);
-                }
-            });
+                            // 네트워크 오류 등으로 실패해도 예외 발생하지 않음
+                            Debug.LogWarning($"[CloudSaveManager] 클라우드 파일 열기 실패 (오프라인 가능): {status}");
+                            OnCloudLoadComplete?.Invoke(false, null);
+                            onComplete?.Invoke(null);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        IsLoading = false;
+                        Debug.LogError($"[CloudSaveManager] 클라우드 로드 중 예외 발생: {e.Message}");
+                        OnCloudLoadComplete?.Invoke(false, null);
+                        onComplete?.Invoke(null);
+                    }
+                });
+        }
+        catch (Exception e)
+        {
+            IsLoading = false;
+            Debug.LogError($"[CloudSaveManager] 클라우드 로드 초기화 중 예외 발생: {e.Message}");
+            OnCloudLoadComplete?.Invoke(false, null);
+            onComplete?.Invoke(null);
+        }
 #else
         IsLoading = false;
         Debug.Log("[CloudSaveManager] 에디터에서는 클라우드 로드를 건너뜁니다.");

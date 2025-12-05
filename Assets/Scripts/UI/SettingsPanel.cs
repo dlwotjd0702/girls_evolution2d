@@ -15,13 +15,14 @@ public class SettingsPanel : MonoBehaviour
     [Header("Settings Buttons")]
     [SerializeField] private Button languageButton;      // 언어 설정 버튼
     [SerializeField] private Button volumeButton;        // 볼륨 조절 버튼
-    [SerializeField] private Button manualSaveButton;    // 수동 저장 버튼
+          // 새로 시작하기 버튼
     [SerializeField] private Button sendEmailButton;     // 메일 보내기 버튼
     [SerializeField] private Button discordButton;       // 디스코드 링크 버튼
     
     [Header("Sub Panels")]
     [SerializeField] private LanguageSettingsPanel languagePanel;
     [SerializeField] private VolumeSettingsPanel volumePanel;
+    [SerializeField] private NewGameConfirmPanel newGameConfirmPanel;
     
     [Header("Email Settings")]
     [Tooltip("이메일 보내기 기본 주소")]
@@ -73,12 +74,7 @@ public class SettingsPanel : MonoBehaviour
             volumeButton.onClick.AddListener(OnClickVolume);
         }
         
-        // 수동 저장 버튼
-        if (manualSaveButton != null)
-        {
-            manualSaveButton.onClick.RemoveAllListeners();
-            manualSaveButton.onClick.AddListener(OnClickManualSave);
-        }
+      
         
         // 메일 보내기 버튼
         if (sendEmailButton != null)
@@ -133,15 +129,91 @@ public class SettingsPanel : MonoBehaviour
     
     void OnClickManualSave()
     {
-        if (SaveManager.Instance != null)
+        if (SaveManager.Instance == null)
         {
-            SaveManager.Instance.SaveGame();
-            ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
+            ShowSaveFeedback(LocalizationManager.GetText("저장 실패", "Save Failed"));
+            return;
+        }
+
+        // 1. 로컬 저장 먼저 수행 (항상 성공해야 함)
+        SaveManager.Instance.SaveGame();
+
+        // 2. 클라우드 저장 시도 (로그인 체크 및 오프라인 처리)
+        if (CloudSaveManager.Instance != null && SaveManager.Instance.EnableCloudSave)
+        {
+            TryCloudSaveWithLogin();
         }
         else
         {
-            ShowSaveFeedback(LocalizationManager.GetText("저장 실패", "Save Failed"));
+            // 클라우드 저장이 비활성화된 경우 로컬 저장만 성공 메시지
+            ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
         }
+    }
+
+    /// <summary>
+    /// 로그인 체크 후 클라우드 저장 시도 (오프라인 환경 안전 처리)
+    /// </summary>
+    private void TryCloudSaveWithLogin()
+    {
+        if (CloudSaveManager.Instance == null)
+        {
+            ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
+            return;
+        }
+
+        // 이미 로그인되어 있으면 바로 클라우드 저장
+        if (CloudSaveManager.Instance.IsAuthenticated)
+        {
+            SaveToCloudWithFeedback();
+            return;
+        }
+
+        // 로그인되지 않았으면 로그인 시도
+        CloudSaveManager.Instance.SignIn((loginSuccess) =>
+        {
+            if (loginSuccess)
+            {
+                // 로그인 성공 후 클라우드 저장
+                SaveToCloudWithFeedback();
+            }
+            else
+            {
+                // 로그인 실패해도 로컬 저장은 성공 (오프라인 환경)
+                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다 (오프라인)", "Saved (Offline)"));
+            }
+        });
+    }
+
+    /// <summary>
+    /// 클라우드 저장 시도 및 피드백 표시
+    /// </summary>
+    private void SaveToCloudWithFeedback()
+    {
+        if (CloudSaveManager.Instance == null || SaveManager.Instance == null)
+        {
+            ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
+            return;
+        }
+
+        // 클라우드 저장 완료 이벤트 구독 (일회성)
+        System.Action<bool, string> onSaveComplete = null;
+        onSaveComplete = (success, error) =>
+        {
+            CloudSaveManager.Instance.OnCloudSaveComplete -= onSaveComplete;
+            
+            if (success)
+            {
+                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다 (온라인)", "Saved (Online)"));
+            }
+            else
+            {
+                // 클라우드 저장 실패해도 로컬 저장은 성공
+                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다 (오프라인)", "Saved (Offline)"));
+            }
+        };
+
+        CloudSaveManager.Instance.OnCloudSaveComplete += onSaveComplete;
+        SaveManager.Instance.SaveToCloud();
     }
     
     void OnClickSendEmail()
@@ -152,6 +224,25 @@ public class SettingsPanel : MonoBehaviour
     void OnClickDiscord()
     {
         DiscordLinkOpener.OpenDiscordInvite(discordInviteCode);
+    }
+    
+    void OnClickNewGame()
+    {
+        if (newGameConfirmPanel != null)
+        {
+            newGameConfirmPanel.Show();
+        }
+        else
+        {
+            // 확인 패널이 없으면 바로 실행
+            if (SaveManager.Instance != null)
+            {
+                SaveManager.Instance.ResetSaveFile();
+                UnityEngine.SceneManagement.SceneManager.LoadScene(
+                    UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+                );
+            }
+        }
     }
     
     void ShowSaveFeedback(string message)

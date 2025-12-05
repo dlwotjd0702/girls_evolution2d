@@ -1,6 +1,6 @@
 # Google Play Games SDK 설정 가이드
 
-이 문서는 Google Play Games SDK를 사용한 클라우드 저장 및 리더보드 연동 설정 방법을 안내합니다.
+이 문서는 Google Play Games SDK를 사용한 클라우드 저장 및 업적 연동 설정 방법을 안내합니다.
 
 ## 1. Google Play Games SDK 설치
 
@@ -66,14 +66,6 @@
   keytool -list -v -keystore "%USERPROFILE%\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
   ```
 
-### 2.3 리더보드 생성
-1. `게임 서비스` > `리더보드` 이동
-2. 새 리더보드 생성 (각각 생성):
-   - **최고 달성 레벨** (Leaderboard ID 예: `CgkI-XXXXX`)
-   - **총 획득 골드** (Leaderboard ID 예: `CgkI-YYYYY`)
-   - **환생 횟수** (Leaderboard ID 예: `CgkI-ZZZZZ`)
-   - **총 플레이타임** (Leaderboard ID 예: `CgkI-WWWWW`)
-3. 각 리더보드의 ID를 복사 (예: `CgkI-XXXXXXXXXXXXXX`)
 
 ## 3. Unity 프로젝트 설정
 
@@ -89,7 +81,7 @@
 
 3. **"Web App Client ID (Optional)" 필드는 비워두세요**
    - 설명에 "It is not required for Game Services"라고 명시되어 있습니다
-   - 클라우드 저장/리더보드 기능에는 필요 없습니다
+   - 클라우드 저장/업적 기능에는 필요 없습니다
    - 고급 기능(사용자 ID 토큰 접근 등)을 사용할 때만 필요합니다
 
 4. Android 패키지 이름 확인 (`Project Settings` > `Player` > `Android`)
@@ -98,26 +90,13 @@
 5. "Setup" 버튼 클릭
    - 자동으로 `GameInfo.cs` 파일이 생성되고 게임 ID가 설정됩니다
 
-### 3.2 리더보드 ID 설정
-1. `Assets/Scripts/LeaderboardManager.cs` 파일 열기
-2. Inspector에서 다음 필드에 리더보드 ID 입력:
-   - `Leaderboard Max Level`: 최고 달성 레벨 리더보드 ID
-   - `Leaderboard Total Gold`: 총 획득 골드 리더보드 ID
-   - `Leaderboard Prestige Count`: 환생 횟수 리더보드 ID
-   - `Leaderboard Play Time`: 총 플레이타임 리더보드 ID
-
-또는 코드에서 직접 수정:
-```csharp
-[SerializeField] private string leaderboardMaxLevel = "CgkI-XXXXXXXXXXXXXX";
-[SerializeField] private string leaderboardTotalGold = "CgkI-YYYYYYYYYYYYYY";
-[SerializeField] private string leaderboardPrestigeCount = "CgkI-ZZZZZZZZZZZZZ";
-[SerializeField] private string leaderboardPlayTime = "CgkI-WWWWWWWWWWWWW";
-```
+### 3.2 업적 ID 설정
+자세한 내용은 `ACHIEVEMENT_SETUP.md` 파일을 참고하세요.
 
 ## 4. 씬 설정
 
 ### 4.1 매니저 오브젝트 생성
-1. 게임 씬에서 빈 GameObject 생성 (`CloudSaveManager`, `LeaderboardManager`)
+1. 게임 씬에서 빈 GameObject 생성 (`CloudSaveManager`, `AchievementManager`)
 2. 각각에 해당 스크립트 컴포넌트 추가
 
 또는 기존 매니저 오브젝트에 추가:
@@ -134,7 +113,7 @@
 ## 5. 테스트
 
 ### 5.1 에디터에서 테스트
-- 에디터에서는 실제 클라우드 저장/리더보드 기능이 동작하지 않습니다
+- 에디터에서는 실제 클라우드 저장/업적 기능이 동작하지 않습니다
 - 로그 메시지를 통해 호출 여부 확인 가능
 
 ### 5.2 실제 기기에서 테스트
@@ -154,16 +133,10 @@ SaveManager.Instance.SaveToCloud();
 SaveManager.Instance.LoadFromCloud();
 ```
 
-### 6.2 리더보드
+### 6.2 업적
 ```csharp
-// 점수 제출
-LeaderboardManager.Instance.SubmitMaxLevel(25);
-LeaderboardManager.Instance.SubmitTotalGold(1000000);
-LeaderboardManager.Instance.SubmitPrestigeCount(5);
-
-// 리더보드 UI 표시
-LeaderboardManager.Instance.ShowMaxLevelLeaderboard();
-LeaderboardManager.Instance.ShowLeaderboard(); // 전체 리더보드
+// 업적 UI 표시
+AchievementManager.Instance.ShowAchievements();
 ```
 
 ### 6.3 로그인 관리
@@ -182,11 +155,18 @@ CloudSaveManager.Instance.SignOut();
 ## 7. 주의사항
 
 - Google Play Games SDK는 **Android 빌드**에서만 동작합니다 (에디터 제외)
-- 리더보드 ID는 Google Play Console에서 생성 후 설정해야 합니다
+- 업적 ID는 Google Play Console에서 생성 후 설정해야 합니다
 - 클라우드 저장은 로그인 상태에서만 동작합니다
 - 로컬 저장과 클라우드 저장이 병행되므로, 클라우드 저장 실패 시에도 로컬 데이터는 안전합니다
 
-## 8. 문제 해결
+## 8. 로그인 플로우
+
+**간단 요약:**
+- **자동 로그인**: 게임 시작 시 자동으로 로그인 시도 (기본 동작)
+- **수동 로그인**: `CloudSaveManager.Instance.SignIn()` 호출
+- **인트로 씬 버튼**: 선택사항 (자동 로그인으로 충분한 경우 불필요)
+
+## 9. 문제 해결
 
 ### 로그인이 안 되는 경우
 - Google Play Console에서 OAuth 클라이언트 ID 설정 확인
@@ -198,7 +178,8 @@ CloudSaveManager.Instance.SignOut();
 - 인터넷 연결 확인
 - Google Play Console에서 Saved Games API 활성화 확인
 
-### 리더보드가 표시되지 않는 경우
-- 리더보드 ID가 올바른지 확인
-- Google Play Console에서 리더보드가 게시되었는지 확인
+### 업적이 달성되지 않는 경우
+- 업적 ID가 올바른지 확인
+- Google Play Console에서 업적이 게시되었는지 확인
 - 테스트 계정이 올바르게 설정되었는지 확인
+- 조건이 올바르게 달성되었는지 확인

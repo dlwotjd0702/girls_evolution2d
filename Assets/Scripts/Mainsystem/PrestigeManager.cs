@@ -49,21 +49,23 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     [SerializeField] private int plusOfflineMaxTimeLv = 0;
 
     // ───────── 비용 곡선 ─────────
+    // 리밸런싱: 총 12개 항목 만렙 찍는데 10만 포인트 (항목당 평균 약 8,333 포인트)
+    // 만렙 50레벨 기준: base=70, grow=1.08 → 약 8,300 포인트 (목표에 근접)
     [Header("Costs (Core)")]
-    [SerializeField] private int   incomeBase  = 3;  [SerializeField] private float incomeGrow  = 1.35f;
-    [SerializeField] private int   twoStepBase = 4;  [SerializeField] private float twoStepGrow = 1.45f;
-    [SerializeField] private int   startBase   = 3;  [SerializeField] private float startGrow   = 1.30f;
-    [SerializeField] private int   ppgBase     = 5;  [SerializeField] private float ppgGrow     = 1.40f;
+    [SerializeField] private int   incomeBase  = 30;  [SerializeField] private float incomeGrow  = 1.2f;
+    [SerializeField] private int   twoStepBase = 40;  [SerializeField] private float twoStepGrow = 1.2f;
+    [SerializeField] private int   startBase   = 30;  [SerializeField] private float startGrow   = 1.2f;
+    [SerializeField] private int   ppgBase     = 50;  [SerializeField] private float ppgGrow     = 1.2f;
 
     [Header("Costs (Plus)")]
-    [SerializeField] private int plusManualSpawnMaxBase   = 2;  [SerializeField] private float plusManualSpawnMaxGrow   = 1.35f;
-    [SerializeField] private int plusManualSpawnSpeedBase = 2;  [SerializeField] private float plusManualSpawnSpeedGrow = 1.30f;
-    [SerializeField] private int plusAutoMergeSpeedBase   = 2;  [SerializeField] private float plusAutoMergeSpeedGrow   = 1.35f;
-    [SerializeField] private int plusAutoSpawnSpeedBase   = 2;  [SerializeField] private float plusAutoSpawnSpeedGrow   = 1.35f;
-    [SerializeField] private int plusFieldMaxBase         = 3;  [SerializeField] private float plusFieldMaxGrow         = 1.40f;
-    [SerializeField] private int plusClickBonusBase       = 2;  [SerializeField] private float plusClickBonusGrow       = 1.30f;
-    [SerializeField] private int plusOfflineRewardBase    = 2;  [SerializeField] private float plusOfflineRewardGrow    = 1.30f;
-    [SerializeField] private int plusOfflineMaxTimeBase   = 2;  [SerializeField] private float plusOfflineMaxTimeGrow   = 1.25f;
+    [SerializeField] private int plusManualSpawnMaxBase   = 100;  [SerializeField] private float plusManualSpawnMaxGrow   = 1.1f;
+    [SerializeField] private int plusManualSpawnSpeedBase = 100;  [SerializeField] private float plusManualSpawnSpeedGrow = 1.1f;
+    [SerializeField] private int plusAutoMergeSpeedBase   = 200;  [SerializeField] private float plusAutoMergeSpeedGrow   = 1.2f;
+    [SerializeField] private int plusAutoSpawnSpeedBase   = 200;  [SerializeField] private float plusAutoSpawnSpeedGrow   = 1.2f;
+    [SerializeField] private int plusFieldMaxBase         = 100;  [SerializeField] private float plusFieldMaxGrow         = 1.1f;
+    [SerializeField] private int plusClickBonusBase       = 100;  [SerializeField] private float plusClickBonusGrow       = 1.1f;
+    [SerializeField] private int plusOfflineRewardBase    = 100;  [SerializeField] private float plusOfflineRewardGrow    = 1.1f;
+    [SerializeField] private int plusOfflineMaxTimeBase   = 100;  [SerializeField] private float plusOfflineMaxTimeGrow   = 1.1f;
 
     // ───────── UI (옵션) ─────────
     [Header("UI (Optional)")]
@@ -206,27 +208,48 @@ public class PrestigeManager : MonoBehaviour, ISaveable
 
     public bool IsPrestigeReady() => HasAnyFinalGirl();
 
-    // 25단계 기준 100 포인트, 24단계 50 포인트, 23단계 25 포인트... (2의 거듭제곱)
+    // 25단계 기준 1000 포인트, 하위 단계는 1/2씩 감소
+    // level25UpgradeLevel과 필드의 모든 캐릭터 레벨을 고려하여 포인트 계산
     public int PreviewPrestigeGain()
     {
         if (girlFieldManager == null) return 0;
         
         int totalPoints = 0;
-            foreach (var g in girlFieldManager.girlList)
+        int level25UpgradeLevel = girlFieldManager.Level25UpgradeLevel;
+        
+        // 1. 레벨 25 포인트 계산 (level25UpgradeLevel 기준)
+        // 레벨 25: 1000 포인트 × level25UpgradeLevel
+        if (level25UpgradeLevel > 0)
+        {
+            double level25Points = 1000.0 * level25UpgradeLevel;
+            totalPoints += Mathf.CeilToInt((float)level25Points);
+        }
+        
+        // 2. 필드의 다른 레벨 캐릭터들 포인트 계산 (25단계 제외)
+        foreach (var g in girlFieldManager.girlList)
         {
             if (g == null) continue;
             int level = g.Level;
             
-            // 25단계 이상만 계산
-            if (level >= topLevel)
-            {
-                int diff = level - topLevel; // 25→0, 26→1, 27→2...
-                // 25단계 기준 100 포인트, 하위 단계는 2의 거듭제곱으로 감소
-                // 25=100, 24=50, 23=25, 22=12.5...
-                double points = 100.0 / Math.Pow(2.0, diff);
-                totalPoints += Mathf.RoundToInt((float)points);
-            }
+            // 레벨 25 이상은 이미 계산했으므로 제외
+            if (level >= topLevel) continue;
+            
+            // 하위 단계 포인트 계산: 25단계 기준 1000 포인트에서 단계 내려갈 때마다 1/2
+            // 24단계: 500, 23단계: 250, 22단계: 125, ...
+            int diff = topLevel - level; // 25→24: 1, 25→23: 2, ...
+            double points = 1000.0 / Math.Pow(2.0, diff);
+            totalPoints += Mathf.CeilToInt((float)points); // 소수점 올림 처리
         }
+        
+        if (totalPoints > 0)
+        {
+            Debug.Log($"[PrestigeManager] PreviewPrestigeGain: {totalPoints} 포인트 (level25UpgradeLevel: {level25UpgradeLevel}, 필드 캐릭터 수: {girlFieldManager.girlList.Count})");
+        }
+        else
+        {
+            Debug.LogWarning($"[PrestigeManager] PreviewPrestigeGain: 0 포인트 반환! (level25UpgradeLevel: {level25UpgradeLevel})");
+        }
+        
         return totalPoints;
     }
 
@@ -257,10 +280,16 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         // 1) 포인트 적용
         int baseGain = PreviewPrestigeGain();
         double mulPPG = GetPrestigePointGainMul();
-        int gain = Mathf.Max(0, Mathf.FloorToInt((float)(baseGain * mulPPG)));
+        // 소수점 올림 처리
+        int gain = Mathf.Max(0, Mathf.CeilToInt((float)(baseGain * mulPPG)));
+        
+        Debug.Log($"[PrestigeManager] DoPrestige: baseGain={baseGain}, mulPPG={mulPPG:F2}, gain={gain}, 현재 포인트={prestigePoint}");
+        
         prestigePoint      += gain;
         totalPrestigeCount += 1;
         NotifyPointsChanged();
+        
+        Debug.Log($"[PrestigeManager] DoPrestige 완료: 포인트 추가 후={prestigePoint}, 총 환생 횟수={totalPrestigeCount}");
 
         // (선택) 계급 연동
         try
@@ -273,17 +302,18 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         }
         catch {}
 
-        // 리더보드 점수 제출 (환생 횟수)
-        if (LeaderboardManager.Instance != null)
-        {
-            LeaderboardManager.Instance.SubmitPrestigeCount(totalPrestigeCount);
-        }
+        // 업적 체크는 AchievementManager에서 자동으로 처리됨
 
         // 2) 필드 비우기 (도감 해금 정보는 유지)
         var snapshot = new List<GirlCharacter>(girlFieldManager.girlList);
         foreach (var g in snapshot) if (g != null) girlFieldManager.RemoveGirl(g);
         girlFieldManager.girlList.Clear();
         girlFieldManager.ResetLevel25Progress();
+        // CurrentMaxLevel 리셋 (필드가 비워졌으므로 1로 초기화)
+        if (girlFieldManager != null)
+        {
+            girlFieldManager.RecomputeMaxLevelAndNotify();
+        }
         // discoveredLevels는 유지 (환생 시 도감 해금 정보 보존)
 
         // 3) 경제/티어 리셋 (HUD 즉시 0 표시)

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -74,6 +74,9 @@ public class SaveData
     public long totalSpawns = 0; // 총 소환 횟수
     public double totalGoldEarned = 0.0; // 총 획득 골드
     public double totalGoldSpent = 0.0; // 총 소비 골드
+    
+    // ── 튜토리얼 ──
+    public bool tutorialCompleted = false; // 튜토리얼 완료 여부
 }
 
 [Serializable]

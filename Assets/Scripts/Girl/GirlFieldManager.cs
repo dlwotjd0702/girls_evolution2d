@@ -453,12 +453,15 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         var exist = GetFinalGirl();
         if (exist != null) 
         { 
-            exist.IncrementFinalLevel(); 
+            // 기존 레벨 25 캐릭터가 있으면 level25UpgradeLevel만 증가
+            // 실제 캐릭터의 Level은 25로 유지 (CurrentMaxLevel도 25로 유지)
             ConfigureLevel25(exist);
+            Debug.Log($"[GirlFieldManager] AcquireLevel25: 기존 레벨 25 캐릭터 유지, level25UpgradeLevel 증가 → {level25UpgradeLevel}");
         }
         else               
         { 
             SpawnGirl(TierRules.MaxLevel, Vector3.zero);
+            Debug.Log($"[GirlFieldManager] AcquireLevel25: 새 레벨 25 캐릭터 생성, level25UpgradeLevel={level25UpgradeLevel}");
         }
         UpdateLevel25Text();
         NotifySpawnedLevel(TierRules.MaxLevel);
@@ -610,11 +613,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             CurrentMaxLevel = achievedLevel;
             OnMaxLevelChanged?.Invoke(CurrentMaxLevel);
             
-            // 리더보드 점수 제출 (최고 레벨 달성)
-            if (LeaderboardManager.Instance != null)
-            {
-                LeaderboardManager.Instance.SubmitMaxLevel(CurrentMaxLevel);
-            }
+            // 업적 체크는 AchievementManager에서 자동으로 처리됨
         }
     }
 

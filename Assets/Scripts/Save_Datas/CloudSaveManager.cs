@@ -107,7 +107,16 @@ public class CloudSaveManager : MonoBehaviour
                 PlayerPrefs.SetInt(FIRST_RUN_KEY, 1);
                 PlayerPrefs.Save();
                 
-                Debug.Log($"[CloudSaveManager] 최초 실행 로그인 결과: {success}, 상태: {status}");
+                // 더 자세한 로깅
+                string statusMessage = status switch
+                {
+                    SignInStatus.Success => "성공",
+                    SignInStatus.Canceled => "취소됨 (사용자가 로그인을 취소했거나 Google Play Games가 설정되지 않음)",
+                    SignInStatus.InternalError => "내부 오류 (네트워크 오류 또는 Google Play Games 서비스 문제)",
+                    _ => "알 수 없는 상태"
+                };
+                
+                Debug.Log($"[CloudSaveManager] 최초 실행 로그인 결과: {success}, 상태: {status} ({statusMessage})");
                 OnLoginStatusChanged?.Invoke(success);
                 
                 if (success)
@@ -118,6 +127,10 @@ public class CloudSaveManager : MonoBehaviour
                 else
                 {
                     Debug.LogWarning($"[CloudSaveManager] Google Play Games 로그인 실패 (최초 실행): {status}");
+                    if (status == SignInStatus.Canceled)
+                    {
+                        Debug.LogWarning("[CloudSaveManager] 자동 로그인이 취소되었습니다. 사용자가 설정에서 수동으로 로그인할 수 있습니다.");
+                    }
                 }
             });
         }
@@ -151,13 +164,45 @@ public class CloudSaveManager : MonoBehaviour
         {
             bool success = (status == SignInStatus.Success);
             IsAuthenticated = success;
-            Debug.Log($"[CloudSaveManager] 수동 로그인 결과: {success}, 상태: {status}");
+            
+            // 더 자세한 로깅
+            string statusMessage = status switch
+            {
+                SignInStatus.Success => "성공",
+                SignInStatus.Canceled => "취소됨 (사용자가 로그인을 취소했거나 Google Play Games가 설정되지 않음)",
+                SignInStatus.InternalError => "내부 오류 (네트워크 오류 또는 Google Play Games 서비스 문제)",
+                _ => "알 수 없는 상태"
+            };
+            
+            Debug.Log($"[CloudSaveManager] 수동 로그인 결과: {success}, 상태: {status} ({statusMessage})");
+            
+            if (!success)
+            {
+                // 실패 원인에 따른 상세 로그
+                if (status == SignInStatus.Canceled)
+                {
+                    Debug.LogWarning("[CloudSaveManager] 로그인이 취소되었습니다. 가능한 원인:");
+                    Debug.LogWarning("  1. 사용자가 로그인 다이얼로그에서 취소");
+                    Debug.LogWarning("  2. 기기에 Google 계정이 로그인되어 있지 않음");
+                    Debug.LogWarning("  3. Google Play Games 앱이 설치되어 있지 않음");
+                    Debug.LogWarning("  4. Google Play Games 서비스가 비활성화됨");
+                }
+                else if (status == SignInStatus.InternalError)
+                {
+                    Debug.LogError("[CloudSaveManager] 로그인 중 내부 오류가 발생했습니다. 가능한 원인:");
+                    Debug.LogError("  1. 네트워크 연결 문제");
+                    Debug.LogError("  2. Google Play Games 서비스 일시적 오류");
+                    Debug.LogError("  3. 앱 ID 설정 오류");
+                }
+            }
+            
             OnLoginStatusChanged?.Invoke(success);
             callback?.Invoke(success);
             
             if (success)
             {
                 savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+                Debug.Log("[CloudSaveManager] Google Play Games 로그인 성공 및 SavedGameClient 초기화 완료");
             }
         });
 #else

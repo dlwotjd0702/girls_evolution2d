@@ -195,7 +195,12 @@ public class SettingsPanel : MonoBehaviour
             }
             else
             {
-                ShowSaveFeedback(LocalizationManager.GetText("로그인 실패. 다시 시도해주세요.", "Login failed. Please try again."));
+                // 더 자세한 실패 메시지 제공
+                string errorMessage = LocalizationManager.GetText(
+                    "로그인 실패. Google Play Games가 설치되어 있고 Google 계정이 로그인되어 있는지 확인해주세요.",
+                    "Login failed. Please make sure Google Play Games is installed and you are signed in with a Google account."
+                );
+                ShowSaveFeedback(errorMessage);
             }
         });
     }

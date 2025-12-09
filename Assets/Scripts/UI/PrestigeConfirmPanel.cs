@@ -94,13 +94,12 @@ public class PrestigeConfirmPanel : MonoBehaviour
     
     int CalculatePrestigePoints()
     {
-        if (prestigeManager == null || fieldManager == null || economyManager == null) return 0;
+        if (prestigeManager == null) return 0;
         
-        GetPrestigeComponents(out int level25Stacks, out int lowerLevelPoints, out int upgradePoints);
-        int level25Points = level25Stacks * 100;
-        int totalBasePoints = level25Points + lowerLevelPoints + upgradePoints;
+        // PrestigeManager의 PreviewPrestigeGain()을 사용하여 실제 지급 포인트와 일치시킴
+        int baseGain = prestigeManager.PreviewPrestigeGain();
         double mulPPG = prestigeManager.GetPrestigePointGainMul();
-        return Mathf.Max(0, Mathf.FloorToInt((float)(totalBasePoints * mulPPG)));
+        return Mathf.Max(0, Mathf.CeilToInt((float)(baseGain * mulPPG)));
     }
     
     int CalculateBasePrestigeGain()
@@ -118,11 +117,13 @@ public class PrestigeConfirmPanel : MonoBehaviour
         double gainMul = prestigeManager.GetPrestigePointGainMul();
         GetPrestigeComponents(out int level25Stacks, out int lowerLevelPoints, out int upgradePoints);
         
+        // 레벨 25 포인트: 1000 포인트 × level25Stacks (PrestigeManager와 일치)
         if (level25Stacks > 0)
         {
+            int level25Points = level25Stacks * 1000;
             breakdowns.Add(LocalizationManager.GetText(
-                $"25단계 {level25Stacks}레벨 - 100*{level25Stacks} point",
-                $"Level 25 x{level25Stacks} - 100*{level25Stacks} point"
+                $"25단계 {level25Stacks}레벨 - 1000*{level25Stacks} = {level25Points:N0} point",
+                $"Level 25 x{level25Stacks} - 1000*{level25Stacks} = {level25Points:N0} point"
             ));
         }
         
@@ -142,7 +143,7 @@ public class PrestigeConfirmPanel : MonoBehaviour
             ));
         }
         
-        int totalBasePoints = level25Stacks * 100 + lowerLevelPoints + upgradePoints;
+        int totalBasePoints = level25Stacks * 1000 + lowerLevelPoints + upgradePoints;
         if (totalBasePoints > 0)
         {
             breakdowns.Add("------------------------");
@@ -180,11 +181,14 @@ public class PrestigeConfirmPanel : MonoBehaviour
         foreach (var g in fieldManager.girlList)
         {
             if (g == null) continue;
+            // 레벨 25 이상은 이미 계산했으므로 제외 (PrestigeManager와 일치)
             if (g.Level >= topLevel) continue;
             
-            int diff = (topLevel - 1) - g.Level;
-            double points = 50.0 / Math.Pow(2.0, Mathf.Max(0, diff));
-            lowerLevelPoints += Mathf.RoundToInt((float)points);
+            // 하위 단계 포인트 계산: 25단계 기준 1000 포인트에서 단계 내려갈 때마다 1/2
+            // 24단계: 500, 23단계: 250, 22단계: 125, ... (PrestigeManager와 일치)
+            int diff = topLevel - g.Level; // 25→24: 1, 25→23: 2, ...
+            double points = 1000.0 / Math.Pow(2.0, diff);
+            lowerLevelPoints += Mathf.CeilToInt((float)points); // 소수점 올림 처리 (PrestigeManager와 일치)
         }
         return lowerLevelPoints;
     }
@@ -192,15 +196,18 @@ public class PrestigeConfirmPanel : MonoBehaviour
     int CalculateUpgradePoints()
     {
         if (economyManager == null) return 0;
+        // 골드/보석 강화 레벨에 대한 포인트: 100 포인트/레벨 (PrestigeManager와 일치)
+        const int POINTS_PER_UPGRADE_LEVEL = 100;
+        
         int upgradePoints = 0;
-        upgradePoints += economyManager.GetSpawnMaxUpgradeLevel();
-        upgradePoints += economyManager.GetSpawnSpeedUpgradeLevel();
-        upgradePoints += economyManager.GetFieldMaxUpgradeLevel();
-        upgradePoints += economyManager.GetClickBonusUpgradeLevel();
-        upgradePoints += economyManager.GetOfflineRewardUpgradeLevel();
-        upgradePoints += economyManager.GetOfflineMaxTimeUpgradeLevel();
-        upgradePoints += economyManager.GetAutoMergeUpgradeLevel();
-        upgradePoints += economyManager.GetAutoSpawnUpgradeLevel();
+        upgradePoints += economyManager.GetSpawnMaxUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetSpawnSpeedUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetFieldMaxUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetClickBonusUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetAutoMergeUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetAutoSpawnUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetOfflineRewardUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetOfflineMaxTimeUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
         return upgradePoints;
     }
 }

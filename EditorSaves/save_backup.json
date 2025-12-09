@@ -2,28 +2,31 @@
     "dataVersion": 2,
     "autoMergeOn": false,
     "autoSpawnOn": false,
-    "gold": 152.0,
+    "gold": 2042620199.0,
     "gems": 0,
     "adsRemoved": 0,
-    "currentTierIndex": 0,
-    "unlockedTierMask": 1,
-    "discoveredMask": 1,
+    "currentTierIndex": 3,
+    "unlockedTierMask": 15,
+    "discoveredMask": 25165825,
     "girls": [
         {
             "level": 1
         },
         {
             "level": 1
+        },
+        {
+            "level": 25
         }
     ],
-    "maxLevelReached": 1,
-    "level25UpgradeLevel": 0,
+    "maxLevelReached": 25,
+    "level25UpgradeLevel": 1,
     "prestigePoint": 0,
     "totalPrestigeCount": 0,
     "manualSpawnMaxUpgrade": 0,
     "manualSpawnSpeedUpgrade": 0,
     "autoMergeUpgrade": 0,
-    "autoSpawnUpgrade": 0,
+    "autoSpawnUpgrade": 3,
     "maxFieldCountUpgrade": 0,
     "clickBonusUpgrade": 0,
     "offlineRewardUpgrade": 0,
@@ -86,18 +89,20 @@
     "prestigeShopIncomeLv": 0,
     "prestigeShopTwoStepLv": 0,
     "prestigeShopStartGoldLv": 0,
-    "savedAt": "2025-12-05 17:59:23",
+    "savedAt": "2025-12-09 15:03:28",
     "languageCode": 1,
     "usedCoupons": [],
-    "totalPlayTimeSeconds": 243.33937771152706,
+    "totalPlayTimeSeconds": 468.81924164597879,
     "firstPlayTime": "2025-12-05 13:32:22",
-    "lastPlayTime": "2025-12-05 17:59:23",
-    "level25ReachedCount": 0,
-    "level25ReachedTimes": [],
-    "totalClicks": 0,
-    "totalMerges": 0,
-    "totalSpawns": 2,
-    "totalGoldEarned": 10305.0,
-    "totalGoldSpent": 0.0,
+    "lastPlayTime": "2025-12-09 15:03:28",
+    "level25ReachedCount": 1,
+    "level25ReachedTimes": [
+        "2025-12-09 15:01:59"
+    ],
+    "totalClicks": 51,
+    "totalMerges": 1,
+    "totalSpawns": 5,
+    "totalGoldEarned": 2042637252.0,
+    "totalGoldSpent": 6900.0,
     "tutorialCompleted": false
 }

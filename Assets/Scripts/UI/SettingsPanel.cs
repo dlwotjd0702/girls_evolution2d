@@ -24,6 +24,7 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private LanguageSettingsPanel languagePanel;
     [SerializeField] private VolumeSettingsPanel volumePanel;
     [SerializeField] private NewGameConfirmPanel newGameConfirmPanel;
+    [SerializeField] private GooglePlayStorePanel googlePlayStorePanel;
     
     [Header("Email Settings")]
     [Tooltip("이메일 보내기 기본 주소")]
@@ -151,125 +152,27 @@ public class SettingsPanel : MonoBehaviour
             return;
         }
 
-        // 1. 로컬 저장 먼저 수행 (항상 성공해야 함)
+        // 로컬 저장만 수행 (클라우드 저장은 GooglePlayStorePanel에서 처리)
         SaveManager.Instance.SaveGame();
-
-        // 2. 클라우드 저장 시도 (로그인 체크 및 오프라인 처리)
-        if (CloudSaveManager.Instance != null && SaveManager.Instance.EnableCloudSave)
-        {
-            TryCloudSaveWithLogin();
-        }
-        else
-        {
-            // 클라우드 저장이 비활성화된 경우 로컬 저장만 성공 메시지
-            ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
-        }
+        ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
     }
     
     /// <summary>
-    /// 구글플레이 로그인 시도 버튼 클릭
+    /// 구글플레이 패널 열기 버튼 클릭
     /// </summary>
     void OnClickGoogleLogin()
     {
-        if (CloudSaveManager.Instance == null)
+        if (googlePlayStorePanel != null)
         {
-            ShowSaveFeedback(LocalizationManager.GetText("클라우드 저장이 사용 불가능합니다.", "Cloud save is not available."));
-            return;
+            googlePlayStorePanel.Show();
         }
-        
-        // 이미 로그인되어 있으면 안내
-        if (CloudSaveManager.Instance.IsAuthenticated)
+        else
         {
-            ShowSaveFeedback(LocalizationManager.GetText("이미 로그인되어 있습니다.", "Already logged in."));
-            return;
+            ShowSaveFeedback(LocalizationManager.GetText("구글 클라우드 저장 패널을 찾을 수 없습니다.", "Google Cloud Save panel not found."));
         }
-        
-        // 로그인 시도
-        ShowSaveFeedback(LocalizationManager.GetText("로그인 시도 중...", "Attempting to sign in..."));
-        
-        CloudSaveManager.Instance.SignIn((success) =>
-        {
-            if (success)
-            {
-                ShowSaveFeedback(LocalizationManager.GetText("로그인 성공!", "Login successful!"));
-            }
-            else
-            {
-                // 더 자세한 실패 메시지 제공
-                string errorMessage = LocalizationManager.GetText(
-                    "로그인 실패. Google Play Games가 설치되어 있고 Google 계정이 로그인되어 있는지 확인해주세요.",
-                    "Login failed. Please make sure Google Play Games is installed and you are signed in with a Google account."
-                );
-                ShowSaveFeedback(errorMessage);
-            }
-        });
     }
 
-    /// <summary>
-    /// 로그인 체크 후 클라우드 저장 시도 (오프라인 환경 안전 처리)
-    /// </summary>
-    private void TryCloudSaveWithLogin()
-    {
-        if (CloudSaveManager.Instance == null)
-        {
-            ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
-            return;
-        }
-
-        // 이미 로그인되어 있으면 바로 클라우드 저장
-        if (CloudSaveManager.Instance.IsAuthenticated)
-        {
-            SaveToCloudWithFeedback();
-            return;
-        }
-
-        // 로그인되지 않았으면 로그인 시도
-        CloudSaveManager.Instance.SignIn((loginSuccess) =>
-        {
-            if (loginSuccess)
-            {
-                // 로그인 성공 후 클라우드 저장
-                SaveToCloudWithFeedback();
-            }
-            else
-            {
-                // 로그인 실패해도 로컬 저장은 성공 (오프라인 환경)
-                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved (Offline)"));
-            }
-        });
-    }
-
-    /// <summary>
-    /// 클라우드 저장 시도 및 피드백 표시
-    /// </summary>
-    private void SaveToCloudWithFeedback()
-    {
-        if (CloudSaveManager.Instance == null || SaveManager.Instance == null)
-        {
-            ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
-            return;
-        }
-
-        // 클라우드 저장 완료 이벤트 구독 (일회성)
-        System.Action<bool, string> onSaveComplete = null;
-        onSaveComplete = (success, error) =>
-        {
-            CloudSaveManager.Instance.OnCloudSaveComplete -= onSaveComplete;
-            
-            if (success)
-            {
-                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다 (온라인)", "Saved (Online)"));
-            }
-            else
-            {
-                // 클라우드 저장 실패해도 로컬 저장은 성공
-                ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved (Offline)"));
-            }
-        };
-
-        CloudSaveManager.Instance.OnCloudSaveComplete += onSaveComplete;
-        SaveManager.Instance.SaveToCloud();
-    }
+    // 클라우드 저장 관련 메서드 제거 (GooglePlayStorePanel로 이동)
     
     void OnClickSendEmail()
     {

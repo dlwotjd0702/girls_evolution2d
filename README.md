@@ -25,6 +25,7 @@
 - [성능 최적화](#-성능-최적화)
 - [설계 패턴](#-설계-패턴)
 - [빌드 및 배포](#-빌드-및-배포)
+- [시작하기](#-시작하기)
 
 ---
 
@@ -118,9 +119,11 @@ GirlFieldManager.ComputeIdleGoldPerSec()
 - **CsvHelper**: CSV/TSV 파싱
 - **System.Reflection**: 동적 메서드 호출 (외부 매니저 연동)
 
-### 플랫폼
+### 플랫폼 & 서비스
 
-- **Android**: Google Play Games 연동
+- **Android**: Google Play Games 연동 (클라우드 저장, 업적)
+- **Google Mobile Ads**: 리워드 광고 통합
+- **Unity Purchasing**: 인앱 구매 시스템
 - **iOS**: (준비 중)
 
 ---
@@ -151,17 +154,21 @@ Assets/Scripts/
 │
 ├── Save_Datas/                    # 저장 시스템
 │   ├── SaveData.cs                # 저장 데이터 구조
-│   └── SaveManager.cs             # 저장/로드 관리 (JSON 기반, 백업 지원)
+│   ├── SaveManager.cs             # 저장/로드 관리 (JSON 기반, 백업 지원)
+│   └── CloudSaveManager.cs        # Google Play Games 클라우드 저장
 │
 ├── Tiers/                         # 층 시스템
 │   └── TierManager.cs             # 층 전환, 언락, 배경 전환 애니메이션
 │
 ├── UI/                            # UI 관리
 │   ├── GameUIManager.cs           # 게임 UI 통합 관리
+│   ├── TutorialManager.cs         # 튜토리얼 시스템
 │   ├── EncyclopediaPanelController.cs  # 도감 시스템
 │   ├── OfflineRewardPanel.cs     # 오프라인 보상 패널
 │   ├── GoldGainPopup.cs           # 골드 획득 팝업
-│   └── GoldGainPopupPool.cs      # 골드 팝업 풀링
+│   ├── GoldGainPopupPool.cs      # 골드 팝업 풀링
+│   ├── CouponManager.cs          # 쿠폰 시스템
+│   └── CouponPanelController.cs  # 쿠폰 입력 UI
 │
 ├── makesomemoney/                 # 수익화 시스템
 │   ├── PremiumCurrencyManager.cs  # 보석(Gem) 관리
@@ -175,6 +182,8 @@ Assets/Scripts/
 ├── Interface/                     # 인터페이스
 │   └── ISaveable.cs               # 저장 가능한 객체 인터페이스
 │
+├── AchievementManager.cs          # Google Play Games 업적 시스템
+├── PlayStatsTracker.cs            # 플레이 통계 추적
 └── LocalizationManager.cs         # 다국어 지원 (한국어/영어)
 ```
 
@@ -247,6 +256,10 @@ if (n > HARD_PAIR_SCAN_LIMIT) {
 - **백업 시스템**: `save_backup.json` 자동 생성
 - **오프라인 시간 계산**: 저장 시간 기반 오프라인 보상 계산
 - **PlayerPrefs 호환**: 기존 세이브 파일 호환성 유지
+- **클라우드 저장**: Google Play Games 클라우드 저장 연동 (`CloudSaveManager`)
+  - 로컬 저장과 클라우드 저장 병행
+  - 충돌 해결 로직 (최신 시간 기반, 수동 선택)
+  - 오프라인 환경에서도 캐시 활용
 
 #### 저장 데이터 구조
 
@@ -256,9 +269,65 @@ public class SaveData {
     public double gold;                       // 골드
     public int[] discoveredLevels;            // 발견한 레벨 목록
     public int[] upgradeLevels;               // 업그레이드 레벨
+    public bool tutorialCompleted;             // 튜토리얼 완료 여부
+    public string[] usedCoupons;              // 사용한 쿠폰 목록
     // ... 기타 게임 상태
 }
 ```
+
+### 6. 튜토리얼 시스템 (`TutorialManager`)
+
+#### 주요 기능
+
+- **단계별 가이드**: 첫 실행 시 게임 조작법 안내
+- **액션 대기**: 사용자가 특정 액션을 수행할 때까지 대기
+  - 소환 버튼 클릭
+  - 합성 완료
+  - 상점 열기
+  - 티어 이동
+  - 자동소환/자동합성 활성화
+- **하이라이트**: 특정 UI 요소 강조 표시
+- **스킵 기능**: 튜토리얼 건너뛰기
+- **진행 상태 저장**: 튜토리얼 완료 여부 저장
+
+#### 튜토리얼 단계 설정
+
+```csharp
+[Serializable]
+public class TutorialStep {
+    public string stepName;
+    public string title;
+    public string message;
+    public string targetObjectName;  // 하이라이트할 GameObject 이름
+    public bool waitForAction;       // 사용자 액션 대기 여부
+    public string actionToWait;     // 대기할 액션 이름
+}
+```
+
+### 7. 업적 시스템 (`AchievementManager`)
+
+#### 구현된 업적
+
+- **레벨 25 달성**: 최고 레벨 달성
+- **클릭 1,000회**: 클릭 수 집계
+- **1시간 플레이**: 총 플레이타임 추적
+- **강화 10레벨**: 업그레이드 레벨 달성
+- **1계층 발견**: 티어 1 언락
+
+#### 특징
+
+- **자동 체크**: 5초마다 자동으로 업적 달성 여부 확인
+- **Google Play Games 연동**: 업적 자동 해제 및 UI 표시
+- **플레이 통계 추적**: `PlayStatsTracker`와 연동
+
+### 8. 쿠폰 시스템 (`CouponManager`)
+
+#### 주요 기능
+
+- **쿠폰 코드 입력**: 사용자가 쿠폰 코드 입력
+- **보상 지급**: 골드 또는 보석 보상 선택 가능
+- **중복 사용 방지**: 사용한 쿠폰 목록 저장
+- **광고 보상 2배**: 광고 시청 시 보상 2배 지급
 
 ### 5. 프레스티지 시스템 (`PrestigeManager`)
 
@@ -474,6 +543,11 @@ if (fieldManager.dataManager == null)
 - [x] 4층 구조 및 배경 전환
 - [x] 발견 연출 (LD → SD 전환)
 - [x] 자동 저장 시스템
+- [x] Google Play Games 클라우드 저장
+- [x] 업적 시스템 (5종)
+- [x] 튜토리얼 시스템
+- [x] 쿠폰 시스템
+- [x] 플레이 통계 추적
 
 ### 🔄 최적화 완료
 
@@ -486,12 +560,37 @@ if (fieldManager.dataManager == null)
 
 ---
 
+## 🚀 시작하기
+
+### 프로젝트 설정
+
+프로젝트를 처음 설정하거나 새로운 개발 환경에서 열 때는 **[SETUP.md](SETUP.md)** 문서를 참고하세요.
+
+**주요 설정 단계:**
+1. Unity 2022.3.62f3 설치
+2. 패키지 설치 확인
+3. Addressables 설정
+4. Google Play Games 설정
+5. 씬 설정 (매니저 GameObject 생성)
+6. 튜토리얼 시스템 설정
+7. 빌드 설정
+
+### 빠른 시작
+
+1. Unity Hub에서 프로젝트 열기
+2. `Assets/Scenes/Ingame.unity` 씬 실행
+3. 게임 시작!
+
+---
+
 ## 📚 추가 문서
 
+- **[SETUP.md](SETUP.md)**: 프로젝트 설정 가이드 (필수)
 - [오디오 매니저 설정 가이드](Assets/Scripts/Audio/AUDIO_MANAGER_SETUP_GUIDE.md)
 - [골드 팝업 설정 가이드](Assets/Scripts/UI/GOLD_POPUP_SETUP_GUIDE.md)
 - [기존 README](Assets/Scripts/README.md)
 - [기술 하이라이트](Assets/Scripts/old_md/readmeanalist.md)
+- [old_md 폴더](old_md/): 이전 문서 및 작업 메모
 
 ---
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0ff9e853763a3a9499af6fc8e6ee720b
+guid: eaacfa04851db4c4494ee8c64d539ef3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "ChatGPT Image 2025\uB144 11\uC6D4 30\uC77C \uC624\uD6C4 11_02_45_0"
+      name: optionbuttons_0
       rect:
         serializedVersion: 2
-        x: 126
-        y: 838
-        width: 774
-        height: 428
+        x: 31
+        y: 629
+        width: 576
+        height: 176
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fea67594416cb194ea43ad974c01330b
-      internalID: -2072409755
+      spriteID: d6f622ae1c7a867459a9ca12d2064632
+      internalID: 1921136692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "ChatGPT Image 2025\uB144 11\uC6D4 30\uC77C \uC624\uD6C4 11_02_45_1"
+      name: optionbuttons_1
       rect:
         serializedVersion: 2
-        x: 126
-        y: 300
-        width: 770
-        height: 420
+        x: 666
+        y: 629
+        width: 581
+        height: 177
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,8 +145,134 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a20e60baa0cf7ba4bb10a8ae22bccaf4
-      internalID: 554227893
+      spriteID: df15299ab470a9d44bfe6c7607d3f5e6
+      internalID: 815578806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: optionbuttons_2
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 430
+        width: 575
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd9866d12cc95eb408a3183e421c97fb
+      internalID: 1106869661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: optionbuttons_3
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 431
+        width: 584
+        height: 165
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f16b4cf0e90b344192db0d52ef10690
+      internalID: 1494726275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: optionbuttons_4
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 241
+        width: 576
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2b25c29fcbf7c94887b8c3b5cfab5d7
+      internalID: 224150828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: optionbuttons_5
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 243
+        width: 584
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acb2180db08439143b37af0ee579863f
+      internalID: -165093744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: optionbuttons_6
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 48
+        width: 576
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb440c6d9b54bf146bd035768c8e8261
+      internalID: 1348167315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: optionbuttons_7
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 49
+        width: 583
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73bbabea5c9006f47afa16a5e4c286d2
+      internalID: -473071981
       vertices: []
       indices: 
       edges: []
@@ -162,8 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "ChatGPT Image 2025\uB144 11\uC6D4 30\uC77C \uC624\uD6C4 11_02_45_0": -2072409755
-      "ChatGPT Image 2025\uB144 11\uC6D4 30\uC77C \uC624\uD6C4 11_02_45_1": 554227893
+      optionbuttons_0: 1921136692
+      optionbuttons_1: 815578806
+      optionbuttons_2: 1106869661
+      optionbuttons_3: 1494726275
+      optionbuttons_4: 224150828
+      optionbuttons_5: -165093744
+      optionbuttons_6: 1348167315
+      optionbuttons_7: -473071981
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

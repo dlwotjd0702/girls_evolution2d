@@ -569,7 +569,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         var container = (activeParent as RectTransform) ?? (girlRoot as RectTransform) ?? (transform as RectTransform);
         girl.EnableFinalMode(container, 0.95f);
         var rt = (RectTransform)girl.transform;
-        rt.localPosition = Vector3.zero;
+        rt.localPosition = new Vector3(0f, 50f, 0f); // 25단계 위치를 조금 높게 설정
         
         // 25단계 레벨 표시 텍스트 업데이트
         UpdateLevel25Text();

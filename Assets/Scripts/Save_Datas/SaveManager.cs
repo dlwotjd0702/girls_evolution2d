@@ -160,11 +160,8 @@ public class SaveManager : MonoBehaviour
             PlayerPrefs.SetString("SaveData", saveJson);
             PlayerPrefs.Save();
             
-            // 클라우드 저장 (옵션)
-            if (enableCloudSave && autoCloudSave && CloudSaveManager.Instance != null)
-            {
-                CloudSaveManager.Instance.SaveToCloud(data);
-            }
+            // 클라우드 저장은 GooglePlayStorePanel에서 수동으로 처리
+            // 자동 저장에서는 클라우드 저장하지 않음
         }
         catch (System.Exception e)
         {

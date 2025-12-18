@@ -1170,14 +1170,73 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         RecomputeMaxLevelAndNotify();
-        TryShowOfflineReward();
         UpdateLevel25Text();
         
-        // 로딩 패널 숨기기 (세이브 데이터 적용 완료)
+        // 광고 로딩 완료 대기 후 로딩 패널 숨기고 오프라인 보상 표시
+        StartCoroutine(WaitForAdLoadingAndShowOfflineReward());
+    }
+
+    /// <summary>
+    /// 광고 로딩 완료 대기 후 로딩 패널 숨기고 오프라인 보상 표시
+    /// </summary>
+    private IEnumerator WaitForAdLoadingAndShowOfflineReward()
+    {
+        // 광고 서비스 찾기
+        IAdOfferService adService = null;
+        var adServiceBehaviours = FindObjectsOfType<MonoBehaviour>();
+        foreach (var behaviour in adServiceBehaviours)
+        {
+            if (behaviour is IAdOfferService service)
+            {
+                adService = service;
+                break;
+            }
+        }
+
+        // 광고 제거 유저인 경우 바로 진행
+        bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+        if (adsRemoved || adService == null)
+        {
+            // 광고 서비스가 없거나 광고가 제거된 경우 바로 진행
+            if (GameSystem.Instance != null && GameSystem.Instance.loadingPanel != null)
+            {
+                GameSystem.Instance.loadingPanel.SetActive(false);
+            }
+            TryShowOfflineReward();
+            yield break;
+        }
+
+        // 광고 로딩 완료 대기 (최대 5초)
+        float elapsed = 0f;
+        float timeout = 5f;
+        bool adReady = false;
+
+        while (elapsed < timeout && !adReady)
+        {
+            try
+            {
+                adReady = adService.IsRewardedReady();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[GirlFieldManager] 광고 준비 상태 확인 중 오류: {e.Message}");
+            }
+
+            if (!adReady)
+            {
+                yield return new WaitForSeconds(0.1f);
+                elapsed += 0.1f;
+            }
+        }
+
+        // 로딩 패널 숨기기
         if (GameSystem.Instance != null && GameSystem.Instance.loadingPanel != null)
         {
             GameSystem.Instance.loadingPanel.SetActive(false);
         }
+
+        // 오프라인 보상 표시
+        TryShowOfflineReward();
     }
 
     private void SetDiscoverySpotlight(bool enabled)

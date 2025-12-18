@@ -53,6 +53,9 @@ public class GemStorePanelController : MonoBehaviour
     [SerializeField] private Sprite adReadySprite;      // 광고 준비됨
     [SerializeField] private Sprite adNotReadySprite;    // 광고 준비 중
 
+    [Header("Remove Ads Purchase")]
+    [SerializeField] private Sprite removeAdsPurchasedSprite; // 광고제거 구매 완료 스프라이트
+
     [Header("Ad Reward")]
     [SerializeField] private int adGemReward = 5;        // 광고 시청 시 지급할 젬 수
 
@@ -130,6 +133,11 @@ public class GemStorePanelController : MonoBehaviour
                 if (string.IsNullOrEmpty(price))
                 {
                     price = LocalizationManager.GetText("가격 로딩 중...", "Loading price...");
+                    // 가격이 로드되지 않았을 때, 나중에 다시 시도하기 위해 코루틴 시작
+                    if (isRemoveAds || !string.IsNullOrEmpty(e.productId))
+                    {
+                        StartCoroutine(RetryPriceLoad(e));
+                    }
                 }
                 e.priceText.text = price;
             }
@@ -138,22 +146,48 @@ public class GemStorePanelController : MonoBehaviour
         // ── 구매 버튼 ─────────────────────────────────────────
         if (e.buyButton)
         {
-            e.buyButton.onClick.RemoveAllListeners();
-            if (e.isAdEntry)
+            // 광고제거 구매 완료 상태 확인
+            bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+            bool isRemoveAdsPurchased = isRemoveAds && adsRemoved;
+
+            if (isRemoveAdsPurchased)
             {
-                e.buyButton.onClick.AddListener(() => OnClickWatchAd(e));
-            }
-            else if (e.isGoldAdEntry)
-            {
-                e.buyButton.onClick.AddListener(() => OnClickWatchAdForGold(e));
-            }
-            else if (e.isGoldGemEntry)
-            {
-                e.buyButton.onClick.AddListener(() => OnClickBuyGoldWithGems(e));
+                // 광고제거 구매 완료: 버튼 비활성화 및 스프라이트 변경
+                e.buyButton.interactable = false;
+                e.buyButton.onClick.RemoveAllListeners(); // 클릭 리스너 제거
+                
+                // 버튼 스프라이트 변경
+                if (removeAdsPurchasedSprite != null && e.buyButton.image != null)
+                {
+                    e.buyButton.image.sprite = removeAdsPurchasedSprite;
+                }
             }
             else
             {
-                e.buyButton.onClick.AddListener(() => premium.Purchase(e.productId));
+                // 일반 구매 버튼 로직
+                e.buyButton.onClick.RemoveAllListeners();
+                if (e.isAdEntry)
+                {
+                    e.buyButton.onClick.AddListener(() => OnClickWatchAd(e));
+                }
+                else if (e.isGoldAdEntry)
+                {
+                    e.buyButton.onClick.AddListener(() => OnClickWatchAdForGold(e));
+                }
+                else if (e.isGoldGemEntry)
+                {
+                    e.buyButton.onClick.AddListener(() => OnClickBuyGoldWithGems(e));
+                }
+                else
+                {
+                    e.buyButton.onClick.AddListener(() => premium.Purchase(e.productId));
+                }
+                
+                // 광고제거 버튼이지만 아직 구매하지 않은 경우 정상 활성화
+                if (isRemoveAds)
+                {
+                    e.buyButton.interactable = true;
+                }
             }
         }
 
@@ -449,11 +483,19 @@ public class GemStorePanelController : MonoBehaviour
         {
             if (e.buyButton != null)
             {
+                // 광고제거 구매 완료 버튼은 비활성화 상태 유지
+                bool isRemoveAds = (e.productId == PremiumCurrencyManager.REMOVE_ADS_ID);
+                bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+                if (isRemoveAds && adsRemoved)
+                {
+                    e.buyButton.interactable = false;
+                    continue;
+                }
+                
                 // 광고 Entry는 광고 준비 상태에 따라 활성화
                 if (e.isAdEntry || e.isGoldAdEntry)
                 {
                     bool ready = false;
-                    bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
                     if (!adsRemoved && adService != null)
                     {
                         try { ready = adService.IsRewardedReady(); } catch { }
@@ -470,6 +512,33 @@ public class GemStorePanelController : MonoBehaviour
                     e.buyButton.interactable = true;
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// 가격이 로드되지 않았을 때 재시도하는 코루틴
+    /// </summary>
+    private IEnumerator RetryPriceLoad(Entry e)
+    {
+        if (e == null || premium == null) yield break;
+        
+        // 최대 5초 동안 0.5초마다 재시도
+        int maxRetries = 10;
+        int retryCount = 0;
+        
+        while (retryCount < maxRetries)
+        {
+            yield return new WaitForSeconds(0.5f);
+            
+            string price = premium.GetLocalizedPrice(e.productId);
+            if (!string.IsNullOrEmpty(price) && e.priceText != null)
+            {
+                // 가격이 로드되었으면 UI 업데이트
+                e.priceText.text = price;
+                yield break;
+            }
+            
+            retryCount++;
         }
     }
 }

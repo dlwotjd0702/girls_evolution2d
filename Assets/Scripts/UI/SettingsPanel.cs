@@ -53,15 +53,6 @@ public class SettingsPanel : MonoBehaviour
             closeButton.onClick.AddListener(Hide);
         }
         
-        // 배경 클릭으로 닫기
-        if (panelRoot != null)
-        {
-            var bgButton = panelRoot.GetComponent<Button>();
-            if (bgButton == null) bgButton = panelRoot.AddComponent<Button>();
-            bgButton.onClick.RemoveAllListeners();
-            bgButton.onClick.AddListener(Hide);
-        }
-        
         // 언어 설정 버튼
         if (languageButton != null)
         {

@@ -38,16 +38,6 @@ public class SaveConflictPanel : MonoBehaviour
             useCloudButton.onClick.RemoveAllListeners();
             useCloudButton.onClick.AddListener(() => OnChoiceMade(true));
         }
-        
-        // 배경 클릭 방지 (선택 강제)
-        if (panelRoot != null)
-        {
-            var bgButton = panelRoot.GetComponent<Button>();
-            if (bgButton != null)
-            {
-                bgButton.enabled = false; // 배경 클릭으로 닫기 비활성화
-            }
-        }
     }
 
     /// <summary>

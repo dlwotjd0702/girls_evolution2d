@@ -340,6 +340,15 @@ public class CloudSaveManager : MonoBehaviour
         }
 
 #if UNITY_ANDROID && !UNITY_EDITOR
+        // savedGameClient가 초기화되지 않았으면 대기
+        if (savedGameClient == null)
+        {
+            Debug.LogWarning("[CloudSaveManager] savedGameClient가 초기화되지 않았습니다. 잠시 후 다시 시도하세요.");
+            OnCloudLoadComplete?.Invoke(false, null);
+            onComplete?.Invoke(null);
+            return;
+        }
+
         try
         {
             IsLoading = true;

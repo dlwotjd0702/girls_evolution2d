@@ -1,16 +1,14 @@
 // ============================================================================
-// NewGameConfirmPanel.cs
-// - 새로 시작하기 확인 패널
-// - 모든 게임 데이터가 삭제된다는 경고 표시
+// CloudDataConfirmPanel.cs
+// - 클라우드 데이터 적용 확인 패널
+// - 클라우드 데이터로 덮어씌울 것인지 확인
 // ============================================================================
 
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
-using DG.Tweening;
 
-public class NewGameConfirmPanel : MonoBehaviour
+public class CloudDataConfirmPanel : MonoBehaviour
 {
     [Header("UI Components")]
     [SerializeField] private GameObject panelRoot;
@@ -18,6 +16,8 @@ public class NewGameConfirmPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private Button confirmButton;
     [SerializeField] private Button cancelButton;
+    
+    private System.Action onConfirm;
     
     private void Awake()
     {
@@ -43,59 +43,37 @@ public class NewGameConfirmPanel : MonoBehaviour
         UpdateTexts();
     }
     
-    public void Show()
+    public void Show(System.Action onConfirmCallback)
     {
         if (panelRoot != null) panelRoot.SetActive(true);
+        onConfirm = onConfirmCallback;
         UpdateTexts();
     }
     
     public void Hide()
     {
         if (panelRoot != null) panelRoot.SetActive(false);
+        onConfirm = null;
     }
     
     void OnConfirm()
     {
-        StartCoroutine(ResetAndReloadScene());
-    }
-    
-    private IEnumerator ResetAndReloadScene()
-    {
+        onConfirm?.Invoke();
         Hide();
-        
-        // 1. DOTween 애니메이션 모두 정리 (에러 방지)
-        DOTween.KillAll();
-        
-        // 2. 짧은 대기 (UI 업데이트 완료)
-        yield return new WaitForSeconds(0.1f);
-        
-        // 3. 로컬 및 클라우드 저장 파일 삭제 (ResetSaveFile이 모두 처리)
-        if (SaveManager.Instance != null)
-        {
-            SaveManager.Instance.ResetSaveFile();
-        }
-        
-        // 4. 클라우드 저장 완료 대기 (비동기 저장이므로)
-        yield return new WaitForSeconds(0.3f);
-        
-        // 6. 씬 리로드
-        UnityEngine.SceneManagement.SceneManager.LoadScene(
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
-        );
     }
     
     void UpdateTexts()
     {
         if (titleText != null)
         {
-            titleText.text = LocalizationManager.GetText("새로 시작하기", "New Game");
+            titleText.text = LocalizationManager.GetText("클라우드 데이터 적용", "Apply Cloud Data");
         }
         
         if (messageText != null)
         {
             messageText.text = LocalizationManager.GetText(
-                "모든 게임 데이터가 삭제됩니다.\n정말 새로 시작하시겠습니까?",
-                "All game data will be deleted.\nAre you sure you want to start a new game?"
+                "클라우드 데이터로 덮어 씌우시겠습니까?\n현재 로컬 데이터는 덮어씌워집니다.",
+                "Do you want to overwrite local data with cloud data?\nCurrent local data will be overwritten."
             );
         }
         

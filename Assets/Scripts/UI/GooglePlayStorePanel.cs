@@ -21,6 +21,7 @@ public class GooglePlayStorePanel : MonoBehaviour
     [Header("Login Section")]
     [SerializeField] private Button loginButton;
     [SerializeField] private TextMeshProUGUI loginStatusText;
+    
 
     [Header("Cloud Data Section")]
     [SerializeField] private GameObject cloudDataSection; // 로그인 성공 시 표시
@@ -30,6 +31,9 @@ public class GooglePlayStorePanel : MonoBehaviour
     [Header("Current Data Section")]
     [SerializeField] private TextMeshProUGUI currentDataText; // 현재 데이터 통합 텍스트
     [SerializeField] private Button saveToCloudButton;
+
+    [Header("Confirm Panel")]
+    [SerializeField] private CloudDataConfirmPanel confirmPanel; // 클라우드 데이터 적용 확인 패널
 
     [Header("Feedback")]
     [SerializeField] private TextMeshProUGUI feedbackText;
@@ -63,11 +67,8 @@ public class GooglePlayStorePanel : MonoBehaviour
             saveToCloudButton.onClick.AddListener(OnClickSaveToCloud);
         }
 
-        // CloudSaveManager 이벤트 구독
-        if (CloudSaveManager.Instance != null)
-        {
-            CloudSaveManager.Instance.OnLoginStatusChanged += OnLoginStatusChanged;
-        }
+        // CloudSaveManager 이벤트 구독 (Start에서도 구독하므로 여기서는 중복 방지)
+        // Start()에서 구독하도록 변경
     }
 
     private void OnDestroy()
@@ -75,12 +76,110 @@ public class GooglePlayStorePanel : MonoBehaviour
         if (CloudSaveManager.Instance != null)
         {
             CloudSaveManager.Instance.OnLoginStatusChanged -= OnLoginStatusChanged;
+            CloudSaveManager.Instance.OnCloudLoadComplete -= OnCloudLoadCompleteHandler;
         }
+    }
+
+    private void Start()
+    {
+        // CloudSaveManager 이벤트 구독
+        SubscribeToCloudSaveManager();
     }
 
     private void OnEnable()
     {
+        // 패널이 활성화될 때마다 최신 로그인 상태 확인 및 UI 갱신
+        // CloudSaveManager가 아직 초기화되지 않았을 수 있으므로 이벤트 구독도 확인
+        SubscribeToCloudSaveManager();
         RefreshUI();
+    }
+
+    /// <summary>
+    /// CloudSaveManager 이벤트 구독 (중복 방지)
+    /// </summary>
+    private void SubscribeToCloudSaveManager()
+    {
+        if (CloudSaveManager.Instance != null)
+        {
+            // 중복 구독 방지
+            CloudSaveManager.Instance.OnLoginStatusChanged -= OnLoginStatusChanged;
+            CloudSaveManager.Instance.OnCloudLoadComplete -= OnCloudLoadCompleteHandler;
+            
+            CloudSaveManager.Instance.OnLoginStatusChanged += OnLoginStatusChanged;
+            CloudSaveManager.Instance.OnCloudLoadComplete += OnCloudLoadCompleteHandler;
+            
+            // 이미 로그인되어 있으면 클라우드 데이터 미리 로드 (적용은 하지 않음)
+            if (CloudSaveManager.Instance.IsAuthenticated)
+            {
+                PreloadCloudData();
+            }
+        }
+        else
+        {
+            // CloudSaveManager가 아직 생성되지 않았을 수 있으므로 잠시 후 다시 시도
+            StartCoroutine(WaitForCloudSaveManagerAndPreload());
+        }
+    }
+
+    /// <summary>
+    /// CloudSaveManager가 준비될 때까지 대기 후 클라우드 데이터 미리 로드
+    /// </summary>
+    private IEnumerator WaitForCloudSaveManagerAndPreload()
+    {
+        float elapsed = 0f;
+        float timeout = 5f;
+        
+        while (CloudSaveManager.Instance == null && elapsed < timeout)
+        {
+            yield return new WaitForSeconds(0.1f);
+            elapsed += 0.1f;
+        }
+        
+        if (CloudSaveManager.Instance != null)
+        {
+            SubscribeToCloudSaveManager();
+        }
+    }
+
+    /// <summary>
+    /// 클라우드 데이터 미리 로드 (적용은 하지 않음)
+    /// </summary>
+    private void PreloadCloudData()
+    {
+        if (CloudSaveManager.Instance == null || !CloudSaveManager.Instance.IsAuthenticated)
+        {
+            return;
+        }
+
+        if (isLoadingCloud || cloudData != null)
+        {
+            // 이미 로드 중이거나 이미 로드된 경우 스킵
+            return;
+        }
+
+        // 조용히 로드 (피드백 메시지 없음)
+        isLoadingCloud = true;
+        CloudSaveManager.Instance.LoadFromCloud((data) =>
+        {
+            isLoadingCloud = false;
+            if (data != null)
+            {
+                cloudData = data;
+                Debug.Log("[GooglePlayStorePanel] 클라우드 데이터를 미리 로드했습니다. (적용하지 않음)");
+            }
+        });
+    }
+
+    /// <summary>
+    /// 클라우드 로드 완료 이벤트 핸들러 (외부에서 호출된 경우)
+    /// </summary>
+    private void OnCloudLoadCompleteHandler(bool success, SaveData data)
+    {
+        // 외부에서 로드된 경우 cloudData 업데이트
+        if (success && data != null)
+        {
+            cloudData = data;
+        }
     }
 
     public void Show()
@@ -128,6 +227,11 @@ public class GooglePlayStorePanel : MonoBehaviour
         {
             RefreshCloudData();
         }
+        // 클라우드 데이터가 없고 로그인되어 있으면 로드 시도 (이미 로드 중이 아닐 때만)
+        else if (CloudSaveManager.Instance != null && CloudSaveManager.Instance.IsAuthenticated && !isLoadingCloud)
+        {
+            LoadCloudDataInternal();
+        }
     }
 
     /// <summary>
@@ -139,6 +243,7 @@ public class GooglePlayStorePanel : MonoBehaviour
         if (loginButton != null)
         {
             loginButton.gameObject.SetActive(!isAuthenticated);
+            loginStatusText.gameObject.SetActive(!isAuthenticated);
         }
 
         // 저장 버튼 표시/숨김 (로그인되어 있을 때만 표시)
@@ -152,6 +257,8 @@ public class GooglePlayStorePanel : MonoBehaviour
         {
             loginStatusText.text = LocalizationManager.GetText(statusText, statusText);
         }
+
+      
     }
 
     /// <summary>
@@ -188,9 +295,11 @@ public class GooglePlayStorePanel : MonoBehaviour
         {
             double playTimeHours = currentData.totalPlayTimeSeconds / 3600.0;
             string dataText = LocalizationManager.GetText(
+                "로컬 데이터\n" +
                 $"플레이타임: {playTimeHours:F2}시간\n" +
                 $"최대 단계: {currentData.maxLevelReached}\n" +
                 $"저장 시간: {currentData.savedAt}",
+                "Local Data\n" +
                 $"Play Time: {playTimeHours:F2}h\n" +
                 $"Max Level: {currentData.maxLevelReached}\n" +
                 $"Saved At: {currentData.savedAt}"
@@ -211,9 +320,11 @@ public class GooglePlayStorePanel : MonoBehaviour
         {
             double playTimeHours = cloudData.totalPlayTimeSeconds / 3600.0;
             string dataText = LocalizationManager.GetText(
+                "클라우드 데이터\n" +
                 $"플레이타임: {playTimeHours:F2}시간\n" +
                 $"최대 단계: {cloudData.maxLevelReached}\n" +
                 $"저장 시간: {cloudData.savedAt}",
+                "Cloud Data\n" +
                 $"Play Time: {playTimeHours:F2}h\n" +
                 $"Max Level: {cloudData.maxLevelReached}\n" +
                 $"Saved At: {cloudData.savedAt}"
@@ -247,6 +358,8 @@ public class GooglePlayStorePanel : MonoBehaviour
             {
                 ShowFeedback(LocalizationManager.GetText("로그인 성공!", "Login successful!"));
                 RefreshUI();
+                // 로그인 성공 시 savedGameClient 초기화 대기 후 클라우드 데이터 자동 불러오기
+                StartCoroutine(WaitForSavedGameClientAndLoad());
             }
             else
             {
@@ -275,8 +388,126 @@ public class GooglePlayStorePanel : MonoBehaviour
             return;
         }
 
+        // 클라우드 데이터가 이미 로드되어 있으면 확인 패널 표시
+        if (cloudData != null)
+        {
+            ShowConfirmPanel();
+            return;
+        }
+
+        // 클라우드 데이터가 없으면 먼저 불러오기
+        LoadCloudDataInternal();
+        RefreshCloudData();
+    }
+
+    /// <summary>
+    /// 확인 패널 표시
+    /// </summary>
+    private void ShowConfirmPanel()
+    {
+        if (confirmPanel == null)
+        {
+            // confirmPanel이 없으면 직접 찾기
+            confirmPanel = FindObjectOfType<CloudDataConfirmPanel>(true);
+        }
+
+        if (confirmPanel == null)
+        {
+            Debug.LogWarning("[GooglePlayStorePanel] CloudDataConfirmPanel을 찾을 수 없습니다. 직접 적용합니다.");
+            ApplyCloudDataToGame();
+            return;
+        }
+
+        confirmPanel.Show(() =>
+        {
+            // 확인 버튼 클릭 시 클라우드 데이터 적용
+            ApplyCloudDataToGame();
+        });
+    }
+
+    /// <summary>
+    /// savedGameClient 초기화 대기 후 클라우드 데이터 자동 불러오기
+    /// </summary>
+    private IEnumerator WaitForSavedGameClientAndLoad()
+    {
+        if (CloudSaveManager.Instance == null)
+        {
+            yield break;
+        }
+
+        // 로그인 상태 확인 및 savedGameClient 초기화 대기 (최대 3초)
+        float elapsed = 0f;
+        float timeout = 3f;
+        bool canLoad = false;
+        
+        while (elapsed < timeout && !canLoad)
+        {
+            if (CloudSaveManager.Instance.IsAuthenticated)
+            {
+                // 로그인되어 있고, 로드 중이 아니고, 클라우드 데이터가 없으면 로드 시도
+                if (!isLoadingCloud && cloudData == null)
+                {
+                    // CloudSaveManager의 LoadFromCloud가 savedGameClient null 체크를 하므로 바로 시도
+                    LoadCloudDataInternal();
+                    yield break;
+                }
+            }
+            
+            yield return new WaitForSeconds(0.1f);
+            elapsed += 0.1f;
+        }
+        
+        // 타임아웃 후에도 로그인되어 있고 데이터가 없으면 시도
+        if (CloudSaveManager.Instance != null && CloudSaveManager.Instance.IsAuthenticated && !isLoadingCloud && cloudData == null)
+        {
+            Debug.LogWarning("[GooglePlayStorePanel] WaitForSavedGameClientAndLoad 타임아웃, 클라우드 데이터 로드 시도");
+            LoadCloudDataInternal();
+        }
+    }
+
+    /// <summary>
+    /// 클라우드 데이터 자동 불러오기 (로그인 성공 시)
+    /// </summary>
+    private void LoadCloudDataAutomatically()
+    {
+        if (CloudSaveManager.Instance == null || !CloudSaveManager.Instance.IsAuthenticated)
+        {
+            return;
+        }
+
+        if (isLoadingCloud || cloudData != null)
+        {
+            return;
+        }
+
+        // 비동기로 로드하므로 RefreshCloudData()는 콜백에서 호출됨
+        LoadCloudDataInternal();
+    }
+
+    /// <summary>
+    /// 클라우드 데이터 불러오기 내부 로직
+    /// </summary>
+    private void LoadCloudDataInternal()
+    {
+        if (CloudSaveManager.Instance == null || !CloudSaveManager.Instance.IsAuthenticated)
+        {
+            Debug.LogWarning("[GooglePlayStorePanel] LoadCloudDataInternal: 로그인되지 않았습니다.");
+            return;
+        }
+
+        if (isLoadingCloud)
+        {
+            Debug.LogWarning("[GooglePlayStorePanel] LoadCloudDataInternal: 이미 로드 중입니다.");
+            return;
+        }
+
         isLoadingCloud = true;
-        ShowFeedback(LocalizationManager.GetText("클라우드 데이터 불러오는 중...", "Loading cloud data..."));
+        
+        // 패널이 활성화되어 있을 때만 피드백 메시지 표시
+        if (panelRoot != null && panelRoot.activeSelf)
+        {
+            ShowFeedback(LocalizationManager.GetText("클라우드 데이터 불러오는 중...", "Loading cloud data..."));
+        }
 
         CloudSaveManager.Instance.LoadFromCloud((data) =>
         {
@@ -287,15 +518,26 @@ public class GooglePlayStorePanel : MonoBehaviour
                 cloudData = data;
                 RefreshCloudData();
                 RefreshCurrentData(); // 현재 데이터도 다시 수집
-                ShowFeedback(LocalizationManager.GetText("클라우드 데이터를 불러왔습니다.", "Cloud data loaded."));
                 
-                // 클라우드 데이터를 게임에 적용할지 물어볼 수도 있지만, 일단은 불러오기만 함
-                // 필요시 loadCloudDataButton을 "불러오기 및 적용" 버튼으로 변경 가능
+                // 패널이 활성화되어 있을 때만 피드백 메시지 표시
+                if (panelRoot != null && panelRoot.activeSelf)
+                {
+                    ShowFeedback(LocalizationManager.GetText("클라우드 데이터를 불러왔습니다.", "Cloud data loaded."));
+                }
+                else
+                {
+                    Debug.Log("[GooglePlayStorePanel] 클라우드 데이터를 미리 로드했습니다. (패널 비활성화 상태)");
+                }
             }
             else
             {
                 cloudData = null;
-                ShowFeedback(LocalizationManager.GetText("클라우드에 저장된 데이터가 없습니다.", "No cloud data found."));
+                
+                // 패널이 활성화되어 있을 때만 피드백 메시지 표시
+                if (panelRoot != null && panelRoot.activeSelf)
+                {
+                    ShowFeedback(LocalizationManager.GetText("클라우드에 저장된 데이터가 없습니다.", "No cloud data found."));
+                }
             }
         });
     }
@@ -340,7 +582,7 @@ public class GooglePlayStorePanel : MonoBehaviour
             {
                 ShowFeedback(LocalizationManager.GetText("클라우드에 저장되었습니다.", "Saved to cloud."));
                 // 저장 후 클라우드 데이터 다시 로드
-                StartCoroutine(ReloadCloudDataAfterSave());
+                LoadCloudDataInternal();
             }
             else
             {
@@ -351,14 +593,6 @@ public class GooglePlayStorePanel : MonoBehaviour
         CloudSaveManager.Instance.OnCloudSaveComplete += onSaveComplete;
     }
 
-    /// <summary>
-    /// 저장 후 클라우드 데이터 다시 로드
-    /// </summary>
-    private IEnumerator ReloadCloudDataAfterSave()
-    {
-        yield return new WaitForSeconds(0.5f);
-        OnClickLoadCloudData();
-    }
 
     /// <summary>
     /// 클라우드 데이터 불러오기 버튼 클릭 시 클라우드 데이터를 게임에 적용하는 기능 추가
@@ -409,6 +643,22 @@ public class GooglePlayStorePanel : MonoBehaviour
     private void OnLoginStatusChanged(bool isAuthenticated)
     {
         RefreshUI();
+        
+        // 로그인 성공 시 클라우드 데이터 미리 로드 (패널이 활성화되어 있을 때만)
+        if (isAuthenticated && cloudData == null && !isLoadingCloud)
+        {
+            // 패널이 활성화되어 있으면 자동 로드, 비활성화되어 있으면 조용히 미리 로드
+            if (panelRoot != null && panelRoot.activeSelf)
+            {
+                // 패널이 열려있으면 피드백 메시지와 함께 로드
+                StartCoroutine(WaitForSavedGameClientAndLoad());
+            }
+            else
+            {
+                // 패널이 닫혀있으면 조용히 미리 로드
+                PreloadCloudData();
+            }
+        }
     }
 
     /// <summary>

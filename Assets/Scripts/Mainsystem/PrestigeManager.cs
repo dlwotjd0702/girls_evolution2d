@@ -49,23 +49,24 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     [SerializeField] private int plusOfflineMaxTimeLv = 0;
 
     // ───────── 비용 곡선 ─────────
-    // 리밸런싱: 총 12개 항목 만렙 찍는데 50만 포인트 (만렙 25레벨 기준)
+    // 리밸런싱: 25단계 기본 환생 포인트 2500 기준으로 비용 재조정
     // 골드 강화와 환생 업그레이드를 함께 고려하여 적절한 레벨 캡 설정
+    // - 맥스레벨이 높은 항목은 성장률을 낮춰 과도한 증가를 방지
     [Header("Costs (Core)")]
-    [SerializeField] private int   incomeBase  = 100;  [SerializeField] private float incomeGrow  = 1.2f;
-    [SerializeField] private int   twoStepBase = 100;  [SerializeField] private float twoStepGrow = 1.2f;
-    [SerializeField] private int   startBase   = 100;  [SerializeField] private float startGrow   = 1.2f;
-    [SerializeField] private int   ppgBase     = 100;  [SerializeField] private float ppgGrow     = 1.2f;
+    private int   incomeBase  = 300;  private float incomeGrow  = 1.15f;
+    private int   twoStepBase = 300;  private float twoStepGrow = 1.25f;
+    private int   startBase   = 300;  private float startGrow   = 1.15f;
+    private int   ppgBase     = 300;  private float ppgGrow     = 1.15f;
 
     [Header("Costs (Plus)")]
-    [SerializeField] private int plusManualSpawnMaxBase   = 100;  [SerializeField] private float plusManualSpawnMaxGrow   = 1.1f;
-    [SerializeField] private int plusManualSpawnSpeedBase = 100;  [SerializeField] private float plusManualSpawnSpeedGrow = 1.1f;
-    [SerializeField] private int plusAutoMergeSpeedBase   = 200;  [SerializeField] private float plusAutoMergeSpeedGrow   = 1.2f;
-    [SerializeField] private int plusAutoSpawnSpeedBase   = 200;  [SerializeField] private float plusAutoSpawnSpeedGrow   = 1.2f;
-    [SerializeField] private int plusFieldMaxBase         = 100;  [SerializeField] private float plusFieldMaxGrow         = 1.1f;
-    [SerializeField] private int plusClickBonusBase       = 100;  [SerializeField] private float plusClickBonusGrow       = 1.1f;
-    [SerializeField] private int plusOfflineRewardBase    = 100;  [SerializeField] private float plusOfflineRewardGrow     = 1.1f;
-    [SerializeField] private int plusOfflineMaxTimeBase   = 100;  [SerializeField] private float plusOfflineMaxTimeGrow    = 1.1f;
+    private int plusManualSpawnMaxBase   = 300;  private float plusManualSpawnMaxGrow   = 1.12f;
+    private int plusManualSpawnSpeedBase = 300;  private float plusManualSpawnSpeedGrow = 1.12f;
+    private int plusAutoMergeSpeedBase   = 600;  private float plusAutoMergeSpeedGrow   = 1.22f;
+    private int plusAutoSpawnSpeedBase   = 600;  private float plusAutoSpawnSpeedGrow   = 1.22f;
+    private int plusFieldMaxBase         = 300;  private float plusFieldMaxGrow         = 1.12f;
+    private int plusClickBonusBase       = 300;  private float plusClickBonusGrow       = 1.12f;
+    private int plusOfflineRewardBase    = 300;  private float plusOfflineRewardGrow     = 1.12f;
+    private int plusOfflineMaxTimeBase   = 300;  private float plusOfflineMaxTimeGrow    = 1.12f;
 
     // ───────── UI (옵션) ─────────
     [Header("UI (Optional)")]
@@ -219,10 +220,12 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         int level25UpgradeLevel = girlFieldManager.Level25UpgradeLevel;
         
         // 1. 레벨 25 포인트 계산 (level25UpgradeLevel 기준)
-        // 레벨 25: 1000 포인트 × level25UpgradeLevel
+        // 레벨 25: 2500 포인트 × (스택 성장률)
         if (level25UpgradeLevel > 0)
         {
-            double level25Points = 1000.0 * level25UpgradeLevel;
+            const double BASE_L25 = 2500.0;
+            const double L25_STACK_GROW = 1.35; // 스택 증가량이 1.2~1.5배 느낌
+            double level25Points = BASE_L25 * Math.Pow(L25_STACK_GROW, Math.Max(0, level25UpgradeLevel - 1));
             totalPoints += Mathf.CeilToInt((float)level25Points);
         }
         
@@ -238,7 +241,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
             // 하위 단계 포인트 계산: 25단계 기준 1000 포인트에서 단계 내려갈 때마다 1/2
             // 24단계: 500, 23단계: 250, 22단계: 125, ...
             int diff = topLevel - level; // 25→24: 1, 25→23: 2, ...
-            double points = 1000.0 / Math.Pow(2.0, diff);
+            double points = 2500.0 / Math.Pow(2.0, diff);
             totalPoints += Mathf.CeilToInt((float)points); // 소수점 올림 처리
         }
         

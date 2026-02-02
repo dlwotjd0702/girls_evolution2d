@@ -2971,7 +2971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &142429195
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23369,18 +23369,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   couponDatabase:
-  - code: "\uD14C\uC2A4\uD2B81"
-    rewardType: 0
+  - code: 10gems
+    rewardType: 1
     isGoldReward: 0
     rewardAmount: 10
-  - code: test1
+  - code: gold
     rewardType: 0
     isGoldReward: 0
-    rewardAmount: 5
+    rewardAmount: 10000
   - code: return
     rewardType: 2
     isGoldReward: 0
+    rewardAmount: 450000
+  - code: 1test
+    rewardType: 2
+    isGoldReward: 0
+    rewardAmount: 45000000
+  - code: 2test
+    rewardType: 1
+    isGoldReward: 0
     rewardAmount: 10000
+  - code: 3test
+    rewardType: 0
+    isGoldReward: 0
+    rewardAmount: 1000000000000
   economy: {fileID: 1973007492}
   premiumCurrency: {fileID: 1331978605}
   offlineRewardPanel: {fileID: 1139980842}
@@ -25915,30 +25927,6 @@ MonoBehaviour:
   plusClickBonusLv: 0
   plusOfflineRewardLv: 0
   plusOfflineMaxTimeLv: 0
-  incomeBase: 3
-  incomeGrow: 1.35
-  twoStepBase: 4
-  twoStepGrow: 1.45
-  startBase: 3
-  startGrow: 1.3
-  ppgBase: 5
-  ppgGrow: 1.4
-  plusManualSpawnMaxBase: 2
-  plusManualSpawnMaxGrow: 1.35
-  plusManualSpawnSpeedBase: 2
-  plusManualSpawnSpeedGrow: 1.3
-  plusAutoMergeSpeedBase: 2
-  plusAutoMergeSpeedGrow: 1.35
-  plusAutoSpawnSpeedBase: 2
-  plusAutoSpawnSpeedGrow: 1.35
-  plusFieldMaxBase: 3
-  plusFieldMaxGrow: 1.4
-  plusClickBonusBase: 2
-  plusClickBonusGrow: 1.3
-  plusOfflineRewardBase: 2
-  plusOfflineRewardGrow: 1.3
-  plusOfflineMaxTimeBase: 2
-  plusOfflineMaxTimeGrow: 1.25
   prestigePointLabel: {fileID: 1314448212}
   prestigeButton: {fileID: 1227661009}
   hideWhenNotOnTop: 1

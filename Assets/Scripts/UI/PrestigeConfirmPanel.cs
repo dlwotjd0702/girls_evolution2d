@@ -88,7 +88,13 @@ public class PrestigeConfirmPanel : MonoBehaviour
         if (prestigeManager == null || fieldManager == null || economyManager == null) return 0;
         
         GetPrestigeComponents(out int level25Stacks, out int lowerLevelPoints, out int upgradePoints);
-        int level25Points = level25Stacks * 1000;
+        int level25Points = 0;
+        if (level25Stacks > 0)
+        {
+            const double BASE_L25 = 2500.0;
+            const double L25_STACK_GROW = 1.35;
+            level25Points = Mathf.CeilToInt((float)(BASE_L25 * Math.Pow(L25_STACK_GROW, Math.Max(0, level25Stacks - 1))));
+        }
         int totalBasePoints = level25Points + lowerLevelPoints + upgradePoints;
         double mulPPG = prestigeManager.GetPrestigePointGainMul();
         return Mathf.Max(0, Mathf.CeilToInt((float)(totalBasePoints * mulPPG)));
@@ -109,11 +115,15 @@ public class PrestigeConfirmPanel : MonoBehaviour
         double gainMul = prestigeManager.GetPrestigePointGainMul();
         GetPrestigeComponents(out int level25Stacks, out int lowerLevelPoints, out int upgradePoints);
         
+        int level25Points = 0;
         if (level25Stacks > 0)
         {
+            const double BASE_L25 = 2500.0;
+            const double L25_STACK_GROW = 1.35;
+            level25Points = Mathf.CeilToInt((float)(BASE_L25 * Math.Pow(L25_STACK_GROW, Math.Max(0, level25Stacks - 1))));
             breakdowns.Add(LocalizationManager.GetText(
-                $"25단계 {level25Stacks}레벨 - 1000*{level25Stacks} point",
-                $"Level 25 x{level25Stacks} - 1000*{level25Stacks} point"
+                $"25단계 {level25Stacks}레벨 - 2500*{L25_STACK_GROW:0.##}^{Mathf.Max(0, level25Stacks - 1)} point",
+                $"Level 25 x{level25Stacks} - 2500*{L25_STACK_GROW:0.##}^{Mathf.Max(0, level25Stacks - 1)} point"
             ));
         }
         
@@ -133,7 +143,7 @@ public class PrestigeConfirmPanel : MonoBehaviour
             ));
         }
         
-        int totalBasePoints = level25Stacks * 1000 + lowerLevelPoints + upgradePoints;
+        int totalBasePoints = level25Points + lowerLevelPoints + upgradePoints;
         if (totalBasePoints > 0)
         {
             breakdowns.Add("------------------------");
@@ -174,7 +184,7 @@ public class PrestigeConfirmPanel : MonoBehaviour
             if (g.Level >= topLevel) continue;
             
             int diff = topLevel - g.Level; // 25→24: 1, 25→23: 2, ...
-            double points = 1000.0 / Math.Pow(2.0, Mathf.Max(0, diff));
+            double points = 2500.0 / Math.Pow(2.0, Mathf.Max(0, diff));
             lowerLevelPoints += Mathf.CeilToInt((float)points);
         }
         return lowerLevelPoints;

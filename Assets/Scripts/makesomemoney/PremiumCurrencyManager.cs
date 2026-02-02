@@ -59,6 +59,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     private StoreController storeController;
     private readonly Dictionary<string,string> priceCache = new();
+    private bool isApplyingLoad = false;
 
     void Awake()
     {
@@ -238,6 +239,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     
     public void ApplyLoadedData(SaveData d)
     {
+        isApplyingLoad = true;
         // SaveData에서 직접 필드로 로드 (SaveData에 필드가 있으면 항상 사용)
         // gems는 0일 수도 있으므로, SaveData 필드를 우선 사용
         gems = Math.Max(0, d.gems);
@@ -246,6 +248,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         adsRemoved = (d.adsRemoved > 0);
 
         NotifyAndPersist();
+        isApplyingLoad = false;
     }
 
     // ===== Helpers =====
@@ -254,6 +257,10 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         // 0이어도 항상 단위가 보이도록 "0 Gem" 형태로 표시
         if (gemLabel) gemLabel.text = $"{gems:N0} Gem";
         OnGemsChanged?.Invoke(gems);
+        if (!isApplyingLoad)
+        {
+            SaveManager.Instance?.SaveGame();
+        }
     }
 
     /// <summary>

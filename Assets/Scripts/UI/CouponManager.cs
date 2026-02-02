@@ -8,13 +8,21 @@ using UnityEngine;
 [Serializable]
 public class CouponReward
 {
+    public enum RewardType
+    {
+        Gold,
+        Gem,
+        PrestigePoint
+    }
+
     [Header("쿠폰 정보")]
     [Tooltip("쿠폰 코드 (대소문자 구분 없음)")]
     public string code = "";
     
     [Header("보상 타입")]
-    [Tooltip("골드 보상인지 보석 보상인지 선택")]
-    public bool isGoldReward = true; // true면 골드, false면 보석
+    [Tooltip("보상 타입 선택")]
+    public RewardType rewardType = RewardType.Gold;
+    [HideInInspector] public bool isGoldReward = true;
     
     [Header("보상 금액")]
     [Tooltip("지급할 골드 또는 보석의 양")]
@@ -112,17 +120,25 @@ public class CouponManager : MonoBehaviour, ISaveable
         
         if (hasReward)
         {
-            // 오프라인 보상 패널에 표시하기 위해 보상 저장
-            pendingReward = reward;
-            
-            // 오프라인 보상 패널이 있으면 표시, 없으면 즉시 지급
-            if (offlineRewardPanel != null)
+            var type = GetRewardType(reward);
+            if (type == CouponReward.RewardType.PrestigePoint)
             {
-                ShowCouponReward(reward);
+                GrantRewardImmediate(reward);
             }
             else
             {
-                GrantRewardImmediate(reward);
+                // 오프라인 보상 패널에 표시하기 위해 보상 저장
+                pendingReward = reward;
+
+                // 오프라인 보상 패널이 있으면 표시, 없으면 즉시 지급
+                if (offlineRewardPanel != null)
+                {
+                    ShowCouponReward(reward);
+                }
+                else
+                {
+                    GrantRewardImmediate(reward);
+                }
             }
         }
         else
@@ -143,9 +159,10 @@ public class CouponManager : MonoBehaviour, ISaveable
     {
         if (offlineRewardPanel == null) return;
         
+        var type = GetRewardType(reward);
         // 골드 보상인 경우 Payload에 골드 금액 설정, 보석 보상인 경우 0
-        double goldReward = reward.isGoldReward ? reward.rewardAmount : 0;
-        long gemReward = reward.isGoldReward ? 0 : (long)reward.rewardAmount;
+        double goldReward = type == CouponReward.RewardType.Gold ? reward.rewardAmount : 0;
+        long gemReward = type == CouponReward.RewardType.Gem ? (long)reward.rewardAmount : 0;
         
         var payload = new OfflineRewardPanel.Payload
         {
@@ -165,15 +182,25 @@ public class CouponManager : MonoBehaviour, ISaveable
     /// </summary>
     void GrantRewardImmediate(CouponReward reward)
     {
-        if (reward.isGoldReward && economy != null && reward.rewardAmount > 0)
+        var type = GetRewardType(reward);
+        if (type == CouponReward.RewardType.Gold && economy != null && reward.rewardAmount > 0)
         {
             economy.AddGold(reward.rewardAmount);
             Debug.Log($"[CouponManager] 골드 지급: {reward.rewardAmount}");
         }
-        else if (!reward.isGoldReward && premiumCurrency != null && reward.rewardAmount > 0)
+        else if (type == CouponReward.RewardType.Gem && premiumCurrency != null && reward.rewardAmount > 0)
         {
             premiumCurrency.AddGems((long)reward.rewardAmount);
             Debug.Log($"[CouponManager] 보석 지급: {reward.rewardAmount}");
+        }
+        else if (type == CouponReward.RewardType.PrestigePoint && reward.rewardAmount > 0)
+        {
+            int amount = Mathf.Max(0, Mathf.RoundToInt((float)reward.rewardAmount));
+            if (PrestigeManager.Instance != null && amount > 0)
+            {
+                PrestigeManager.Instance.AddPrestigePoints(amount);
+                Debug.Log($"[CouponManager] 환생 포인트 지급: {amount}");
+            }
         }
     }
     
@@ -205,6 +232,12 @@ public class CouponManager : MonoBehaviour, ISaveable
                 }
             }
         }
+    }
+
+    CouponReward.RewardType GetRewardType(CouponReward reward)
+    {
+        if (reward == null) return CouponReward.RewardType.Gold;
+        return reward.rewardType;
     }
 }
 

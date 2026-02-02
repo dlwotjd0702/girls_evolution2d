@@ -261,10 +261,22 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         if (economy == null) return 0;
         double sum = 0;
+        bool finalCounted = false;
+        int finalStack = Mathf.Max(1, level25UpgradeLevel);
         for (int i = 0; i < girlList.Count; i++)
         {
             var g = girlList[i];
             if (!g) continue;
+            if (g.Level >= TierRules.MaxLevel)
+            {
+                if (!finalCounted)
+                {
+                    double baseFinal = economy.GetLevelIncomePerSec(TierRules.MaxLevel);
+                    sum += baseFinal * finalStack;
+                    finalCounted = true;
+                }
+                continue;
+            }
             sum += economy.GetLevelIncomePerSec(g.Level);
         }
 
@@ -339,6 +351,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetIncomeMultiplier();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopIncome != null)
             {
@@ -355,6 +371,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetManualSpawnMaxPlus();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopPlusSpawnMax != null)
                 return Convert.ToInt32(_miShopPlusSpawnMax.Invoke(_shopInst, null));
@@ -365,6 +385,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetManualSpawnIntervalMul();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopMulManualInterval != null)
                 return Convert.ToDouble(_miShopMulManualInterval.Invoke(_shopInst, null));
@@ -375,6 +399,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetAutoSpawnIntervalMul();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopMulAutoSpawn != null)
                 return Convert.ToDouble(_miShopMulAutoSpawn.Invoke(_shopInst, null));
@@ -385,6 +413,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetAutoMergeIntervalMul();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopMulAutoMerge != null)
                 return Convert.ToDouble(_miShopMulAutoMerge.Invoke(_shopInst, null));
@@ -395,6 +427,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetFieldMaxPlus();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopPlusFieldMax != null)
                 return Convert.ToInt32(_miShopPlusFieldMax.Invoke(_shopInst, null));

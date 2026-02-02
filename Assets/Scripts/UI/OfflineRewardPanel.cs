@@ -25,6 +25,7 @@ public class OfflineRewardPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rewardText; // 보상 금액 표시
     [SerializeField] private TextMeshProUGUI durationText; // 오프라인 시간 표시 (선택)
     [SerializeField] private Button claimButton; // 일반 받기 버튼
+    [SerializeField] private Button claimJustButton; // 그냥 받기 버튼(광고 없음)
     [SerializeField] private Button claimAdButton; // 광고 보고 2배 받기 버튼
     [SerializeField] private Image adButtonIcon; // 광고 버튼 아이콘 (광고 시청/광고 준비중 스프라이트)
     [SerializeField] private Sprite adReadySprite; // 광고 시청 스프라이트
@@ -71,6 +72,11 @@ public class OfflineRewardPanel : MonoBehaviour
         {
             claimButton.onClick.RemoveAllListeners();
             claimButton.onClick.AddListener(() => GrantReward(1f));
+        }
+        if (claimJustButton != null)
+        {
+            claimJustButton.onClick.RemoveAllListeners();
+            claimJustButton.onClick.AddListener(() => GrantReward(1f));
         }
         if (claimAdButton != null)
         {

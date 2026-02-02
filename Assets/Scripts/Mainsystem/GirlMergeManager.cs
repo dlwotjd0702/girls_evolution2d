@@ -93,6 +93,10 @@ public class GirlMergeManager : MonoBehaviour
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetTwoStepChance();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopTwoStep != null)
             {
@@ -172,7 +176,16 @@ public class GirlMergeManager : MonoBehaviour
 
         // 클릭 골드는 해당 레벨의 초당 수익 기준으로 계산
         // GetLevelIncomePerSec을 사용하여 2^(level-1) 공식과 일치시킴
-        double baseIncome = economy.GetLevelIncomePerSec(girl.Level);
+        double baseIncome;
+        if (girl.IsFinal && fieldManager != null)
+        {
+            int stack = Mathf.Max(1, fieldManager.Level25UpgradeLevel);
+            baseIncome = economy.GetLevelIncomePerSec(TierRules.MaxLevel) * stack;
+        }
+        else
+        {
+            baseIncome = economy.GetLevelIncomePerSec(girl.Level);
+        }
         if (baseIncome <= 0) return;
 
         double gain = baseIncome;
@@ -282,14 +295,20 @@ public class GirlMergeManager : MonoBehaviour
         Vector3 center = (((RectTransform)a.transform).localPosition + ((RectTransform)b.transform).localPosition) * 0.5f;
         int nextLevel = a.Level + 1;
 
-        // ◀ +2단 도약 확률: 계승 등급 + 환생 상점 (합산 cap 50%)
-        //    단, 25/직전(=MaxLevel-1) 구간에는 미적용
-        if (nextLevel <= TierRules.MaxLevel - 2)
+        // ◀ +2단 도약 확률: 계승 등급 + 환생 상점 (합산 cap 20%)
+        //    단, "현재 최대 발견 단계 +1"를 넘는 결과는 금지
         {
-            float pRank = GetLegacyTwoStepChanceSafe();
-            float pShop = GetShopTwoStepChanceSafe();
-            float p = Mathf.Min(0.50f, pRank + pShop);
-            if (UnityEngine.Random.value < p) nextLevel += 1; // 총 +2
+            int currentMax = fieldManager != null ? fieldManager.CurrentMaxLevel : nextLevel;
+            int maxAllowed = Mathf.Min(TierRules.MaxLevel, currentMax + 1);
+            int twoStepTarget = nextLevel + 1; // 총 +2
+
+            if (twoStepTarget <= maxAllowed)
+            {
+                float pRank = GetLegacyTwoStepChanceSafe();
+                float pShop = GetShopTwoStepChanceSafe();
+                float p = Mathf.Min(0.20f, pRank + pShop);
+                if (UnityEngine.Random.value < p) nextLevel += 1;
+            }
         }
 
         // 합성 중 입력 막기

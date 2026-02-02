@@ -34,7 +34,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     // ───────── 상점 레벨(저장 대상) ─────────
     // 핵심 4종
     [SerializeField] private int incomeLv = 0;            // 수익 배수(+8%/Lv)
-    [SerializeField] private int twoStepLv = 0;           // +2단 확률(+2.5%p/Lv, cap 50%p)
+    [SerializeField] private int twoStepLv = 0;           // +2단 확률(+2.5%p/Lv, cap 20%p)
     [SerializeField] private int startGoldLv = 0;         // 시작자금 배수(+10%/Lv)
     [SerializeField] private int prestigeGainLv = 0;      // 환생포인트 획득(+10%/Lv)
 
@@ -271,6 +271,13 @@ public class PrestigeManager : MonoBehaviour, ISaveable
 
     public int  GetPrestigePoints()      => prestigePoint;
     public int  GetTotalPrestigeCount()  => totalPrestigeCount;
+    public void AddPrestigePoints(int amount)
+    {
+        if (amount <= 0) return;
+        prestigePoint += amount;
+        NotifyPointsChanged();
+        SaveManager.Instance?.SaveGame();
+    }
 
     public bool SpendPrestigePoints(int amount)
     {
@@ -374,7 +381,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     // ───────── 효과 쿼리(게임 적용) ─────────
     // 핵심 4종
     public double GetIncomeMultiplier()        => 1.0 + 0.08 * incomeLv;
-    public float  GetTwoStepChance()           => Mathf.Min(0.50f, 0.025f * twoStepLv);
+    public float  GetTwoStepChance()           => Mathf.Min(0.20f, 0.025f * twoStepLv);
     public double GetStartGoldMultiplier()     => 1.0 + 0.10 * startGoldLv;
     public double GetPrestigePointGainMul()    => 1.0 + 0.10 * prestigeGainLv;
 

@@ -29,10 +29,14 @@ public class CloudSaveManager : MonoBehaviour
     public bool IsAuthenticated { get; private set; } = false;
     public bool IsSaving { get; private set; } = false;
     public bool IsLoading { get; private set; } = false;
+    public bool IsLoginInProgress { get; private set; } = false;
 
     private const string CLOUD_SAVE_FILENAME = "girls_evolution_save";
     private const string FIRST_RUN_KEY = "CloudSaveManager_FirstRun";
 
+    [Header("Login Retry")]
+    [SerializeField] private bool enableAutoRetryLogin = true;
+    [SerializeField] private float retryLoginInterval = 30f;
 #if UNITY_ANDROID && !UNITY_EDITOR
     private ISavedGameClient savedGameClient;
 #endif
@@ -51,6 +55,10 @@ public class CloudSaveManager : MonoBehaviour
     private void Start()
     {
         InitializeGooglePlayGames();
+        if (enableAutoRetryLogin)
+        {
+            StartCoroutine(AutoRetryLoginLoop());
+        }
     }
 
     /// <summary>
@@ -153,6 +161,11 @@ public class CloudSaveManager : MonoBehaviour
     public void SignIn(Action<bool> callback = null)
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
+        if (IsLoginInProgress)
+        {
+            Debug.Log("[CloudSaveManager] 로그인 진행 중입니다.");
+            return;
+        }
         if (IsAuthenticated)
         {
             Debug.Log("[CloudSaveManager] 이미 로그인되어 있습니다.");
@@ -160,10 +173,12 @@ public class CloudSaveManager : MonoBehaviour
             return;
         }
 
+        IsLoginInProgress = true;
         PlayGamesPlatform.Instance.Authenticate((status) =>
         {
             bool success = (status == SignInStatus.Success);
             IsAuthenticated = success;
+            IsLoginInProgress = false;
             
             // 더 자세한 로깅
             string statusMessage = status switch
@@ -209,6 +224,24 @@ public class CloudSaveManager : MonoBehaviour
         Debug.Log("[CloudSaveManager] 에디터에서는 로그인할 수 없습니다.");
         callback?.Invoke(false);
 #endif
+    }
+
+    private System.Collections.IEnumerator AutoRetryLoginLoop()
+    {
+        while (true)
+        {
+            if (!IsAuthenticated && !IsLoginInProgress
+#if UNITY_ANDROID && !UNITY_EDITOR
+                && true
+#else
+                && false
+#endif
+            )
+            {
+                SignIn();
+            }
+            yield return new WaitForSeconds(retryLoginInterval);
+        }
     }
 
     /// <summary>

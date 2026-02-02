@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
@@ -283,6 +283,9 @@ public class AutoAutomationController : MonoBehaviour
                 ShowReason(LocalizationManager.GetText("구매가 불가합니다.", "Cannot purchase."));
                 return;
             }
+
+            // 보석 구매는 즉시 저장
+            SaveManager.Instance?.SaveGame();
         }
 
         HideReason();
@@ -352,11 +355,19 @@ public class AutoAutomationController : MonoBehaviour
     {
         try
         {
-            if (_prestigeShop == null) return "";
-            double mul =
-                (type==AutoType.AutoMerge)
-                ? Convert.ToDouble(_miGetAutoMergeMul?.Invoke(_prestigeShop, null) ?? 1.0)
-                : Convert.ToDouble(_miGetAutoSpawnMul?.Invoke(_prestigeShop, null) ?? 1.0);
+            double mul = 1.0;
+            if (_prestigeShop != null)
+            {
+                mul = (type==AutoType.AutoMerge)
+                    ? Convert.ToDouble(_miGetAutoMergeMul?.Invoke(_prestigeShop, null) ?? 1.0)
+                    : Convert.ToDouble(_miGetAutoSpawnMul?.Invoke(_prestigeShop, null) ?? 1.0);
+            }
+            else if (PrestigeManager.Instance != null)
+            {
+                mul = (type==AutoType.AutoMerge)
+                    ? PrestigeManager.Instance.GetAutoMergeIntervalMul()
+                    : PrestigeManager.Instance.GetAutoSpawnIntervalMul();
+            }
 
             double reducePct = (1.0 - Mathf.Clamp01((float)mul)) * 100.0;
             if (reducePct <= 0.0001) return "";

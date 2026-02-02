@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class AdMobOfferService : MonoBehaviour, IAdOfferService
@@ -9,6 +9,8 @@ public class AdMobOfferService : MonoBehaviour, IAdOfferService
     [SerializeField] private bool enableDebugLogs = true;
 
     private bool _lastReadyState = false;
+    private float _lastRetryTime = -999f;
+    private const float RETRY_INTERVAL = 10f;
 
     void Start()
     {
@@ -48,6 +50,13 @@ public class AdMobOfferService : MonoBehaviour, IAdOfferService
         {
             _lastReadyState = currentReady;
             OnRewardedReadyChanged?.Invoke(currentReady);
+        }
+
+        // 준비되지 않았으면 주기적으로 로드 재시도
+        if (!currentReady && Time.unscaledTime - _lastRetryTime >= RETRY_INTERVAL)
+        {
+            _lastRetryTime = Time.unscaledTime;
+            LoadRewarded();
         }
     }
 

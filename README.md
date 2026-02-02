@@ -78,14 +78,14 @@ Update Loop:
     └─> 60초마다 자동 저장
 ```
 
-### 골드 수익 계산 흐름
+### 골드 수익 계산 흐름 (현재 기준)
 
 ```
 GirlFieldManager.ComputeIdleGoldPerSec()
-  └─> 각 GirlCharacter.GetIncome()
-      └─> EconomyManager.GetLevelIncomePerSec(level)
-          └─> baseIncome * Math.Pow(2, level - 1)
-      └─> 계승 등급 배수 × 환생 상점 배수 적용
+  └─> EconomyManager.GetLevelIncomePerSec(level) 합산
+      └─> baseIncome * Math.Pow(2, level - 1)
+  └─> 25단계 스택(level25UpgradeLevel)은 1개 캐릭터 수익에 스택 곱으로 반영
+  └─> 계승 등급 배수 × 환생 상점 배수 적용
   └─> 1초마다 EconomyManager.AddGold() 호출
 ```
 
@@ -150,6 +150,7 @@ Assets/Scripts/
 │   ├── EconomyManager.cs          # 골드 관리, 업그레이드, 수익 계산
 │   ├── ShopPanelController.cs     # 골드/보석 탭 상점 UI
 │   ├── AutoAutomationController.cs # 자동 소환/합성 UI 컨트롤러
+│   ├── PrestigeShopManager.cs     # 환생 상점 파사드(표기/연동)
 │   └── PrestigeShopPanelController.cs  # 환생 상점 UI
 │
 ├── Save_Datas/                    # 저장 시스템
@@ -255,7 +256,7 @@ if (n > HARD_PAIR_SCAN_LIMIT) {
 - **자동 저장**: 60초마다 자동 저장
 - **백업 시스템**: `save_backup.json` 자동 생성
 - **오프라인 시간 계산**: 저장 시간 기반 오프라인 보상 계산
-- **PlayerPrefs 호환**: 기존 세이브 파일 호환성 유지
+- **저장 방식**: 로컬 JSON 파일 + PlayerPrefs 호환 저장
 - **클라우드 저장**: Google Play Games 클라우드 저장 연동 (`CloudSaveManager`)
   - 로컬 저장과 클라우드 저장 병행
   - 충돌 해결 로직 (최신 시간 기반, 수동 선택)
@@ -334,7 +335,7 @@ public class TutorialStep {
 #### 환생 조건
 
 - 레벨 25 달성 시 환생 가능
-- 환생 포인트 획득: `레벨 25 달성 횟수 × 배수`
+- 환생 포인트 획득: `레벨 25 스택 + 하위 레벨 + 강화 레벨` 기반
 
 #### 환생 상점 (12종 영구 업그레이드)
 
@@ -589,7 +590,7 @@ if (fieldManager.dataManager == null)
 - [오디오 매니저 설정 가이드](Assets/Scripts/Audio/AUDIO_MANAGER_SETUP_GUIDE.md)
 - [골드 팝업 설정 가이드](Assets/Scripts/UI/GOLD_POPUP_SETUP_GUIDE.md)
 - [기존 README](Assets/Scripts/README.md)
-- [기술 하이라이트](Assets/Scripts/old_md/readmeanalist.md)
+- [기술 하이라이트](old_md/PROJECT_SUMMARY.md)
 - [old_md 폴더](old_md/): 이전 문서 및 작업 메모
 
 ---

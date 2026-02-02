@@ -51,6 +51,17 @@ public class SaveData
     public int prestigeShopIncomeLv;        // 환생 상점: 수익 배수
     public int prestigeShopTwoStepLv;       // 환생 상점: +2단 확률
     public int prestigeShopStartGoldLv;     // 환생 상점: 시작 자금
+    public int prestigeShopPrestigeGainLv;  // 환생 상점: 환생 포인트 획득
+
+    // 환생 상점 Plus (일반 상점 영구 보정)
+    public int ppManualSpawnMaxLv;
+    public int ppManualSpawnSpeedLv;
+    public int ppAutoMergeLv;
+    public int ppAutoSpawnLv;
+    public int ppMaxFieldCountLv;
+    public int ppClickBonusLv;
+    public int ppOfflineRewardLv;
+    public int ppOfflineMaxTimeLv;
 
     // 메타
     public string savedAt;

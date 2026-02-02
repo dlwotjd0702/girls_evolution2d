@@ -58,6 +58,12 @@ public class GameSystem : MonoBehaviour
             if (prestigeManager.topLevel <= 0)             prestigeManager.topLevel = TierRules.MaxLevel;
         }
 
+        // PrestigeShop (panel facade)
+        if (FindObjectOfType<PrestigeShopManager>(true) == null)
+        {
+            gameObject.AddComponent<PrestigeShopManager>();
+        }
+
         
     }
 
@@ -96,7 +102,7 @@ public class GameSystem : MonoBehaviour
 
     private IEnumerator LoadingFallbackTimeout()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         if (loadingPanel != null) loadingPanel.SetActive(false);
         loadingFallbackRoutine = null;
     }

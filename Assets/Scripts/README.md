@@ -37,11 +37,12 @@ Assets/Scripts/
 ├── Shop/                # 상점 및 경제
 │   ├── EconomyManager.cs       # 골드 관리, 업그레이드, 수익 계산
 │   ├── ShopPanelController.cs  # 골드/보석 탭 상점 UI
+│   ├── PrestigeShopManager.cs  # 환생 상점 파사드(표기/연동)
 │   └── PrestigeShopPanelController.cs  # 환생 상점 UI
 │
 ├── Save_Datas/          # 저장 시스템
 │   ├── SaveData.cs             # 저장 데이터 구조
-│   └── SaveManager.cs          # 저장/로드 관리 (현재 PlayerPrefs 사용)
+│   └── SaveManager.cs          # 저장/로드 관리 (로컬 JSON + PlayerPrefs)
 │
 ├── Tiers/               # 층 시스템
 │   └── TierManager.cs          # 층 전환, 언락, 배경 전환 애니메이션
@@ -69,9 +70,9 @@ Assets/Scripts/
 ```
 GirlFieldManager.Update()
   └─> ComputeIdleGoldPerSec()
-      └─> 각 캐릭터의 GetIncome() 합산
-          └─> EconomyManager.GetLevelIncomePerSec(level)
-              └─> 2^(level-1) 기반 계산
+      └─> EconomyManager.GetLevelIncomePerSec(level) 합산
+          └─> 2^(level-1) 기반 계산
+      └─> 25단계 스택(level25UpgradeLevel)은 1개 캐릭터 수익에 스택 곱으로 반영
       └─> 계승 등급 배수 × 환생 상점 배수 적용
   └─> 1초마다 EconomyManager.AddGold() 호출
 ```
@@ -102,7 +103,7 @@ GirlFieldManager.Update()
 #### 환생 플로우
 ```
 PrestigeManager.DoPrestige()
-  └─> 환생 포인트 계산 (레벨 25 이상 캐릭터 기준)
+  └─> 환생 포인트 계산 (레벨 25 스택 + 하위 레벨 + 강화 레벨 기준)
   └─> 필드 비우기
   └─> EconomyManager.ResetGoldUpgradesForPrestige()
   └─> TierManager.SwitchTo(0)
@@ -115,10 +116,10 @@ SaveManager.SaveGame()
   └─> FindObjectsOfType<ISaveable>()로 모든 저장 가능 객체 수집
   └─> 각 객체의 CollectSaveData() 호출
   └─> JsonUtility.ToJson()로 직렬화
-  └─> PlayerPrefs.SetString("SaveData", json) 저장
+  └─> 로컬 JSON 파일 저장 + PlayerPrefs 동시 저장
 
 SaveManager.LoadGame()
-  └─> PlayerPrefs.GetString("SaveData") 로드
+  └─> 로컬 JSON 파일 우선 로드 (없으면 PlayerPrefs)
   └─> JsonUtility.FromJson<SaveData>()로 역직렬화
   └─> 각 객체의 ApplyLoadedData() 호출
 ```
@@ -135,10 +136,10 @@ SaveManager.LoadGame()
 - **지수적 성장**: 레벨당 수익 = 2^(레벨-1) 골드/초
 - **업그레이드**: 수동 소환 최대치, 쿨타임, 필드 최대 칸수, 클릭 보너스 등
 - **자동화**: 자동 소환/합성 간격은 업그레이드 레벨에 따라 단축
-- **소환 시스템**: 레벨별 소환 비용 = 60초 수익 × 구매 횟수별 배수
+- **소환 시스템**: 레벨별 소환 비용 = 200초 수익 × 구매 횟수별 배수
 
 ### 환생 시스템
-- **환생 포인트**: 레벨 25 이상 캐릭터 기준으로 획득
+- **환생 포인트**: 레벨 25 스택 + 하위 레벨 + 강화 레벨 기반으로 획득
 - **환생 상점**: 12종의 영구 업그레이드 구매 가능
   - 핵심 4종: 수익 배수, +2단 확률, 시작 자금, 환생 포인트 획득량
   - Plus 8종: 각종 업그레이드의 영구 보정치
@@ -155,7 +156,7 @@ SaveManager.LoadGame()
 - **DOTween**: 애니메이션 라이브러리
 - **Addressables**: 스프라이트 비동기 로딩
 - **TextMesh Pro**: UI 텍스트 렌더링
-- **PlayerPrefs**: 현재 저장 시스템 (로컬 파일 저장 예정)
+- **저장 방식**: 로컬 JSON 파일 + PlayerPrefs 호환 저장
 
 ## 📊 데이터 구조
 
@@ -177,12 +178,12 @@ SaveManager.LoadGame()
 ## 🚀 실행 방법
 
 1. Unity Hub에서 프로젝트 폴더 열기
-2. `SampleScene.unity` 실행
+2. `Assets/Scenes/Ingame.unity` 실행
 3. 게임 시작 시 자동으로 저장 데이터 로드 (있는 경우)
 
 ## 📝 개발 노트
 
-- 현재 저장 시스템은 PlayerPrefs를 사용하며, 향후 로컬 파일 저장으로 전환 예정
+- 저장 시스템은 로컬 JSON 파일을 기본으로 하고 PlayerPrefs는 호환용으로 유지
 - Addressables를 사용하여 SD/LD 스프라이트를 비동기 로딩
 - 리플렉션을 활용하여 외부 매니저(계승 등급, 환생 상점)와의 의존성 최소화
 - UI 오브젝트 풀링을 통해 성능 최적화

@@ -2971,7 +2971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &142429195
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23370,11 +23370,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   couponDatabase:
   - code: "\uD14C\uC2A4\uD2B81"
+    rewardType: 0
     isGoldReward: 0
     rewardAmount: 10
   - code: test1
+    rewardType: 0
     isGoldReward: 0
     rewardAmount: 5
+  - code: return
+    rewardType: 2
+    isGoldReward: 0
+    rewardAmount: 10000
   economy: {fileID: 1973007492}
   premiumCurrency: {fileID: 1331978605}
   offlineRewardPanel: {fileID: 1139980842}
@@ -24405,12 +24411,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   economy: {fileID: 1973007492}
-  premiumCurrency: {fileID: 0}
+  premiumCurrency: {fileID: 1331978605}
   adServiceBehaviour: {fileID: 1854510735}
   panelRoot: {fileID: 74129242}
   rewardText: {fileID: 818026689}
   durationText: {fileID: 332945550}
   claimButton: {fileID: 1963346710}
+  claimJustButton: {fileID: 1689916643}
   claimAdButton: {fileID: 1963346710}
   adButtonIcon: {fileID: 1963346711}
   adReadySprite: {fileID: 639753185, guid: 769a02427aef6fd43a88e8bd8a923ea0, type: 3}
@@ -28136,6 +28143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25262de1f47025b40a9e1997ae5bbc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enableAutoRetryLogin: 1
+  retryLoginInterval: 30
 --- !u!1 &1302302891
 GameObject:
   m_ObjectHideFlags: 0
@@ -37760,7 +37769,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 2083833505}
+  m_TargetGraphic: {fileID: 1775066918}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

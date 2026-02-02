@@ -88,10 +88,10 @@ public class PrestigeConfirmPanel : MonoBehaviour
         if (prestigeManager == null || fieldManager == null || economyManager == null) return 0;
         
         GetPrestigeComponents(out int level25Stacks, out int lowerLevelPoints, out int upgradePoints);
-        int level25Points = level25Stacks * 100;
+        int level25Points = level25Stacks * 1000;
         int totalBasePoints = level25Points + lowerLevelPoints + upgradePoints;
         double mulPPG = prestigeManager.GetPrestigePointGainMul();
-        return Mathf.Max(0, Mathf.FloorToInt((float)(totalBasePoints * mulPPG)));
+        return Mathf.Max(0, Mathf.CeilToInt((float)(totalBasePoints * mulPPG)));
     }
     
     int CalculateBasePrestigeGain()
@@ -112,8 +112,8 @@ public class PrestigeConfirmPanel : MonoBehaviour
         if (level25Stacks > 0)
         {
             breakdowns.Add(LocalizationManager.GetText(
-                $"25단계 {level25Stacks}레벨 - 100*{level25Stacks} point",
-                $"Level 25 x{level25Stacks} - 100*{level25Stacks} point"
+                $"25단계 {level25Stacks}레벨 - 1000*{level25Stacks} point",
+                $"Level 25 x{level25Stacks} - 1000*{level25Stacks} point"
             ));
         }
         
@@ -133,7 +133,7 @@ public class PrestigeConfirmPanel : MonoBehaviour
             ));
         }
         
-        int totalBasePoints = level25Stacks * 100 + lowerLevelPoints + upgradePoints;
+        int totalBasePoints = level25Stacks * 1000 + lowerLevelPoints + upgradePoints;
         if (totalBasePoints > 0)
         {
             breakdowns.Add("------------------------");
@@ -173,9 +173,9 @@ public class PrestigeConfirmPanel : MonoBehaviour
             if (g == null) continue;
             if (g.Level >= topLevel) continue;
             
-            int diff = (topLevel - 1) - g.Level;
-            double points = 50.0 / Math.Pow(2.0, Mathf.Max(0, diff));
-            lowerLevelPoints += Mathf.RoundToInt((float)points);
+            int diff = topLevel - g.Level; // 25→24: 1, 25→23: 2, ...
+            double points = 1000.0 / Math.Pow(2.0, Mathf.Max(0, diff));
+            lowerLevelPoints += Mathf.CeilToInt((float)points);
         }
         return lowerLevelPoints;
     }
@@ -183,15 +183,16 @@ public class PrestigeConfirmPanel : MonoBehaviour
     int CalculateUpgradePoints()
     {
         if (economyManager == null) return 0;
+        const int POINTS_PER_UPGRADE_LEVEL = 100;
         int upgradePoints = 0;
-        upgradePoints += economyManager.GetSpawnMaxUpgradeLevel();
-        upgradePoints += economyManager.GetSpawnSpeedUpgradeLevel();
-        upgradePoints += economyManager.GetFieldMaxUpgradeLevel();
-        upgradePoints += economyManager.GetClickBonusUpgradeLevel();
-        upgradePoints += economyManager.GetOfflineRewardUpgradeLevel();
-        upgradePoints += economyManager.GetOfflineMaxTimeUpgradeLevel();
-        upgradePoints += economyManager.GetAutoMergeUpgradeLevel();
-        upgradePoints += economyManager.GetAutoSpawnUpgradeLevel();
+        upgradePoints += economyManager.GetSpawnMaxUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetSpawnSpeedUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetFieldMaxUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetClickBonusUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetOfflineRewardUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetOfflineMaxTimeUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetAutoMergeUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
+        upgradePoints += economyManager.GetAutoSpawnUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
         return upgradePoints;
     }
 }

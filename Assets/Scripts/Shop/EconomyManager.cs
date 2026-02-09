@@ -1,4 +1,4 @@
-﻿// ============================================================================
+// ============================================================================
 // EconomyManager.cs  (DROP-IN, HUD는 "값 바뀔 때만" 즉시 갱신)
 // - DOTween/Update 의존 X
 // - SetGold/SpendGold/AddGold/SetGoldPerSecEstimate 에 '중복 갱신 가드' 추가
@@ -37,6 +37,13 @@ public class EconomyManager : MonoBehaviour, ISaveable
         gold -= amount;
         OnGoldChanged?.Invoke(gold);
         RefreshGoldHUD();
+        
+        // 통계 기록: 골드 소비
+        if (PlayStatsTracker.Instance != null)
+        {
+            PlayStatsTracker.Instance.RecordGoldSpent(amount);
+        }
+        
         return true;
     }
 
@@ -48,6 +55,12 @@ public class EconomyManager : MonoBehaviour, ISaveable
         gold += amount;
         OnGoldChanged?.Invoke(gold);
         RefreshGoldHUD();
+        
+        // 통계 기록: 골드 획득
+        if (PlayStatsTracker.Instance != null)
+        {
+            PlayStatsTracker.Instance.RecordGoldEarned(amount);
+        }
     }
 
     // ───────── UI (TMP) ─────────
@@ -146,16 +159,23 @@ public class EconomyManager : MonoBehaviour, ISaveable
     // ───────── Balance consts ─────────
     private const double INCOME_BASE_PER_SEC   = 1.0;  // 2^(Lv-1)/s
 
-    private const double SUMMON_BASE_SECONDS   = 60.0;
-    private const double SUMMON_BUY_GROWTH     = 1.12;
+    // 소환 가격: 25단계 도달 시간을 약 3시간으로 조정 (기존 1시간 → 3시간)
+    // 60초 → 200초로 변경하여 소환 가격을 약 3.33배로 증가
+    // 200초로 설정하면 반올림 후 가격이 깔끔하게 나옴 (200G, 400G, 800G, 1600G...)
+    private const double SUMMON_BASE_SECONDS   = 200.0;  // 60.0 → 200.0 (약 3.33배 증가)
+    private const double SUMMON_LEVEL_GROWTH    = 2.2;    // 레벨별 기본 소환비용이 2.2배씩 증가
+    private const double SUMMON_BUY_GROWTH      = 1.1;    // 같은 레벨을 반복 구매할 때마다 1.1배씩 증가
 
-    private const double UPG_SPAWN_MAX_BASE    = 400;  private const double UPG_SPAWN_MAX_GROW    = 2.00;
-    private const double UPG_SPAWN_SPEED_BASE  = 420;  private const double UPG_SPAWN_SPEED_GROW  = 2.05;
-    private const double UPG_FIELD_MAX_BASE    = 500;  private const double UPG_FIELD_MAX_GROW    = 2.00;
-    private const double UPG_CLICK_BONUS_BASE  = 360;  private const double UPG_CLICK_BONUS_GROW  = 2.05;
+    // 골드 강화 재화 밸런싱: 기본값과 배율 조정
+    // 18~20단계 수익 기준으로 10분 수익(약 1.5억)으로 max 레벨을 찍을 수 있도록 배율 조정
+    // BASE는 유지하고 GROW만 조정하여 총 비용이 목표에 맞도록 함
+    private const double UPG_SPAWN_MAX_BASE    = 400;  private const double UPG_SPAWN_MAX_GROW    = 2.20;
+    private const double UPG_SPAWN_SPEED_BASE  = 420;  private const double UPG_SPAWN_SPEED_GROW  = 2.20;
+    private const double UPG_FIELD_MAX_BASE    = 500;  private const double UPG_FIELD_MAX_GROW    = 2.20;
+    private const double UPG_CLICK_BONUS_BASE  = 360;  private const double UPG_CLICK_BONUS_GROW  = 2.20;
 
-    private const double UPG_OFFLINE_REWARD_BASE  = 420; private const double UPG_OFFLINE_REWARD_GROW  = 2.00;
-    private const double UPG_OFFLINE_MAXTIME_BASE = 420; private const double UPG_OFFLINE_MAXTIME_GROW = 2.00;
+    private const double UPG_OFFLINE_REWARD_BASE  = 420; private const double UPG_OFFLINE_REWARD_GROW  = 2.20;
+    private const double UPG_OFFLINE_MAXTIME_BASE = 420; private const double UPG_OFFLINE_MAXTIME_GROW = 2.20;
 
     // 자동(Auto)
     private const double AUTO_MERGE_BASE  = 900;  private const double AUTO_MERGE_GROW  = 2.00;
@@ -175,7 +195,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
     [Header("Level Caps)")]
     private int spawnMaxUpgradeCap     = 10;
     private int spawnSpeedUpgradeCap   = 10;
-    private int fieldMaxUpgradeCap     = 10;
+    private int fieldMaxUpgradeCap     = 12; // 인구수 30 달성: 8 + 12*2 = 32
     private int clickBonusUpgradeCap   = 15;
     private int offlineRewardCap       = 10;
     private int offlineMaxTimeCap      = 10;
@@ -218,7 +238,9 @@ public class EconomyManager : MonoBehaviour, ISaveable
     {
         level = Mathf.Clamp(level, 1, 25);
         int idx = level - 1;
-        double baseCost = SUMMON_BASE_SECONDS * GetLevelIncomePerSec(level);
+        // 레벨별 기본 소환비용: 레벨 1 기준으로 2.2배씩 증가
+        double baseCost = SUMMON_BASE_SECONDS * Math.Pow(SUMMON_LEVEL_GROWTH, level - 1);
+        // 같은 레벨을 반복 구매할 때마다 추가 증가
         double byBuy    = Math.Pow(SUMMON_BUY_GROWTH, summonPurchaseCounts[idx]);
         return RoundToHundred(baseCost * byBuy);
     }
@@ -263,9 +285,10 @@ public class EconomyManager : MonoBehaviour, ISaveable
     }
 
     public double GetClickBonusMultiplier() {
-        double mul = 1.0 + clickBonusUpgrade * CLICK_BONUS_PER_LEVEL;
-        try { mul *= PrestigeManager.Instance.GetClickBonusMul(); } catch {}
-        return mul;
+        // 클릭 보너스: 10% + 강화 레벨 × 1%
+        double basePercent = 0.10 + (clickBonusUpgrade * CLICK_BONUS_PER_LEVEL);
+        try { basePercent *= PrestigeManager.Instance.GetClickBonusMul(); } catch {}
+        return basePercent;
     }
 
     public bool IsAutoMergeOn() => autoMergeOn && autoMergeUpgrade > 0;
@@ -438,7 +461,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
         manualSpawnMaxUpgrade   = Mathf.Max(0,d.manualSpawnMaxUpgrade);
         manualSpawnSpeedUpgrade = Mathf.Max(0,d.manualSpawnSpeedUpgrade);
-        maxFieldCountUpgrade    = Mathf.Max(0,d.maxFieldCountUpgrade);
+        maxFieldCountUpgrade    = Mathf.Clamp(d.maxFieldCountUpgrade, 0, fieldMaxUpgradeCap);
         clickBonusUpgrade       = Mathf.Max(0,d.clickBonusUpgrade);
 
         autoMergeUpgrade = Mathf.Max(0,d.autoMergeUpgrade);

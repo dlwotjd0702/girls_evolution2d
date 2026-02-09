@@ -1,4 +1,4 @@
-﻿// Assets/Scripts/makesomemoney/InsufficientFundsPanel.cs
+// Assets/Scripts/makesomemoney/InsufficientFundsPanel.cs
 using System;
 using TMPro;
 using UnityEngine;
@@ -204,7 +204,7 @@ public class InsufficientFundsPanel : MonoBehaviour
         if (HasAdsRemoved())
         {
             double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
-            double reward = perSec * 60.0 * 5.0; // 5분치
+            double reward = perSec * 60.0 * 10.0; // 10분치
             if (reward < 300.0) reward = 300.0;  // 최소 300G 보장
             if (economy != null && reward > 0) economy.AddGold(reward);
             Hide();
@@ -226,7 +226,7 @@ public class InsufficientFundsPanel : MonoBehaviour
         adService.ShowRewarded(() =>
         {
             double perSec = economy ? Math.Max(0.0, economy.GetGoldPerSecEstimate()) : 0.0;
-            double reward = perSec * 60.0 * 5.0; // 5분치
+            double reward = perSec * 60.0 * 10.0; // 10분치
             if (reward < 300.0) reward = 300.0;  // 최소 300G 보장
             if (economy != null && reward > 0) economy.AddGold(reward);
             Hide();

@@ -1,4 +1,4 @@
-﻿// ============================
+// ============================
 // GirlFieldManager.cs (FULL, 환생 상점/계승 등급 보너스 + 상점 Plus 효과 반영 버전)
 // - ComputeIdleGoldPerSec(): "계승 등급 + 환생 상점" 수익 배수 곱
 // - 수동 소환 최대/쿨타임, 자동 소환/합성 주기, 필드 최대칸에 "PrestigeShop Plus" 반영
@@ -44,6 +44,27 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     // ── 자동 타이머 ──
     private float autoSpawnTimer = 0f;
     private float autoMergeTimer = 0f;
+
+    // 타이머 진행률을 외부에서 가져올 수 있도록 (0.0 ~ 1.0)
+    public float GetAutoSpawnTimerProgress()
+    {
+        if (economy == null || !economy.IsAutoSpawnOn()) return 0f;
+        float interval = economy.GetAutoSpawnInterval();
+        if (interval >= float.MaxValue) return 0f;
+        interval = ApplyAutoSpawnMul(interval);
+        if (interval >= float.MaxValue) return 0f;
+        return Mathf.Clamp01(autoSpawnTimer / interval);
+    }
+    
+    public float GetAutoMergeTimerProgress()
+    {
+        if (economy == null || !economy.IsAutoMergeOn() || mergeManager == null) return 0f;
+        float interval = economy.GetAutoMergeInterval();
+        if (interval >= float.MaxValue) return 0f;
+        interval = ApplyAutoMergeMul(interval);
+        if (interval >= float.MaxValue) return 0f;
+        return Mathf.Clamp01(autoMergeTimer / interval);
+    }
 
     // ── Idle 수익 지급 ──
     [Header("Idle Income")]
@@ -240,10 +261,22 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         if (economy == null) return 0;
         double sum = 0;
+        bool finalCounted = false;
+        int finalStack = Mathf.Max(1, level25UpgradeLevel);
         for (int i = 0; i < girlList.Count; i++)
         {
             var g = girlList[i];
             if (!g) continue;
+            if (g.Level >= TierRules.MaxLevel)
+            {
+                if (!finalCounted)
+                {
+                    double baseFinal = economy.GetLevelIncomePerSec(TierRules.MaxLevel);
+                    sum += baseFinal * finalStack;
+                    finalCounted = true;
+                }
+                continue;
+            }
             sum += economy.GetLevelIncomePerSec(g.Level);
         }
 
@@ -318,6 +351,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetIncomeMultiplier();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopIncome != null)
             {
@@ -334,6 +371,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetManualSpawnMaxPlus();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopPlusSpawnMax != null)
                 return Convert.ToInt32(_miShopPlusSpawnMax.Invoke(_shopInst, null));
@@ -344,6 +385,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetManualSpawnIntervalMul();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopMulManualInterval != null)
                 return Convert.ToDouble(_miShopMulManualInterval.Invoke(_shopInst, null));
@@ -354,6 +399,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetAutoSpawnIntervalMul();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopMulAutoSpawn != null)
                 return Convert.ToDouble(_miShopMulAutoSpawn.Invoke(_shopInst, null));
@@ -364,6 +413,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetAutoMergeIntervalMul();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopMulAutoMerge != null)
                 return Convert.ToDouble(_miShopMulAutoMerge.Invoke(_shopInst, null));
@@ -374,6 +427,10 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetFieldMaxPlus();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopPlusFieldMax != null)
                 return Convert.ToInt32(_miShopPlusFieldMax.Invoke(_shopInst, null));
@@ -432,15 +489,24 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         var exist = GetFinalGirl();
         if (exist != null) 
         { 
-            exist.IncrementFinalLevel(); 
+            // 기존 레벨 25 캐릭터가 있으면 level25UpgradeLevel만 증가
+            // 실제 캐릭터의 Level은 25로 유지 (CurrentMaxLevel도 25로 유지)
             ConfigureLevel25(exist);
+            Debug.Log($"[GirlFieldManager] AcquireLevel25: 기존 레벨 25 캐릭터 유지, level25UpgradeLevel 증가 → {level25UpgradeLevel}");
         }
         else               
         { 
             SpawnGirl(TierRules.MaxLevel, Vector3.zero);
+            Debug.Log($"[GirlFieldManager] AcquireLevel25: 새 레벨 25 캐릭터 생성, level25UpgradeLevel={level25UpgradeLevel}");
         }
         UpdateLevel25Text();
         NotifySpawnedLevel(TierRules.MaxLevel);
+        
+        // 통계 기록: 레벨 25 달성 (최초 생성 시에만)
+        if (PlayStatsTracker.Instance != null && exist == null)
+        {
+            PlayStatsTracker.Instance.RecordLevel25Reached();
+        }
     }
 
     private GirlCharacter GetFinalGirl()
@@ -526,6 +592,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         NotifySpawnedLevel(level);
+        
+        // 통계 기록: 소환
+        if (PlayStatsTracker.Instance != null && !_isRestoring)
+        {
+            PlayStatsTracker.Instance.RecordSpawn();
+        }
     }
 
     private void ConfigureLevel25(GirlCharacter girl)
@@ -533,7 +605,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         var container = (activeParent as RectTransform) ?? (girlRoot as RectTransform) ?? (transform as RectTransform);
         girl.EnableFinalMode(container, 0.95f);
         var rt = (RectTransform)girl.transform;
-        rt.localPosition = Vector3.zero;
+        rt.localPosition = new Vector3(0f, 50f, 0f); // 25단계 위치를 조금 높게 설정
         
         // 25단계 레벨 표시 텍스트 업데이트
         UpdateLevel25Text();
@@ -576,10 +648,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         {
             CurrentMaxLevel = achievedLevel;
             OnMaxLevelChanged?.Invoke(CurrentMaxLevel);
+            
+            // 업적 체크는 AchievementManager에서 자동으로 처리됨
         }
     }
 
-    private void RecomputeMaxLevelAndNotify()
+    public void RecomputeMaxLevelAndNotify()
     {
         int maxLv = 1;
         for (int i = 0; i < girlList.Count; i++)
@@ -788,8 +862,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private Vector2 GetRandomSpawnPos()
     {
-        float x = URandom.Range(-350f, 350f);
-        float y = URandom.Range(-600f, 600f);
+        // 맵 경계 축소: 기존의 약 70%로 축소
+        float x = URandom.Range(-320f, 320f);  // -350~350 -> -245~245
+        float y = URandom.Range(-500f, 500f);  // -600~600 -> -420~420
         return new Vector2(x, y);
     }
 
@@ -797,34 +872,27 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     private int GetMaxSpawnCharge()
     {
         int baseVal = economy != null ? economy.GetMaxManualSpawnCount() : 3;
-        int plus    = GetShopManualSpawnMaxPlusSafe();
-        return Mathf.Max(1, baseVal + plus);
+        return Mathf.Max(1, baseVal);
     }
     private float GetSpawnChargeInterval()
     {
         float baseVal = economy != null ? economy.GetManualSpawnInterval() : 10f;
-        double mul    = GetShopManualSpawnIntervalMulSafe(); // <= 1.0 (단축)
-        return Mathf.Max(0.05f, (float)(baseVal * mul));
+        return Mathf.Max(0.05f, baseVal);
     }
     private int GetMaxFieldCount()
     {
         int baseVal = economy != null ? economy.GetMaxFieldCount() : 8;
-        int plus    = GetShopFieldMaxPlusSafe();
-        return Mathf.Max(1, baseVal + plus);
+        return Mathf.Max(1, baseVal);
     }
 
     // 자동 주기 보정
     private float ApplyAutoSpawnMul(float baseInterval)
     {
-        if (baseInterval == float.MaxValue) return baseInterval;
-        double mul = GetShopAutoSpawnIntervalMulSafe();
-        return Mathf.Max(0.05f, (float)(baseInterval * mul));
+        return baseInterval;
     }
     private float ApplyAutoMergeMul(float baseInterval)
     {
-        if (baseInterval == float.MaxValue) return baseInterval;
-        double mul = GetShopAutoMergeIntervalMulSafe();
-        return Mathf.Max(0.05f, (float)(baseInterval * mul));
+        return baseInterval;
     }
 
     private void UpdateSpawnButtonUI()
@@ -1131,14 +1199,73 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         RecomputeMaxLevelAndNotify();
-        TryShowOfflineReward();
         UpdateLevel25Text();
         
-        // 로딩 패널 숨기기 (세이브 데이터 적용 완료)
+        // 광고 로딩 완료 대기 후 로딩 패널 숨기고 오프라인 보상 표시
+        StartCoroutine(WaitForAdLoadingAndShowOfflineReward());
+    }
+
+    /// <summary>
+    /// 광고 로딩 완료 대기 후 로딩 패널 숨기고 오프라인 보상 표시
+    /// </summary>
+    private IEnumerator WaitForAdLoadingAndShowOfflineReward()
+    {
+        // 광고 서비스 찾기
+        IAdOfferService adService = null;
+        var adServiceBehaviours = FindObjectsOfType<MonoBehaviour>();
+        foreach (var behaviour in adServiceBehaviours)
+        {
+            if (behaviour is IAdOfferService service)
+            {
+                adService = service;
+                break;
+            }
+        }
+
+        // 광고 제거 유저인 경우 바로 진행
+        bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+        if (adsRemoved || adService == null)
+        {
+            // 광고 서비스가 없거나 광고가 제거된 경우 바로 진행
+            if (GameSystem.Instance != null && GameSystem.Instance.loadingPanel != null)
+            {
+                GameSystem.Instance.loadingPanel.SetActive(false);
+            }
+            TryShowOfflineReward();
+            yield break;
+        }
+
+        // 광고 로딩 완료 대기 (최대 5초)
+        float elapsed = 0f;
+        float timeout = 5f;
+        bool adReady = false;
+
+        while (elapsed < timeout && !adReady)
+        {
+            try
+            {
+                adReady = adService.IsRewardedReady();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[GirlFieldManager] 광고 준비 상태 확인 중 오류: {e.Message}");
+            }
+
+            if (!adReady)
+            {
+                yield return new WaitForSeconds(0.1f);
+                elapsed += 0.1f;
+            }
+        }
+
+        // 로딩 패널 숨기기
         if (GameSystem.Instance != null && GameSystem.Instance.loadingPanel != null)
         {
             GameSystem.Instance.loadingPanel.SetActive(false);
         }
+
+        // 오프라인 보상 표시
+        TryShowOfflineReward();
     }
 
     private void SetDiscoverySpotlight(bool enabled)

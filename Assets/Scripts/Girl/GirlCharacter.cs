@@ -380,6 +380,12 @@ public class GirlCharacter : MonoBehaviour,
         // 드래그 여부와 상관없이 항상 클릭 수익 및 연출 처리 (25단계 포함)
         mergeManager?.AddIncomeGold(this, true);
         Pulse();
+        
+        // 통계 기록: 클릭
+        if (PlayStatsTracker.Instance != null)
+        {
+            PlayStatsTracker.Instance.RecordClick();
+        }
     }
 
     // ----- 연출 -----

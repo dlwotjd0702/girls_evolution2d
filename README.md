@@ -1,864 +1,159 @@
 # Girls Evolution 2D
 
-<div align="center">
+Unity 기반 2D 방치형/진화형 합성 게임 프로젝트의 기술 문서입니다.
 
-![Unity Version](https://img.shields.io/badge/Unity-2022.3.62f3-blue.svg)
-![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-lightgrey.svg)
-![License](https://img.shields.io/badge/License-Proprietary-red.svg)
-
-**Unity 기반 2D 방치형/진화형 합성 게임**
-
-[핵심 아키텍처](#-핵심-아키텍처) • [핵심 시스템 코드](#-핵심-시스템-코드) • [성능 최적화](#-성능-최적화) • [설계 패턴](#-설계-패턴)
-
-</div>
-
----
-
-## 📋 목차
-
-- [핵심 아키텍처](#-핵심-아키텍처)
-- [핵심 시스템 코드](#-핵심-시스템-코드)
-- [성능 최적화](#-성능-최적화)
-- [설계 패턴](#-설계-패턴)
-- [게임 개요](#-게임-개요)
-- [프로젝트 구조](#-프로젝트-구조)
-- [기술 스택](#-기술-스택)
-- [핵심 시스템 상세](#-핵심-시스템-상세)
-- [데이터 파이프라인](#-데이터-파이프라인)
-- [빌드 및 배포](#-빌드-및-배포)
+## 목차
+- 게임 개요
+- 시스템 아키텍처
+- 핵심 시스템 상세
+- 데이터 파이프라인
+- 저장/클라우드
+- 성능 최적화
+- 설계 패턴
+- 프로젝트 구조
+- 빌드 및 실행
+- 관련 문서
 
 ---
 
-## 🏗️ 핵심 아키텍처
+## 게임 개요
+### 핵심 게임플레이
+- **합성 시스템**: 같은 레벨 캐릭터 2개를 합성하면 다음 레벨 캐릭터 생성
+- **25단계 진화**: 레벨 1~25까지 단계적 진화
+- **4층 구조**: 0층(1~8), 1층(9~16), 2층(17~24), 3층(25)
+- **방치형 수익**: 캐릭터가 자동으로 골드 생성
+- **환생 시스템**: 레벨 25 달성 후 환생하여 영구 보너스 획득
 
+### 주요 시스템 요약
+1. **골드 시스템**: 레벨 기반 지수 성장 수익
+2. **자동화**: 자동 소환/합성 업그레이드
+3. **업그레이드**: 수동 소환, 필드 확장, 클릭 보너스 등
+4. **환생 상점**: 환생 포인트로 영구 강화 구매
+5. **프리미엄 통화**: 보석 기반 강화 루트
+
+---
+
+## 시스템 아키텍처
 ### 초기화 플로우
-
-```csharp
-// SaveManager (ExecutionOrder: -200)
-[DefaultExecutionOrder(-200)]
-public class SaveManager : MonoBehaviour
-{
-    public static SaveManager Instance { get; private set; }
-    
-    void Start() {
-        LoadGame(); // 세이브 데이터 복원
-    }
-}
-
-// GameSystem (ExecutionOrder: -100)
-[DefaultExecutionOrder(-100)]
-public class GameSystem : MonoBehaviour
-{
-    public static GameSystem Instance { get; private set; }
-    
-    private void Awake()
-    {
-        Instance = this;
-        // 의존성 주입: 매니저 간 참조 자동 연결
-        if (fieldManager != null) {
-            fieldManager.dataManager = girlDataManager;
-            fieldManager.spriteLoader = spriteLoader;
-            fieldManager.mergeManager = mergeManager;
-            fieldManager.economy = economy;
-        }
-    }
-    
-    private async void Start()
-    {
-        // 비동기 데이터 로딩
-        await girlDataManager.LoadAsync();        // CSV/TSV 로드
-        await spriteLoader.LoadAllGirlSpritesAsync(); // SD/LD 스프라이트 로드
-        
-        AssetsReady = true;
-        AssetsReadyEvent?.Invoke();
-    }
-}
+```
+SaveManager (ExecutionOrder: -200)
+  └─> GameSystem (ExecutionOrder: -100)
+      ├─> GirlDataManager.LoadAsync()        # CSV/TSV 데이터 로드
+      ├─> GirlSpriteAddressableLoader        # SD/LD 스프라이트 비동기 로드
+      └─> AssetsReadyEvent 브로드캐스트
 ```
 
 ### 게임 루프 구조
-
-```csharp
-// GirlFieldManager.Update() - 메인 게임 루프
-void Update()
-{
-    // 1. Idle 골드 계산 및 지급 (1초마다)
-    idleTimer += Time.deltaTime;
-    if (idleTimer >= idleTickSeconds)
-    {
-        double perSec = ComputeIdleGoldPerSec();
-        economy.AddGold(perSec * idleTickSeconds);
-        idleTimer = 0f;
-    }
-    
-    // 2. 자동 소환 타이머
-    autoSpawnTimer += Time.deltaTime;
-    if (autoSpawnTimer >= GetAutoSpawnInterval())
-    {
-        TryAutoSpawn();
-        autoSpawnTimer = 0f;
-    }
-    
-    // 3. 자동 합성 타이머
-    autoMergeTimer += Time.deltaTime;
-    if (autoMergeTimer >= GetAutoMergeInterval())
-    {
-        mergeManager?.TryAutoMerge();
-        autoMergeTimer = 0f;
-    }
-    
-    // 4. 수동 소환 차지
-    UpdateSpawnCharge();
-}
 ```
-
-### 골드 수익 계산
-
-```csharp
-// EconomyManager: 레벨별 기본 수익 계산
-public double GetLevelIncomePerSec(int level)
-{
-    if (level <= 0) return 0;
-    return INCOME_BASE_PER_SEC * Math.Pow(2, level - 1);
-}
-
-// GirlFieldManager: 전체 필드 수익 계산
-double ComputeIdleGoldPerSec()
-{
-    double total = 0.0;
-    foreach (var girl in girlList)
-    {
-        if (!girl || !girl.gameObject.activeSelf) continue;
-        total += girl.GetIncome();
-    }
-    
-    // 계승 등급 배수 × 환생 상점 배수 적용 (리플렉션 기반)
-    double legacyMul = GetLegacyIncomeMultiplierSafe();
-    double shopMul = GetShopIncomeMultiplierSafe();
-    total *= legacyMul * shopMul;
-    
-    return total;
-}
-```
-
-### 합성 시스템
-
-```csharp
-// GirlMergeManager: 자동 합성 알고리즘
-public void TryAutoMerge()
-{
-    if (_mergeBusy || fieldManager == null) return;
-    
-    var list = fieldManager.girlList;
-    int n = list.Count;
-    if (n <= 1) return;
-    
-    int currentMaxLevel = fieldManager.CurrentMaxLevel;
-    const int HARD_PAIR_SCAN_LIMIT = 80;
-    
-    float bestDistSqr = float.MaxValue;
-    GirlCharacter first = null, second = null;
-    
-    for (int i = 0; i < n; i++)
-    {
-        var gi = list[i];
-        if (!gi || _mergingSet.Contains(gi) || gi.IsFinal) continue;
-        if (gi.Level >= currentMaxLevel && currentMaxLevel > 0) continue; // 최대 레벨 보호
-        
-        var ri = gi.transform as RectTransform;
-        int level = gi.Level;
-        
-        for (int j = i + 1; j < n; j++)
-        {
-            var gj = list[j];
-            if (!gj || gj.Level != level) continue;
-            
-            var rj = gj.transform as RectTransform;
-            Vector3 delta = ri.localPosition - rj.localPosition;
-            float distSqr = delta.sqrMagnitude; // Vector2.Distance 대신 sqrMagnitude
-            
-            if (distSqr < bestDistSqr)
-            {
-                bestDistSqr = distSqr;
-                first = gi;
-                second = gj;
-                
-                // N > 80일 때 조기 종료로 O(N²) 스파이크 방지
-                if (n > HARD_PAIR_SCAN_LIMIT)
-                {
-                    StartCoroutine(MergeRoutine(first, second));
-                    return;
-                }
-            }
-        }
-    }
-    
-    if (first != null && second != null)
-        StartCoroutine(MergeRoutine(first, second));
-}
+GirlFieldManager.Update()
+  ├─> ComputeIdleGoldPerSec()                # 1초마다 골드 지급
+  ├─> TryAutoSpawn()                         # 자동 소환 타이머
+  ├─> TryAutoMerge()                         # 자동 합성 타이머
+  └─> UpdateSpawnCharge()                    # 수동 소환 차지
 ```
 
 ---
 
-## 💻 핵심 시스템 코드
-
-### 1. 저장 시스템 (ISaveable 패턴)
-
-```csharp
-// 인터페이스 정의
-public interface ISaveable
-{
-    void ApplyLoadedData(SaveData data);
-    void CollectSaveData(SaveData data);
-}
-
-// SaveManager: 모든 ISaveable 구현체 자동 수집
-public void SaveGame()
-{
-    SaveData data = new SaveData();
-    data.SetSaveTime();
-    
-    // 모든 ISaveable 구현체 찾기 (비활성화된 오브젝트도 포함)
-    var saveables = FindObjectsOfType<MonoBehaviour>(true)
-        .OfType<ISaveable>().ToList();
-    
-    foreach (var s in saveables)
-    {
-        s.CollectSaveData(data);
-    }
-    
-    string saveJson = JsonUtility.ToJson(data, true);
-    File.WriteAllText(SaveFilePath, saveJson);
-    
-    // 백업 파일 자동 생성
-    if (File.Exists(SaveFilePath))
-        File.Copy(SaveFilePath, BackupFilePath, true);
-}
-
-// EconomyManager: ISaveable 구현 예시
-public class EconomyManager : MonoBehaviour, ISaveable
-{
-    public void CollectSaveData(SaveData data)
-    {
-        data.gold = gold;
-        data.upgradeLevels = upgradeLevels;
-    }
-    
-    public void ApplyLoadedData(SaveData data)
-    {
-        gold = data.gold;
-        upgradeLevels = data.upgradeLevels;
-    }
-}
+## 핵심 시스템 상세
+### 1) 수익 계산 흐름
+```
+ComputeIdleGoldPerSec()
+  └─> EconomyManager.GetLevelIncomePerSec(level) 합산
+  └─> 25단계 스택(level25UpgradeLevel)은 최종 단계 수익에 스택 곱
+  └─> 계승 등급 배수 × 환생 상점 배수 적용
+  └─> 1초마다 EconomyManager.AddGold() 호출
 ```
 
-### 2. 이벤트 기반 통신
+### 2) 클릭 보너스
+- (기본 10% + 레벨당 1%) × 환생 클릭 배수
+- 클릭 수익은 `Math.Ceiling()`으로 올림 처리
 
-```csharp
-// EconomyManager: 값 변경 시에만 이벤트 발생
-public class EconomyManager : MonoBehaviour
-{
-    public event Action<double> OnGoldChanged;
-    public event Action OnUpgradeChanged;
-    
-    private double gold = 0;
-    
-    public void SetGold(double amount)
-    {
-        amount = Math.Max(0, amount);
-        if (Math.Abs(gold - amount) < 1e-9) return; // 중복 갱신 방지
-        gold = amount;
-        OnGoldChanged?.Invoke(gold);
-        RefreshGoldHUD();
-    }
-    
-    public void AddGold(double amount)
-    {
-        if (amount <= 0) return;
-        amount = Math.Ceiling(amount); // 소수점 올림
-        gold += amount;
-        OnGoldChanged?.Invoke(gold);
-        RefreshGoldHUD();
-    }
-}
-
-// UI에서 이벤트 구독
-void Start()
-{
-    economy.OnGoldChanged += UpdateGoldDisplay;
-    economy.OnUpgradeChanged += RefreshShopUI;
-}
+### 3) 합성 흐름
+```
+TryMerge()
+  ├─> 레벨 검증
+  ├─> +2단 도약 확률(계승 + 환생 상점, cap 20%)
+  ├─> 합성 애니메이션(DOTween)
+  └─> 새 캐릭터 생성
 ```
 
-### 3. 리플렉션 기반 안전 호출
-
-```csharp
-// 외부 매니저가 없어도 안전하게 동작
-static Type FindTypeByName(string name)
-{
-    foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-    {
-        var t = asm.GetType(name);
-        if (t != null) return t;
-    }
-    return null;
-}
-
-// 델리게이트 캐싱으로 성능 최적화
-static Func<float> _legacyTwoStepCached;
-
-static float GetLegacyTwoStepChanceSafe()
-{
-    EnsureLegacyCache();
-    if (_legacyInst != null && _miLegacyTwoStep != null)
-    {
-        // 한 번만 delegate를 만들어 캐시
-        if (_legacyTwoStepCached == null)
-        {
-            _legacyTwoStepCached = (Func<float>)Delegate.CreateDelegate(
-                typeof(Func<float>), _legacyInst, _miLegacyTwoStep, false);
-        }
-        return _legacyTwoStepCached?.Invoke() ?? 0f;
-    }
-    return 0f;
-}
-```
-
-### 4. 객체 풀링
-
-```csharp
-// SimpleUIPool: 범용 UI 객체 풀링
-public class SimpleUIPool : MonoBehaviour
-{
-    public static SimpleUIPool Instance { get; private set; }
-    
-    private Dictionary<GameObject, Queue<GameObject>> pools = new();
-    
-    public GameObject Get(GameObject prefab)
-    {
-        if (!pools.ContainsKey(prefab))
-            pools[prefab] = new Queue<GameObject>();
-        
-        var pool = pools[prefab];
-        GameObject obj = pool.Count > 0 
-            ? pool.Dequeue() 
-            : Instantiate(prefab);
-        
-        obj.SetActive(true);
-        return obj;
-    }
-    
-    public void Return(GameObject prefab, GameObject obj)
-    {
-        obj.SetActive(false);
-        pools[prefab].Enqueue(obj);
-    }
-}
-
-// GoldGainPopupPool: 골드 팝업 전용 풀링
-public class GoldGainPopupPool : MonoBehaviour
-{
-    private Queue<GoldGainPopup> pool = new();
-    
-    public GoldGainPopup Get()
-    {
-        GoldGainPopup popup = pool.Count > 0 
-            ? pool.Dequeue() 
-            : Instantiate(popupPrefab);
-        popup.gameObject.SetActive(true);
-        return popup;
-    }
-    
-    public void Return(GoldGainPopup popup)
-    {
-        popup.gameObject.SetActive(false);
-        pool.Enqueue(popup);
-    }
-}
-```
-
-### 5. 클릭 골드 계산
-
-```csharp
-// GirlMergeManager: 클릭 보너스 적용
-public void AddIncomeGold(GirlCharacter girl)
-{
-    if (girl == null || economy == null) return;
-    
-    double baseIncome = economy.GetLevelIncomePerSec(girl.Level);
-    int clickBonusLevel = economy.GetClickBonusUpgradeLevel();
-    
-    // 10% + 강화 레벨 × 1% (예: 10% → 11% → 12%...)
-    double clickPercent = 0.10 + (clickBonusLevel * 0.01);
-    double gain = baseIncome * clickPercent;
-    
-    gain = Math.Ceiling(gain); // 소수점 올림
-    economy.AddGold(gain);
-    
-    // 골드 팝업 표시
-    ShowGoldPopup(girl.transform.position, gain);
-}
-```
-
----
-
-## ⚡ 성능 최적화
-
-### 1. 거리 계산 최적화
-
-```csharp
-// ❌ 비효율: Vector2.Distance (제곱근 계산)
-float dist = Vector2.Distance(pos1, pos2);
-
-// ✅ 효율: sqrMagnitude (제곱근 계산 없음)
-float distSqr = delta.sqrMagnitude;
-if (distSqr < bestDistSqr) { ... }
-```
-
-### 2. 코루틴 GC 최소화
-
-```csharp
-// ❌ 비효율: 매번 새 객체 생성
-yield return new WaitForSeconds(jumpDelay);
-
-// ✅ 효율: 재사용
-WaitForSeconds cachedDelay = null;
-cachedDelay ??= new WaitForSeconds(jumpDelay);
-yield return cachedDelay;
-```
-
-### 3. 리플렉션 최적화
-
-```csharp
-// ❌ 비효율: 매번 MethodInfo.Invoke
-var result = _miLegacyTwoStep.Invoke(_legacyInst, null);
-
-// ✅ 효율: 델리게이트 캐싱
-static Func<float> _legacyTwoStepCached;
-if (_legacyTwoStepCached == null)
-{
-    _legacyTwoStepCached = (Func<float>)Delegate.CreateDelegate(
-        typeof(Func<float>), _legacyInst, _miLegacyTwoStep);
-}
-return _legacyTwoStepCached();
-```
-
-### 4. 이벤트 기반 UI 갱신
-
-```csharp
-// 값이 변경될 때만 UI 갱신 (중복 갱신 방지)
-public void SetGold(double amount)
-{
-    if (Math.Abs(gold - amount) < 1e-9) return; // 변경 없으면 스킵
-    gold = amount;
-    OnGoldChanged?.Invoke(gold);
-    RefreshGoldHUD();
-}
-```
-
-### 5. 자동 합성 알고리즘 최적화
-
-```csharp
-// O(N²) 최적화: N > 80일 때 조기 종료
-const int HARD_PAIR_SCAN_LIMIT = 80;
-
-if (n > HARD_PAIR_SCAN_LIMIT)
-{
-    // 첫 번째 유효한 쌍 발견 시 즉시 종료
-    StartCoroutine(MergeRoutine(first, second));
-    return;
-}
-
-// 중복 합성 방지
-private readonly HashSet<GirlCharacter> _mergingSet = new();
-if (_mergingSet.Contains(gi)) continue;
-```
-
----
-
-## 🎨 설계 패턴
-
-### 1. 싱글톤 패턴
-
-```csharp
-public class GameSystem : MonoBehaviour
-{
-    public static GameSystem Instance { get; private set; }
-    
-    private void Awake()
-    {
-        if (Instance && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
-}
-```
-
-**사용처**: `GameSystem`, `SaveManager`, `PremiumCurrencyManager`, `SimpleUIPool`, `GoldGainPopupPool`
-
-### 2. 인터페이스 기반 확장성
-
-```csharp
-// ISaveable: 저장 시스템 확장 가능
-public interface ISaveable
-{
-    void ApplyLoadedData(SaveData data);
-    void CollectSaveData(SaveData data);
-}
-
-// 새로운 저장 가능한 객체를 쉽게 추가
-public class NewManager : MonoBehaviour, ISaveable
-{
-    public void CollectSaveData(SaveData data) { /* ... */ }
-    public void ApplyLoadedData(SaveData data) { /* ... */ }
-}
-```
-
-### 3. 이벤트 기반 통신
-
-```csharp
-// 느슨한 결합: UI와 게임 로직 분리
-public event Action<double> OnGoldChanged;
-public event Action OnUpgradeChanged;
-
-// 구독자에서 구독
-economy.OnGoldChanged += UpdateGoldDisplay;
-economy.OnUpgradeChanged += RefreshShopUI;
-```
-
-### 4. 의존성 주입
-
-```csharp
-// GameSystem.Awake()에서 자동 연결
-if (fieldManager.dataManager == null) 
-    fieldManager.dataManager = girlDataManager;
-if (fieldManager.economy == null) 
-    fieldManager.economy = economy;
-```
-
----
-
-## 🎮 게임 개요
-
-### 핵심 게임플레이
-
-- **합성 시스템**: 같은 레벨의 캐릭터 2개를 드래그하여 합성하면 다음 레벨의 캐릭터가 생성됩니다
-- **25단계 진화**: 레벨 1부터 25까지 총 25단계의 캐릭터 진화 시스템
-- **4층 구조**: 0층(1~8레벨), 1층(9~16레벨), 2층(17~24레벨), 3층(25레벨)로 구성된 층 시스템
-- **방치형 수익**: 캐릭터가 자동으로 골드를 생성하며, 오프라인 보상 시스템 지원
-- **환생 시스템**: 레벨 25 달성 후 환생하여 영구 보너스를 획득할 수 있습니다
-
-### 주요 시스템
-
-1. **골드 시스템**: `2^(레벨-1)` 기반의 지수적 수익 성장
-2. **자동화**: 자동 소환(기본 60초), 자동 합성(기본 50초) 기능 지원
-3. **업그레이드**: 수동 소환 최대치, 쿨타임, 필드 최대 칸수, 클릭 보너스(10% + 레벨×1%) 등
-4. **프레스티지 상점**: 환생 포인트로 수익 배수, +2단 확률, 시작 자금 등 구매 가능
-5. **프리미엄 통화**: 보석(Gem) 시스템으로 독립적인 업그레이드 경로 제공
-
----
-
-## 🛠️ 기술 스택
-
-### Unity & 패키지
-
-- **Unity Version**: 2022.3.62f3
-- **Addressables**: 1.22.3 - 에셋 비동기 로딩
-- **TextMeshPro**: 3.0.7 - 고품질 텍스트 렌더링
-- **DOTween**: 애니메이션 및 트윈 시스템
-- **Unity Purchasing**: 5.0.2 - 인앱 구매
-- **Google Mobile Ads**: 광고 통합
-
-### 주요 라이브러리
-
-- **CsvHelper**: CSV/TSV 파싱
-- **System.Reflection**: 동적 메서드 호출 (외부 매니저 연동)
-
-### 플랫폼
-
-- **Android**: Google Play Games 연동
-- **iOS**: (준비 중)
-
----
-
-## 📁 프로젝트 구조
-
-```
-Assets/Scripts/
-├── Mainsystem/                    # 핵심 게임 시스템
-│   ├── GameSystem.cs              # 전체 시스템 초기화 및 관리 (싱글톤)
-│   ├── GirlMergeManager.cs        # 캐릭터 합성 로직 (+2단 도약 확률 포함)
-│   ├── PrestigeManager.cs         # 환생 시스템 및 환생 상점 관리
-│   └── LegacyRankManager.cs       # 계승 등급 시스템
-│
-├── Girl/                          # 캐릭터 관련
-│   ├── GirlCharacter.cs           # 캐릭터 개체 (움직임, 클릭, 드래그, 애니메이션)
-│   ├── GirlData.cs                # 캐릭터 데이터 구조
-│   ├── GirlDataManager.cs         # CSV/TSV 데이터 로더
-│   ├── GirlFieldManager.cs        # 필드 관리 (소환, 수익 계산, 발견 이펙트)
-│   ├── GirlSpriteAddressableLoader.cs  # Addressables 기반 스프라이트 로더
-│   └── SimpleUIPool.cs            # UI 오브젝트 풀링
-│
-├── Shop/                          # 상점 및 경제
-│   ├── EconomyManager.cs          # 골드 관리, 업그레이드, 수익 계산
-│   ├── ShopPanelController.cs     # 골드/보석 탭 상점 UI
-│   ├── AutoAutomationController.cs # 자동 소환/합성 UI 컨트롤러
-│   └── PrestigeShopPanelController.cs  # 환생 상점 UI
-│
-├── Save_Datas/                    # 저장 시스템
-│   ├── SaveData.cs                # 저장 데이터 구조
-│   └── SaveManager.cs             # 저장/로드 관리 (JSON 기반, 백업 지원)
-│
-├── Tiers/                         # 층 시스템
-│   └── TierManager.cs             # 층 전환, 언락, 배경 전환 애니메이션
-│
-├── UI/                            # UI 관리
-│   ├── GameUIManager.cs           # 게임 UI 통합 관리
-│   ├── EncyclopediaPanelController.cs  # 도감 시스템
-│   ├── OfflineRewardPanel.cs     # 오프라인 보상 패널
-│   ├── GoldGainPopup.cs           # 골드 획득 팝업
-│   └── GoldGainPopupPool.cs      # 골드 팝업 풀링
-│
-├── makesomemoney/                 # 수익화 시스템
-│   ├── PremiumCurrencyManager.cs  # 보석(Gem) 관리
-│   ├── AdMobOfferService.cs      # AdMob 광고 서비스
-│   ├── RewardedAdsManager_AdMob.cs  # 리워드 광고 관리
-│   └── InsufficientFundsPanel.cs # 자금 부족 패널
-│
-├── Audio/                         # 오디오 시스템
-│   └── AudioManager.cs            # BGM/SFX 통합 관리
-│
-├── Interface/                     # 인터페이스
-│   └── ISaveable.cs               # 저장 가능한 객체 인터페이스
-│
-└── LocalizationManager.cs         # 다국어 지원 (한국어/영어)
-```
-
----
-
-## 🔧 핵심 시스템 상세
-
-### 1. 캐릭터 시스템 (`GirlCharacter`)
-
-#### 주요 기능
-
-- **입력 처리**: `IPointerDownHandler`, `IBeginDragHandler`, `IDragHandler`, `IEndDragHandler`, `IPointerClickHandler` 구현
-- **애니메이션**: DOTween 기반 점프, 바운스, 펄스, Idle Groove
-- **방향 전환**: `localScale.x` 플립 방식 (UI 레이캐스트 호환)
-- **입력 잠금**: LD(발견) 연출 중 클릭/드래그 비활성화
-
-#### 성능 최적화
-
-```csharp
-// WaitForSeconds 재사용으로 GC 할당 최소화
-WaitForSeconds cachedDelay = null;
-cachedDelay ??= new WaitForSeconds(jumpDelay);
-```
-
-### 2. 합성 시스템 (`GirlMergeManager`)
-
-#### 핵심 로직
-
-- **드래그 앤 드롭**: 두 캐릭터를 드래그하여 합성
-- **자동 합성**: 최대 레벨 미만의 가장 가까운 쌍을 자동으로 합성
-- **+2단 도약**: 확률 기반으로 2단계 건너뛰기 (리플렉션 기반 외부 매니저 연동)
-- **최대 레벨 보호**: 현재 발견 최대 레벨은 자동 합성에서 제외
-
-#### 성능 최적화
-
-```csharp
-// Vector2.Distance 대신 sqrMagnitude 사용
-float distSqr = delta.sqrMagnitude;
-
-// N > 80일 때 조기 종료로 O(N²) 스파이크 방지
-if (n > HARD_PAIR_SCAN_LIMIT) {
-    StartCoroutine(MergeRoutine(first, second));
-    return;
-}
-```
-
-### 3. 경제 시스템 (`EconomyManager`)
-
-#### 골드 계산
-
-- **기본 수익**: `2^(레벨-1)` 골드/초
-- **클릭 보너스**: 초당 수익의 `10% + 강화 레벨 × 1%`
-- **소수점 처리**: 모든 골드 추가 시 `Math.Ceiling()` 적용
-- **가격 반올림**: 모든 골드 비용은 100원 단위로 반올림
-
-#### 업그레이드 시스템
-
-- **수동 소환**: 최대치, 쿨타임 업그레이드
-- **필드 확장**: 최대 칸수 업그레이드
-- **클릭 보너스**: 퍼센트 증가 방식 (10% → 11% → 12%...)
-- **오프라인 보상**: 배수 및 최대 시간 업그레이드
-- **자동화**: 자동 소환/합성 간격 단축
-
-### 4. 저장 시스템 (`SaveManager`)
-
-#### 특징
-
-- **ISaveable 인터페이스**: 확장 가능한 저장 시스템
-- **자동 저장**: 60초마다 자동 저장
-- **백업 시스템**: `save_backup.json` 자동 생성
-- **오프라인 시간 계산**: 저장 시간 기반 오프라인 보상 계산
-- **PlayerPrefs 호환**: 기존 세이브 파일 호환성 유지
-
-#### 저장 데이터 구조
-
-```csharp
-public class SaveData {
-    public string savedAt;                    // 저장 시간
-    public double gold;                       // 골드
-    public int[] discoveredLevels;            // 발견한 레벨 목록
-    public int[] upgradeLevels;               // 업그레이드 레벨
-    // ... 기타 게임 상태
-}
-```
-
-### 5. 프레스티지 시스템 (`PrestigeManager`)
-
-#### 환생 조건
-
-- 레벨 25 달성 시 환생 가능
-- 환생 포인트 획득: `레벨 25 달성 횟수 × 배수`
-
-#### 환생 상점 (12종 영구 업그레이드)
-
+### 4) 환생 포인트 규칙(현재 기준)
+- 25단계 스택: 1레벨 2500, 이후 레벨마다 +1000
+- 하위 단계: 25단계 기준에서 단계 내려갈 때마다 1/2
+- 강화 레벨 보정: 각 강화 레벨당 100 포인트
+- 최종 획득량은 환생 상점 배율 적용
+
+### 5) 환생 상점(12종)
 - 수익 배수
 - +2단 도약 확률
 - 시작 자금 배수
-- 환생 포인트 획득량 증가
-- 수동 소환 최대치/쿨타임 보너스
-- 자동 소환/합성 간격 단축
-- 필드 최대 칸수 보너스
+- 환생 포인트 획득량
+- 수동 소환 최대치/쿨타임 보정
+- 자동 소환/합성 간격 보정
+- 필드 최대 칸수 보정
 - 클릭 보너스 배수
-- 오프라인 보상 배수/시간 보너스
+- 오프라인 보상 배수/시간 보정
 
 ---
 
-## 📊 데이터 파이프라인
-
-### CSV/TSV 로딩
-
-```csharp
-// GirlDataManager.LoadAsync()
-// - Addressables TextAsset 비동기 로드
-// - CSV/TSV 자동 판별 (탭/쉼표 구분)
-// - 컬럼명 자동 매칭
-// - initialDirection 필드 지원 (1: 왼쪽, -1: 오른쪽)
-```
+## 데이터 파이프라인
+### 캐릭터 데이터 로딩
+- Addressables TextAsset 비동기 로드
+- CSV/TSV 자동 판별(탭/쉼표)
+- 컬럼명 자동 매칭
 
 ### 스프라이트 로딩
+- SD 스프라이트 우선 표시
+- LD 스프라이트 순차 로드(발견 연출)
+- Addressables 라벨 그룹 로딩
 
-```csharp
-// GirlSpriteAddressableLoader.LoadAllGirlSpritesAsync()
-// - SD 스프라이트 먼저 로드 (빠른 표시)
-// - LD 스프라이트 순차 로드 (발견 연출용)
-// - Addressables 라벨 기반 그룹 로딩
+---
+
+## 저장/클라우드
+- 로컬 JSON 저장 + PlayerPrefs 호환 저장
+- 저장 백업(`save_backup.json`) 생성
+- 오프라인 보상은 저장 시간 기준 계산
+- Google Play Games 클라우드 저장 연동
+- 로그인/광고 로드 재시도 로직 포함
+
+---
+
+## 성능 최적화
+- 객체 풀링으로 UI 인스턴스 최소화
+- 거리 계산 시 sqrMagnitude 사용
+- 코루틴 대기 객체 재사용으로 GC 최소화
+- 자동 합성 O(N²) 스파이크 방지(조기 종료)
+
+---
+
+## 설계 패턴
+- 싱글톤: `GameSystem`, `SaveManager`, `PremiumCurrencyManager` 등
+- 인터페이스 기반 저장: `ISaveable`
+- 이벤트 기반 UI 갱신(값 변경 시만 갱신)
+- 리플렉션 안전 호출로 선택적 연동 지원
+
+---
+
+## 프로젝트 구조
+```
+Assets/Scripts/
+  Mainsystem/        핵심 시스템
+  Girl/              캐릭터/필드
+  Shop/              경제/상점
+  Save_Datas/        저장/클라우드
+  UI/                UI 패널
+  makesomemoney/     광고/재화
 ```
 
-### 데이터 구조
+---
 
-```csharp
-public class GirlData {
-    public int id;
-    public string name;
-    public int level;
-    public double incomePerSec;
-    public int mergeCount;
-    public string spriteName;
-    public string unlockDesc;
-    public int initialDirection;  // 1=왼쪽, -1=오른쪽
-}
-```
+## 빌드 및 실행
+- 실행 씬: `Assets/Scenes/Ingame.unity`
+- 에디터 저장: `EditorSaves/save.json`
+- 빌드 저장: `Application.persistentDataPath/save.json`
 
 ---
 
-## 🚀 빌드 및 배포
-
-### 빌드 설정
-
-1. **Unity Version**: 2022.3.62f3
-2. **Target Platform**: Android (API Level 21+)
-3. **Scripting Backend**: IL2CPP (권장)
-4. **Minify**: ProGuard (Android)
-
-### Addressables 빌드
-
-```bash
-# Addressables 그룹 빌드 필요
-# - Data 그룹: CSV/TSV 파일
-# - SD/LD 스프라이트 그룹
-```
-
-### 키스토어 설정
-
-- `Assets/keystore.keystore` 파일 존재
-- 빌드 시 자동 적용
-
-### 저장 경로
-
-- **에디터**: `EditorSaves/save.json`
-- **빌드**: `Application.persistentDataPath/save.json`
-
----
-
-## 📝 주요 기능 요약
-
-### ✅ 구현 완료
-
-- [x] 25단계 캐릭터 진화 시스템
-- [x] 드래그 앤 드롭 합성
-- [x] 자동 소환/합성 시스템
-- [x] 골드/보석 이중 통화 시스템
-- [x] 환생 및 프레스티지 상점
-- [x] 오프라인 보상 시스템
-- [x] 다국어 지원 (한국어/영어)
-- [x] 광고 통합 (AdMob)
-- [x] 인앱 구매 시스템
-- [x] 도감 시스템
-- [x] 4층 구조 및 배경 전환
-- [x] 발견 연출 (LD → SD 전환)
-- [x] 자동 저장 시스템
-
-### 🔄 최적화 완료
-
-- [x] 객체 풀링 적용
-- [x] 거리 계산 최적화 (sqrMagnitude)
-- [x] 코루틴 GC 최소화
-- [x] 리플렉션 델리게이트 캐싱
-- [x] 이벤트 기반 UI 갱신
-- [x] 자동 합성 알고리즘 최적화
-
----
-
-## 📚 추가 문서
-
-- [오디오 매니저 설정 가이드](Assets/Scripts/Audio/AUDIO_MANAGER_SETUP_GUIDE.md)
-- [골드 팝업 설정 가이드](Assets/Scripts/UI/GOLD_POPUP_SETUP_GUIDE.md)
-- [기존 README](Assets/Scripts/README.md)
-- [기술 하이라이트](Assets/Scripts/old_md/readmeanalist.md)
-
----
-
-## 👥 기여
-
-개인프로젝트
-
----
-
-## 📄 라이선스
-
-이 프로젝트는 사유 소프트웨어입니다. 무단 사용 및 배포를 금지합니다.
-
----
-
-<div align="center">
-
-**Made with ❤️ using Unity**
-
-</div>
+## 관련 문서
+- `old_md/PROJECT_SUMMARY.md` (기획/뉘앙스 기록용)
 

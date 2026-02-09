@@ -1,4 +1,4 @@
-﻿// ============================================================================
+// ============================================================================
 // PremiumCurrencyManager.cs  (젬 라벨 단일화)
 // - 젬 텍스트: 단일 TMP_Text만 인스펙터에서 연결
 // - 나머지 IAP v5 로직은 기존 그대로
@@ -59,6 +59,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     private StoreController storeController;
     private readonly Dictionary<string,string> priceCache = new();
+    private bool isApplyingLoad = false;
 
     void Awake()
     {
@@ -90,15 +91,25 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     public string GetLocalizedPrice(string productId)
     {
         if (string.IsNullOrEmpty(productId)) return "";
-        if (priceCache.TryGetValue(productId, out var s) && !string.IsNullOrEmpty(s)) return s;
+        
+        // 캐시에서 먼저 확인
+        if (priceCache.TryGetValue(productId, out var s) && !string.IsNullOrEmpty(s)) 
+            return s;
 
+        // 캐시에 없으면 storeController에서 직접 가져오기
         var p = storeController?.GetProductById(productId);
         if (p?.metadata != null)
         {
             s = p.metadata.localizedPriceString;
-            priceCache[productId] = s;
-            return s;
+            // 가격이 비어있지 않을 때만 캐시에 저장하고 반환
+            if (!string.IsNullOrEmpty(s))
+            {
+                priceCache[productId] = s;
+                return s;
+            }
         }
+        
+        // 가격을 찾을 수 없으면 빈 문자열 반환
         return "";
     }
 
@@ -142,8 +153,17 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     void OnProductsFetched(List<Product> fetchedProducts)
     {
         foreach (var prod in fetchedProducts)
-            if (prod?.metadata != null)
-                priceCache[prod.definition.id] = prod.metadata.localizedPriceString;
+        {
+            if (prod?.metadata != null && !string.IsNullOrEmpty(prod.definition.id))
+            {
+                string price = prod.metadata.localizedPriceString;
+                // 가격이 비어있지 않을 때만 캐시에 저장
+                if (!string.IsNullOrEmpty(price))
+                {
+                    priceCache[prod.definition.id] = price;
+                }
+            }
+        }
 
         OnCatalogReady?.Invoke();
         storeController.FetchPurchases();
@@ -219,6 +239,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
     
     public void ApplyLoadedData(SaveData d)
     {
+        isApplyingLoad = true;
         // SaveData에서 직접 필드로 로드 (SaveData에 필드가 있으면 항상 사용)
         // gems는 0일 수도 있으므로, SaveData 필드를 우선 사용
         gems = Math.Max(0, d.gems);
@@ -227,6 +248,7 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         adsRemoved = (d.adsRemoved > 0);
 
         NotifyAndPersist();
+        isApplyingLoad = false;
     }
 
     // ===== Helpers =====
@@ -235,6 +257,10 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         // 0이어도 항상 단위가 보이도록 "0 Gem" 형태로 표시
         if (gemLabel) gemLabel.text = $"{gems:N0} Gem";
         OnGemsChanged?.Invoke(gems);
+        if (!isApplyingLoad)
+        {
+            SaveManager.Instance?.SaveGame();
+        }
     }
 
     /// <summary>

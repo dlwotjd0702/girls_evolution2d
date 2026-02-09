@@ -1,4 +1,4 @@
-﻿// ============================
+// ============================
 // GirlMergeManager.cs (FULL, +2단 도약 확률 적용 버전)
 // - nextLevel 계산 직후, "계승 등급 + 환생 상점"의 +2단 도약 확률을 합산(최대 50%)
 // - MaxLevel/직전레벨 구간에는 미적용
@@ -93,6 +93,10 @@ public class GirlMergeManager : MonoBehaviour
     {
         try
         {
+            if (PrestigeManager.Instance != null)
+            {
+                return PrestigeManager.Instance.GetTwoStepChance();
+            }
             EnsureShopCache();
             if (_shopInst != null && _miShopTwoStep != null)
             {
@@ -170,16 +174,27 @@ public class GirlMergeManager : MonoBehaviour
     {
         if (economy == null || girl == null) return;
 
-        double gain = girl.GetIncome();
-        if (gain <= 0) return;
+        // 클릭 골드는 해당 레벨의 초당 수익 기준으로 계산
+        // GetLevelIncomePerSec을 사용하여 2^(level-1) 공식과 일치시킴
+        double baseIncome;
+        if (girl.IsFinal && fieldManager != null)
+        {
+            int stack = Mathf.Max(1, fieldManager.Level25UpgradeLevel);
+            baseIncome = economy.GetLevelIncomePerSec(TierRules.MaxLevel) * stack;
+        }
+        else
+        {
+            baseIncome = economy.GetLevelIncomePerSec(girl.Level);
+        }
+        if (baseIncome <= 0) return;
 
+        double gain = baseIncome;
+        
         if (isClick)
         {
-            // 클릭 기반: 초당 수익의 (10% + 강화 레벨 × 1%)
-            // 0강화 = 10%, 1강화 = 11%, 2강화 = 12% ...
-            int clickBonusLevel = economy.GetClickBonusUpgradeLevel();
-            double clickPercent = 0.10 + (clickBonusLevel * 0.01);
-            gain *= clickPercent;
+            // 클릭 보너스: 10% + 강화 레벨 × 1% (+ 환생 상점 클릭 배수)
+            double clickPercent = economy.GetClickBonusMultiplier();
+            gain = baseIncome * clickPercent;
             
             // 소수점 아래 자리는 올림 처리
             gain = Math.Ceiling(gain);
@@ -189,6 +204,11 @@ public class GirlMergeManager : MonoBehaviour
             {
                 AudioManager.Instance.PlayClickSFX();
             }
+        }
+        else
+        {
+            // 자동 수익은 그대로 사용 (이미 GetLevelIncomePerSec 사용)
+            gain = baseIncome;
         }
 
         economy.AddGold(gain);
@@ -273,14 +293,20 @@ public class GirlMergeManager : MonoBehaviour
         Vector3 center = (((RectTransform)a.transform).localPosition + ((RectTransform)b.transform).localPosition) * 0.5f;
         int nextLevel = a.Level + 1;
 
-        // ◀ +2단 도약 확률: 계승 등급 + 환생 상점 (합산 cap 50%)
-        //    단, 25/직전(=MaxLevel-1) 구간에는 미적용
-        if (nextLevel <= TierRules.MaxLevel - 2)
+        // ◀ +2단 도약 확률: 계승 등급 + 환생 상점 (합산 cap 20%)
+        //    단, "현재 최대 발견 단계 +1"를 넘는 결과는 금지
         {
-            float pRank = GetLegacyTwoStepChanceSafe();
-            float pShop = GetShopTwoStepChanceSafe();
-            float p = Mathf.Min(0.50f, pRank + pShop);
-            if (UnityEngine.Random.value < p) nextLevel += 1; // 총 +2
+            int currentMax = fieldManager != null ? fieldManager.CurrentMaxLevel : nextLevel;
+            int maxAllowed = Mathf.Min(TierRules.MaxLevel, currentMax + 1);
+            int twoStepTarget = nextLevel + 1; // 총 +2
+
+            if (twoStepTarget <= maxAllowed)
+            {
+                float pRank = GetLegacyTwoStepChanceSafe();
+                float pShop = GetShopTwoStepChanceSafe();
+                float p = Mathf.Min(0.20f, pRank + pShop);
+                if (UnityEngine.Random.value < p) nextLevel += 1;
+            }
         }
 
         // 합성 중 입력 막기
@@ -315,6 +341,12 @@ public class GirlMergeManager : MonoBehaviour
         GirlData nextData = DataManager?.GetDataByLevel(Mathf.Min(nextLevel, TierRules.MaxLevel));
         if (nextData != null && economy != null)
             economy.AddGold(nextData.incomePerSec);
+
+        // 통계 기록: 합성
+        if (PlayStatsTracker.Instance != null)
+        {
+            PlayStatsTracker.Instance.RecordMerge();
+        }
 
         _mergingSet.Remove(a);
         _mergingSet.Remove(b);

@@ -1,41 +1,22 @@
 {
     "dataVersion": 2,
-    "autoMergeOn": true,
-    "autoSpawnOn": true,
-    "gold": 17214.99000000009,
+    "autoMergeOn": false,
+    "autoSpawnOn": false,
+    "gold": 0.0,
     "gems": 0,
     "adsRemoved": 0,
     "currentTierIndex": 0,
     "unlockedTierMask": 1,
-    "discoveredMask": 31,
-    "girls": [
-        {
-            "level": 5
-        },
-        {
-            "level": 3
-        },
-        {
-            "level": 2
-        },
-        {
-            "level": 1
-        },
-        {
-            "level": 1
-        },
-        {
-            "level": 1
-        }
-    ],
-    "maxLevelReached": 5,
+    "discoveredMask": 0,
+    "girls": [],
+    "maxLevelReached": 1,
     "level25UpgradeLevel": 0,
     "prestigePoint": 0,
     "totalPrestigeCount": 0,
     "manualSpawnMaxUpgrade": 0,
     "manualSpawnSpeedUpgrade": 0,
-    "autoMergeUpgrade": 2,
-    "autoSpawnUpgrade": 2,
+    "autoMergeUpgrade": 0,
+    "autoSpawnUpgrade": 0,
     "maxFieldCountUpgrade": 0,
     "clickBonusUpgrade": 0,
     "offlineRewardUpgrade": 0,
@@ -98,6 +79,31 @@
     "prestigeShopIncomeLv": 0,
     "prestigeShopTwoStepLv": 0,
     "prestigeShopStartGoldLv": 0,
-    "savedAt": "2025-12-01 11:33:46",
-    "languageCode": 1
+    "prestigeShopPrestigeGainLv": 0,
+    "ppManualSpawnMaxLv": 0,
+    "ppManualSpawnSpeedLv": 0,
+    "ppAutoMergeLv": 0,
+    "ppAutoSpawnLv": 0,
+    "ppMaxFieldCountLv": 0,
+    "ppClickBonusLv": 0,
+    "ppOfflineRewardLv": 0,
+    "ppOfflineMaxTimeLv": 0,
+    "savedAt": "2026-02-03 08:36:03",
+    "languageCode": 1,
+    "usedCoupons": [
+        "return"
+    ],
+    "totalPlayTimeSeconds": 2497.090815874748,
+    "firstPlayTime": "2025-12-05 13:32:22",
+    "lastPlayTime": "2026-02-03 08:36:03",
+    "level25ReachedCount": 1,
+    "level25ReachedTimes": [
+        "2025-12-09 15:01:59"
+    ],
+    "totalClicks": 219,
+    "totalMerges": 22,
+    "totalSpawns": 53,
+    "totalGoldEarned": 656631435663.0,
+    "totalGoldSpent": 41071600.0,
+    "tutorialCompleted": false
 }

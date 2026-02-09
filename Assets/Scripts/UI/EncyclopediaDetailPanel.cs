@@ -26,15 +26,6 @@ public class EncyclopediaDetailPanel : MonoBehaviour
             closeButton.onClick.AddListener(Hide);
         }
         
-        // 배경 클릭으로 닫기
-        if (panelRoot != null)
-        {
-            var bgButton = panelRoot.GetComponent<Button>();
-            if (bgButton == null) bgButton = panelRoot.AddComponent<Button>();
-            bgButton.onClick.RemoveAllListeners();
-            bgButton.onClick.AddListener(Hide);
-        }
-        
         Hide();
     }
     
@@ -66,8 +57,9 @@ public class EncyclopediaDetailPanel : MonoBehaviour
         // 수익
         if (incomeText != null)
         {
-            string format = LocalizationManager.GetText("수익: {0:N0}", "Income: {0:N0}");
-            incomeText.text = string.Format(format, income)+"G/s";
+            string format = LocalizationManager.GetText("수익: {0}", "Income: {0}");
+            string formattedIncome = EconomyManager.FormatAbbrev(income, 1, ""); // 단위 없이 숫자만
+            incomeText.text = string.Format(format, formattedIncome) + "/s";
         }
     }
     

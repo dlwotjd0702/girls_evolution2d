@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -51,6 +51,17 @@ public class SaveData
     public int prestigeShopIncomeLv;        // 환생 상점: 수익 배수
     public int prestigeShopTwoStepLv;       // 환생 상점: +2단 확률
     public int prestigeShopStartGoldLv;     // 환생 상점: 시작 자금
+    public int prestigeShopPrestigeGainLv;  // 환생 상점: 환생 포인트 획득
+
+    // 환생 상점 Plus (일반 상점 영구 보정)
+    public int ppManualSpawnMaxLv;
+    public int ppManualSpawnSpeedLv;
+    public int ppAutoMergeLv;
+    public int ppAutoSpawnLv;
+    public int ppMaxFieldCountLv;
+    public int ppClickBonusLv;
+    public int ppOfflineRewardLv;
+    public int ppOfflineMaxTimeLv;
 
     // 메타
     public string savedAt;
@@ -59,6 +70,24 @@ public class SaveData
     // 언어 설정 (0=시스템 언어 미설정, 1=한국어, 2=영어)
     // 0이면 최초 실행으로 간주하여 시스템 언어 사용
     public int languageCode = 0;
+    
+    // 쿠폰 시스템
+    public List<string> usedCoupons = new List<string>(); // 사용한 쿠폰 코드 목록
+    
+    // ── 플레이 디버그 정보 (밸런스 패치용 통계) ──
+    public double totalPlayTimeSeconds = 0.0; // 총 플레이타임 (초)
+    public string firstPlayTime = ""; // 최초 플레이 시간
+    public string lastPlayTime = ""; // 마지막 플레이 시간
+    public int level25ReachedCount = 0; // 레벨 25 달성 횟수
+    public List<string> level25ReachedTimes = new List<string>(); // 레벨 25 달성 시간 목록
+    public long totalClicks = 0; // 총 클릭 횟수
+    public long totalMerges = 0; // 총 합성 횟수
+    public long totalSpawns = 0; // 총 소환 횟수
+    public double totalGoldEarned = 0.0; // 총 획득 골드
+    public double totalGoldSpent = 0.0; // 총 소비 골드
+    
+    // ── 튜토리얼 ──
+    public bool tutorialCompleted = false; // 튜토리얼 완료 여부
 }
 
 [Serializable]

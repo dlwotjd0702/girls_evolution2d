@@ -53,7 +53,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -94,19 +94,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -122,31 +109,11 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline:
-    - - {x: 61, y: 224}
-      - {x: -61, y: 224}
-      - {x: -105, y: 208}
-      - {x: -105, y: -168}
-      - {x: -77, y: -243}
-      - {x: 64, y: -243}
-      - {x: 154, y: -3}
-      - {x: 154, y: 131}
-    - - {x: -54, y: 29}
-      - {x: -54, y: 31}
-      - {x: -57, y: 35}
-      - {x: -46, y: 33}
-      - {x: -45, y: 32}
-      - {x: -52, y: 27}
-      - {x: -52, y: 28}
-    - - {x: 35, y: 32}
-      - {x: 40, y: 34}
-      - {x: 43, y: 36}
-      - {x: 39, y: 29}
-      - {x: 38, y: 29}
+    outline: []
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []

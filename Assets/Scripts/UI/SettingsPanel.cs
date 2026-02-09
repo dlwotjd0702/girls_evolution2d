@@ -15,13 +15,16 @@ public class SettingsPanel : MonoBehaviour
     [Header("Settings Buttons")]
     [SerializeField] private Button languageButton;      // 언어 설정 버튼
     [SerializeField] private Button volumeButton;        // 볼륨 조절 버튼
-    [SerializeField] private Button manualSaveButton;    // 수동 저장 버튼
+    [SerializeField] private Button manualSaveButton;   // 수동 저장 버튼
+    [SerializeField] private Button googleLoginButton;  // 구글플레이 로그인 시도 버튼
     [SerializeField] private Button sendEmailButton;     // 메일 보내기 버튼
     [SerializeField] private Button discordButton;       // 디스코드 링크 버튼
     
     [Header("Sub Panels")]
     [SerializeField] private LanguageSettingsPanel languagePanel;
     [SerializeField] private VolumeSettingsPanel volumePanel;
+    [SerializeField] private NewGameConfirmPanel newGameConfirmPanel;
+    [SerializeField] private GooglePlayStorePanel googlePlayStorePanel;
     
     [Header("Email Settings")]
     [Tooltip("이메일 보내기 기본 주소")]
@@ -50,15 +53,6 @@ public class SettingsPanel : MonoBehaviour
             closeButton.onClick.AddListener(Hide);
         }
         
-        // 배경 클릭으로 닫기
-        if (panelRoot != null)
-        {
-            var bgButton = panelRoot.GetComponent<Button>();
-            if (bgButton == null) bgButton = panelRoot.AddComponent<Button>();
-            bgButton.onClick.RemoveAllListeners();
-            bgButton.onClick.AddListener(Hide);
-        }
-        
         // 언어 설정 버튼
         if (languageButton != null)
         {
@@ -78,6 +72,13 @@ public class SettingsPanel : MonoBehaviour
         {
             manualSaveButton.onClick.RemoveAllListeners();
             manualSaveButton.onClick.AddListener(OnClickManualSave);
+        }
+        
+        // 구글플레이 로그인 시도 버튼
+        if (googleLoginButton != null)
+        {
+            googleLoginButton.onClick.RemoveAllListeners();
+            googleLoginButton.onClick.AddListener(OnClickGoogleLogin);
         }
         
         // 메일 보내기 버튼
@@ -131,18 +132,38 @@ public class SettingsPanel : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// 수동 저장 버튼 클릭
+    /// </summary>
     void OnClickManualSave()
     {
-        if (SaveManager.Instance != null)
+        if (SaveManager.Instance == null)
         {
-            SaveManager.Instance.SaveGame();
-            ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
+            ShowSaveFeedback(LocalizationManager.GetText("저장 실패", "Save Failed"));
+            return;
+        }
+
+        // 로컬 저장만 수행 (클라우드 저장은 GooglePlayStorePanel에서 처리)
+        SaveManager.Instance.SaveGame();
+        ShowSaveFeedback(LocalizationManager.GetText("저장되었습니다", "Saved"));
+    }
+    
+    /// <summary>
+    /// 구글플레이 패널 열기 버튼 클릭
+    /// </summary>
+    void OnClickGoogleLogin()
+    {
+        if (googlePlayStorePanel != null)
+        {
+            googlePlayStorePanel.Show();
         }
         else
         {
-            ShowSaveFeedback(LocalizationManager.GetText("저장 실패", "Save Failed"));
+            ShowSaveFeedback(LocalizationManager.GetText("구글 클라우드 저장 패널을 찾을 수 없습니다.", "Google Cloud Save panel not found."));
         }
     }
+
+    // 클라우드 저장 관련 메서드 제거 (GooglePlayStorePanel로 이동)
     
     void OnClickSendEmail()
     {
@@ -152,6 +173,25 @@ public class SettingsPanel : MonoBehaviour
     void OnClickDiscord()
     {
         DiscordLinkOpener.OpenDiscordInvite(discordInviteCode);
+    }
+    
+    void OnClickNewGame()
+    {
+        if (newGameConfirmPanel != null)
+        {
+            newGameConfirmPanel.Show();
+        }
+        else
+        {
+            // 확인 패널이 없으면 바로 실행
+            if (SaveManager.Instance != null)
+            {
+                SaveManager.Instance.ResetSaveFile();
+                UnityEngine.SceneManagement.SceneManager.LoadScene(
+                    UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
+                );
+            }
+        }
     }
     
     void ShowSaveFeedback(string message)

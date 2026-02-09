@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "275737405566",
+    "project_id": "girlsevolution-4a06d",
+    "storage_bucket": "girlsevolution-4a06d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:275737405566:android:a523bd9629f05172cc102f",
+        "android_client_info": {
+          "package_name": "com.MaybrSoft.girls_evolution"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBb0MsZqinJUKxuJH4pGNawYoUPmX2mgT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

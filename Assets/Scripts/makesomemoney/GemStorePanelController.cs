@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -23,15 +24,26 @@ public class GemStorePanelController : MonoBehaviour
         public bool   useTitleOverride;   // true면 customTitle 사용
         public string customTitle = "광고 제거"; // This will be localized when used
         
-        [Header("Ad Entry")]
-        public bool isAdEntry = false;    // true면 광고 시청 Entry
+        [Header("Entry Type")]
+        public bool isAdEntry = false;    // true면 광고 시청 Entry (젬 보상)
+        public bool isGoldAdEntry = false; // true면 골드 광고 시청 Entry (골드 10분치)
+        public bool isGoldGemEntry = false; // true면 골드 보석 구매 Entry (골드 10분치)
+        
+        [Header("Gold Entry Settings")]
+        public int goldGemCost = 10;      // 골드 보석 구매 시 필요한 보석 수
     }
 
     public PremiumCurrencyManager premium;
+    public EconomyManager economy;
     public List<Entry> entries = new();
 
-    [Header("Insufficient Funds Panel")]
-    [SerializeField] private InsufficientFundsPanel insufficientPanel;
+    [Header("Reason Label")]
+    [SerializeField] private TextMeshProUGUI reasonLabel;
+    [SerializeField] private float reasonShowSeconds = 1.5f;
+    private Coroutine _reasonRoutine;
+    
+    [Header("Gold Reward Settings")]
+    [SerializeField] private int goldRewardMinutes = 10; // 골드 보상 시간 (분)
 
     [Header("Ad Service")]
     [SerializeField] private MonoBehaviour adServiceBehaviour;
@@ -41,15 +53,24 @@ public class GemStorePanelController : MonoBehaviour
     [SerializeField] private Sprite adReadySprite;      // 광고 준비됨
     [SerializeField] private Sprite adNotReadySprite;    // 광고 준비 중
 
+    [Header("Remove Ads Purchase")]
+    [SerializeField] private Sprite removeAdsPurchasedSprite; // 광고제거 구매 완료 스프라이트
+
     [Header("Ad Reward")]
     [SerializeField] private int adGemReward = 5;        // 광고 시청 시 지급할 젬 수
 
     private Action<bool> adReadyHandler;
     private Action<bool> adsRemovedHandler;
 
+    void Awake()
+    {
+        if (reasonLabel != null) reasonLabel.gameObject.SetActive(false);
+    }
+
     void OnEnable()
     {
         if (!premium) premium = FindObjectOfType<PremiumCurrencyManager>(true);
+        if (!economy) economy = FindObjectOfType<EconomyManager>(true);
         if (premium != null)
         {
             premium.OnCatalogReady += Refresh; // 가격 가져온 뒤 갱신
@@ -67,6 +88,7 @@ public class GemStorePanelController : MonoBehaviour
             premium.OnPurchaseFailed -= OnPurchaseFailed;
         }
         UnbindAdService();
+        HideReasonImmediate();
     }
 
     void Refresh()
@@ -85,6 +107,12 @@ public class GemStorePanelController : MonoBehaviour
         {
             if (e.isAdEntry)
                 e.titleText.text = $"+{adGemReward:N0} Gems";
+            else if (e.isGoldAdEntry || e.isGoldGemEntry)
+            {
+                // 골드 10분치 계산
+                double goldAmount = CalculateGoldReward();
+                e.titleText.text = $"{FormatGoldAmount(goldAmount)}";
+            }
             else if (e.useTitleOverride || isRemoveAds)
                 e.titleText.text = string.IsNullOrWhiteSpace(e.customTitle) ? LocalizationManager.GetText("광고 제거", "Remove Ads") : e.customTitle;
             else
@@ -94,28 +122,77 @@ public class GemStorePanelController : MonoBehaviour
         // ── 가격 ─────────────────────────────────────────────
         if (e.priceText)
         {
-            if (e.isAdEntry)
+            if (e.isAdEntry || e.isGoldAdEntry)
                 e.priceText.text = LocalizationManager.GetText("광고 시청", "Watch Ad");
+            else if (e.isGoldGemEntry)
+                e.priceText.text = $"{e.goldGemCost:N0} Gems";
             else
-                e.priceText.text = premium.GetLocalizedPrice(e.productId); // 콘솔 가격 자동 반영
+            {
+                string price = premium.GetLocalizedPrice(e.productId); // 콘솔 가격 자동 반영
+                // 가격이 아직 로드되지 않았을 경우 빈 문자열 대신 기본 메시지 표시
+                if (string.IsNullOrEmpty(price))
+                {
+                    price = LocalizationManager.GetText("가격 로딩 중...", "Loading price...");
+                    // 가격이 로드되지 않았을 때, 나중에 다시 시도하기 위해 코루틴 시작
+                    if (isRemoveAds || !string.IsNullOrEmpty(e.productId))
+                    {
+                        StartCoroutine(RetryPriceLoad(e));
+                    }
+                }
+                e.priceText.text = price;
+            }
         }
 
         // ── 구매 버튼 ─────────────────────────────────────────
         if (e.buyButton)
         {
-            e.buyButton.onClick.RemoveAllListeners();
-            if (e.isAdEntry)
+            // 광고제거 구매 완료 상태 확인
+            bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+            bool isRemoveAdsPurchased = isRemoveAds && adsRemoved;
+
+            if (isRemoveAdsPurchased)
             {
-                e.buyButton.onClick.AddListener(() => OnClickWatchAd(e));
+                // 광고제거 구매 완료: 버튼 비활성화 및 스프라이트 변경
+                e.buyButton.interactable = false;
+                e.buyButton.onClick.RemoveAllListeners(); // 클릭 리스너 제거
+                
+                // 버튼 스프라이트 변경
+                if (removeAdsPurchasedSprite != null && e.buyButton.image != null)
+                {
+                    e.buyButton.image.sprite = removeAdsPurchasedSprite;
+                }
             }
             else
             {
-                e.buyButton.onClick.AddListener(() => premium.Purchase(e.productId));
+                // 일반 구매 버튼 로직
+                e.buyButton.onClick.RemoveAllListeners();
+                if (e.isAdEntry)
+                {
+                    e.buyButton.onClick.AddListener(() => OnClickWatchAd(e));
+                }
+                else if (e.isGoldAdEntry)
+                {
+                    e.buyButton.onClick.AddListener(() => OnClickWatchAdForGold(e));
+                }
+                else if (e.isGoldGemEntry)
+                {
+                    e.buyButton.onClick.AddListener(() => OnClickBuyGoldWithGems(e));
+                }
+                else
+                {
+                    e.buyButton.onClick.AddListener(() => premium.Purchase(e.productId));
+                }
+                
+                // 광고제거 버튼이지만 아직 구매하지 않은 경우 정상 활성화
+                if (isRemoveAds)
+                {
+                    e.buyButton.interactable = true;
+                }
             }
         }
 
         // ── 광고 버튼 아이콘 업데이트 ─────────────────────────
-        if (e.isAdEntry && e.buttonIcon != null)
+        if ((e.isAdEntry || e.isGoldAdEntry) && e.buttonIcon != null)
         {
             bool ready = false;
             bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
@@ -139,18 +216,33 @@ public class GemStorePanelController : MonoBehaviour
             e.buttonIcon.sprite = ready ? adReadySprite : adNotReadySprite;
             if (e.buyButton) e.buyButton.interactable = ready && !adsRemoved;
         }
+        
+        // ── 골드 보석 구매 버튼 활성화 상태 ──────────────────
+        if (e.isGoldGemEntry && e.buyButton != null)
+        {
+            long currentGems = premium != null ? premium.GetGems() : 0;
+            e.buyButton.interactable = currentGems >= e.goldGemCost;
+        }
     }
 
 
     void OnPurchaseFailed(string productId, string reason)
     {
-        if (insufficientPanel != null)
+        // 모든 구매 버튼 비활성화
+        foreach (var e in entries)
         {
-            insufficientPanel.ShowGeneric(
-                LocalizationManager.GetText("구매 실패", "Purchase Failed"),
-                LocalizationManager.GetText("보석 구매에 실패했습니다. 다시 시도해주세요.", "Failed to purchase gems. Please try again.")
-            );
+            if (e.buyButton != null)
+            {
+                e.buyButton.interactable = false;
+            }
         }
+        
+        // Reason label로 실패 메시지 표시
+        string failMessage = LocalizationManager.GetText(
+            "구매에 실패했습니다.\n잠시 후 다시 시도해주세요.", 
+            "Purchase failed.\nPlease try again later."
+        );
+        ShowReasonTemp(failMessage);
     }
 
     void BindAdService()
@@ -206,25 +298,19 @@ public class GemStorePanelController : MonoBehaviour
 
         if (adService == null)
         {
-            if (insufficientPanel != null)
-            {
-                insufficientPanel.ShowGeneric(
-                    LocalizationManager.GetText("광고 미지원", "Ad Not Supported"),
-                    LocalizationManager.GetText("광고 서비스가 준비되지 않았습니다.", "Ad service is not ready.")
-                );
-            }
+            ShowReasonTemp(LocalizationManager.GetText(
+                "광고 서비스가 준비되지 않았습니다.", 
+                "Ad service is not ready."
+            ));
             return;
         }
 
         if (!adService.IsRewardedReady())
         {
-            if (insufficientPanel != null)
-            {
-                insufficientPanel.ShowGeneric(
-                    LocalizationManager.GetText("광고 준비 중", "Loading Ad"),
-                    LocalizationManager.GetText("광고를 불러오는 중입니다. 잠시 후 다시 시도해주세요.", "Loading ad. Please try again in a moment.")
-                );
-            }
+            ShowReasonTemp(LocalizationManager.GetText(
+                "광고를 불러오는 중입니다.\n잠시 후 다시 시도해주세요.", 
+                "Loading ad.\nPlease try again in a moment."
+            ));
             adService.LoadRewarded();
             return;
         }
@@ -243,6 +329,216 @@ public class GemStorePanelController : MonoBehaviour
         {
             pcm.AddGems(adGemReward);
             Refresh();
+        }
+    }
+    
+    // 골드 10분치 계산
+    double CalculateGoldReward()
+    {
+        if (economy == null) return 0;
+        double perSec = economy.GetGoldPerSecEstimate();
+        double reward = perSec * 60.0 * goldRewardMinutes; // 10분치
+        if (reward < 100.0) reward = 100.0; // 최소 100G 보장
+        return reward;
+    }
+    
+    // 골드 양 포맷팅
+    string FormatGoldAmount(double amount)
+    {
+        if (economy != null)
+        {
+            return EconomyManager.FormatAbbrev(amount, 1, "G");
+        }
+        return $"{amount:N0} G";
+    }
+    
+    // 골드 광고 시청 클릭
+    void OnClickWatchAdForGold(Entry e)
+    {
+        var pcm = premium ?? PremiumCurrencyManager.Instance;
+        if (pcm != null && pcm.AdsRemoved)
+        {
+            GrantGoldReward();
+            return;
+        }
+
+        if (adService == null)
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                "광고 서비스가 준비되지 않았습니다.", 
+                "Ad service is not ready."
+            ));
+            return;
+        }
+
+        if (!adService.IsRewardedReady())
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                "광고를 불러오는 중입니다.\n잠시 후 다시 시도해주세요.", 
+                "Loading ad.\nPlease try again in a moment."
+            ));
+            adService.LoadRewarded();
+            return;
+        }
+
+        adService.ShowRewarded(() =>
+        {
+            GrantGoldReward();
+        });
+    }
+    
+    // 골드 보상 지급
+    void GrantGoldReward()
+    {
+        if (economy == null) return;
+        double reward = CalculateGoldReward();
+        if (reward > 0)
+        {
+            economy.AddGold(reward);
+            ShowReasonTemp(LocalizationManager.GetText(
+                $"골드 {FormatGoldAmount(reward)}를 획득했습니다!", 
+                $"You earned {FormatGoldAmount(reward)}!"
+            ));
+            Refresh();
+        }
+    }
+    
+    // 보석으로 골드 구매 클릭
+    void OnClickBuyGoldWithGems(Entry e)
+    {
+        if (premium == null) premium = FindObjectOfType<PremiumCurrencyManager>(true);
+        if (economy == null) economy = FindObjectOfType<EconomyManager>(true);
+        
+        if (premium == null || economy == null)
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                "시스템이 준비되지 않았습니다.", 
+                "System is not ready."
+            ));
+            return;
+        }
+        
+        long currentGems = premium.GetGems();
+        if (currentGems < e.goldGemCost)
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                $"보석이 부족합니다.\n필요: {e.goldGemCost:N0}, 보유: {currentGems:N0}", 
+                $"Not enough gems.\nNeed: {e.goldGemCost:N0}, Have: {currentGems:N0}"
+            ));
+            return;
+        }
+        
+        // 보석 차감
+        if (!premium.TrySpendGems(e.goldGemCost))
+        {
+            ShowReasonTemp(LocalizationManager.GetText(
+                "보석 차감에 실패했습니다.", 
+                "Failed to spend gems."
+            ));
+            return;
+        }
+        
+        // 골드 지급
+        double reward = CalculateGoldReward();
+        if (reward > 0)
+        {
+            economy.AddGold(reward);
+            ShowReasonTemp(LocalizationManager.GetText(
+                $"골드 {FormatGoldAmount(reward)}를 구매했습니다!", 
+                $"You purchased {FormatGoldAmount(reward)}!"
+            ));
+            Refresh();
+        }
+    }
+
+    // Reason helpers
+    void ShowReasonTemp(string msg)
+    {
+        if (reasonLabel == null) return;
+        HideReasonImmediate();
+        reasonLabel.text = msg;
+        reasonLabel.gameObject.SetActive(true);
+        _reasonRoutine = StartCoroutine(HideReasonAfter(reasonShowSeconds));
+    }
+    
+    System.Collections.IEnumerator HideReasonAfter(float sec)
+    {
+        yield return new WaitForSecondsRealtime(sec);
+        HideReasonImmediate();
+    }
+    
+    void HideReasonImmediate()
+    {
+        if (reasonLabel == null) return;
+        if (_reasonRoutine != null)
+        {
+            StopCoroutine(_reasonRoutine);
+            _reasonRoutine = null;
+        }
+        reasonLabel.text = "";
+        reasonLabel.gameObject.SetActive(false);
+        
+        // Reason이 사라질 때 버튼들 다시 활성화
+        foreach (var e in entries)
+        {
+            if (e.buyButton != null)
+            {
+                // 광고제거 구매 완료 버튼은 비활성화 상태 유지
+                bool isRemoveAds = (e.productId == PremiumCurrencyManager.REMOVE_ADS_ID);
+                bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
+                if (isRemoveAds && adsRemoved)
+                {
+                    e.buyButton.interactable = false;
+                    continue;
+                }
+                
+                // 광고 Entry는 광고 준비 상태에 따라 활성화
+                if (e.isAdEntry || e.isGoldAdEntry)
+                {
+                    bool ready = false;
+                    if (!adsRemoved && adService != null)
+                    {
+                        try { ready = adService.IsRewardedReady(); } catch { }
+                    }
+                    e.buyButton.interactable = ready && !adsRemoved;
+                }
+                else if (e.isGoldGemEntry)
+                {
+                    long currentGems = premium != null ? premium.GetGems() : 0;
+                    e.buyButton.interactable = currentGems >= e.goldGemCost;
+                }
+                else
+                {
+                    e.buyButton.interactable = true;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 가격이 로드되지 않았을 때 재시도하는 코루틴
+    /// </summary>
+    private IEnumerator RetryPriceLoad(Entry e)
+    {
+        if (e == null || premium == null) yield break;
+        
+        // 최대 5초 동안 0.5초마다 재시도
+        int maxRetries = 10;
+        int retryCount = 0;
+        
+        while (retryCount < maxRetries)
+        {
+            yield return new WaitForSeconds(0.5f);
+            
+            string price = premium.GetLocalizedPrice(e.productId);
+            if (!string.IsNullOrEmpty(price) && e.priceText != null)
+            {
+                // 가격이 로드되었으면 UI 업데이트
+                e.priceText.text = price;
+                yield break;
+            }
+            
+            retryCount++;
         }
     }
 }

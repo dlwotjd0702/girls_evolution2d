@@ -123,7 +123,8 @@ TextureImporter:
     serializedVersion: 2
     sprites: []
     outline:
-    - - {x: 117, y: 122}
+    - - {x: 145, y: -48}
+      - {x: 117, y: 122}
       - {x: 75, y: 237}
       - {x: -71, y: 237}
       - {x: -88, y: 227}

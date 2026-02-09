@@ -1,4 +1,4 @@
-﻿// ============================
+// ============================
 // GirlMergeManager.cs (FULL, +2단 도약 확률 적용 버전)
 // - nextLevel 계산 직후, "계승 등급 + 환생 상점"의 +2단 도약 확률을 합산(최대 50%)
 // - MaxLevel/직전레벨 구간에는 미적용
@@ -192,10 +192,8 @@ public class GirlMergeManager : MonoBehaviour
         
         if (isClick)
         {
-            // 클릭 기반: 해당 레벨 초당 수익의 (50% + 강화 레벨 × 5%)
-            // 0강화 = 50%, 1강화 = 55%, 2강화 = 60% ...
-            int clickBonusLevel = economy.GetClickBonusUpgradeLevel();
-            double clickPercent = 0.50 + (clickBonusLevel * 0.05);
+            // 클릭 보너스: 10% + 강화 레벨 × 1% (+ 환생 상점 클릭 배수)
+            double clickPercent = economy.GetClickBonusMultiplier();
             gain = baseIncome * clickPercent;
             
             // 소수점 아래 자리는 올림 처리

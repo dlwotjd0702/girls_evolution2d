@@ -53,20 +53,20 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     // 골드 강화와 환생 업그레이드를 함께 고려하여 적절한 레벨 캡 설정
     // - 맥스레벨이 높은 항목은 성장률을 낮춰 과도한 증가를 방지
     [Header("Costs (Core)")]
-    private int   incomeBase  = 300;  private float incomeGrow  = 1.15f;
-    private int   twoStepBase = 300;  private float twoStepGrow = 1.25f;
-    private int   startBase   = 300;  private float startGrow   = 1.15f;
-    private int   ppgBase     = 300;  private float ppgGrow     = 1.15f;
+    private int   incomeBase  = 301;  private float incomeGrow  = 1.15f;
+    private int   twoStepBase = 1220;  private float twoStepGrow = 1.25f;
+    private int   startBase   = 1230;  private float startGrow   = 1.15f;
+    private int   ppgBase     = 1230;  private float ppgGrow     = 1.15f;
 
     [Header("Costs (Plus)")]
-    private int plusManualSpawnMaxBase   = 300;  private float plusManualSpawnMaxGrow   = 1.12f;
-    private int plusManualSpawnSpeedBase = 300;  private float plusManualSpawnSpeedGrow = 1.12f;
-    private int plusAutoMergeSpeedBase   = 600;  private float plusAutoMergeSpeedGrow   = 1.22f;
-    private int plusAutoSpawnSpeedBase   = 600;  private float plusAutoSpawnSpeedGrow   = 1.22f;
-    private int plusFieldMaxBase         = 300;  private float plusFieldMaxGrow         = 1.12f;
-    private int plusClickBonusBase       = 300;  private float plusClickBonusGrow       = 1.12f;
-    private int plusOfflineRewardBase    = 300;  private float plusOfflineRewardGrow     = 1.12f;
-    private int plusOfflineMaxTimeBase   = 300;  private float plusOfflineMaxTimeGrow    = 1.12f;
+    private int plusManualSpawnMaxBase   = 2030;  private float plusManualSpawnMaxGrow   = 1.12f;
+    private int plusManualSpawnSpeedBase = 1230;  private float plusManualSpawnSpeedGrow = 1.12f;
+    private int plusAutoMergeSpeedBase   = 605;  private float plusAutoMergeSpeedGrow   = 1.22f;
+    private int plusAutoSpawnSpeedBase   = 605;  private float plusAutoSpawnSpeedGrow   = 1.22f;
+    private int plusFieldMaxBase         = 2030;  private float plusFieldMaxGrow         = 1.12f;
+    private int plusClickBonusBase       = 301;  private float plusClickBonusGrow       = 1.12f;
+    private int plusOfflineRewardBase    = 301;  private float plusOfflineRewardGrow     = 1.12f;
+    private int plusOfflineMaxTimeBase   = 1050;  private float plusOfflineMaxTimeGrow    = 1.12f;
 
     // ───────── UI (옵션) ─────────
     [Header("UI (Optional)")]
@@ -209,7 +209,8 @@ public class PrestigeManager : MonoBehaviour, ISaveable
 
     public bool IsPrestigeReady() => HasAnyFinalGirl();
 
-    // 25단계 기준 1000 포인트, 하위 단계는 1/2씩 감소
+    // 25단계 기준 1레벨 2500, 이후 레벨마다 +1000
+    // 하위 단계는 25단계 기준 포인트에서 1/2씩 감소
     // level25UpgradeLevel과 필드의 모든 캐릭터 레벨을 고려하여 포인트 계산
     // 골드/보석 강화 레벨에 대한 포인트도 추가 (이전 10포인트/레벨 → 지금 100포인트/레벨로 10배 증가)
     public int PreviewPrestigeGain()
@@ -220,13 +221,15 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         int level25UpgradeLevel = girlFieldManager.Level25UpgradeLevel;
         
         // 1. 레벨 25 포인트 계산 (level25UpgradeLevel 기준)
-        // 레벨 25: 2500 포인트 × (스택 성장률)
+        // 누적합: 1레벨 2500, 이후 레벨마다 +1000, 1~n 합산
         if (level25UpgradeLevel > 0)
         {
-            const double BASE_L25 = 2500.0;
-            const double L25_STACK_GROW = 1.35; // 스택 증가량이 1.2~1.5배 느낌
-            double level25Points = BASE_L25 * Math.Pow(L25_STACK_GROW, Math.Max(0, level25UpgradeLevel - 1));
-            totalPoints += Mathf.CeilToInt((float)level25Points);
+            const int BASE_L25 = 2500;
+            const int L25_STEP = 1000;
+            int n = Math.Max(1, level25UpgradeLevel);
+            // 합 = n*BASE + STEP * (n-1)*n/2
+            int level25Points = (n * BASE_L25) + (L25_STEP * (n - 1) * n / 2);
+            totalPoints += level25Points;
         }
         
         // 2. 필드의 다른 레벨 캐릭터들 포인트 계산 (25단계 제외)
@@ -238,8 +241,8 @@ public class PrestigeManager : MonoBehaviour, ISaveable
             // 레벨 25 이상은 이미 계산했으므로 제외
             if (level >= topLevel) continue;
             
-            // 하위 단계 포인트 계산: 25단계 기준 1000 포인트에서 단계 내려갈 때마다 1/2
-            // 24단계: 500, 23단계: 250, 22단계: 125, ...
+            // 하위 단계 포인트 계산: 25단계 기준 2500 포인트에서 단계 내려갈 때마다 1/2
+            // 24단계: 1250, 23단계: 625, 22단계: 312.5, ...
             int diff = topLevel - level; // 25→24: 1, 25→23: 2, ...
             double points = 2500.0 / Math.Pow(2.0, diff);
             totalPoints += Mathf.CeilToInt((float)points); // 소수점 올림 처리

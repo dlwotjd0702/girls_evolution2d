@@ -872,34 +872,27 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     private int GetMaxSpawnCharge()
     {
         int baseVal = economy != null ? economy.GetMaxManualSpawnCount() : 3;
-        int plus    = GetShopManualSpawnMaxPlusSafe();
-        return Mathf.Max(1, baseVal + plus);
+        return Mathf.Max(1, baseVal);
     }
     private float GetSpawnChargeInterval()
     {
         float baseVal = economy != null ? economy.GetManualSpawnInterval() : 10f;
-        double mul    = GetShopManualSpawnIntervalMulSafe(); // <= 1.0 (단축)
-        return Mathf.Max(0.05f, (float)(baseVal * mul));
+        return Mathf.Max(0.05f, baseVal);
     }
     private int GetMaxFieldCount()
     {
         int baseVal = economy != null ? economy.GetMaxFieldCount() : 8;
-        int plus    = GetShopFieldMaxPlusSafe();
-        return Mathf.Max(1, baseVal + plus);
+        return Mathf.Max(1, baseVal);
     }
 
     // 자동 주기 보정
     private float ApplyAutoSpawnMul(float baseInterval)
     {
-        if (baseInterval == float.MaxValue) return baseInterval;
-        double mul = GetShopAutoSpawnIntervalMulSafe();
-        return Mathf.Max(0.05f, (float)(baseInterval * mul));
+        return baseInterval;
     }
     private float ApplyAutoMergeMul(float baseInterval)
     {
-        if (baseInterval == float.MaxValue) return baseInterval;
-        double mul = GetShopAutoMergeIntervalMulSafe();
-        return Mathf.Max(0.05f, (float)(baseInterval * mul));
+        return baseInterval;
     }
 
     private void UpdateSpawnButtonUI()

@@ -210,6 +210,7 @@ public class GooglePlayStorePanel : MonoBehaviour
             return;
         }
 
+        CloudSaveManager.Instance.RefreshAuthenticationState(false);
         bool isAuthenticated = CloudSaveManager.Instance.IsAuthenticated;
         UpdateLoginStatus(isAuthenticated, isAuthenticated ? "로그인됨" : "로그인 필요");
 
@@ -243,6 +244,9 @@ public class GooglePlayStorePanel : MonoBehaviour
         if (loginButton != null)
         {
             loginButton.gameObject.SetActive(!isAuthenticated);
+        }
+        if (loginStatusText != null)
+        {
             loginStatusText.gameObject.SetActive(!isAuthenticated);
         }
 

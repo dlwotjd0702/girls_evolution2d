@@ -276,10 +276,9 @@ public class ShopPanelController : MonoBehaviour
             case ShopItemType.FieldMax:         return LocalizationManager.GetText($"필드 {economy.GetMaxFieldCount()}칸", $"Field {economy.GetMaxFieldCount()} slots");
             case ShopItemType.ClickBonus:
                 {
-                    // 클릭 보너스: 10% + 강화 레벨 × 1%
-                    int level = economy.GetClickBonusUpgradeLevel();
-                    double clickPercent = 10.0 + (level * 1.0);
-                    return LocalizationManager.GetText($"클릭 {clickPercent:0}%", $"Click {clickPercent:0}%");
+                    // 클릭 보너스: (10% + 레벨×1%) × 환생 클릭 배수
+                    double clickPercent = economy.GetClickBonusMultiplier() * 100.0;
+                    return LocalizationManager.GetText($"클릭 {clickPercent:0.0}%", $"Click {clickPercent:0.0}%");
                 }
             case ShopItemType.OfflineReward:    return LocalizationManager.GetText($"오프라인 x{economy.GetOfflineRewardMultiplier():0.00}", $"Offline x{economy.GetOfflineRewardMultiplier():0.00}");
             case ShopItemType.OfflineMaxTime:   return LocalizationManager.GetText($"상한 {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h", $"Max {(economy.GetOfflineMaxSeconds()/3600.0):0.0}h");

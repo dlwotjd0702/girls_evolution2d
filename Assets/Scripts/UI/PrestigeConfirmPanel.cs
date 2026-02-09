@@ -91,9 +91,10 @@ public class PrestigeConfirmPanel : MonoBehaviour
         int level25Points = 0;
         if (level25Stacks > 0)
         {
-            const double BASE_L25 = 2500.0;
-            const double L25_STACK_GROW = 1.35;
-            level25Points = Mathf.CeilToInt((float)(BASE_L25 * Math.Pow(L25_STACK_GROW, Math.Max(0, level25Stacks - 1))));
+            const int BASE_L25 = 2500;
+            const int L25_STEP = 1000;
+            int n = Math.Max(1, level25Stacks);
+            level25Points = (n * BASE_L25) + (L25_STEP * (n - 1) * n / 2);
         }
         int totalBasePoints = level25Points + lowerLevelPoints + upgradePoints;
         double mulPPG = prestigeManager.GetPrestigePointGainMul();
@@ -118,12 +119,13 @@ public class PrestigeConfirmPanel : MonoBehaviour
         int level25Points = 0;
         if (level25Stacks > 0)
         {
-            const double BASE_L25 = 2500.0;
-            const double L25_STACK_GROW = 1.35;
-            level25Points = Mathf.CeilToInt((float)(BASE_L25 * Math.Pow(L25_STACK_GROW, Math.Max(0, level25Stacks - 1))));
+            const int BASE_L25 = 2500;
+            const int L25_STEP = 1000;
+            int n = Math.Max(1, level25Stacks);
+            level25Points = (n * BASE_L25) + (L25_STEP * (n - 1) * n / 2);
             breakdowns.Add(LocalizationManager.GetText(
-                $"25단계 {level25Stacks}레벨 - 2500*{L25_STACK_GROW:0.##}^{Mathf.Max(0, level25Stacks - 1)} point",
-                $"Level 25 x{level25Stacks} - 2500*{L25_STACK_GROW:0.##}^{Mathf.Max(0, level25Stacks - 1)} point"
+                $"25단계 {level25Stacks}레벨 - 2500 누적(레벨당 +1000) point",
+                $"Level 25 x{level25Stacks} - cumulative 2500 (+1000 per level) point"
             ));
         }
         

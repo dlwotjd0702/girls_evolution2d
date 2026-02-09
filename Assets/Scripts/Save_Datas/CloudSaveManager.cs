@@ -226,6 +226,52 @@ public class CloudSaveManager : MonoBehaviour
 #endif
     }
 
+    /// <summary>
+    /// 플랫폼 로그인 상태를 다시 확인하고 필요 시 내부 상태를 동기화
+    /// </summary>
+    public bool RefreshAuthenticationState(bool notifyIfChanged = true)
+    {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        bool previous = IsAuthenticated;
+        bool platformAuth = false;
+        try
+        {
+            if (PlayGamesPlatform.Instance != null)
+            {
+                platformAuth = PlayGamesPlatform.Instance.IsAuthenticated();
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"[CloudSaveManager] 로그인 상태 확인 실패: {e.Message}");
+        }
+
+        if (platformAuth != previous)
+        {
+            IsAuthenticated = platformAuth;
+            if (platformAuth && PlayGamesPlatform.Instance != null)
+            {
+                savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+            }
+            if (notifyIfChanged)
+            {
+                OnLoginStatusChanged?.Invoke(IsAuthenticated);
+            }
+        }
+        return IsAuthenticated;
+#else
+        if (IsAuthenticated)
+        {
+            IsAuthenticated = false;
+            if (notifyIfChanged)
+            {
+                OnLoginStatusChanged?.Invoke(false);
+            }
+        }
+        return false;
+#endif
+    }
+
     private System.Collections.IEnumerator AutoRetryLoginLoop()
     {
         while (true)

@@ -23393,6 +23393,10 @@ MonoBehaviour:
     rewardType: 0
     isGoldReward: 0
     rewardAmount: 1000000000000
+  - code: return2
+    rewardType: 2
+    isGoldReward: 0
+    rewardAmount: 2127100126
   economy: {fileID: 1973007492}
   premiumCurrency: {fileID: 1331978605}
   offlineRewardPanel: {fileID: 1139980842}

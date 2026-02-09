@@ -285,9 +285,10 @@ public class EconomyManager : MonoBehaviour, ISaveable
     }
 
     public double GetClickBonusMultiplier() {
-        double mul = 1.0 + clickBonusUpgrade * CLICK_BONUS_PER_LEVEL;
-        try { mul *= PrestigeManager.Instance.GetClickBonusMul(); } catch {}
-        return mul;
+        // 클릭 보너스: 10% + 강화 레벨 × 1%
+        double basePercent = 0.10 + (clickBonusUpgrade * CLICK_BONUS_PER_LEVEL);
+        try { basePercent *= PrestigeManager.Instance.GetClickBonusMul(); } catch {}
+        return basePercent;
     }
 
     public bool IsAutoMergeOn() => autoMergeOn && autoMergeUpgrade > 0;
@@ -460,7 +461,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
         manualSpawnMaxUpgrade   = Mathf.Max(0,d.manualSpawnMaxUpgrade);
         manualSpawnSpeedUpgrade = Mathf.Max(0,d.manualSpawnSpeedUpgrade);
-        maxFieldCountUpgrade    = Mathf.Max(0,d.maxFieldCountUpgrade);
+        maxFieldCountUpgrade    = Mathf.Clamp(d.maxFieldCountUpgrade, 0, fieldMaxUpgradeCap);
         clickBonusUpgrade       = Mathf.Max(0,d.clickBonusUpgrade);
 
         autoMergeUpgrade = Mathf.Max(0,d.autoMergeUpgrade);

@@ -185,7 +185,7 @@ public class AutoAutomationController : MonoBehaviour
             }
             else
             {
-                costText.text = $"{nextCost:N0} G";
+                costText.text = EconomyManager.FormatAbbrev(nextCost);
             }
         }
 

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "lv16-c",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/16.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD ninja game sprite. Image1 BASE SD defines exact face shape, natural original SD proportions, pose and age presentation. Image2 BASE LD confirms identity and eye color. Costume only: Blue Flame Twin Daggers: navy fitted battle jacket with cyan flame embroidery and short split waist panels, dark fitted shorts, navy thigh stockings, navy/cyan strapped boots. Preserve long dark brown twin ponytails with pointed orange-red ribbon ornaments, amber-red eyes and confident expression. Exactly two original curved serrated silver daggers, one held out in each hand. Keep waist utility canisters, NO additional knife near canisters. Maintain base pose, correct hands and grips, crisp dark anime outlines and cel shading. Distinct garment construction, no generic baby chibi, no new face. Entire hair, weapons and footwear comfortably within generous margin. Actual transparent RGBA background and internal gaps. No white backdrop, painted checkerboard, floor shadow, text, watermark or extra figure."
+  },
+  {
+    "id": "lv16-d",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/16.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD ninja game sprite. Image1 BASE SD defines exact face shape, natural original SD proportions, pose and age presentation. Image2 BASE LD confirms identity and eye color. Costume only: Red Plum Rush: crimson short riding jacket, ivory plum blossom patterns, purple fitted inner uniform and shorts, purple thigh stockings, crimson/black strapped boots. Preserve long dark brown twin ponytails with pointed orange-red ribbon ornaments, amber-red eyes and confident expression. Exactly two original curved serrated silver daggers, one held out in each hand. Keep waist utility canisters, NO additional knife near canisters. Maintain base pose, correct hands and grips, crisp dark anime outlines and cel shading. Distinct garment construction, no generic baby chibi, no new face. Entire hair, weapons and footwear comfortably within generous margin. Actual transparent RGBA background and internal gaps. No white backdrop, painted checkerboard, floor shadow, text, watermark or extra figure."
+  },
+  {
+    "id": "lv17-b",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/17.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/17.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD ninja game sprite. Image1 BASE SD defines exact face shape, natural original SD proportions, pose and age presentation. Image2 BASE LD confirms identity and eye color. Costume only: Sapphire Knight: royal blue and ivory short armored coat with sapphire clasps, silver shoulder plates, fitted navy shorts, ivory-edged blue leg guards and blue boots. Preserve short turquoise bob with straight bangs, cyan-teal eyes matching BASE LD, calm serious expression. Keep cyan glowing sword in the hand at canvas RIGHT pointing down and outward; canvas LEFT hand rests on hip. Keep diagonal back-mounted sheathed katana and horizontal empty waist scabbard in original positions. Maintain base pose, correct hands and grips, crisp dark anime outlines and cel shading. Distinct garment construction, no generic baby chibi, no new face. Entire hair, weapons and footwear comfortably within generous margin. Actual transparent RGBA background and internal gaps. No white backdrop, painted checkerboard, floor shadow, text, watermark or extra figure."
+  },
+  {
+    "id": "lv17-c",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/17.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/17.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD ninja game sprite. Image1 BASE SD defines exact face shape, natural original SD proportions, pose and age presentation. Image2 BASE LD confirms identity and eye color. Costume only: Sea Mist Patrol: slate-blue short maritime ninja coat, sea-mist-pattern flowing waist sash, silver fittings, slate shorts and leg guards, dark blue strapped boots. Preserve short turquoise bob with straight bangs, cyan-teal eyes matching BASE LD, calm serious expression. Keep cyan glowing sword in the hand at canvas RIGHT pointing down and outward; canvas LEFT hand rests on hip. Keep diagonal back-mounted sheathed katana and horizontal empty waist scabbard in original positions. Maintain base pose, correct hands and grips, crisp dark anime outlines and cel shading. Distinct garment construction, no generic baby chibi, no new face. Entire hair, weapons and footwear comfortably within generous margin. Actual transparent RGBA background and internal gaps. No white backdrop, painted checkerboard, floor shadow, text, watermark or extra figure."
+  }
+]

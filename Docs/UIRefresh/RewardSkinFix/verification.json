@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-08-29T04:38:04.475114+09:00",
+  "unityEditModeChecks": 1271,
+  "visualPreviewResolution": [
+    320,
+    568
+  ],
+  "visuallyChecked": [
+    "offline reward title, duration, amount, coin, separate large buttons",
+    "LD skin cards and enlarged lock badge plus label",
+    "lv01-a/b revised SD on light and dark backgrounds"
+  ],
+  "all96PairedFieldAndCodexRoutesTested": true,
+  "sceneSha256": "3edfcdcf43a7736f6a6f5e187691b92d91129529cfca69fbbc9be41db3bd7b31",
+  "slotPrefabSha256": "d4d3d2727848fc4df3dc52998f8c33c57c6f21ba77812f5569ff7b3af85c5dc4",
+  "persistedPreviewFixtures": 0,
+  "artVerification": "art-verification.json",
+  "scenePreservation": "scene-preservation.json",
+  "limitations": [
+    "Edit-mode verification; no Android device run or real ad playback.",
+    "User Play session was already running on arrival and was stopped before editing. Save was not manually changed and remains unchanged since that stop.",
+    "Original discovery LD animation and level 25+ LD-only behavior are preserved."
+  ]
+}

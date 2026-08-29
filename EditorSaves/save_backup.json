@@ -1,0 +1,149 @@
+{
+    "dataVersion": 5,
+    "codexDiscoveredMask": 7,
+    "ownedSkinIds": [
+        "lv01-a",
+        "lv02-c"
+    ],
+    "equippedSkins": [
+        {
+            "level": 1,
+            "skinId": "lv01-a"
+        }
+    ],
+    "activeMythicFormId": "sakura",
+    "discoveredMythicForms": [],
+    "incomeBoostUntilUtc": 0,
+    "autoMergeOn": false,
+    "autoSpawnOn": false,
+    "gold": 131714.0,
+    "gems": 0,
+    "adsRemoved": 0,
+    "currentTierIndex": 0,
+    "unlockedTierMask": 1,
+    "discoveredMask": 7,
+    "girls": [
+        {
+            "level": 3
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 2
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 2
+        }
+    ],
+    "maxLevelReached": 3,
+    "level25UpgradeLevel": 0,
+    "prestigePoint": 0,
+    "totalPrestigeCount": 0,
+    "manualSpawnMaxUpgrade": 0,
+    "manualSpawnSpeedUpgrade": 0,
+    "autoMergeUpgrade": 0,
+    "autoSpawnUpgrade": 0,
+    "maxFieldCountUpgrade": 0,
+    "clickBonusUpgrade": 0,
+    "offlineRewardUpgrade": 0,
+    "offlineMaxTimeUpgrade": 0,
+    "permanentUpgradeLevels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "summonPurchaseCounts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "gemSummonPurchaseCounts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "legacyXp": 0,
+    "prestigeShopIncomeLv": 0,
+    "prestigeShopTwoStepLv": 0,
+    "prestigeShopStartGoldLv": 0,
+    "prestigeShopPrestigeGainLv": 0,
+    "ppManualSpawnMaxLv": 0,
+    "ppManualSpawnSpeedLv": 0,
+    "ppAutoMergeLv": 0,
+    "ppAutoSpawnLv": 0,
+    "ppMaxFieldCountLv": 0,
+    "ppClickBonusLv": 0,
+    "ppOfflineRewardLv": 0,
+    "ppOfflineMaxTimeLv": 0,
+    "savedAt": "2026-08-29 04:17:58",
+    "languageCode": 1,
+    "usedCoupons": [
+        "return"
+    ],
+    "totalPlayTimeSeconds": 3080.3066201151814,
+    "firstPlayTime": "2025-12-05 13:32:22",
+    "lastPlayTime": "2026-08-29 04:17:58",
+    "level25ReachedCount": 1,
+    "level25ReachedTimes": [
+        "2025-12-09 15:01:59"
+    ],
+    "totalClicks": 326,
+    "totalMerges": 27,
+    "totalSpawns": 68,
+    "totalGoldEarned": 656631567377.0,
+    "totalGoldSpent": 41071600.0,
+    "tutorialCompleted": false
+}

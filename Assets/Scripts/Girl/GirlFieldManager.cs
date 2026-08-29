@@ -24,6 +24,36 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
     public Transform girlRoot;
     public List<GirlCharacter> girlList = new List<GirlCharacter>();
 
+    [Header("Mobile HUD Exclusion")]
+    public RectTransform topHud;
+    public RectTransform bottomHud;
+    readonly Vector3[] hudCorners = new Vector3[4];
+
+    // Coordinates remain relative to the existing girlRoot; no saved levels or merge rules change.
+    public Rect GetMovementBounds(float halfWidth = 150, float halfHeight = 150)
+    {
+        float left = -450, right = 450, bottom = -670, top = 670;
+        if (!girlRoot || (!topHud && !bottomHud)) return Rect.MinMaxRect(left, bottom, right, top);
+        if (topHud && topHud.gameObject.activeInHierarchy)
+        {
+            topHud.GetWorldCorners(hudCorners);
+            top = Mathf.Min(top, girlRoot.InverseTransformPoint(hudCorners[0]).y - halfHeight - 20);
+        }
+        if (bottomHud && bottomHud.gameObject.activeInHierarchy)
+        {
+            bottomHud.GetWorldCorners(hudCorners);
+            bottom = Mathf.Max(bottom, girlRoot.InverseTransformPoint(hudCorners[1]).y + halfHeight + 20);
+        }
+        if (girlRoot is RectTransform rootRect)
+        {
+            left = Mathf.Max(left, rootRect.rect.xMin + halfWidth);
+            right = Mathf.Min(right, rootRect.rect.xMax - halfWidth);
+        }
+        if (top < bottom) top = bottom = (top + bottom) * 0.5f;
+        if (right < left) right = left = (left + right) * 0.5f;
+        return Rect.MinMaxRect(left, bottom, right, top);
+    }
+
     [Header("Tier")]
     [SerializeField] private TierManager tierManager;
     [SerializeField] private Transform activeParent;
@@ -241,7 +271,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         idleTimer += dt;
         if (idleTimer >= idleTickSeconds)
         {
-            double payout = lastComputedPerSec * idleTickSeconds;
+            double payout = lastComputedPerSec * idleTickSeconds * (IncomeActivityManager.Instance ? IncomeActivityManager.Instance.OnlineMultiplier : 1);
             if (payout > 0 && economy != null) economy.AddGold(payout);
             idleTimer -= idleTickSeconds;
         }
@@ -249,7 +279,8 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         // 골드 수익 즉시 갱신
         if (economy != null)
         {
-            economy.SetGoldPerSecEstimate(lastComputedPerSec);
+            double online = IncomeActivityManager.Instance ? IncomeActivityManager.Instance.OnlineMultiplier : 1;
+            economy.SetGoldPerSecEstimate(lastComputedPerSec, online, GetPermanentIncomeMultiplier() * online);
         }
 
         // UI
@@ -281,10 +312,11 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         }
 
         // ◀ 계승(자동) + 상점(구매) 배수 곱 — 외부 매니저가 없어도 안전
-        double mulRank = GetLegacyIncomeMulSafe();
-        double mulShop = GetShopIncomeMulSafe();
-        return sum * mulRank * mulShop;
+        return sum * GetPermanentIncomeMultiplier();
     }
+
+    public double GetPermanentIncomeMultiplier() => GetLegacyIncomeMulSafe() * GetShopIncomeMulSafe()
+        * (CodexCollectionManager.Instance ? CodexCollectionManager.Instance.Multiplier(CodexCollectionManager.Effect.Income) : 1);
 
     // ── 외부 배수/Plus 안전 조회(1회 캐싱) ──
     static Type FindTypeByName(string name)
@@ -485,6 +517,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     public void AcquireLevel25()
     {
+        MythicCollectionManager.Instance?.RegisterCurrentForm();
         level25UpgradeLevel = Mathf.Max(1, level25UpgradeLevel + 1);
         var exist = GetFinalGirl();
         if (exist != null) 
@@ -540,8 +573,8 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         Sprite sprite = null;
         if (spriteLoader != null)
         {
-            // 복원 중일 때는 SD 스프라이트 사용 (발견 애니메이션 없음)
-            sprite = spriteLoader.GetSpriteForData(data, preferLD: _isRestoring ? false : isFirstDiscover);
+            // Field instances start as SD. Only the discovery presentation temporarily uses LD.
+            sprite = spriteLoader.GetFieldSprite(data);
         }
 
         var go = SimpleUIPool.Instance.Get(girlRoot);
@@ -579,7 +612,12 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         Vector3 finalPos = rect != null ? rect.localPosition : go.transform.localPosition;
 
         if (isFirstDiscover)
+        {
             discoveredLevels.Add(level);
+            if (!_isRestoring) CodexCollectionManager.Instance?.RegisterDiscovery(level);
+        }
+        if (level == TierRules.MaxLevel && !_isRestoring)
+            MythicCollectionManager.Instance?.RegisterCurrentForm();
 
         if (allowLDDiscovery)
         {
@@ -683,7 +721,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         girl.SetInputLocked(true);
 
         var rect = (RectTransform)girl.transform;
-        var sd = spriteLoader.GetSpriteForData(data, preferLD: false);
+        var sd = spriteLoader.GetFieldSprite(data);
         var ld = spriteLoader.GetSpriteForData(data, preferLD: true) ?? sd;
 
         var img = girl.GetComponentInChildren<Image>();
@@ -775,6 +813,7 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
             ApplyVisibilityFor(girl);
         SetDiscoverySpotlight(false);
         girl.SetInputLocked(false);
+        girl.RefreshAppearance(spriteLoader.GetFieldSprite(data));
     }
 
     private IEnumerator PlayTierAscendOnly(GirlCharacter girl, Vector3 targetPos, bool resyncVisibilityAfterFx)
@@ -844,6 +883,39 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
         UpdateLevel25Text();
     }
 
+    public void PrepareForPrestige()
+    {
+        // Discovery/merge animations must not respawn a character after the reset.
+        mergeManager?.CancelPendingMerges();
+        StopAllCoroutines();
+        _restoreRoutine = null;
+        _isRestoring = false;
+        spotlightFadeTween?.Kill();
+        if (discoverySpotlightPanel) discoverySpotlightPanel.SetActive(false);
+        HideSpawnReasonImmediate();
+        var snapshot = new List<GirlCharacter>(girlList);
+        foreach (var girl in snapshot) if (girl) RemoveGirl(girl);
+        girlList.Clear();
+        ResetLevel25Progress();
+        RecomputeMaxLevelAndNotify();
+        chargeTimer = autoSpawnTimer = autoMergeTimer = idleTimer = 0f;
+        lastComputedPerSec = 0;
+    }
+
+    public void BeginPrestigeRun()
+    {
+        curSpawnCharge = GetMaxSpawnCharge();
+        // Two starter girls make the next run immediately interactive.
+        if (dataManager != null && dataManager.IsLoaded && SimpleUIPool.Instance != null)
+        {
+            SpawnGirl(1, new Vector3(-150f, 0f, 0f));
+            SpawnGirl(1, new Vector3(150f, 0f, 0f));
+        }
+        UpdateSpawnButtonUI();
+        UpdatePopulationUI();
+        economy?.SetGoldPerSecEstimate(ComputeIdleGoldPerSec());
+    }
+
     private int EstimateLevel25UpgradeLevel(SaveData data)
     {
         if (data == null || data.girls == null) return 0;
@@ -862,9 +934,9 @@ public class GirlFieldManager : MonoBehaviour, ISaveable
 
     private Vector2 GetRandomSpawnPos()
     {
-        // 맵 경계 축소: 기존의 약 70%로 축소
-        float x = URandom.Range(-320f, 320f);  // -350~350 -> -245~245
-        float y = URandom.Range(-500f, 500f);  // -600~600 -> -420~420
+        var bounds = GetMovementBounds();
+        float x = URandom.Range(Mathf.Max(-320, bounds.xMin), Mathf.Min(320, bounds.xMax));
+        float y = URandom.Range(Mathf.Max(-500, bounds.yMin), Mathf.Min(500, bounds.yMax));
         return new Vector2(x, y);
     }
 

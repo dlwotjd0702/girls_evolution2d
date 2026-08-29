@@ -1,0 +1,501 @@
+[
+  {
+    "id": "LD2",
+    "path": "Assets/Art/Characters/LD/2.png",
+    "beforeSha256": "8410f525624daf3a832643fadf4a9686a708dc740d0cbda3a031d58eb2f18aa6",
+    "afterSha256": "e5957d4cbe8905fa2e733a0a1ce25f353a019fd38b6cd0b239accb40a5535662",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 110,
+    "selectedComponents": [
+      {
+        "component": 10,
+        "xywh": [
+          582,
+          274,
+          3,
+          5
+        ],
+        "area": 7
+      },
+      {
+        "component": 11,
+        "xywh": [
+          652,
+          274,
+          4,
+          5
+        ],
+        "area": 8
+      },
+      {
+        "component": 13,
+        "xywh": [
+          683,
+          471,
+          2,
+          7
+        ],
+        "area": 10
+      },
+      {
+        "component": 14,
+        "xywh": [
+          683,
+          480,
+          3,
+          11
+        ],
+        "area": 22
+      },
+      {
+        "component": 15,
+        "xywh": [
+          685,
+          499,
+          3,
+          9
+        ],
+        "area": 14
+      }
+    ],
+    "applied": true
+  },
+  {
+    "id": "LD10",
+    "path": "Assets/Art/Characters/LD/10.png",
+    "beforeSha256": "fd3f54bb72b0ff919064cd88ae322070b7b4bfac8436ecf834e1a77bc4924a77",
+    "afterSha256": "900d3de92ab3167ab77284838be1c9894f030de36d04d696173f2029d5da5e97",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 91,
+    "selectedComponents": [
+      {
+        "component": 29,
+        "xywh": [
+          562,
+          241,
+          6,
+          8
+        ],
+        "area": 22
+      },
+      {
+        "component": 30,
+        "xywh": [
+          570,
+          243,
+          4,
+          6
+        ],
+        "area": 12
+      },
+      {
+        "component": 33,
+        "xywh": [
+          663,
+          244,
+          2,
+          4
+        ],
+        "area": 5
+      },
+      {
+        "component": 34,
+        "xywh": [
+          581,
+          247,
+          2,
+          2
+        ],
+        "area": 3
+      },
+      {
+        "component": 38,
+        "xywh": [
+          575,
+          248,
+          3,
+          3
+        ],
+        "area": 6
+      },
+      {
+        "component": 44,
+        "xywh": [
+          659,
+          251,
+          4,
+          5
+        ],
+        "area": 10
+      }
+    ],
+    "applied": true
+  },
+  {
+    "id": "LD14",
+    "path": "Assets/Art/Characters/LD/14.png",
+    "beforeSha256": "deeb4893965ed27312b233fddf5c16f1fd7f68946dbd463284e59153aeb62f66",
+    "afterSha256": "a78dd2e83b056f8451fe62c5caa8798aab9773e6fede6b7cda7cf3ef4c47d58e",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 1974,
+    "selectedComponents": [
+      {
+        "component": 154,
+        "xywh": [
+          738,
+          494,
+          70,
+          75
+        ],
+        "area": 1802
+      }
+    ],
+    "applied": true
+  },
+  {
+    "id": "LD16",
+    "path": "Assets/Art/Characters/LD/16.png",
+    "beforeSha256": "bda30a7d1806b4fd5221997e19e3bb7052122022d72a770146a53520a69ef7d8",
+    "afterSha256": "beffbcfe70fcd5acda462f9d8983032fb1321961a77a6a3a9c0bbfb3ea507a5c",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 247,
+    "selectedComponents": [
+      {
+        "component": 10,
+        "xywh": [
+          736,
+          189,
+          8,
+          20
+        ],
+        "area": 100
+      },
+      {
+        "component": 22,
+        "xywh": [
+          553,
+          243,
+          6,
+          9
+        ],
+        "area": 21
+      },
+      {
+        "component": 23,
+        "xywh": [
+          563,
+          243,
+          8,
+          9
+        ],
+        "area": 32
+      }
+    ],
+    "applied": true
+  },
+  {
+    "id": "LD20",
+    "path": "Assets/Art/Characters/LD/20.png",
+    "beforeSha256": "be0537371d988a9fb45a645b64e9c94ad880ceed32e8b5faf0b1da5c8fafc915",
+    "afterSha256": "8aa331306006aeffeaa013062045f21392c55af55dbb258f905bd95c9bc842fe",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 2268,
+    "selectedComponents": [
+      {
+        "component": 630,
+        "xywh": [
+          170,
+          618,
+          60,
+          95
+        ],
+        "area": 1020
+      }
+    ],
+    "applied": true
+  },
+  {
+    "id": "LD24",
+    "path": "Assets/Art/Characters/LD/24.png",
+    "beforeSha256": "b01510fecb7697f679a09be5efa50b9ed46f5428203639d21f0c803253308a83",
+    "afterSha256": "3baecc44926ac0e771ff5c05b06d328013e8be182f7c01d1f348f69a3cd31b8e",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 278,
+    "selectedComponents": [],
+    "applied": true
+  },
+  {
+    "id": "lv01-a",
+    "path": "Assets/Art/Characters/Skins/lv01-a-LD.png",
+    "beforeSha256": "2f1dca8107fd19080c8cfad6b07b9c6ceb4cd1b1b9f11ca5d6b156477375622a",
+    "afterSha256": "d2d82c108ac10fb66dbd9c71a7b35e19ac42d7e6314f459c16e41ab192abb58d",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 451,
+    "selectedComponents": [
+      {
+        "component": 76,
+        "xywh": [
+          411,
+          181,
+          14,
+          10
+        ],
+        "area": 27
+      },
+      {
+        "component": 79,
+        "xywh": [
+          470,
+          184,
+          12,
+          6
+        ],
+        "area": 24
+      },
+      {
+        "component": 80,
+        "xywh": [
+          478,
+          187,
+          12,
+          15
+        ],
+        "area": 52
+      },
+      {
+        "component": 81,
+        "xywh": [
+          407,
+          188,
+          4,
+          7
+        ],
+        "area": 14
+      },
+      {
+        "component": 92,
+        "xywh": [
+          422,
+          199,
+          5,
+          3
+        ],
+        "area": 10
+      },
+      {
+        "component": 95,
+        "xywh": [
+          476,
+          201,
+          2,
+          3
+        ],
+        "area": 3
+      }
+    ],
+    "applied": true
+  },
+  {
+    "id": "lv01-b",
+    "path": "Assets/Art/Characters/Skins/lv01-b-LD.png",
+    "beforeSha256": "e42fe8ec139361c1076a060086b120f27abbf0c017b138ab62013008b3f91e1c",
+    "afterSha256": "277412e48396add65cb7d8ec5848e0c4356a0cc0a568327742a4f415aaac1777",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 598,
+    "selectedComponents": [
+      {
+        "component": 141,
+        "xywh": [
+          521,
+          293,
+          4,
+          17
+        ],
+        "area": 33
+      },
+      {
+        "component": 150,
+        "xywh": [
+          520,
+          319,
+          4,
+          12
+        ],
+        "area": 33
+      },
+      {
+        "component": 164,
+        "xywh": [
+          528,
+          362,
+          5,
+          9
+        ],
+        "area": 22
+      },
+      {
+        "component": 171,
+        "xywh": [
+          533,
+          377,
+          4,
+          21
+        ],
+        "area": 61
+      },
+      {
+        "component": 184,
+        "xywh": [
+          366,
+          419,
+          14,
+          28
+        ],
+        "area": 97
+      },
+      {
+        "component": 288,
+        "xywh": [
+          457,
+          621,
+          5,
+          27
+        ],
+        "area": 85
+      },
+      {
+        "component": 313,
+        "xywh": [
+          431,
+          677,
+          4,
+          7
+        ],
+        "area": 17
+      }
+    ],
+    "applied": true
+  },
+  {
+    "id": "lv04-a",
+    "path": "Assets/Art/Characters/Skins/lv04-a-LD.png",
+    "beforeSha256": "5c768fade6b495a0b4d18209556abd6580f10f29a10a18744397f626e21f6956",
+    "afterSha256": "5d6697cab2554c154db35b776617cf774d81f4e884d19d5cd99e672f99711a8b",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 730,
+    "selectedComponents": [
+      {
+        "component": 37,
+        "xywh": [
+          411,
+          162,
+          9,
+          28
+        ],
+        "area": 147
+      },
+      {
+        "component": 59,
+        "xywh": [
+          576,
+          207,
+          6,
+          13
+        ],
+        "area": 39
+      },
+      {
+        "component": 62,
+        "xywh": [
+          558,
+          209,
+          8,
+          8
+        ],
+        "area": 29
+      },
+      {
+        "component": 63,
+        "xywh": [
+          424,
+          210,
+          2,
+          7
+        ],
+        "area": 8
+      },
+      {
+        "component": 68,
+        "xywh": [
+          561,
+          218,
+          7,
+          13
+        ],
+        "area": 29
+      },
+      {
+        "component": 122,
+        "xywh": [
+          541,
+          343,
+          6,
+          11
+        ],
+        "area": 44
+      },
+      {
+        "component": 134,
+        "xywh": [
+          545,
+          366,
+          8,
+          9
+        ],
+        "area": 39
+      },
+      {
+        "component": 166,
+        "xywh": [
+          550,
+          408,
+          8,
+          18
+        ],
+        "area": 72
+      }
+    ],
+    "applied": true
+  },
+  {
+    "id": "rose-oath",
+    "path": "Assets/Art/Characters/Skins/rose-oath-LD.png",
+    "beforeSha256": "441c7d43fe51ea063dedfc90dd113477eda47cffa9635d0f30ed56c5bcbc518e",
+    "afterSha256": "7ef0eab710149904d65c6d84e8173a3b2a848f5f3f1d928194a79a52e61870cf",
+    "rgbUnchanged": true,
+    "changedAlphaPixels": 6165,
+    "selectedComponents": [
+      {
+        "component": 193,
+        "xywh": [
+          570,
+          249,
+          92,
+          96
+        ],
+        "area": 4876
+      },
+      {
+        "component": 284,
+        "xywh": [
+          577,
+          317,
+          78,
+          59
+        ],
+        "area": 1044
+      }
+    ],
+    "applied": true
+  }
+]

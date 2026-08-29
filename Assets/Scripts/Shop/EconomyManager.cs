@@ -75,14 +75,20 @@ public class EconomyManager : MonoBehaviour, ISaveable
 
     // 내부: /s 추정치 (필드매니저가 필요 시 세팅)
     private double _goldPerSecEstimate;
+    private double _onlineDisplayMultiplier = 1;
+    private double _totalDisplayMultiplier = 1;
 
     public double GetGoldPerSecEstimate() => _goldPerSecEstimate;
 
-    public void SetGoldPerSecEstimate(double v)
+    public void SetGoldPerSecEstimate(double v, double onlineDisplayMultiplier = 1, double totalDisplayMultiplier = -1)
     {
         v = Math.Max(0, v);
-        if (Math.Abs(_goldPerSecEstimate - v) < 1e-9) return; // 바뀔 때만
+        if (totalDisplayMultiplier < 0) totalDisplayMultiplier = onlineDisplayMultiplier;
+        if (Math.Abs(_goldPerSecEstimate - v) < 1e-9 && Math.Abs(_onlineDisplayMultiplier - onlineDisplayMultiplier) < 1e-9
+            && Math.Abs(_totalDisplayMultiplier - totalDisplayMultiplier) < 1e-9) return;
         _goldPerSecEstimate = v;
+        _onlineDisplayMultiplier = onlineDisplayMultiplier;
+        _totalDisplayMultiplier = totalDisplayMultiplier;
         RefreshGoldHUD();
     }
 
@@ -145,7 +151,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
             if (show)
             {
                 string plus = showPlusOnPerSec ? "+" : "";
-                goldPerSecText.text = $"{plus}{FormatCompact(_goldPerSecEstimate, 1)}/s";
+                goldPerSecText.text = $"{plus}{FormatCompact(_goldPerSecEstimate * _onlineDisplayMultiplier, 1)}/s (×{_totalDisplayMultiplier * 100:0.##}%)";
             }
         }
     }
@@ -220,6 +226,61 @@ public class EconomyManager : MonoBehaviour, ISaveable
     readonly int[] summonPurchaseCounts = new int[25];
     readonly int[] gemSummonPurchaseCounts = new int[25]; // 보석 소환 횟수 추적
 
+    // Save format: never reorder these values.
+    public enum UpgradeKind { ManualSpawnMax, ManualSpawnSpeed, FieldMax, ClickBonus,
+        OfflineReward, OfflineMaxTime, AutoMerge, AutoSpawn }
+    readonly int[] permanentUpgradeLevels = new int[8];
+
+    int[] CurrentUpgradeLevels() => new[] { manualSpawnMaxUpgrade, manualSpawnSpeedUpgrade,
+        maxFieldCountUpgrade, clickBonusUpgrade, offlineRewardUpgrade, offlineMaxTimeUpgrade,
+        autoMergeUpgrade, autoSpawnUpgrade };
+
+    public int GetPermanentUpgradeLevel(UpgradeKind kind) => permanentUpgradeLevels[(int)kind];
+
+    public int GetResettableUpgradeLevels()
+    {
+        var levels = CurrentUpgradeLevels();
+        int count = 0;
+        for (int i = 0; i < levels.Length; i++) count += Math.Max(0, levels[i] - permanentUpgradeLevels[i]);
+        return count;
+    }
+
+    // Currency is charged by the shop. This path must NEVER spend gold.
+    public bool TryBuyUpgradeWithGems(UpgradeKind kind)
+    {
+        switch (kind)
+        {
+            case UpgradeKind.ManualSpawnMax:
+                if (manualSpawnMaxUpgrade >= spawnMaxUpgradeCap) return false;
+                manualSpawnMaxUpgrade++; break;
+            case UpgradeKind.ManualSpawnSpeed:
+                if (manualSpawnSpeedUpgrade >= spawnSpeedUpgradeCap) return false;
+                manualSpawnSpeedUpgrade++; break;
+            case UpgradeKind.FieldMax:
+                if (maxFieldCountUpgrade >= fieldMaxUpgradeCap) return false;
+                maxFieldCountUpgrade++; break;
+            case UpgradeKind.ClickBonus:
+                if (clickBonusUpgrade >= clickBonusUpgradeCap) return false;
+                clickBonusUpgrade++; break;
+            case UpgradeKind.OfflineReward:
+                if (offlineRewardUpgrade >= offlineRewardCap) return false;
+                offlineRewardUpgrade++; break;
+            case UpgradeKind.OfflineMaxTime:
+                if (offlineMaxTimeUpgrade >= offlineMaxTimeCap) return false;
+                offlineMaxTimeUpgrade++; break;
+            case UpgradeKind.AutoMerge:
+                if (autoMergeUpgrade >= autoMergeCap) return false;
+                autoMergeUpgrade++; break;
+            case UpgradeKind.AutoSpawn:
+                if (autoSpawnUpgrade >= autoSpawnCap) return false;
+                autoSpawnUpgrade++; break;
+            default: return false;
+        }
+        permanentUpgradeLevels[(int)kind]++;
+        OnUpgradeChanged?.Invoke();
+        return true;
+    }
+
     // ───────── 수익/소환가 규칙 ─────────
     public double GetLevelIncomePerSec(int level)
     {
@@ -275,6 +336,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
     public float GetManualSpawnInterval() {
         float iv = baseManualSpawnInterval * Mathf.Pow(0.9f, manualSpawnSpeedUpgrade);
         try { iv *= (float)PrestigeManager.Instance.GetManualSpawnIntervalMul(); } catch {}
+        iv /= CollectionSpeed(CodexCollectionManager.Effect.SpawnSpeed);
         return iv;
     }
 
@@ -288,6 +350,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
         // 클릭 보너스: 10% + 강화 레벨 × 1%
         double basePercent = 0.10 + (clickBonusUpgrade * CLICK_BONUS_PER_LEVEL);
         try { basePercent *= PrestigeManager.Instance.GetClickBonusMul(); } catch {}
+        if (CodexCollectionManager.Instance) basePercent *= CodexCollectionManager.Instance.Multiplier(CodexCollectionManager.Effect.ClickIncome);
         return basePercent;
     }
 
@@ -302,6 +365,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
         float iv=autoMergeBaseInterval*Mathf.Pow(autoPerLevelMul, lv-1);
         iv = Mathf.Max(autoIntervalFloor, iv);
         try { iv *= (float)PrestigeManager.Instance.GetAutoMergeIntervalMul(); } catch {}
+        iv /= CollectionSpeed(CodexCollectionManager.Effect.MergeSpeed);
         return iv;
     }
 
@@ -311,6 +375,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
         float iv=autoSpawnBaseInterval*Mathf.Pow(autoPerLevelMul, lv-1);
         iv = Mathf.Max(autoIntervalFloor, iv);
         try { iv *= (float)PrestigeManager.Instance.GetAutoSpawnIntervalMul(); } catch {}
+        iv /= CollectionSpeed(CodexCollectionManager.Effect.SpawnSpeed);
         return iv;
     }
 
@@ -321,6 +386,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
         float iv = autoMergeBaseInterval * Mathf.Pow(autoPerLevelMul, lv - 1);
         iv = Mathf.Max(autoIntervalFloor, iv);
         try { iv *= (float)PrestigeManager.Instance.GetAutoMergeIntervalMul(); } catch {}
+        iv /= CollectionSpeed(CodexCollectionManager.Effect.MergeSpeed);
         return iv;
     }
 
@@ -330,6 +396,7 @@ public class EconomyManager : MonoBehaviour, ISaveable
         float iv = autoSpawnBaseInterval * Mathf.Pow(autoPerLevelMul, lv - 1);
         iv = Mathf.Max(autoIntervalFloor, iv);
         try { iv *= (float)PrestigeManager.Instance.GetAutoSpawnIntervalMul(); } catch {}
+        iv /= CollectionSpeed(CodexCollectionManager.Effect.SpawnSpeed);
         return iv;
     }
 
@@ -338,6 +405,9 @@ public class EconomyManager : MonoBehaviour, ISaveable
         try { mul *= PrestigeManager.Instance.GetOfflineRewardMul(); } catch {}
         return mul;
     }
+
+    static float CollectionSpeed(CodexCollectionManager.Effect effect) => CodexCollectionManager.Instance
+        ? (float)CodexCollectionManager.Instance.Multiplier(effect) : 1;
 
     public double GetOfflineMaxSeconds() {
         double sec = (2.0 + offlineMaxTimeUpgrade * 0.5) * 3600.0;
@@ -415,23 +485,18 @@ public class EconomyManager : MonoBehaviour, ISaveable
     // 보석 구매 전용 메서드 (골드 차감 없이 레벨만 증가)
     public bool TryBuyAutoMergeUpgradeWithGems()
     {
-        if (autoMergeUpgrade >= autoMergeCap) return false;
-        autoMergeUpgrade = Mathf.Max(0, autoMergeUpgrade) + 1;
-        OnUpgradeChanged?.Invoke();
-        return true;
+        return TryBuyUpgradeWithGems(UpgradeKind.AutoMerge);
     }
 
     public bool TryBuyAutoSpawnUpgradeWithGems()
     {
-        if (autoSpawnUpgrade >= autoSpawnCap) return false;
-        autoSpawnUpgrade = Mathf.Max(0, autoSpawnUpgrade) + 1;
-        OnUpgradeChanged?.Invoke();
-        return true;
+        return TryBuyUpgradeWithGems(UpgradeKind.AutoSpawn);
     }
 
     // ───────── Save / Load ─────────
     public void CollectSaveData(SaveData d)
     {
+        d.permanentUpgradeLevels = (int[])permanentUpgradeLevels.Clone();
         d.gold = gold;
 
         d.manualSpawnMaxUpgrade   = manualSpawnMaxUpgrade;
@@ -459,18 +524,28 @@ public class EconomyManager : MonoBehaviour, ISaveable
     {
         gold = d.gold;
 
-        manualSpawnMaxUpgrade   = Mathf.Max(0,d.manualSpawnMaxUpgrade);
-        manualSpawnSpeedUpgrade = Mathf.Max(0,d.manualSpawnSpeedUpgrade);
+        manualSpawnMaxUpgrade   = Mathf.Clamp(d.manualSpawnMaxUpgrade, 0, spawnMaxUpgradeCap);
+        manualSpawnSpeedUpgrade = Mathf.Clamp(d.manualSpawnSpeedUpgrade, 0, spawnSpeedUpgradeCap);
         maxFieldCountUpgrade    = Mathf.Clamp(d.maxFieldCountUpgrade, 0, fieldMaxUpgradeCap);
-        clickBonusUpgrade       = Mathf.Max(0,d.clickBonusUpgrade);
+        clickBonusUpgrade       = Mathf.Clamp(d.clickBonusUpgrade, 0, clickBonusUpgradeCap);
 
-        autoMergeUpgrade = Mathf.Max(0,d.autoMergeUpgrade);
-        autoSpawnUpgrade = Mathf.Max(0,d.autoSpawnUpgrade);
+        autoMergeUpgrade = Mathf.Clamp(d.autoMergeUpgrade, 0, autoMergeCap);
+        autoSpawnUpgrade = Mathf.Clamp(d.autoSpawnUpgrade, 0, autoSpawnCap);
         autoMergeOn      = d.autoMergeOn;
         autoSpawnOn      = d.autoSpawnOn;
 
-        offlineRewardUpgrade  = Mathf.Max(0,d.offlineRewardUpgrade);
-        offlineMaxTimeUpgrade = Mathf.Max(0,d.offlineMaxTimeUpgrade);
+        offlineRewardUpgrade  = Mathf.Clamp(d.offlineRewardUpgrade, 0, offlineRewardCap);
+        offlineMaxTimeUpgrade = Mathf.Clamp(d.offlineMaxTimeUpgrade, 0, offlineMaxTimeCap);
+
+        var levels = CurrentUpgradeLevels();
+        for (int i = 0; i < permanentUpgradeLevels.Length; i++)
+        {
+            // Old saves cannot distinguish paid purchases. Grandfather existing levels
+            // rather than destroying a potentially purchased entitlement on prestige.
+            bool legacy = d.permanentUpgradeLevels == null;
+            int saved = legacy ? levels[i] : (i < d.permanentUpgradeLevels.Length ? d.permanentUpgradeLevels[i] : 0);
+            permanentUpgradeLevels[i] = Mathf.Clamp(saved, 0, levels[i]);
+        }
 
         if(d.summonPurchaseCounts!=null && d.summonPurchaseCounts.Length==25) Array.Copy(d.summonPurchaseCounts, summonPurchaseCounts, 25);
         
@@ -488,9 +563,16 @@ public class EconomyManager : MonoBehaviour, ISaveable
     // ───────── Prestige Reset ─────────
     public void ResetGoldUpgradesForPrestige()
     {
-        manualSpawnMaxUpgrade=0; manualSpawnSpeedUpgrade=0; maxFieldCountUpgrade=0; clickBonusUpgrade=0;
-        autoMergeUpgrade=0; autoSpawnUpgrade=0; autoMergeOn=false; autoSpawnOn=false;
-        offlineRewardUpgrade=0; offlineMaxTimeUpgrade=0;
+        manualSpawnMaxUpgrade = permanentUpgradeLevels[0];
+        manualSpawnSpeedUpgrade = permanentUpgradeLevels[1];
+        maxFieldCountUpgrade = permanentUpgradeLevels[2];
+        clickBonusUpgrade = permanentUpgradeLevels[3];
+        offlineRewardUpgrade = permanentUpgradeLevels[4];
+        offlineMaxTimeUpgrade = permanentUpgradeLevels[5];
+        autoMergeUpgrade = permanentUpgradeLevels[6];
+        autoSpawnUpgrade = permanentUpgradeLevels[7];
+        autoMergeOn &= autoMergeUpgrade > 0;
+        autoSpawnOn &= autoSpawnUpgrade > 0;
         Array.Clear(summonPurchaseCounts,0,summonPurchaseCounts.Length);
         Array.Clear(gemSummonPurchaseCounts,0,gemSummonPurchaseCounts.Length);
         OnUpgradeChanged?.Invoke();

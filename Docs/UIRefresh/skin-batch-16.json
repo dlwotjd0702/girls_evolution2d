@@ -1,0 +1,1103 @@
+{
+  "batch": "2026-08-29-16",
+  "method": "Built-in imagegen; authorized alpha-only extraction; matched SD/LD.",
+  "items": [
+    {
+      "id": "lv23-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-60fa6bd7-26b3-4fe1-b723-ee99640ffedf.png",
+      "half": null,
+      "holes": [
+        735,
+        818
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body SD female ninja cosmetic sprite. Original SD reference1 defines exact recognizable facial identity, age presentation, original SD proportions and stance. Original LD reference2 confirms details. New costume Crimson Lotus Crown: crimson and ivory armor, gold lotus clasps and short waist cape. Keep original short silver-white bob with longer white rear locks, ruby eyes, original silver/red hair ornament. One ornate floating red crystal orb above open canvas LEFT palm, other hand rests on hip. No sword. Keep natural expressive anime face, clean dark contours, cel shading. Full hair, capes, both toes and every blade tip inside 6 percent empty margin. Actual transparent RGBA with internal gaps. No painted checkerboard, opaque backdrop, ground shadow, labels or extra figure.",
+      "approved": true,
+      "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-0d7834a1-d899-427e-84a4-761a84bccdcc.png",
+      "correctionPrompt": "Identity-preserve costume correction of this exact SD female ninja. Keep her exact face, red eyes, white bob and long rear white hair, silver/red hair ornament, age presentation, pose and red floating crystal orb. Replace costume with a CLEARLY DISTINCT Crimson Lotus Crown skin: fitted high-collar crimson combat tunic with full ivory sleeves, gold lotus-shaped shoulder clasps and belt medallion, short symmetrical layered crimson waist cape with large gold lotus embroidery, fitted dark crimson leggings and ivory-gold armored boots. No red-and-silver original shoulder spikes or original long split cloak. She is fully dressed in this elegant new ninja outfit. Same hand pose open left palm with one red crystal orb, other hand on hip. Natural SD proportions of reference. Flat cel shading and dark outlines; NOT realistic. Full body and hair fully visible with 6 percent margin. Plain pure white backdrop without lighting gradient, vignette, shadows or checkerboard; isolate every internal hair/arm gap in white for extraction.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            880,
+            506
+          ],
+          [
+            580,
+            574
+          ]
+        ],
+        "opaque": [
+          [
+            492,
+            216
+          ],
+          [
+            835,
+            519
+          ],
+          [
+            924,
+            556
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv23-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-fb2e1e2d-5db3-49f1-a0cd-f29888596a19.png",
+      "half": null,
+      "holes": [
+        681,
+        705
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 approved new SD defines EXACT outfit, sleeve shapes, cape construction, colors, ornaments and boots. Image2 ORIGINAL LD defines natural LD proportions, recognizable face, age presentation and original pose. Copy image1 costume exactly, not original costume. Match SD NEW crimson high-collar combat tunic, ivory detached long sleeves with gold lotus clasps, gold lotus belt medallion, layered short lotus-embroidered waist cape, fitted dark-crimson leggings, ivory-gold armored boots. No original long split cloak or spiky red-silver pauldrons. Keep white bob with longer flowing rear white hair, red eyes, silver/red hair ornament. One ornate red orb above open canvas LEFT palm, other hand on hip. Natural articulated hands with correct grip, detailed cel shading, crisp dark anime outlines. Preserve identity, no generic doll face. Complete hair, both feet and every blade tip inside 6 percent blank margin. Plain pure white background with no shadows, vignette, lighting gradients, checkerboard, text or extra figure; keep internal gaps pure white for later transparent extraction.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            580,
+            499
+          ],
+          [
+            859,
+            478
+          ]
+        ],
+        "opaque": [
+          [
+            487,
+            642
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv24-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1dd9b2f7-5806-4f3e-8a03-9978c263e15c.png",
+      "half": null,
+      "holes": [
+        12,
+        27,
+        41,
+        69,
+        78,
+        110,
+        111,
+        119,
+        128,
+        142,
+        192,
+        222,
+        250,
+        270,
+        735,
+        765,
+        772
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body SD female ninja cosmetic sprite. Original SD reference1 defines exact recognizable facial identity, age presentation, original SD proportions and stance. Original LD reference2 confirms details. New costume Golden Lotus: white and antique-gold ceremonial longcoat with lotus motif and elegant sash. Keep original dark violet long flowing hair, heterochromia: canvas LEFT eye ruby red, canvas RIGHT eye purple violet, original serious face. Preserve original SD pose and TWO swords: canvas RIGHT hand raised near shoulder holding red-wrapped hilt, its blade mostly obscured behind body and hair; canvas LEFT hand lowered at hip holding a single exposed dark-steel blade pointing diagonally lower LEFT. Exactly TWO weapons, no third sword or extra hilt. Red weapon cords. Naturally formed hands grip handles correctly. Keep natural expressive anime face, clean dark contours, cel shading. Full hair, capes, both toes and every blade tip inside 6 percent empty margin. Actual transparent RGBA with internal gaps. No painted checkerboard, opaque backdrop, ground shadow, labels or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            744,
+            281
+          ],
+          [
+            419,
+            359
+          ],
+          [
+            862,
+            384
+          ],
+          [
+            375,
+            419
+          ],
+          [
+            907,
+            452
+          ],
+          [
+            960,
+            497
+          ],
+          [
+            432,
+            488
+          ],
+          [
+            882,
+            486
+          ],
+          [
+            904,
+            518
+          ],
+          [
+            325,
+            604
+          ],
+          [
+            923,
+            582
+          ],
+          [
+            739,
+            616
+          ],
+          [
+            914,
+            686
+          ],
+          [
+            761,
+            648
+          ],
+          [
+            535,
+            969
+          ],
+          [
+            747,
+            1036
+          ],
+          [
+            447,
+            1024
+          ]
+        ],
+        "opaque": [
+          [
+            560,
+            710
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv24-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-17df357f-5336-4fa8-9bff-866fe929bc68.png",
+      "half": null,
+      "holes": [
+        10,
+        15,
+        39,
+        54,
+        63,
+        137,
+        147,
+        152,
+        169,
+        178,
+        185,
+        192,
+        229,
+        232,
+        270,
+        286,
+        345,
+        358,
+        373,
+        379,
+        385,
+        401,
+        423,
+        475,
+        521,
+        542,
+        563,
+        592,
+        609,
+        614,
+        617,
+        662
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 approved new SD defines EXACT outfit, sleeve shapes, cape construction, colors, ornaments and boots. Image2 ORIGINAL LD defines natural LD proportions, recognizable face, age presentation and original pose. Copy image1 costume exactly, not original costume. Keep original dark-violet long hair. Heterochromia: canvas LEFT eye ruby red, canvas RIGHT eye violet purple. Exactly TWO swords in original LD pose: canvas RIGHT hand raised near shoulder grips red-wrapped hilt of sword with its blade behind body/hair, mostly occluded; canvas LEFT hand lowered at hip grips second exposed dark-steel sword blade pointing diagonally lower LEFT. No third sword/hilt. Match SD red cords, cyan hanging crystals and exact shoulder and waist ornaments. Natural articulated hands with correct grip, detailed cel shading, crisp dark anime outlines. Preserve identity, no generic doll face. Complete hair, both feet and every blade tip inside 6 percent blank margin. Plain pure white background with no shadows, vignette, lighting gradients, checkerboard, text or extra figure; keep internal gaps pure white for later transparent extraction.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            410,
+            243
+          ],
+          [
+            659,
+            267
+          ],
+          [
+            322,
+            360
+          ],
+          [
+            794,
+            382
+          ],
+          [
+            703,
+            344
+          ],
+          [
+            249,
+            413
+          ],
+          [
+            777,
+            415
+          ],
+          [
+            821,
+            460
+          ],
+          [
+            269,
+            457
+          ],
+          [
+            570,
+            470
+          ],
+          [
+            231,
+            486
+          ],
+          [
+            246,
+            620
+          ],
+          [
+            873,
+            521
+          ],
+          [
+            816,
+            566
+          ],
+          [
+            650,
+            585
+          ],
+          [
+            250,
+            552
+          ],
+          [
+            677,
+            625
+          ],
+          [
+            819,
+            639
+          ],
+          [
+            96,
+            650
+          ],
+          [
+            916,
+            658
+          ],
+          [
+            950,
+            709
+          ],
+          [
+            401,
+            647
+          ],
+          [
+            831,
+            729
+          ],
+          [
+            310,
+            731
+          ],
+          [
+            852,
+            780
+          ],
+          [
+            213,
+            774
+          ],
+          [
+            203,
+            787
+          ],
+          [
+            285,
+            821
+          ],
+          [
+            967,
+            873
+          ],
+          [
+            214,
+            881
+          ],
+          [
+            270,
+            830
+          ],
+          [
+            237,
+            883
+          ]
+        ],
+        "opaque": [
+          [
+            688,
+            870
+          ],
+          [
+            734,
+            664
+          ],
+          [
+            953,
+            907
+          ],
+          [
+            838,
+            1079
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv24-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-b4e42deb-cb65-4eca-a1a9-ccd6cef1c387.png",
+      "half": null,
+      "holes": [
+        16,
+        37,
+        61,
+        89,
+        98,
+        102,
+        107,
+        147,
+        153,
+        155,
+        159,
+        165,
+        243,
+        287
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body SD female ninja cosmetic sprite. Original SD reference1 defines exact recognizable facial identity, age presentation, original SD proportions and stance. Original LD reference2 confirms details. New costume Astral Verdict: midnight navy and violet celestial armor over modest full-body suit with cyan gem trim. Keep original dark violet long flowing hair, heterochromia: canvas LEFT eye ruby red, canvas RIGHT eye purple violet, original serious face. Preserve original SD pose and TWO swords: canvas RIGHT hand raised near shoulder holding red-wrapped hilt, its blade mostly obscured behind body and hair; canvas LEFT hand lowered at hip holding a single exposed dark-steel blade pointing diagonally lower LEFT. Exactly TWO weapons, no third sword or extra hilt. Red weapon cords. Naturally formed hands grip handles correctly. Keep natural expressive anime face, clean dark contours, cel shading. Full hair, capes, both toes and every blade tip inside 6 percent empty margin. Actual transparent RGBA with internal gaps. No painted checkerboard, opaque backdrop, ground shadow, labels or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            775,
+            318
+          ],
+          [
+            422,
+            360
+          ],
+          [
+            918,
+            416
+          ],
+          [
+            437,
+            510
+          ],
+          [
+            953,
+            586
+          ],
+          [
+            350,
+            567
+          ],
+          [
+            414,
+            566
+          ],
+          [
+            319,
+            644
+          ],
+          [
+            887,
+            645
+          ],
+          [
+            407,
+            637
+          ],
+          [
+            366,
+            666
+          ],
+          [
+            396,
+            656
+          ],
+          [
+            279,
+            931
+          ],
+          [
+            896,
+            1095
+          ]
+        ],
+        "opaque": [
+          [
+            682,
+            540
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv24-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-196cfdfe-fc80-4236-b806-e82f4258a144.png",
+      "half": null,
+      "holes": [
+        12,
+        17,
+        42,
+        68,
+        85,
+        119,
+        121,
+        147,
+        153,
+        170,
+        178,
+        184,
+        210,
+        252,
+        266
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 approved new SD defines EXACT outfit, sleeve shapes, cape construction, colors, ornaments and boots. Image2 ORIGINAL LD defines natural LD proportions, recognizable face, age presentation and original pose. Copy image1 costume exactly, not original costume. Keep original dark-violet long hair. Heterochromia: canvas LEFT eye ruby red, canvas RIGHT eye violet purple. Exactly TWO swords in original LD pose: canvas RIGHT hand raised near shoulder grips red-wrapped hilt of sword with its blade behind body/hair, mostly occluded; canvas LEFT hand lowered at hip grips second exposed dark-steel sword blade pointing diagonally lower LEFT. No third sword/hilt. Match SD red cords, cyan hanging crystals and exact shoulder and waist ornaments. Natural articulated hands with correct grip, detailed cel shading, crisp dark anime outlines. Preserve identity, no generic doll face. Complete hair, both feet and every blade tip inside 6 percent blank margin. Plain pure white background with no shadows, vignette, lighting gradients, checkerboard, text or extra figure; keep internal gaps pure white for later transparent extraction.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            457,
+            253
+          ],
+          [
+            679,
+            271
+          ],
+          [
+            377,
+            359
+          ],
+          [
+            724,
+            344
+          ],
+          [
+            728,
+            382
+          ],
+          [
+            404,
+            506
+          ],
+          [
+            292,
+            486
+          ],
+          [
+            846,
+            576
+          ],
+          [
+            294,
+            558
+          ],
+          [
+            163,
+            637
+          ],
+          [
+            953,
+            692
+          ],
+          [
+            894,
+            708
+          ],
+          [
+            980,
+            740
+          ],
+          [
+            989,
+            846
+          ],
+          [
+            1017,
+            919
+          ]
+        ],
+        "opaque": [
+          [
+            597,
+            608
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv24-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1b4aec4d-44d1-41e0-b066-62514745dbdd.png",
+      "half": null,
+      "holes": [
+        17,
+        29,
+        36,
+        39,
+        43,
+        44,
+        48,
+        51,
+        53,
+        55,
+        74,
+        78
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body SD female ninja cosmetic sprite. Original SD reference1 defines exact recognizable facial identity, age presentation, original SD proportions and stance. Original LD reference2 confirms details. New costume Violet Cloud Heir: violet and charcoal heir armor, gold cloud-pattern shoulder mantle. Keep original dark violet long flowing hair, heterochromia: canvas LEFT eye ruby red, canvas RIGHT eye purple violet, original serious face. Preserve original SD pose and TWO swords: canvas RIGHT hand raised near shoulder holding red-wrapped hilt, its blade mostly obscured behind body and hair; canvas LEFT hand lowered at hip holding a single exposed dark-steel blade pointing diagonally lower LEFT. Exactly TWO weapons, no third sword or extra hilt. Red weapon cords. Naturally formed hands grip handles correctly. Keep natural expressive anime face, clean dark contours, cel shading. Full hair, capes, both toes and every blade tip inside 6 percent empty margin. Actual transparent RGBA with internal gaps. No painted checkerboard, opaque backdrop, ground shadow, labels or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            795,
+            339
+          ],
+          [
+            413,
+            388
+          ],
+          [
+            899,
+            412
+          ],
+          [
+            669,
+            491
+          ],
+          [
+            958,
+            588
+          ],
+          [
+            338,
+            614
+          ],
+          [
+            995,
+            658
+          ],
+          [
+            309,
+            675
+          ],
+          [
+            352,
+            664
+          ],
+          [
+            367,
+            685
+          ],
+          [
+            772,
+            913
+          ],
+          [
+            995,
+            885
+          ]
+        ],
+        "opaque": [
+          [
+            763,
+            666
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv24-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-391726cf-6e74-4495-82f7-cfab460767c5.png",
+      "half": null,
+      "holes": [
+        4,
+        8,
+        16,
+        26,
+        37,
+        38,
+        39,
+        40,
+        41,
+        47,
+        49,
+        50,
+        56,
+        72,
+        87
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 approved new SD defines EXACT outfit, sleeve shapes, cape construction, colors, ornaments and boots. Image2 ORIGINAL LD defines natural LD proportions, recognizable face, age presentation and original pose. Copy image1 costume exactly, not original costume. Keep original dark-violet long hair. Heterochromia: canvas LEFT eye ruby red, canvas RIGHT eye violet purple. Exactly TWO swords in original LD pose: canvas RIGHT hand raised near shoulder grips red-wrapped hilt of sword with its blade behind body/hair, mostly occluded; canvas LEFT hand lowered at hip grips second exposed dark-steel sword blade pointing diagonally lower LEFT. No third sword/hilt. Match SD red cords, cyan hanging crystals and exact shoulder and waist ornaments. Natural articulated hands with correct grip, detailed cel shading, crisp dark anime outlines. Preserve identity, no generic doll face. Complete hair, both feet and every blade tip inside 6 percent blank margin. Plain pure white background with no shadows, vignette, lighting gradients, checkerboard, text or extra figure; keep internal gaps pure white for later transparent extraction.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            448,
+            249
+          ],
+          [
+            678,
+            282
+          ],
+          [
+            362,
+            362
+          ],
+          [
+            802,
+            409
+          ],
+          [
+            600,
+            462
+          ],
+          [
+            265,
+            496
+          ],
+          [
+            827,
+            515
+          ],
+          [
+            623,
+            518
+          ],
+          [
+            286,
+            629
+          ],
+          [
+            295,
+            556
+          ],
+          [
+            649,
+            572
+          ],
+          [
+            885,
+            606
+          ],
+          [
+            135,
+            653
+          ],
+          [
+            358,
+            727
+          ],
+          [
+            699,
+            933
+          ]
+        ],
+        "opaque": [
+          [
+            747,
+            717
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv24-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-a57bc17d-ab86-4262-ba0b-579f104ffdf8.png",
+      "half": null,
+      "holes": [
+        21,
+        56,
+        106,
+        108,
+        148,
+        180,
+        192,
+        194,
+        204,
+        214,
+        233,
+        247,
+        268,
+        331,
+        373,
+        480,
+        525,
+        527,
+        553,
+        555,
+        556,
+        560
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body SD female ninja cosmetic sprite. Original SD reference1 defines exact recognizable facial identity, age presentation, original SD proportions and stance. Original LD reference2 confirms details. New costume Galaxy Judgment: midnight and silver armor, galaxy-pattern waist panels and silver clasps. Keep original dark violet long flowing hair, heterochromia: canvas LEFT eye ruby red, canvas RIGHT eye purple violet, original serious face. Preserve original SD pose and TWO swords: canvas RIGHT hand raised near shoulder holding red-wrapped hilt, its blade mostly obscured behind body and hair; canvas LEFT hand lowered at hip holding a single exposed dark-steel blade pointing diagonally lower LEFT. Exactly TWO weapons, no third sword or extra hilt. Red weapon cords. Naturally formed hands grip handles correctly. Keep natural expressive anime face, clean dark contours, cel shading. Full hair, capes, both toes and every blade tip inside 6 percent empty margin. Actual transparent RGBA with internal gaps. No painted checkerboard, opaque backdrop, ground shadow, labels or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            773,
+            313
+          ],
+          [
+            406,
+            397
+          ],
+          [
+            923,
+            438
+          ],
+          [
+            746,
+            401
+          ],
+          [
+            344,
+            454
+          ],
+          [
+            691,
+            480
+          ],
+          [
+            405,
+            524
+          ],
+          [
+            684,
+            494
+          ],
+          [
+            670,
+            510
+          ],
+          [
+            976,
+            627
+          ],
+          [
+            221,
+            585
+          ],
+          [
+            299,
+            639
+          ],
+          [
+            383,
+            608
+          ],
+          [
+            346,
+            670
+          ],
+          [
+            314,
+            733
+          ],
+          [
+            789,
+            912
+          ],
+          [
+            785,
+            988
+          ],
+          [
+            683,
+            1000
+          ],
+          [
+            729,
+            995
+          ],
+          [
+            402,
+            1033
+          ],
+          [
+            851,
+            1054
+          ],
+          [
+            819,
+            1068
+          ]
+        ],
+        "opaque": [
+          [
+            576,
+            699
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    },
+    {
+      "id": "lv24-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-7468b0e5-1249-4b94-b74e-0b9f559ba849.png",
+      "half": null,
+      "holes": [
+        20,
+        21,
+        61,
+        97,
+        191,
+        258,
+        274,
+        297,
+        301,
+        320,
+        333,
+        351,
+        442,
+        474,
+        479,
+        490,
+        522,
+        564,
+        636,
+        638,
+        678,
+        714,
+        715,
+        717,
+        817,
+        888,
+        894,
+        899
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 approved new SD defines EXACT outfit, sleeve shapes, cape construction, colors, ornaments and boots. Image2 ORIGINAL LD defines natural LD proportions, recognizable face, age presentation and original pose. Copy image1 costume exactly, not original costume. Keep original dark-violet long hair. Heterochromia: canvas LEFT eye ruby red, canvas RIGHT eye violet purple. Exactly TWO swords in original LD pose: canvas RIGHT hand raised near shoulder grips red-wrapped hilt of sword with its blade behind body/hair, mostly occluded; canvas LEFT hand lowered at hip grips second exposed dark-steel sword blade pointing diagonally lower LEFT. No third sword/hilt. Match SD red cords, cyan hanging crystals and exact shoulder and waist ornaments. Natural articulated hands with correct grip, detailed cel shading, crisp dark anime outlines. Preserve identity, no generic doll face. Complete hair, both feet and every blade tip inside 6 percent blank margin. Plain pure white background with no shadows, vignette, lighting gradients, checkerboard, text or extra figure; keep internal gaps pure white for later transparent extraction.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            434,
+            286
+          ],
+          [
+            667,
+            307
+          ],
+          [
+            359,
+            390
+          ],
+          [
+            708,
+            373
+          ],
+          [
+            280,
+            446
+          ],
+          [
+            265,
+            521
+          ],
+          [
+            593,
+            495
+          ],
+          [
+            284,
+            657
+          ],
+          [
+            607,
+            554
+          ],
+          [
+            837,
+            597
+          ],
+          [
+            285,
+            589
+          ],
+          [
+            665,
+            633
+          ],
+          [
+            705,
+            716
+          ],
+          [
+            134,
+            689
+          ],
+          [
+            955,
+            731
+          ],
+          [
+            889,
+            740
+          ],
+          [
+            727,
+            758
+          ],
+          [
+            773,
+            821
+          ],
+          [
+            811,
+            861
+          ],
+          [
+            389,
+            800
+          ],
+          [
+            247,
+            844
+          ],
+          [
+            980,
+            972
+          ],
+          [
+            245,
+            943
+          ],
+          [
+            894,
+            952
+          ],
+          [
+            722,
+            997
+          ],
+          [
+            697,
+            1067
+          ],
+          [
+            702,
+            1099
+          ],
+          [
+            613,
+            1152
+          ]
+        ],
+        "opaque": [
+          [
+            542,
+            790
+          ]
+        ]
+      },
+      "reviewNotes": "Compared SD/LD identity, costume and correct weapon count. Inspected sources, selected-component overlays and final dark/light cutouts. Preserve white hair highlights and ivory coat panels; clear enclosed background gaps."
+    }
+  ]
+}

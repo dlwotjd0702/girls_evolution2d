@@ -31,6 +31,8 @@ public class GameSystem : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        // Keep the design-time scene visible; show loading only during startup.
+        if (loadingPanel) loadingPanel.SetActive(true);
 
         // GirlField
         if (fieldManager != null)

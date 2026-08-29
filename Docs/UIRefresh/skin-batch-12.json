@@ -1,0 +1,635 @@
+{
+  "batch": "2026-08-29-12",
+  "method": "Built-in imagegen; authorized alpha-only extraction; matched SD/LD.",
+  "items": [
+    {
+      "id": "lv17-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-0823a43f-1d0d-415d-9539-59ba0842c2a7.png",
+      "half": null,
+      "holes": [
+        2,
+        6,
+        11,
+        13,
+        15,
+        17,
+        20,
+        21
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete SD female ninja game sprite. Image1 exact BASE SD defines face, original natural SD proportions, age presentation and action pose. Image2 BASE LD confirms identity. Change costume only: Golden Bird Escort: fitted teal guard armor, gold bird-pattern short shoulder mantle, gold-edged teal waist panels, navy shorts, teal shin guards and dark boots. Preserve short turquoise bob and straight bangs, cyan-teal eyes, calm serious face. One cyan glowing sword held on canvas RIGHT angled down, canvas LEFT hand on hip, diagonal sheathed back katana and horizontal empty waist sheath. Correct natural grips and fingers, crisp anime cel shading and dark contours. Detailed but readable silhouette; no generic baby chibi or new face. All hair, blades, cloth tails and boots within generous margin. Actual RGBA transparent background including internal gaps, no white backdrop or painted checkerboard, ground shadow, text, watermark or extra character.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            667,
+            533
+          ],
+          [
+            467,
+            502
+          ],
+          [
+            715,
+            591
+          ],
+          [
+            457,
+            268
+          ]
+        ],
+        "opaque": [
+          [
+            590,
+            265
+          ],
+          [
+            595,
+            380
+          ],
+          [
+            653,
+            748
+          ]
+        ]
+      },
+      "reviewNotes": " Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained."
+    },
+    {
+      "id": "lv17-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-56fcd08c-ad10-4183-b276-3841d7a98a6c.png",
+      "half": null,
+      "holes": [
+        42,
+        45,
+        49
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Make corrected SINGLE LD female ninja game portrait. Reference1 is exact approved SD outfit and HAND arrangement. Reference2 original LD defines face and natural LD proportions. GOLDEN BIRD costume: teal fitted armor, gold bird-feather shoulder mantle, bird buckle and gold-edged waist plates, navy shorts, teal shin guards. EXACTLY ONE exposed glowing cyan sword, in canvas RIGHT hand pointing DOWN RIGHT. Canvas LEFT hand EMPTY resting on hip, NEVER holds any sword. Diagonal back katana stays SHEATHED with visible wrapped grip above right shoulder. Horizontal waist scabbard empty. No second exposed blade. Short turquoise bob, cyan eyes, calm face identical reference2. Natural LD body, no chibi. Full body all toes hair and sword tip inside wide margins. Transparent RGBA background, no checkerboard backdrop or floor or text. Match reference1 clothes exactly.\nBackground correction: Edit this exact character image: REMOVE ONLY the dark background and outer colored atmospheric halo. Put this identical ninja on a completely plain pure white #FFFFFF background for production cutout. Keep character pixel artwork, hairstyle, outfit, anatomy, face, ONE cyan sword in right side hand and empty left hand on hip unchanged. Keep colors and silhouette exactly. No gradients, shadows, atmosphere, glow outside silhouette, checkerboard or text. White background also inside all gaps. Full body not cropped. Do not redesign character or add anything.",
+      "approved": true,
+      "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-5fb786c3-a66d-4d5a-852d-2601924ddbfd.png",
+      "previousSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-422b7933-57bf-4730-b7b2-1866dc3cd9ed.png",
+      "alphaProbes": {
+        "clear": [
+          [
+            611,
+            629
+          ],
+          [
+            344,
+            512
+          ],
+          [
+            581,
+            531
+          ]
+        ],
+        "opaque": [
+          [
+            471,
+            224
+          ],
+          [
+            449,
+            392
+          ],
+          [
+            539,
+            812
+          ]
+        ]
+      },
+      "reviewNotes": " Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained."
+    },
+    {
+      "id": "lv18-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-c5a156b4-1354-4e79-9158-f92c6f14f12c.png",
+      "half": null,
+      "holes": [
+        29,
+        32,
+        43,
+        48,
+        63,
+        120,
+        130,
+        131,
+        133,
+        148,
+        152,
+        166,
+        168
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete SD female ninja game sprite. Image1 exact BASE SD defines face, original natural SD proportions, age presentation and action pose. Image2 BASE LD confirms identity. Change costume only: Coral Guardian: coral-pink and cream combat haori, warm gold protective shoulder and forearm armor, coral fitted inner battle suit, cream-edged split flowing waist cape, dark leggings and gold-edged boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. Correct natural grips and fingers, crisp anime cel shading and dark contours. Detailed but readable silhouette; no generic baby chibi or new face. All hair, blades, cloth tails and boots within generous margin. Actual RGBA transparent background including internal gaps, no white backdrop or painted checkerboard, ground shadow, text, watermark or extra character.",
+      "approved": true,
+      "matteRegions": [
+        [
+          528,
+          554,
+          532,
+          558,
+          150,
+          80
+        ],
+        [
+          465,
+          569,
+          472,
+          575,
+          150,
+          80
+        ]
+      ],
+      "alphaProbes": {
+        "clear": [
+          [
+            404,
+            511
+          ],
+          [
+            319,
+            392
+          ],
+          [
+            456,
+            588
+          ],
+          [
+            384,
+            536
+          ],
+          [
+            529,
+            555
+          ],
+          [
+            468,
+            571
+          ]
+        ],
+        "opaque": [
+          [
+            624,
+            361
+          ],
+          [
+            583,
+            478
+          ],
+          [
+            800,
+            709
+          ]
+        ]
+      },
+      "reviewNotes": " Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained."
+    },
+    {
+      "id": "lv18-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-d5c5c8b2-cc2d-4710-b177-3b562b1712e7.png",
+      "half": null,
+      "holes": [
+        9,
+        22,
+        26,
+        28,
+        31,
+        41,
+        44,
+        46,
+        56,
+        89,
+        245
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete LD female ninja portrait sprite. Image1 newly drawn SD defines EXACT costume colors, construction, emblems, hair accessories, boots and weapons. Image2 original BASE LD defines original recognizable face, natural LD proportions, age presentation and ORIGINAL LD pose. Match image1 outfit exactly but use image2 anatomy and pose. Coral Guardian: coral-pink and cream combat haori, warm gold protective shoulder and forearm armor, coral fitted inner battle suit, cream-edged split flowing waist cape, dark leggings and gold-edged boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. For level18 preserve BASE LD pose: sword at canvas LEFT angled up, sword at canvas RIGHT angled down; TWO violet katana, two natural hands. Do not copy SD chibi proportions. Clean anime linework, beautiful natural face, crisp cel shading. Entire figure and every blade tip and flowing hair strand comfortably inside generous canvas margin. Actual RGBA transparent background including all hair/arm gaps, no white backdrop or checkerboard painted in, no shadow, floor, text or extra figure.\nSleeve correction: Correct the LD outfit in image1 to EXACTLY MATCH approved SD outfit in image2. Preserve image1 face, mature proportions, hair, full-body LD pose and TWO violet swords. Remove the oversized flowing sleeves from BOTH arms. The approved SD has SHORT coral puff sleeves ending above elbows, fitted dark forearm sleeves and compact gold armor/bracers on forearms; copy this sleeve construction exactly. No large flared fabric cuffs at wrists. Keep the long coral/cream split cloth panels attached ONLY at waist, matching image2. All other clothing, gold belt emblem, hair ornament, face, boots and leg armor unchanged. Full body all swords and hair within margin. Clean plain white #FFFFFF background for production cutout; no gradient, glow, floor shadow, text or extra figure.",
+      "approved": true,
+      "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1cec6f61-e55f-4894-b823-2032ff388370.png",
+      "alphaProbes": {
+        "clear": [
+          [
+            829,
+            164
+          ],
+          [
+            811,
+            335
+          ],
+          [
+            404,
+            800
+          ],
+          [
+            919,
+            288
+          ]
+        ],
+        "opaque": [
+          [
+            613,
+            253
+          ],
+          [
+            542,
+            373
+          ],
+          [
+            633,
+            661
+          ]
+        ]
+      },
+      "reviewNotes": " Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained."
+    },
+    {
+      "id": "lv18-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-093e6dd9-3f67-4058-bc86-cb8a20fb136f.png",
+      "half": null,
+      "holes": [
+        20,
+        25,
+        26,
+        39,
+        41,
+        43,
+        47,
+        49,
+        181,
+        182,
+        187,
+        194,
+        310
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete SD female ninja game sprite. Image1 exact BASE SD defines face, original natural SD proportions, age presentation and action pose. Image2 BASE LD confirms identity. Change costume only: Deep Sea Scout: ink-blue and cyan stealth uniform, scale-shaped silver arm guards, short navy shoulder cape, flowing cyan-edged split waist panels, navy leggings and silver-edged boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. Correct natural grips and fingers, crisp anime cel shading and dark contours. Detailed but readable silhouette; no generic baby chibi or new face. All hair, blades, cloth tails and boots within generous margin. Actual RGBA transparent background including internal gaps, no white backdrop or painted checkerboard, ground shadow, text, watermark or extra character.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            510,
+            560
+          ],
+          [
+            262,
+            387
+          ],
+          [
+            1025,
+            369
+          ],
+          [
+            303,
+            531
+          ]
+        ],
+        "opaque": [
+          [
+            613,
+            360
+          ],
+          [
+            591,
+            468
+          ],
+          [
+            1100,
+            851
+          ]
+        ]
+      },
+      "reviewNotes": " Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained."
+    },
+    {
+      "id": "lv18-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-f76a93d2-791a-44b9-b2ff-a018c0cafd12.png",
+      "half": null,
+      "holes": [
+        17,
+        33,
+        35,
+        55,
+        56,
+        122
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete LD female ninja portrait sprite. Image1 newly drawn SD defines EXACT costume colors, construction, emblems, hair accessories, boots and weapons. Image2 original BASE LD defines original recognizable face, natural LD proportions, age presentation and ORIGINAL LD pose. Match image1 outfit exactly but use image2 anatomy and pose. Deep Sea Scout: ink-blue and cyan stealth uniform, scale-shaped silver arm guards, short navy shoulder cape, flowing cyan-edged split waist panels, navy leggings and silver-edged boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. For level18 preserve BASE LD pose: sword at canvas LEFT angled up, sword at canvas RIGHT angled down; TWO violet katana, two natural hands. Do not copy SD chibi proportions. Clean anime linework, beautiful natural face, crisp cel shading. Entire figure and every blade tip and flowing hair strand comfortably inside generous canvas margin. Actual RGBA transparent background including all hair/arm gaps, no white backdrop or checkerboard painted in, no shadow, floor, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            595,
+            487
+          ],
+          [
+            672,
+            371
+          ],
+          [
+            820,
+            262
+          ],
+          [
+            681,
+            351
+          ]
+        ],
+        "opaque": [
+          [
+            513,
+            319
+          ],
+          [
+            491,
+            436
+          ],
+          [
+            953,
+            846
+          ]
+        ]
+      },
+      "reviewNotes": " Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained."
+    },
+    {
+      "id": "lv18-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9e93f690-3ba7-4a80-a428-5f48613a9fd4.png",
+      "half": null,
+      "holes": [
+        6,
+        8,
+        18,
+        19,
+        31,
+        129,
+        140,
+        144,
+        344
+      ],
+      "threshold": 225,
+      "spread": 16,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete SD female ninja game sprite. Image1 exact BASE SD defines face, original natural SD proportions, age presentation and action pose. Image2 BASE LD confirms identity. Change costume only: Moonshadow Swordmaster: midnight blue swordmaster armor with silver moon borders, short silver-edged shoulder mantle, silver crescent belt clasp, split midnight waist panels, dark leggings and armored boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. Correct natural grips and fingers, crisp anime cel shading and dark contours. Detailed but readable silhouette; no generic baby chibi or new face. All hair, blades, cloth tails and boots within generous margin. Actual RGBA transparent background including internal gaps, no white backdrop or painted checkerboard, ground shadow, text, watermark or extra character.",
+      "approved": true,
+      "reviewNotes": "Source checkerboard has tinted edge noise; threshold225 spread16 keeps border-connected matte continuous. Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained.",
+      "alphaProbes": {
+        "clear": [
+          [
+            402,
+            495
+          ],
+          [
+            290,
+            357
+          ],
+          [
+            993,
+            323
+          ],
+          [
+            335,
+            505
+          ]
+        ],
+        "opaque": [
+          [
+            635,
+            329
+          ],
+          [
+            614,
+            455
+          ],
+          [
+            978,
+            810
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv18-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-de4004e5-275c-4fe5-b1df-97b227087a40.png",
+      "half": null,
+      "holes": [
+        21,
+        25,
+        31,
+        33,
+        40,
+        47,
+        49,
+        60,
+        63,
+        105,
+        124,
+        126,
+        141,
+        285,
+        345,
+        414,
+        44
+      ],
+      "threshold": 225,
+      "spread": 16,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete LD female ninja portrait sprite. Image1 newly drawn SD defines EXACT costume colors, construction, emblems, hair accessories, boots and weapons. Image2 original BASE LD defines original recognizable face, natural LD proportions, age presentation and ORIGINAL LD pose. Match image1 outfit exactly but use image2 anatomy and pose. Moonshadow Swordmaster: midnight blue swordmaster armor with silver moon borders, short silver-edged shoulder mantle, silver crescent belt clasp, split midnight waist panels, dark leggings and armored boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. For level18 preserve BASE LD pose: sword at canvas LEFT angled up, sword at canvas RIGHT angled down; TWO violet katana, two natural hands. Do not copy SD chibi proportions. Clean anime linework, beautiful natural face, crisp cel shading. Entire figure and every blade tip and flowing hair strand comfortably inside generous canvas margin. Actual RGBA transparent background including all hair/arm gaps, no white backdrop or checkerboard painted in, no shadow, floor, text or extra figure.",
+      "approved": true,
+      "reviewNotes": "Neutral/tinted checkerboard edge noise; continuous border matte extraction. Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained.",
+      "alphaProbes": {
+        "clear": [
+          [
+            694,
+            497
+          ],
+          [
+            459,
+            414
+          ],
+          [
+            934,
+            250
+          ],
+          [
+            848,
+            747
+          ],
+          [
+            563,
+            283
+          ]
+        ],
+        "opaque": [
+          [
+            589,
+            273
+          ],
+          [
+            555,
+            409
+          ],
+          [
+            915,
+            955
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv18-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-13fe6243-e363-4817-9474-98ed45bd7187.png",
+      "half": null,
+      "holes": [
+        2,
+        7,
+        9,
+        11,
+        19,
+        20,
+        22,
+        28,
+        29,
+        30,
+        32,
+        33,
+        34
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete SD female ninja game sprite. Image1 exact BASE SD defines face, original natural SD proportions, age presentation and action pose. Image2 BASE LD confirms identity. Change costume only: Crimson Lotus Armor: crimson and dark violet battle armor, gold trim and lotus belt clasp, flowing split crimson waist cape, dark violet fitted leggings and crimson armored boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. Correct natural grips and fingers, crisp anime cel shading and dark contours. Detailed but readable silhouette; no generic baby chibi or new face. All hair, blades, cloth tails and boots within generous margin. Actual RGBA transparent background including internal gaps, no white backdrop or painted checkerboard, ground shadow, text, watermark or extra character.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            899,
+            77
+          ],
+          [
+            345,
+            499
+          ],
+          [
+            240,
+            366
+          ],
+          [
+            498,
+            561
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            337
+          ],
+          [
+            551,
+            443
+          ],
+          [
+            1054,
+            771
+          ]
+        ]
+      },
+      "reviewNotes": " Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained."
+    },
+    {
+      "id": "lv18-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-f9970d9e-8784-425a-b8f0-3c5ecf78fa5b.png",
+      "half": null,
+      "holes": [
+        23,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        37,
+        36,
+        40,
+        45,
+        50,
+        51,
+        52,
+        56,
+        65,
+        69,
+        70,
+        77,
+        80,
+        81,
+        89,
+        94,
+        105,
+        114
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one complete LD female ninja portrait sprite. Image1 newly drawn SD defines EXACT costume colors, construction, emblems, hair accessories, boots and weapons. Image2 original BASE LD defines original recognizable face, natural LD proportions, age presentation and ORIGINAL LD pose. Match image1 outfit exactly but use image2 anatomy and pose. Crimson Lotus Armor: crimson and dark violet battle armor, gold trim and lotus belt clasp, flowing split crimson waist cape, dark violet fitted leggings and crimson armored boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. For level18 preserve BASE LD pose: sword at canvas LEFT angled up, sword at canvas RIGHT angled down; TWO violet katana, two natural hands. Do not copy SD chibi proportions. Clean anime linework, beautiful natural face, crisp cel shading. Entire figure and every blade tip and flowing hair strand comfortably inside generous canvas margin. Actual RGBA transparent background including all hair/arm gaps, no white backdrop or checkerboard painted in, no shadow, floor, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            785,
+            456
+          ],
+          [
+            661,
+            796
+          ],
+          [
+            590,
+            476
+          ],
+          [
+            867,
+            303
+          ]
+        ],
+        "opaque": [
+          [
+            544,
+            294
+          ],
+          [
+            520,
+            422
+          ],
+          [
+            833,
+            851
+          ]
+        ]
+      },
+      "reviewNotes": " Matched original identity, costume and props. Extra sword and sleeve mismatch corrected before approval. Dark/light and collar/waist detail review. Confirmed gaps clear; eye shine, ivory cloth, silver armor and blade highlights retained."
+    }
+  ]
+}

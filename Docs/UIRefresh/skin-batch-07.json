@@ -1,0 +1,519 @@
+{
+  "batch": "2026-08-28-07",
+  "method": "Built-in imagegen; authorized alpha-only extraction; reviewed SD/LD costume matching.",
+  "items": [
+    {
+      "id": "lv10-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-d4c39a76-2e6a-4469-9a35-9c82b3f17970.png",
+      "half": null,
+      "holes": [
+        4,
+        14,
+        40,
+        41,
+        43,
+        44,
+        47,
+        55
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact base SD anatomy/face/pose reference, Image2 base LD identity reference. Preserve dark violet bob hair, purple eyes, lively smile, purple flame in metal bowl in raised left side hand and small sword in lowered right side hand. Costume Jade Alchemy: jade fitted wrap alchemist jacket with gold piping and short split panels, gold-edged deep purple waist sash, two small brown utility pouches, charcoal loose ninja trousers, black fingerless gloves, jade/gold shin guards and dark boots. Match the original SD proportions (not a round baby chibi), natural anatomy, crisp anime cel-shading and clean dark linework. Costume distinct in construction. Transparent RGBA background, all internal gaps transparent. No painted checkerboard, white backdrop, ground shadow, text, watermark, extra character or pose. Full hair, flame, weapon, feet inside generous margin.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            482,
+            329
+          ],
+          [
+            480,
+            136
+          ],
+          [
+            737,
+            571
+          ],
+          [
+            389,
+            302
+          ]
+        ],
+        "opaque": [
+          [
+            628,
+            292
+          ],
+          [
+            341,
+            270
+          ],
+          [
+            432,
+            969
+          ],
+          [
+            391,
+            1168
+          ]
+        ]
+      },
+      "reviewNotes": "Base SD/LD identity and pose checked. Costume construction matched, corrected extra baton in Wisteria SD. Dark/light alpha review preserves face, cloth patterns, metal and smoke highlights. RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv10-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-785ba45a-78f6-44fd-9121-9c8f11ef9557.png",
+      "half": null,
+      "holes": [
+        2,
+        3,
+        4,
+        6,
+        7,
+        14,
+        30,
+        34,
+        40,
+        41,
+        44,
+        45
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Produce ONLY one full-body LD game sprite. Image1 is the exact BASE LD face, anatomy, age, stance and cel-shading reference. Image2 is the approved SD COSTUME reference. Recreate every costume part from Image2 at Image1's LD proportions, including jacket cut, sleeves, clasp, gloves, sash, pouches, trousers, shin guards and footwear. Preserve the dark violet bob, violet eyes, lively smile, raised bowl of purple flame and lowered short sword. Do NOT enlarge the head to SD proportions. Jade Alchemy: muted jade jacket with purple center panel and gold piping, purple/gold split waist panels and bow, two brown pouches, jade medallions on black/gold shin armor, black fingerless gloves. Crisp clean anime game linework, natural expression and hands. Full hair, flame, sword and feet within margin. Actual transparent RGBA, internal gaps clear. No checkerboard, white background, shadow, text, second character or altered costume.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            519,
+            254
+          ],
+          [
+            508,
+            154
+          ],
+          [
+            740,
+            184
+          ],
+          [
+            404,
+            153
+          ]
+        ],
+        "opaque": [
+          [
+            623,
+            214
+          ],
+          [
+            596,
+            325
+          ],
+          [
+            804,
+            996
+          ],
+          [
+            412,
+            222
+          ]
+        ]
+      },
+      "reviewNotes": "Base SD/LD identity and pose checked. Costume construction matched, corrected extra baton in Wisteria SD. Dark/light alpha review preserves face, cloth patterns, metal and smoke highlights. RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv10-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-47cff391-f9f6-421a-8310-be50f7fccaac.png",
+      "half": null,
+      "holes": [
+        3,
+        7,
+        16,
+        17,
+        55,
+        56,
+        59,
+        60,
+        61,
+        65,
+        67,
+        70,
+        73,
+        109,
+        127
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 exact base SD anatomy/face/pose reference, Image2 base LD identity reference. Preserve dark violet bob hair, purple eyes, lively smile, purple flame in metal bowl in raised left side hand and small sword in lowered right side hand. Costume Midnight Mist: navy hoodless short shoulder cloak secured by silver moon clasp, fitted dark purple ninja jacket, silver fasteners, charcoal loose ninja trousers with purple side straps, black fingerless gloves, navy shin wraps and dark boots. No hood, hair stays visible. Match original SD proportions (not round baby chibi), natural anatomy, crisp anime cel-shading, clean dark linework. Costume distinct in construction. Transparent RGBA background, internal gaps transparent. No painted checkerboard, white backdrop, ground shadow, text, watermark, extra character or pose. Full hair, flame, weapon, feet inside generous margin.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            480,
+            334
+          ],
+          [
+            465,
+            177
+          ],
+          [
+            762,
+            644
+          ],
+          [
+            349,
+            187
+          ]
+        ],
+        "opaque": [
+          [
+            643,
+            311
+          ],
+          [
+            594,
+            382
+          ],
+          [
+            742,
+            529
+          ],
+          [
+            385,
+            255
+          ]
+        ]
+      },
+      "reviewNotes": "Base SD/LD identity and pose checked. Costume construction matched, corrected extra baton in Wisteria SD. Dark/light alpha review preserves face, cloth patterns, metal and smoke highlights. RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv10-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e7809fd8-5681-4144-a9c2-711d72672748.png",
+      "half": null,
+      "holes": [
+        2,
+        4,
+        5,
+        7,
+        11,
+        31,
+        34,
+        43,
+        51,
+        53,
+        54
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Produce ONLY one full-body LD game sprite. Image1 is the exact BASE LD face, anatomy, age, stance and cel-shading reference. Image2 is the approved SD COSTUME reference. Recreate every costume part from Image2 at Image1's LD proportions, including jacket cut, sleeves, clasp, gloves, sash, pouches, trousers, shin guards and footwear. Preserve the dark violet bob, violet eyes, lively smile, raised bowl of purple flame and lowered short sword. Do NOT enlarge the head to SD proportions. Midnight Mist: navy short hoodless shoulder cloak with silver crescent clasp, purple piping, two silver jacket toggles, charcoal baggy trousers, purple thigh straps, navy shin wraps, dark boots and gloves. Crisp clean anime game linework, natural expression and hands. Full hair, flame, sword and feet within margin. Actual transparent RGBA, internal gaps clear. No checkerboard, white background, shadow, text, second character or altered costume.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            515,
+            259
+          ],
+          [
+            502,
+            164
+          ],
+          [
+            388,
+            162
+          ],
+          [
+            549,
+            101
+          ]
+        ],
+        "opaque": [
+          [
+            623,
+            228
+          ],
+          [
+            578,
+            300
+          ],
+          [
+            417,
+            237
+          ],
+          [
+            755,
+            490
+          ]
+        ]
+      },
+      "reviewNotes": "Base SD/LD identity and pose checked. Costume construction matched, corrected extra baton in Wisteria SD. Dark/light alpha review preserves face, cloth patterns, metal and smoke highlights. RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv11-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-878968de-7836-45b6-be85-f1171e6e2c8c.png",
+      "half": null,
+      "holes": [
+        9,
+        19,
+        22,
+        25,
+        37,
+        40,
+        44,
+        47,
+        81,
+        105,
+        111,
+        165,
+        193
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 exact base SD face, pose, proportions and drawing style; Image2 base LD identity reference. Keep the long dark twin ponytails, pink hair ribbons, magenta eyes, cheerful expression and pink smoke baton in raised hand. Wisteria Infiltration: a short lilac haori with hanging wisteria flower patterns over a fitted violet ninja jacket, narrow purple ribbon waist sash, charcoal fitted trousers, violet wrist guards and short ninja boots. Costume changes only. Same distinctive character, natural anatomy and original SD proportions, no generic baby chibi face. Crisply outlined anime cel shading with readable costume details. Hair, smoke, hands and feet fully inside margin. Actual transparent RGBA background and internal gaps. No painted checkerboard, white backdrop, floor shadow, text, second figure or extra weapons.",
+      "approved": true,
+      "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-aaf16110-0e90-471e-8c5a-ea7ec4e930dc.png",
+      "correctionPrompt": "Precise-object-edit. Edit this one SD sprite only: remove the extra purple cylindrical baton from the raised hand on the RIGHT side of the canvas. That hand should be empty, naturally half closed with visible correct fingers, exactly as the original ninja pose. Keep the smoking baton in the LEFT side hand. Preserve the entire face, pink eyes, twin ponytails, pink hair ribbons, lilac wisteria haori, purple jacket, sash, dark trousers, boots, proportions and every other detail. Full body unchanged. Actual transparent RGBA background and internal gaps; no checkerboard, text or shadows.",
+      "alphaProbes": {
+        "clear": [
+          [
+            441,
+            684
+          ],
+          [
+            843,
+            650
+          ],
+          [
+            819,
+            338
+          ],
+          [
+            536,
+            339
+          ]
+        ],
+        "opaque": [
+          [
+            642,
+            291
+          ],
+          [
+            660,
+            372
+          ],
+          [
+            441,
+            491
+          ],
+          [
+            880,
+            1181
+          ]
+        ]
+      },
+      "reviewNotes": "Base SD/LD identity and pose checked. Costume construction matched, corrected extra baton in Wisteria SD. Dark/light alpha review preserves face, cloth patterns, metal and smoke highlights. RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv11-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e33b9d3c-f61a-4d67-b5c2-52acd1c9baa3.png",
+      "half": null,
+      "holes": [
+        10,
+        26,
+        28,
+        32,
+        34,
+        48,
+        51,
+        62,
+        123,
+        148,
+        155,
+        263,
+        287
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD sprite. Image1 exact BASE LD face, anatomy, age presentation, long-legged proportions and pose. Image2 approved SD COSTUME reference: reproduce all garments at LD anatomy. Wisteria Infiltration: same lilac short haori with hanging wisteria flower motifs and wide detached sleeves, fitted violet high-collar jacket with pink diagonal trim, thin purple ribbon waist belts and bow, pale lilac short side hip panels, charcoal loose ninja trousers, violet forearm guards, violet open-toe boots with ankle bows. Preserve long dark twin ponytails, pink ribbons, magenta eyes and gentle smile. ONLY one pink smoke baton in the LEFT side hand; RIGHT side hand empty and naturally half closed. Correct hands, crisp anime cel shading and dark linework matching base. Not SD head size. Entire hair, smoke, feet within margin. Actual transparent RGBA background, internal gaps transparent. No checkerboard, white backdrop, ground shadow, text, extra weapons or second character.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            705,
+            817
+          ],
+          [
+            614,
+            307
+          ],
+          [
+            421,
+            332
+          ],
+          [
+            83,
+            760
+          ]
+        ],
+        "opaque": [
+          [
+            504,
+            279
+          ],
+          [
+            514,
+            401
+          ],
+          [
+            323,
+            603
+          ],
+          [
+            742,
+            1582
+          ]
+        ]
+      },
+      "reviewNotes": "Base SD/LD identity and pose checked. Costume construction matched, corrected extra baton in Wisteria SD. Dark/light alpha review preserves face, cloth patterns, metal and smoke highlights. RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv11-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9e999b01-affa-4d08-a05a-28bccf7558a1.png",
+      "half": null,
+      "holes": [
+        5,
+        19,
+        64,
+        86,
+        102,
+        179,
+        212,
+        223
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 exact base SD face, pose, proportions and drawing style; Image2 base LD identity reference. Keep the long dark twin ponytails, pink hair ribbons, magenta eyes, cheerful expression and pink smoke baton in raised hand. Blue Snow Haze: a short ice-blue scarf over charcoal fitted stealth jacket and dark trousers, white snow-pattern wrist wraps, ice-blue waist sash with silver buckle, dark blue ninja boots. Costume changes only. Same distinctive character, natural anatomy and original SD proportions, no generic baby chibi face. Crisply outlined anime cel shading with readable costume details. Hair, smoke, hands and feet fully inside margin. Actual transparent RGBA background and internal gaps. No painted checkerboard, white backdrop, floor shadow, text, second figure or extra weapons.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            458,
+            580
+          ],
+          [
+            851,
+            605
+          ],
+          [
+            798,
+            340
+          ],
+          [
+            502,
+            399
+          ]
+        ],
+        "opaque": [
+          [
+            636,
+            301
+          ],
+          [
+            602,
+            358
+          ],
+          [
+            484,
+            476
+          ],
+          [
+            886,
+            1080
+          ]
+        ]
+      },
+      "reviewNotes": "Base SD/LD identity and pose checked. Costume construction matched, corrected extra baton in Wisteria SD. Dark/light alpha review preserves face, cloth patterns, metal and smoke highlights. RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv11-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-cca247ac-f387-4d73-9268-1d1af4ecebaa.png",
+      "half": null,
+      "holes": [
+        4,
+        20,
+        21,
+        35,
+        98,
+        125,
+        129,
+        145,
+        155,
+        258,
+        273,
+        308
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD sprite. Image1 exact base LD face, anatomy, original long-legged proportions, identity and pose. Image2 approved SD COSTUME reference, reproduce every garment at LD anatomy. Blue Snow Haze: same ice-blue snowflake scarf, charcoal fitted jacket with blue piping and central zipper, blue/white wrapped forearm bands and black fingerless gloves, silver snowflake belt buckle, long ice-blue sash, charcoal trousers with blue thigh straps, blue open-toe ninja boots and ankle snowflake ornaments. Preserve long dark twin ponytails, pink ribbons, magenta eyes, gentle smile, pink smoke baton in LEFT side hand and EMPTY half-closed raised RIGHT side hand. Natural correct hands and body, clean anime cel-shading, recognizable face. Not SD head size. All hair, smoke, feet within margin. Actual transparent RGBA, empty internal gaps. No painted checkerboard, white background, shadow, text, second character or outfit mismatch.",
+      "approved": true,
+      "reviewedLargeHoles": [
+        145
+      ],
+      "alphaProbes": {
+        "clear": [
+          [
+            260,
+            682
+          ],
+          [
+            695,
+            888
+          ],
+          [
+            640,
+            366
+          ],
+          [
+            714,
+            528
+          ]
+        ],
+        "opaque": [
+          [
+            486,
+            272
+          ],
+          [
+            464,
+            322
+          ],
+          [
+            329,
+            512
+          ],
+          [
+            741,
+            1550
+          ]
+        ]
+      },
+      "reviewNotes": "Base SD/LD identity and pose checked. Costume construction matched, corrected extra baton in Wisteria SD. Dark/light alpha review preserves face, cloth patterns, metal and smoke highlights. RGB unchanged before canvas fit."
+    }
+  ]
+}

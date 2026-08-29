@@ -102,7 +102,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     {
         if (prestigeButton)
         {
-            prestigeButton.onClick.RemoveAllListeners();
+            prestigeButton.onClick.RemoveListener(OnClickPrestigeButton);
             prestigeButton.onClick.AddListener(OnClickPrestigeButton);
         }
 
@@ -207,80 +207,33 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         return false;
     }
 
-    public bool IsPrestigeReady() => HasAnyFinalGirl();
+    public bool IsPrestigeReady() => !IsPrestiging && HasAnyFinalGirl();
 
-    // 25단계 기준 1레벨 2500, 이후 레벨마다 +1000
-    // 하위 단계는 25단계 기준 포인트에서 1/2씩 감소
-    // level25UpgradeLevel과 필드의 모든 캐릭터 레벨을 고려하여 포인트 계산
-    // 골드/보석 강화 레벨에 대한 포인트도 추가 (이전 10포인트/레벨 → 지금 100포인트/레벨로 10배 증가)
-    public int PreviewPrestigeGain()
+    public bool IsPrestiging { get; private set; }
+
+    public PrestigeReward GetPrestigeReward()
     {
-        if (girlFieldManager == null || economy == null) return 0;
-        
-        int totalPoints = 0;
-        int level25UpgradeLevel = girlFieldManager.Level25UpgradeLevel;
-        
-        // 1. 레벨 25 포인트 계산 (level25UpgradeLevel 기준)
-        // 누적합: 1레벨 2500, 이후 레벨마다 +1000, 1~n 합산
-        if (level25UpgradeLevel > 0)
-        {
-            const int BASE_L25 = 2500;
-            const int L25_STEP = 1000;
-            int n = Math.Max(1, level25UpgradeLevel);
-            // 합 = n*BASE + STEP * (n-1)*n/2
-            int level25Points = (n * BASE_L25) + (L25_STEP * (n - 1) * n / 2);
-            totalPoints += level25Points;
-        }
-        
-        // 2. 필드의 다른 레벨 캐릭터들 포인트 계산 (25단계 제외)
-        foreach (var g in girlFieldManager.girlList)
-        {
-            if (g == null) continue;
-            int level = g.Level;
-            
-            // 레벨 25 이상은 이미 계산했으므로 제외
-            if (level >= topLevel) continue;
-            
-            // 하위 단계 포인트 계산: 25단계 기준 2500 포인트에서 단계 내려갈 때마다 1/2
-            // 24단계: 1250, 23단계: 625, 22단계: 312.5, ...
-            int diff = topLevel - level; // 25→24: 1, 25→23: 2, ...
-            double points = 2500.0 / Math.Pow(2.0, diff);
-            totalPoints += Mathf.CeilToInt((float)points); // 소수점 올림 처리
-        }
-        
-        // 3. 골드/보석 강화 레벨에 대한 포인트 추가 (10배 증가: 이전 10포인트/레벨 → 지금 100포인트/레벨)
-        const int POINTS_PER_UPGRADE_LEVEL = 100; // 이전 10포인트에서 10배 증가
-        
-        int upgradePoints = 0;
-        upgradePoints += economy.GetSpawnMaxUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
-        upgradePoints += economy.GetSpawnSpeedUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
-        upgradePoints += economy.GetFieldMaxUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
-        upgradePoints += economy.GetClickBonusUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
-        upgradePoints += economy.GetAutoMergeUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
-        upgradePoints += economy.GetAutoSpawnUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
-        upgradePoints += economy.GetOfflineRewardUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
-        upgradePoints += economy.GetOfflineMaxTimeUpgradeLevel() * POINTS_PER_UPGRADE_LEVEL;
-        
-        totalPoints += upgradePoints;
-        
-        if (totalPoints > 0)
-        {
-            Debug.Log($"[PrestigeManager] PreviewPrestigeGain: {totalPoints} 포인트 (level25UpgradeLevel: {level25UpgradeLevel}, 필드 캐릭터 수: {girlFieldManager.girlList.Count}, 강화 포인트: {upgradePoints})");
-        }
-        else
-        {
-            Debug.LogWarning($"[PrestigeManager] PreviewPrestigeGain: 0 포인트 반환! (level25UpgradeLevel: {level25UpgradeLevel})");
-        }
-        
-        return totalPoints;
+        if (!girlFieldManager || !economy) return default;
+        int stacks = Math.Max(girlFieldManager.Level25UpgradeLevel, HasAnyFinalGirl() ? 1 : 0);
+        return new PrestigeReward(stacks, FieldLevels(), topLevel,
+            economy.GetResettableUpgradeLevels(), GetPrestigePointGainMul());
     }
+
+    IEnumerable<int> FieldLevels()
+    {
+        foreach (var girl in girlFieldManager.girlList)
+            if (girl) yield return girl.Level;
+    }
+
+    // Kept as base reward for existing callers; UI uses GetPrestigeReward().TotalPoints.
+    public int PreviewPrestigeGain() => GetPrestigeReward().BasePoints;
 
     public int  GetPrestigePoints()      => prestigePoint;
     public int  GetTotalPrestigeCount()  => totalPrestigeCount;
     public void AddPrestigePoints(int amount)
     {
         if (amount <= 0) return;
-        prestigePoint += amount;
+        prestigePoint = PrestigeReward.ClampPoints((double)prestigePoint + amount);
         NotifyPointsChanged();
         SaveManager.Instance?.SaveGame();
     }
@@ -296,92 +249,41 @@ public class PrestigeManager : MonoBehaviour, ISaveable
 
     public void DoPrestige()
     {
-        if (!girlFieldManager || !economy) return;
-        if (!HasAnyFinalGirl()) return;
-        
-        // 환생 효과음 재생
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlayPrestigeSFX();
-        }
-        
-        economy.ResetGoldUpgradesForPrestige();
-        // 1) 포인트 적용
-        int baseGain = PreviewPrestigeGain();
-        double mulPPG = GetPrestigePointGainMul();
-        // 소수점 올림 처리
-        int gain = Mathf.Max(0, Mathf.CeilToInt((float)(baseGain * mulPPG)));
-        
-        Debug.Log($"[PrestigeManager] DoPrestige: baseGain={baseGain}, mulPPG={mulPPG:F2}, gain={gain}, 현재 포인트={prestigePoint}");
-        
-        prestigePoint      += gain;
-        totalPrestigeCount += 1;
-        NotifyPointsChanged();
-        
-        Debug.Log($"[PrestigeManager] DoPrestige 완료: 포인트 추가 후={prestigePoint}, 총 환생 횟수={totalPrestigeCount}");
-
-        // (선택) 계급 연동
+        if (IsPrestiging || !girlFieldManager || !economy || !HasAnyFinalGirl()) return;
+        IsPrestiging = true;
         try
         {
-            var t = FindTypeByName("LegacyRankManager");
-            var pi = t?.GetProperty("Instance", BindingFlags.Public|BindingFlags.Static);
-            var inst = pi?.GetValue(null, null);
-            var mi = t?.GetMethod("AddXp", BindingFlags.Public|BindingFlags.Instance);
-            if (inst != null && mi != null) mi.Invoke(inst, new object[]{ baseGain });
-        }
-        catch {}
-
-        // 업적 체크는 AchievementManager에서 자동으로 처리됨
-
-        // 2) 필드 비우기 (도감 해금 정보는 유지)
-        var snapshot = new List<GirlCharacter>(girlFieldManager.girlList);
-        foreach (var g in snapshot) if (g != null) girlFieldManager.RemoveGirl(g);
-        girlFieldManager.girlList.Clear();
-        girlFieldManager.ResetLevel25Progress();
-        // CurrentMaxLevel 리셋 (필드가 비워졌으므로 1로 초기화)
-        if (girlFieldManager != null)
-        {
-            girlFieldManager.RecomputeMaxLevelAndNotify();
-        }
-        // discoveredLevels는 유지 (환생 시 도감 해금 정보 보존)
-
-        // 3) 경제/티어 리셋 (HUD 즉시 0 표시)
-        economy.SetGold(0);
-        economy.ResetGoldUpgradesForPrestige(); // 골드로 구매한 강화 초기화
-        // 보석으로 구매한 강화는 유지 (환생 시 보석 강화 보존)
-        try 
-        { 
-            if (tierManager != null)
+            // Snapshot BEFORE clearing any characters or consumable upgrades.
+            PrestigeReward reward = GetPrestigeReward();
+            girlFieldManager.PrepareForPrestige();
+            economy.SetGold(0);
+            economy.ResetGoldUpgradesForPrestige();
+            if (tierManager)
             {
-                // 티어 언락 초기화 (0층만 해금) - 먼저 실행하여 0층이 확실히 해금된 상태로 만듦
                 tierManager.ResetTierUnlocks();
-                // 환생 직후 제일 낮은 계층(0층)으로 강제 이동
                 tierManager.ForceSwitchTo(0);
             }
-        } catch {}
 
-        // 4) 시작 자금 지급 = (Lv1 60초 수익) × (계급 배수) × (상점 배수)
-        double base1Min = economy.GetLevelIncomePerSec(1) * 60.0;
+            prestigePoint = PrestigeReward.ClampPoints((double)prestigePoint + reward.TotalPoints);
+            totalPrestigeCount = PrestigeReward.ClampPoints((double)totalPrestigeCount + 1);
+            MythicCollectionManager.Instance?.AdvanceAfterPrestige();
+            IncomeActivityManager.Instance?.Fever.Reset();
+            var legacy = LegacyRankManager.Instance;
+            if (legacy) legacy.AddXp(reward.BasePoints);
 
-        double mulRank = 1.0;
-        try
-        {
-            var t = FindTypeByName("LegacyRankManager");
-            var pi = t?.GetProperty("Instance", BindingFlags.Public|BindingFlags.Static);
-            var inst = pi?.GetValue(null, null);
-            var mi = t?.GetMethod("GetStartGoldMultiplier", BindingFlags.Public|BindingFlags.Instance);
-            if (inst != null && mi != null) mulRank = Convert.ToDouble(mi.Invoke(inst, null));
+            double startGold = economy.GetLevelIncomePerSec(1) * 60.0
+                * (legacy ? legacy.GetStartGoldMultiplier() : 1.0) * GetStartGoldMultiplier();
+            economy.AddGold(startGold);
+            girlFieldManager.BeginPrestigeRun();
+            NotifyPointsChanged();
+            if (AudioManager.Instance) AudioManager.Instance.PlayPrestigeSFX();
+            SaveManager.Instance?.SaveGame();
         }
-        catch {}
-
-        double startGold = base1Min * mulRank * GetStartGoldMultiplier();
-        if (startGold > 0) economy.AddGold(startGold);
-
-        // 환생 후 즉시 저장 (필드 비움, 골드 0, 강화 초기화 반영)
-        SaveManager.Instance?.SaveGame();
-
-        // 버튼 즉시 갱신
-        RefreshPrestigeButton(true);
+        finally
+        {
+            IsPrestiging = false;
+            RefreshPrestigeButton(true);
+        }
     }
 
     // ───────── 효과 쿼리(게임 적용) ─────────

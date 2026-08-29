@@ -24,6 +24,10 @@ public class OfflineRewardPanel : MonoBehaviour
     [SerializeField] private GameObject panelRoot;
     [SerializeField] private TextMeshProUGUI rewardText; // 보상 금액 표시
     [SerializeField] private TextMeshProUGUI durationText; // 오프라인 시간 표시 (선택)
+    [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text claimAdLabel;
+    [SerializeField] private TMP_Text claimJustLabel;
+    [SerializeField] private Image rewardIcon;
     [SerializeField] private Button claimButton; // 일반 받기 버튼
     [SerializeField] private Button claimJustButton; // 그냥 받기 버튼(광고 없음)
     [SerializeField] private Button claimAdButton; // 광고 보고 2배 받기 버튼
@@ -68,7 +72,7 @@ public class OfflineRewardPanel : MonoBehaviour
 
     void BindButtons()
     {
-        if (claimButton != null)
+        if (claimButton != null && claimButton != claimAdButton && claimButton != claimJustButton)
         {
             claimButton.onClick.RemoveAllListeners();
             claimButton.onClick.AddListener(() => GrantReward(1f));
@@ -106,6 +110,8 @@ public class OfflineRewardPanel : MonoBehaviour
         hasPayload = true;
         isCouponReward = false;
         couponGemReward = 0;
+        if (titleText) titleText.text = LocalizationManager.GetText("오프라인 보상", "OFFLINE REWARD");
+        if (rewardIcon) rewardIcon.gameObject.SetActive(true);
 
         // 보상 금액 표시
         if (rewardText != null)
@@ -135,7 +141,7 @@ public class OfflineRewardPanel : MonoBehaviour
 
         UpdateAdButtonVisual();
 
-        if (panelRoot) panelRoot.SetActive(true);
+        OpenPanel();
     }
     
     /// <summary>
@@ -153,6 +159,8 @@ public class OfflineRewardPanel : MonoBehaviour
         hasPayload = true;
         isCouponReward = true;
         couponGemReward = hasGem ? (long)couponReward.rewardAmount : 0;
+        if (titleText) titleText.text = LocalizationManager.GetText("쿠폰 보상", "COUPON REWARD");
+        if (rewardIcon) rewardIcon.gameObject.SetActive(hasGold);
 
         // 보상 금액 표시 (골드 또는 보석 중 하나)
         if (rewardText != null)
@@ -181,9 +189,12 @@ public class OfflineRewardPanel : MonoBehaviour
         // 광고 버튼 업데이트 (보석만 있어도 광고 2배 받기 가능)
         UpdateAdButtonVisual();
 
-        // 광고 버튼 업데이트 (골드 보상이 있을 때만 광고 2배 받기 가능)
-        UpdateAdButtonVisual();
+        OpenPanel();
+    }
 
+    void OpenPanel()
+    {
+        transform.SetAsLastSibling();
         if (panelRoot) panelRoot.SetActive(true);
     }
 
@@ -208,6 +219,7 @@ public class OfflineRewardPanel : MonoBehaviour
 
     void UpdateAdButtonVisual()
     {
+        if (claimJustLabel) claimJustLabel.text = LocalizationManager.GetText("그냥 받기", "CLAIM");
         if (claimAdButton == null) return;
 
         bool adsRemoved = PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved;
@@ -236,6 +248,9 @@ public class OfflineRewardPanel : MonoBehaviour
         }
 
         claimAdButton.interactable = ready;
+        if (claimAdLabel) claimAdLabel.text = ready
+            ? LocalizationManager.GetText($"광고 보고 {adRewardMultiplier:0.#}배 받기", $"WATCH AD · {adRewardMultiplier:0.#}× REWARD")
+            : LocalizationManager.GetText("광고 준비 중…", "AD LOADING…");
         if (adButtonIcon)
         {
             adButtonIcon.sprite = ready ? adReadySprite : adNotReadySprite;

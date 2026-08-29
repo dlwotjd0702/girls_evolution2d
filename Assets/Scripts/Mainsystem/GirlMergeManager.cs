@@ -24,6 +24,22 @@ public class GirlMergeManager : MonoBehaviour
     private bool _mergeBusy = false;
     private readonly HashSet<GirlCharacter> _mergingSet = new();
 
+    public void CancelPendingMerges()
+    {
+        StopAllCoroutines();
+        foreach (var girl in _mergingSet) if (girl) girl.enabled = true;
+        _mergingSet.Clear();
+        _mergeBusy = false;
+        if (highlightedTarget) highlightedTarget.Highlight(false);
+        highlightedTarget = null;
+        draggingGirl = null;
+    }
+
+    // Keep first discoveries manual, but do not force the player to rediscover
+    // every previously unlocked evolution after each prestige.
+    public bool CanAutoMergeLevel(int level) => level > 0 && level < TierRules.MaxLevel
+        && fieldManager != null && fieldManager.IsLevelDiscovered(level + 1);
+
     // ── 외부 확률(계승/상점) 리플렉션 캐시 ──
     static bool _legacyCached = false;
     static object _legacyInst;
@@ -192,6 +208,7 @@ public class GirlMergeManager : MonoBehaviour
         
         if (isClick)
         {
+            IncomeActivityManager.Instance?.RecordCharacterClick();
             // 클릭 보너스: 10% + 강화 레벨 × 1% (+ 환생 상점 클릭 배수)
             double clickPercent = economy.GetClickBonusMultiplier();
             gain = baseIncome * clickPercent;
@@ -211,6 +228,8 @@ public class GirlMergeManager : MonoBehaviour
             gain = baseIncome;
         }
 
+        gain *= CodexCollectionManager.Instance ? CodexCollectionManager.Instance.Multiplier(CodexCollectionManager.Effect.Income) : 1;
+        gain *= IncomeActivityManager.Instance ? IncomeActivityManager.Instance.OnlineMultiplier : 1;
         economy.AddGold(gain);
         fieldManager?.ShowGoldPopup(girl, gain, isClick);
     }
@@ -223,9 +242,6 @@ public class GirlMergeManager : MonoBehaviour
         int n = list.Count;
         if (n <= 1) return;
 
-        // 현재 필드에서 발견된 최대 레벨은 자동 합성 대상에서 제외
-        int currentMaxLevel = fieldManager.CurrentMaxLevel;
-
         // N이 너무 크면 완전 탐색(O(N²)) 대신 "처음 찾은 페어"만 사용해 조기 종료
         const int HARD_PAIR_SCAN_LIMIT = 80;
 
@@ -235,10 +251,10 @@ public class GirlMergeManager : MonoBehaviour
         for (int i = 0; i < n; i++)
         {
             var gi = list[i];
-            if (!gi || _mergingSet.Contains(gi) || gi.IsFinal) continue;
+            if (!gi || !gi.enabled || gi.IsBusyForAutoMerge || _mergingSet.Contains(gi) || gi.IsFinal) continue;
 
-            // 현재 발견 최대 레벨 이상은 자동 합성 금지 (직접 합성만 허용)
-            if (gi.Level >= currentMaxLevel && currentMaxLevel > 0) continue;
+            // Only the first lifetime discovery requires a manual merge.
+            if (!CanAutoMergeLevel(gi.Level)) continue;
 
             var ri = gi.transform as RectTransform;
             if (ri == null) continue;
@@ -248,9 +264,9 @@ public class GirlMergeManager : MonoBehaviour
             for (int j = i + 1; j < n; j++)
             {
                 var gj = list[j];
-                if (!gj || _mergingSet.Contains(gj) || gj.IsFinal) continue;
+                if (!gj || !gj.enabled || gj.IsBusyForAutoMerge || _mergingSet.Contains(gj) || gj.IsFinal) continue;
                 if (gj.Level != level) continue;
-                if (gj.Level >= currentMaxLevel && currentMaxLevel > 0) continue;
+                if (!CanAutoMergeLevel(gj.Level)) continue;
 
                 var rj = gj.transform as RectTransform;
                 if (rj == null) continue;
@@ -284,6 +300,7 @@ public class GirlMergeManager : MonoBehaviour
     IEnumerator MergeRoutine(GirlCharacter a, GirlCharacter b)
     {
         if (!a || !b || a == b) yield break;
+        if (a.Level != b.Level || a.IsFinal || b.IsFinal || !fieldManager) yield break;
         if (_mergingSet.Contains(a) || _mergingSet.Contains(b)) yield break;
 
         _mergeBusy = true;

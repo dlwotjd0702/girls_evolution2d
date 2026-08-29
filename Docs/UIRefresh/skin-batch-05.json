@@ -1,0 +1,412 @@
+{
+  "batch": "2026-08-28-05",
+  "method": "Built-in imagegen; authorized Python alpha extraction; staged visual review before registration.",
+  "items": [
+    {
+      "id": "lv08-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-667a6d96-f20a-4059-82db-b30b1256c99f.png",
+      "half": null,
+      "holes": [
+        19,
+        20,
+        92
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE SD full-body cosmetic sprite 'Golden Brocade'. Image 1 is SD edit target: preserve its own chibi proportions, short swept dark hair with side bun, narrow red eyes and knowing smile, asymmetric standing gesture with one raised index finger, loose dark ninja trousers and sandals. Image 2 is LD identity context only. Costume: ivory-and-muted-gold brocade kimono jacket with long flowing open sleeves, subtle gold geometric floral weave, structured wide charcoal obi with a single gold cord and two short tassel ends, ivory collar/scarf, charcoal gathered trousers, gold-and-charcoal ankle ties. Restyle the existing side-bun ornament as a compact gold flower with ivory petals and two dark ribbons, no multicolored flowers. Same recognizable ninja, no new weapon, no extra arms or props. Match clean dark linework and matte cel-shaded original game illustration, no shiny rendering. One centered whole figure with hair, fingertips, sleeve tips and sandals all within clear margin on square canvas. Genuine transparent RGBA, including gaps behind hair and between sleeves and torso. No painted checkerboard, white backdrop, ground shadow, text, watermark or second figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            580,
+            286
+          ],
+          [
+            729,
+            289
+          ],
+          [
+            688,
+            534
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            250
+          ],
+          [
+            400,
+            650
+          ],
+          [
+            770,
+            130
+          ]
+        ]
+      },
+      "visualReview": "Reviewed own SD/LD proportions, identity, costume and accessory count. Dark/light composites and internal hair/arm/leg gaps inspected. Ivory garments, floral ornaments, book pages and facial highlights preserved. lv08-c LD corrected to match SD gloves and ankle ties."
+    },
+    {
+      "id": "lv08-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-bd72a4ec-e71a-4231-848d-804ee7a7fb1e.png",
+      "half": null,
+      "holes": [
+        3,
+        4,
+        141
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body LD sprite 'Golden Brocade'. Image 1 is LD edit target for original body proportions, lively asymmetric stance and refined anime linework. Image 2 is the matching SD skin and authoritative costume/identity details: swept short dark hair, side bun with compact ivory-and-gold flower and two dark ribbons, narrow red eyes and subtle knowing smile. Match ivory-gold brocade long-sleeve kimono jacket, gold floral weave on sleeve ends, dark structured obi with ONE gold cord tied at center and two short tassels, ivory scarf, charcoal gathered calf-length ninja trousers, charcoal sandals and gold/charcoal ankle ties. Keep expressive original LD hands and natural anatomy, no added weapon. Same outfit construction and color proportions as SD, no leftover orange/red/green base outfit. Matte cel shading and crisp dark outlines. One entire character centered in square, all fingers, cloth tips and feet inside 5 percent clear margin. Actual transparent RGBA with empty arm/hair gaps, no checkerboard or opaque white backdrop, no ground shadow, text, border or watermark.",
+      "approved": true,
+      "rejectedDrafts": [
+        {
+          "path": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-7b9c8d8f-f7bf-4213-ad0e-cf0014f7df6a.png",
+          "reason": "Bare LD hands and tall ankle laces did not match SD costume."
+        }
+      ],
+      "correctionPrompt": "Precise costume consistency correction of image 1 ONLY. Keep the entire LD ninja, face, hair, flower ornament, proportions, pose, ivory-gold brocade, dark obi, sleeves, gold tassels and composition exactly as in image 1. Image 2 is the SD reference for two small costume details: add its dark fingerless ninja gloves to BOTH hands of the LD character, covering palms/back of hands while keeping fingers and expressive hand poses clear; match its simple charcoal sandal straps and short gold-and-charcoal ankle ties, without the extra tall crisscross laces on lower legs. Do not change skin, fingers, face or any other costume element. One LD figure, same original rendering and proportions. Actual transparent RGBA background including hair/arm gaps, no checkerboard or white backdrop, no ground shadow or text.",
+      "alphaProbes": {
+        "clear": [
+          [
+            513,
+            124
+          ],
+          [
+            481,
+            155
+          ],
+          [
+            589,
+            440
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            180
+          ],
+          [
+            460,
+            460
+          ],
+          [
+            750,
+            115
+          ]
+        ]
+      },
+      "visualReview": "Reviewed own SD/LD proportions, identity, costume and accessory count. Dark/light composites and internal hair/arm/leg gaps inspected. Ivory garments, floral ornaments, book pages and facial highlights preserved. lv08-c LD corrected to match SD gloves and ankle ties."
+    },
+    {
+      "id": "lv08-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-d7a2698d-bd3b-4bd3-9688-2b37b69b5244.png",
+      "half": null,
+      "holes": [
+        30,
+        33,
+        58,
+        131
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE SD full-body female ninja sprite 'Crimson Blossom Festival'. Image 1 is SD edit target: preserve exact chibi proportions, swept short dark hair and side bun, red eyes, knowing small smile, raised index-finger gesture and relaxed other hand, dark gathered trousers and original sandals. Image 2 is LD identity context only. New outfit: layered ivory and crimson kimono jacket, ivory outer sleeves with clearly readable red plum blossoms at sleeve ends, crimson inner lapels and crimson panels framing waist, thin charcoal piping, red braided cord sash tied in a decorative flat knot with two short red tassels over a modest ivory obi. Crimson scarf and matching red ankle cords. Compact red-and-ivory plum flower at the original side bun with two crimson ribbon tails; keep original dark fingerless gloves. Different construction from gold-brocade skin, no gold armor or jewelry added. Same original matte cel shading and dark clean linework. Single complete figure, all hair and flowing sleeve ends and toes in margin on a square image. Actual transparent RGBA including gaps behind hair/sleeves. No painted checkerboard, white backdrop, floor shadow, text or watermark.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            565,
+            287
+          ],
+          [
+            552,
+            301
+          ],
+          [
+            693,
+            532
+          ],
+          [
+            652,
+            1025
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            250
+          ],
+          [
+            400,
+            570
+          ],
+          [
+            785,
+            128
+          ]
+        ]
+      },
+      "visualReview": "Reviewed own SD/LD proportions, identity, costume and accessory count. Dark/light composites and internal hair/arm/leg gaps inspected. Ivory garments, floral ornaments, book pages and facial highlights preserved. lv08-c LD corrected to match SD gloves and ankle ties."
+    },
+    {
+      "id": "lv08-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e497285c-ce9e-4520-9c49-79f07ed13fdf.png",
+      "half": null,
+      "holes": [
+        34,
+        35,
+        37,
+        41,
+        77
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body LD female ninja sprite 'Crimson Blossom Festival'. Image 1 provides original LD anatomy, face shape and lively asymmetric raised-index-finger pose. Image 2 is exact SD costume and identity reference: dark swept short hair and side bun with compact red-and-ivory plum flower and two red ribbon tails, red eyes, small knowing smile. Match ivory kimono jacket with crimson inner lapels and front side panels, red plum blossoms on large ivory sleeve ends, thin charcoal piping, modest ivory obi with red braided knot and TWO red tassels, crimson scarf, charcoal gathered calf-length trousers, dark fingerless gloves on BOTH hands, simple charcoal sandals and short red ankle cords. No tall boot laces, no gold brocade, no extra props. Original matte cel-shaded game art, clean dark outlines, natural hands and pose. One complete character centered on square canvas, sleeve ends, hair, fingertips and feet inside clear margin. Actual transparent RGBA, empty hair and arm gaps, no painted checkerboard or opaque white backdrop, no floor shadow, text or watermark.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            703,
+            256
+          ],
+          [
+            592,
+            260
+          ],
+          [
+            579,
+            271
+          ],
+          [
+            495,
+            340
+          ],
+          [
+            708,
+            478
+          ]
+        ],
+        "opaque": [
+          [
+            630,
+            240
+          ],
+          [
+            480,
+            420
+          ],
+          [
+            742,
+            130
+          ]
+        ]
+      },
+      "visualReview": "Reviewed own SD/LD proportions, identity, costume and accessory count. Dark/light composites and internal hair/arm/leg gaps inspected. Ivory garments, floral ornaments, book pages and facial highlights preserved. lv08-c LD corrected to match SD gloves and ankle ties."
+    },
+    {
+      "id": "lv09-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-fa9d8e83-adf9-45ba-bd22-cbc6da2acc85.png",
+      "half": null,
+      "holes": [
+        16,
+        39
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE SD full-body sprite 'Snow Ink Oath'. Image 1 is exact SD edit target: preserve its very small chibi body and large head, straight dark bangs, black bob gathered at back with large dark ribbon, large black eyes, shy serious expression, pose with one small fist raised and one hand holding a single book/document under arm. Image 2 is LD identity context only, do NOT borrow its body proportions. New costume is an ivory winter scholar robe with a short padded shoulder mantle, strong black ink-like border bands at collar/cuffs/hem, dark flat obi tied neatly at center, slate gathered trousers and slate leggings with original wrapped sandals. One simple muted parchment-brown book with dark cover edge, matching counterpart. Practical modest costume fully covers torso and legs, no extra scrolls, magic effects, weapon or jewelry. Original soft matte cel-shaded anime ninja style with dark clean outlines. Entire single figure in square canvas with ribbon and feet fully inside margin. Actual transparent RGBA, clear internal gaps. No painted checkerboard, white backdrop, ground shadow, text or watermark.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            801,
+            207
+          ],
+          [
+            520,
+            483
+          ]
+        ],
+        "opaque": [
+          [
+            550,
+            430
+          ],
+          [
+            600,
+            550
+          ],
+          [
+            650,
+            870
+          ],
+          [
+            700,
+            700
+          ]
+        ]
+      },
+      "visualReview": "Reviewed own SD/LD proportions, identity, costume and accessory count. Dark/light composites and internal hair/arm/leg gaps inspected. Ivory garments, floral ornaments, book pages and facial highlights preserved. lv08-c LD corrected to match SD gloves and ankle ties."
+    },
+    {
+      "id": "lv09-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-3fa01bbe-f726-4eda-89ed-54fa4aa9e001.png",
+      "half": null,
+      "holes": [
+        27,
+        28,
+        99
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body LD skin 'Snow Ink Oath'. Image 1 is the level9 LD edit target: preserve its OWN small youthful stylized proportions, not adult proportions; black straight bangs and gathered black hair with ribbon, large dark eyes, quiet serious face, relaxed standing pose. Image 2 provides exactly matching SD outfit: ivory winter scholar robe with thick charcoal ink border at lapels/cuffs/hem, ink-brush pattern near lower hem, short ivory quilted padded shoulder mantle tied by small dark cord at chest, charcoal flat obi tied at center with two tails, slate loose trousers, pale slate shin wraps and dark simple sandals. Hold ONE muted brown book with dark cover edge in the lowered hand, matching the SD book; no second book, no weapon or magical effects. Match all clothing colors and accessories while preserving LD original anatomy and expression. Soft matte anime cel shading, clean dark linework. Single centered whole figure on square with hair ribbon, hands, book and feet fully inside clear margin. Actual transparent RGBA, also between ribbon/hair, arms and clothing. No fake checkerboard, opaque white backdrop, ground shadow, text, watermark or extra figures.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            667,
+            366
+          ],
+          [
+            545,
+            382
+          ],
+          [
+            706,
+            601
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            350
+          ],
+          [
+            650,
+            440
+          ],
+          [
+            650,
+            750
+          ],
+          [
+            860,
+            800
+          ]
+        ]
+      },
+      "visualReview": "Reviewed own SD/LD proportions, identity, costume and accessory count. Dark/light composites and internal hair/arm/leg gaps inspected. Ivory garments, floral ornaments, book pages and facial highlights preserved. lv08-c LD corrected to match SD gloves and ankle ties."
+    },
+    {
+      "id": "lv09-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-ab6c6b32-4d28-403b-89fa-594b462364af.png",
+      "half": null,
+      "holes": [
+        19,
+        44,
+        45
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE SD full-body cosmetic sprite 'Violet Cloud Records'. Image 1 is exact SD edit target: keep very small chibi proportions, large head, straight black bangs and bob tied with a large dark ribbon, large dark eyes, shy serious expression and original small fist/book-holding pose. Image 2 is LD identity context only. Outfit: violet short scholar coat over dark charcoal inner robe, pale lavender stylized cloud motifs embroidered along coat lower hem and sleeve ends, simple dark obi with a slim flat document strap, muted lilac collar, slate gathered trousers, slate shin wraps and original charcoal sandals. Keep ONE brown book with dark cover-edge band, no additional scrolls or paper props. No winter mantle, fur, new jewelry or weapon. Modest fully clothed original ninja character. Same original matte cel-shading and crisp dark outlines. One complete figure centered in square with ribbon and toes fully within empty margin. Actual transparent RGBA including hair/arm/book gaps. No painted checkerboard, white backdrop, floor shadow, text or watermark.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            821,
+            216
+          ],
+          [
+            669,
+            483
+          ],
+          [
+            477,
+            492
+          ]
+        ],
+        "opaque": [
+          [
+            550,
+            430
+          ],
+          [
+            650,
+            550
+          ],
+          [
+            650,
+            650
+          ]
+        ]
+      },
+      "visualReview": "Reviewed own SD/LD proportions, identity, costume and accessory count. Dark/light composites and internal hair/arm/leg gaps inspected. Ivory garments, floral ornaments, book pages and facial highlights preserved. lv08-c LD corrected to match SD gloves and ankle ties."
+    },
+    {
+      "id": "lv09-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-0aaca07d-ff82-4bb4-89f3-1e7c28c770ef.png",
+      "half": null,
+      "holes": [
+        16,
+        17,
+        20,
+        24
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body LD skin 'Violet Cloud Records'. Image 1 is the LD edit target: preserve its own small youthful stylized anatomy and proportions, black straight bangs and gathered black hair with ribbon and narrow pale hair band, large dark eyes, quiet serious face and relaxed original standing pose; no adult-body redesign. Image 2 is the exact SD outfit. Match muted violet short scholar coat, lilac trim and cloud-outline embroidery at sleeve ends and lower hem, charcoal inner robe and flat tied obi, slim brown document strap with small rectangular buckle over obi, slate gathered trousers, slate shin wraps and charcoal simple sandals. Hold ONE brown hard-cover book with dark edge band in lowered hand; no extra papers, weapon or jewelry. Same matte cel-shaded anime ninja style and clean dark outlines. Entire single figure centered in square with hair ribbons, hands, book and feet inside clear margin. Actual transparent RGBA background with empty internal gaps, not painted checkerboard or white backdrop. No ground shadow, text, watermark or extra figures.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            538,
+            361
+          ],
+          [
+            682,
+            372
+          ],
+          [
+            540,
+            414
+          ],
+          [
+            780,
+            779
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            350
+          ],
+          [
+            680,
+            500
+          ],
+          [
+            850,
+            850
+          ]
+        ]
+      },
+      "visualReview": "Reviewed own SD/LD proportions, identity, costume and accessory count. Dark/light composites and internal hair/arm/leg gaps inspected. Ivory garments, floral ornaments, book pages and facial highlights preserved. lv08-c LD corrected to match SD gloves and ankle ties."
+    }
+  ]
+}

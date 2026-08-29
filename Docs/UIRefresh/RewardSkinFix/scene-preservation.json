@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "changedOriginalSceneBlocks": [
+    74129243,
+    74129244,
+    74129246,
+    332945549,
+    332945550,
+    606135091,
+    818026688,
+    818026689,
+    1139980841,
+    1139980842,
+    1547805360,
+    1547805361,
+    1689916642,
+    1689916643,
+    1689916644,
+    1963346709,
+    1963346710,
+    1963346711
+  ],
+  "newSceneBlocks": 16,
+  "allOriginalChangesInsideOfflinePopup": true,
+  "unchangedSkinRecords": 96,
+  "playerSaveUnchangedSinceStop": true,
+  "saveSha256": "4b32c9d487d002fd4d7949beb94667429fa042ca1539216af132e64296a11678"
+}

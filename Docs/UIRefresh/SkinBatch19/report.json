@@ -1,0 +1,4300 @@
+[
+  {
+    "id": "lv01-a",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch19\\Source\\lv01-a-SD.png",
+    "sourceSha256": "a27321ea37aa2e2059d934b05e212d830d832b8093f82aa4ef99ed5f626a8bb4",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 3,
+        "xywh": [
+          534,
+          386,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 6,
+        "xywh": [
+          510,
+          403,
+          6,
+          4
+        ],
+        "area": 20,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          635,
+          402,
+          4,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          486,
+          405,
+          2,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          652,
+          405,
+          8,
+          7
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          690,
+          407,
+          21,
+          32
+        ],
+        "area": 170,
+        "removed": false
+      },
+      {
+        "component": 11,
+        "xywh": [
+          497,
+          410,
+          29,
+          33
+        ],
+        "area": 292,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          639,
+          416,
+          21,
+          24
+        ],
+        "area": 232,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          552,
+          420,
+          10,
+          21
+        ],
+        "area": 64,
+        "removed": false
+      },
+      {
+        "component": 14,
+        "xywh": [
+          691,
+          424,
+          4,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          518,
+          427,
+          4,
+          3
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 16,
+        "xywh": [
+          656,
+          426,
+          3,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 17,
+        "xywh": [
+          411,
+          430,
+          27,
+          79
+        ],
+        "area": 642,
+        "removed": true
+      },
+      {
+        "component": 18,
+        "xywh": [
+          591,
+          448,
+          4,
+          5
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          497,
+          454,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 21,
+        "xywh": [
+          504,
+          471,
+          10,
+          10
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 23,
+        "xywh": [
+          484,
+          500,
+          87,
+          50
+        ],
+        "area": 1336,
+        "removed": true
+      },
+      {
+        "component": 24,
+        "xywh": [
+          658,
+          503,
+          53,
+          24
+        ],
+        "area": 427,
+        "removed": true
+      },
+      {
+        "component": 27,
+        "xywh": [
+          519,
+          528,
+          14,
+          27
+        ],
+        "area": 113,
+        "removed": false
+      },
+      {
+        "component": 30,
+        "xywh": [
+          688,
+          530,
+          15,
+          28
+        ],
+        "area": 97,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          564,
+          532,
+          32,
+          29
+        ],
+        "area": 82,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          571,
+          532,
+          9,
+          3
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          582,
+          535,
+          68,
+          60
+        ],
+        "area": 97,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          464,
+          537,
+          54,
+          82
+        ],
+        "area": 235,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          560,
+          536,
+          50,
+          46
+        ],
+        "area": 95,
+        "removed": false
+      },
+      {
+        "component": 38,
+        "xywh": [
+          642,
+          536,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 42,
+        "xywh": [
+          711,
+          543,
+          42,
+          64
+        ],
+        "area": 155,
+        "removed": false
+      },
+      {
+        "component": 43,
+        "xywh": [
+          570,
+          544,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 46,
+        "xywh": [
+          648,
+          555,
+          3,
+          4
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 47,
+        "xywh": [
+          662,
+          554,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 48,
+        "xywh": [
+          519,
+          557,
+          1,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 50,
+        "xywh": [
+          701,
+          556,
+          2,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 51,
+        "xywh": [
+          519,
+          558,
+          6,
+          20
+        ],
+        "area": 45,
+        "removed": false
+      },
+      {
+        "component": 54,
+        "xywh": [
+          686,
+          560,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 55,
+        "xywh": [
+          638,
+          565,
+          7,
+          4
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 56,
+        "xywh": [
+          685,
+          564,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 57,
+        "xywh": [
+          694,
+          566,
+          5,
+          8
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 59,
+        "xywh": [
+          512,
+          570,
+          2,
+          11
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 60,
+        "xywh": [
+          683,
+          575,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 61,
+        "xywh": [
+          690,
+          577,
+          7,
+          23
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 62,
+        "xywh": [
+          682,
+          579,
+          10,
+          17
+        ],
+        "area": 35,
+        "removed": false
+      },
+      {
+        "component": 66,
+        "xywh": [
+          563,
+          584,
+          16,
+          7
+        ],
+        "area": 30,
+        "removed": false
+      },
+      {
+        "component": 67,
+        "xywh": [
+          549,
+          587,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 68,
+        "xywh": [
+          537,
+          589,
+          5,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 70,
+        "xywh": [
+          515,
+          596,
+          2,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 71,
+        "xywh": [
+          577,
+          597,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 72,
+        "xywh": [
+          532,
+          601,
+          5,
+          8
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 73,
+        "xywh": [
+          756,
+          603,
+          35,
+          42
+        ],
+        "area": 134,
+        "removed": false
+      },
+      {
+        "component": 75,
+        "xywh": [
+          435,
+          608,
+          30,
+          36
+        ],
+        "area": 123,
+        "removed": false
+      },
+      {
+        "component": 76,
+        "xywh": [
+          512,
+          608,
+          5,
+          23
+        ],
+        "area": 44,
+        "removed": false
+      },
+      {
+        "component": 78,
+        "xywh": [
+          508,
+          611,
+          4,
+          7
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 80,
+        "xywh": [
+          538,
+          622,
+          22,
+          14
+        ],
+        "area": 102,
+        "removed": false
+      },
+      {
+        "component": 81,
+        "xywh": [
+          765,
+          622,
+          1,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 82,
+        "xywh": [
+          510,
+          627,
+          1,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 83,
+        "xywh": [
+          693,
+          627,
+          3,
+          8
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 85,
+        "xywh": [
+          683,
+          647,
+          82,
+          125
+        ],
+        "area": 1593,
+        "removed": true
+      },
+      {
+        "component": 88,
+        "xywh": [
+          451,
+          655,
+          7,
+          3
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 89,
+        "xywh": [
+          554,
+          657,
+          13,
+          5
+        ],
+        "area": 25,
+        "removed": false
+      },
+      {
+        "component": 91,
+        "xywh": [
+          579,
+          659,
+          9,
+          16
+        ],
+        "area": 40,
+        "removed": false
+      },
+      {
+        "component": 92,
+        "xywh": [
+          618,
+          659,
+          13,
+          2
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 95,
+        "xywh": [
+          596,
+          660,
+          3,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 97,
+        "xywh": [
+          654,
+          660,
+          7,
+          5
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 98,
+        "xywh": [
+          550,
+          663,
+          11,
+          6
+        ],
+        "area": 35,
+        "removed": false
+      },
+      {
+        "component": 99,
+        "xywh": [
+          574,
+          662,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 101,
+        "xywh": [
+          606,
+          663,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 102,
+        "xywh": [
+          761,
+          662,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 103,
+        "xywh": [
+          466,
+          665,
+          5,
+          5
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 106,
+        "xywh": [
+          596,
+          664,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 108,
+        "xywh": [
+          567,
+          667,
+          9,
+          13
+        ],
+        "area": 17,
+        "removed": false
+      },
+      {
+        "component": 109,
+        "xywh": [
+          600,
+          667,
+          4,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 110,
+        "xywh": [
+          614,
+          667,
+          6,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 112,
+        "xywh": [
+          707,
+          666,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 116,
+        "xywh": [
+          632,
+          669,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 117,
+        "xywh": [
+          526,
+          671,
+          1,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 118,
+        "xywh": [
+          539,
+          671,
+          19,
+          11
+        ],
+        "area": 57,
+        "removed": false
+      },
+      {
+        "component": 119,
+        "xywh": [
+          565,
+          670,
+          4,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 121,
+        "xywh": [
+          606,
+          670,
+          29,
+          22
+        ],
+        "area": 75,
+        "removed": false
+      },
+      {
+        "component": 122,
+        "xywh": [
+          653,
+          671,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 123,
+        "xywh": [
+          544,
+          673,
+          20,
+          19
+        ],
+        "area": 36,
+        "removed": false
+      },
+      {
+        "component": 124,
+        "xywh": [
+          625,
+          675,
+          5,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 125,
+        "xywh": [
+          632,
+          674,
+          11,
+          10
+        ],
+        "area": 47,
+        "removed": false
+      },
+      {
+        "component": 128,
+        "xywh": [
+          655,
+          678,
+          6,
+          4
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 130,
+        "xywh": [
+          601,
+          683,
+          5,
+          9
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 131,
+        "xywh": [
+          560,
+          685,
+          13,
+          10
+        ],
+        "area": 29,
+        "removed": false
+      },
+      {
+        "component": 132,
+        "xywh": [
+          724,
+          684,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 133,
+        "xywh": [
+          441,
+          699,
+          74,
+          146
+        ],
+        "area": 3617,
+        "removed": true
+      },
+      {
+        "component": 134,
+        "xywh": [
+          550,
+          698,
+          3,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 137,
+        "xywh": [
+          544,
+          704,
+          6,
+          66
+        ],
+        "area": 191,
+        "removed": false
+      },
+      {
+        "component": 138,
+        "xywh": [
+          616,
+          706,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 139,
+        "xywh": [
+          599,
+          710,
+          1,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 140,
+        "xywh": [
+          565,
+          712,
+          13,
+          157
+        ],
+        "area": 295,
+        "removed": false
+      },
+      {
+        "component": 142,
+        "xywh": [
+          599,
+          717,
+          11,
+          151
+        ],
+        "area": 259,
+        "removed": false
+      },
+      {
+        "component": 143,
+        "xywh": [
+          545,
+          720,
+          19,
+          150
+        ],
+        "area": 255,
+        "removed": false
+      },
+      {
+        "component": 145,
+        "xywh": [
+          617,
+          721,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 146,
+        "xywh": [
+          619,
+          727,
+          9,
+          65
+        ],
+        "area": 91,
+        "removed": false
+      },
+      {
+        "component": 147,
+        "xywh": [
+          614,
+          736,
+          2,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 149,
+        "xywh": [
+          568,
+          738,
+          4,
+          11
+        ],
+        "area": 20,
+        "removed": false
+      },
+      {
+        "component": 150,
+        "xywh": [
+          671,
+          738,
+          29,
+          22
+        ],
+        "area": 66,
+        "removed": false
+      },
+      {
+        "component": 151,
+        "xywh": [
+          407,
+          750,
+          4,
+          9
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 152,
+        "xywh": [
+          498,
+          755,
+          4,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 155,
+        "xywh": [
+          631,
+          760,
+          31,
+          18
+        ],
+        "area": 48,
+        "removed": false
+      },
+      {
+        "component": 157,
+        "xywh": [
+          391,
+          762,
+          15,
+          17
+        ],
+        "area": 23,
+        "removed": false
+      },
+      {
+        "component": 158,
+        "xywh": [
+          677,
+          763,
+          27,
+          19
+        ],
+        "area": 48,
+        "removed": false
+      },
+      {
+        "component": 160,
+        "xywh": [
+          675,
+          767,
+          3,
+          7
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 161,
+        "xywh": [
+          502,
+          768,
+          10,
+          9
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 163,
+        "xywh": [
+          812,
+          770,
+          9,
+          19
+        ],
+        "area": 26,
+        "removed": false
+      },
+      {
+        "component": 165,
+        "xywh": [
+          667,
+          781,
+          9,
+          7
+        ],
+        "area": 21,
+        "removed": false
+      },
+      {
+        "component": 166,
+        "xywh": [
+          633,
+          783,
+          30,
+          21
+        ],
+        "area": 64,
+        "removed": false
+      },
+      {
+        "component": 167,
+        "xywh": [
+          694,
+          785,
+          6,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 170,
+        "xywh": [
+          592,
+          787,
+          6,
+          27
+        ],
+        "area": 41,
+        "removed": false
+      },
+      {
+        "component": 171,
+        "xywh": [
+          632,
+          786,
+          2,
+          9
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 172,
+        "xywh": [
+          485,
+          789,
+          6,
+          10
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 173,
+        "xywh": [
+          478,
+          791,
+          7,
+          20
+        ],
+        "area": 29,
+        "removed": false
+      },
+      {
+        "component": 174,
+        "xywh": [
+          581,
+          790,
+          10,
+          4
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 176,
+        "xywh": [
+          628,
+          793,
+          7,
+          76
+        ],
+        "area": 152,
+        "removed": false
+      },
+      {
+        "component": 181,
+        "xywh": [
+          501,
+          803,
+          9,
+          15
+        ],
+        "area": 26,
+        "removed": false
+      },
+      {
+        "component": 182,
+        "xywh": [
+          594,
+          802,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 183,
+        "xywh": [
+          685,
+          803,
+          4,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 187,
+        "xywh": [
+          680,
+          811,
+          3,
+          5
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 188,
+        "xywh": [
+          694,
+          811,
+          6,
+          10
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 191,
+        "xywh": [
+          492,
+          815,
+          5,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 192,
+        "xywh": [
+          510,
+          814,
+          2,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 193,
+        "xywh": [
+          473,
+          817,
+          2,
+          7
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 194,
+        "xywh": [
+          496,
+          817,
+          5,
+          8
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 195,
+        "xywh": [
+          579,
+          817,
+          13,
+          8
+        ],
+        "area": 36,
+        "removed": false
+      },
+      {
+        "component": 196,
+        "xywh": [
+          593,
+          816,
+          6,
+          4
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 197,
+        "xywh": [
+          689,
+          817,
+          7,
+          6
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 198,
+        "xywh": [
+          478,
+          819,
+          2,
+          7
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 199,
+        "xywh": [
+          676,
+          821,
+          3,
+          7
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 200,
+        "xywh": [
+          719,
+          820,
+          5,
+          3
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 201,
+        "xywh": [
+          728,
+          822,
+          5,
+          6
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 202,
+        "xywh": [
+          713,
+          824,
+          9,
+          7
+        ],
+        "area": 29,
+        "removed": false
+      },
+      {
+        "component": 203,
+        "xywh": [
+          435,
+          827,
+          157,
+          182
+        ],
+        "area": 376,
+        "removed": false
+      },
+      {
+        "component": 204,
+        "xywh": [
+          481,
+          827,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 205,
+        "xywh": [
+          513,
+          828,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 207,
+        "xywh": [
+          745,
+          829,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 208,
+        "xywh": [
+          469,
+          830,
+          3,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 210,
+        "xywh": [
+          482,
+          833,
+          9,
+          9
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 212,
+        "xywh": [
+          679,
+          835,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 213,
+        "xywh": [
+          736,
+          835,
+          3,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 214,
+        "xywh": [
+          743,
+          834,
+          4,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 215,
+        "xywh": [
+          836,
+          836,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 217,
+        "xywh": [
+          717,
+          838,
+          5,
+          6
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 218,
+        "xywh": [
+          463,
+          842,
+          6,
+          8
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 219,
+        "xywh": [
+          686,
+          843,
+          12,
+          12
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 220,
+        "xywh": [
+          477,
+          845,
+          11,
+          5
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 221,
+        "xywh": [
+          515,
+          844,
+          3,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 222,
+        "xywh": [
+          844,
+          845,
+          6,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 224,
+        "xywh": [
+          510,
+          847,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 225,
+        "xywh": [
+          587,
+          847,
+          3,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 226,
+        "xywh": [
+          683,
+          846,
+          11,
+          11
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 227,
+        "xywh": [
+          741,
+          847,
+          1,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 229,
+        "xywh": [
+          468,
+          848,
+          19,
+          18
+        ],
+        "area": 41,
+        "removed": false
+      },
+      {
+        "component": 231,
+        "xywh": [
+          496,
+          851,
+          6,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 233,
+        "xywh": [
+          674,
+          850,
+          83,
+          50
+        ],
+        "area": 222,
+        "removed": false
+      },
+      {
+        "component": 234,
+        "xywh": [
+          751,
+          851,
+          5,
+          4
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 235,
+        "xywh": [
+          498,
+          853,
+          9,
+          7
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 238,
+        "xywh": [
+          502,
+          854,
+          17,
+          14
+        ],
+        "area": 26,
+        "removed": false
+      },
+      {
+        "component": 239,
+        "xywh": [
+          552,
+          854,
+          8,
+          11
+        ],
+        "area": 35,
+        "removed": false
+      },
+      {
+        "component": 241,
+        "xywh": [
+          614,
+          855,
+          10,
+          10
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 243,
+        "xywh": [
+          852,
+          854,
+          6,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 244,
+        "xywh": [
+          731,
+          856,
+          4,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 247,
+        "xywh": [
+          592,
+          860,
+          4,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 248,
+        "xywh": [
+          707,
+          861,
+          8,
+          6
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 249,
+        "xywh": [
+          735,
+          861,
+          4,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 250,
+        "xywh": [
+          758,
+          860,
+          2,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 252,
+        "xywh": [
+          702,
+          863,
+          10,
+          7
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 253,
+        "xywh": [
+          860,
+          863,
+          5,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 254,
+        "xywh": [
+          482,
+          864,
+          12,
+          12
+        ],
+        "area": 42,
+        "removed": false
+      },
+      {
+        "component": 255,
+        "xywh": [
+          580,
+          864,
+          4,
+          12
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 256,
+        "xywh": [
+          716,
+          867,
+          9,
+          6
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 259,
+        "xywh": [
+          541,
+          868,
+          7,
+          20
+        ],
+        "area": 53,
+        "removed": false
+      },
+      {
+        "component": 260,
+        "xywh": [
+          576,
+          869,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 262,
+        "xywh": [
+          566,
+          871,
+          5,
+          10
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 263,
+        "xywh": [
+          632,
+          870,
+          7,
+          23
+        ],
+        "area": 59,
+        "removed": false
+      },
+      {
+        "component": 269,
+        "xywh": [
+          752,
+          874,
+          6,
+          13
+        ],
+        "area": 21,
+        "removed": false
+      },
+      {
+        "component": 271,
+        "xywh": [
+          581,
+          877,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 272,
+        "xywh": [
+          735,
+          877,
+          6,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 276,
+        "xywh": [
+          572,
+          882,
+          7,
+          4
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 277,
+        "xywh": [
+          582,
+          882,
+          3,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 278,
+        "xywh": [
+          448,
+          885,
+          12,
+          6
+        ],
+        "area": 26,
+        "removed": false
+      },
+      {
+        "component": 279,
+        "xywh": [
+          550,
+          885,
+          6,
+          7
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 280,
+        "xywh": [
+          563,
+          885,
+          4,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 281,
+        "xywh": [
+          592,
+          885,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 282,
+        "xywh": [
+          883,
+          889,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 283,
+        "xywh": [
+          551,
+          893,
+          36,
+          28
+        ],
+        "area": 95,
+        "removed": false
+      },
+      {
+        "component": 284,
+        "xywh": [
+          588,
+          893,
+          4,
+          6
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 285,
+        "xywh": [
+          617,
+          893,
+          6,
+          6
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 286,
+        "xywh": [
+          580,
+          894,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 287,
+        "xywh": [
+          597,
+          895,
+          7,
+          4
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 288,
+        "xywh": [
+          625,
+          894,
+          11,
+          11
+        ],
+        "area": 20,
+        "removed": false
+      },
+      {
+        "component": 292,
+        "xywh": [
+          602,
+          903,
+          10,
+          9
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 293,
+        "xywh": [
+          897,
+          905,
+          7,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 294,
+        "xywh": [
+          588,
+          909,
+          2,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 295,
+        "xywh": [
+          566,
+          911,
+          53,
+          24
+        ],
+        "area": 76,
+        "removed": false
+      },
+      {
+        "component": 296,
+        "xywh": [
+          597,
+          913,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 297,
+        "xywh": [
+          591,
+          916,
+          5,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 299,
+        "xywh": [
+          588,
+          921,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 300,
+        "xywh": [
+          533,
+          930,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 301,
+        "xywh": [
+          473,
+          949,
+          5,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 302,
+        "xywh": [
+          480,
+          956,
+          17,
+          9
+        ],
+        "area": 45,
+        "removed": false
+      },
+      {
+        "component": 304,
+        "xywh": [
+          716,
+          960,
+          23,
+          11
+        ],
+        "area": 66,
+        "removed": false
+      },
+      {
+        "component": 305,
+        "xywh": [
+          480,
+          962,
+          5,
+          6
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 306,
+        "xywh": [
+          501,
+          965,
+          20,
+          5
+        ],
+        "area": 56,
+        "removed": false
+      },
+      {
+        "component": 308,
+        "xywh": [
+          485,
+          969,
+          12,
+          2
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 309,
+        "xywh": [
+          726,
+          969,
+          6,
+          5
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 310,
+        "xywh": [
+          478,
+          971,
+          20,
+          14
+        ],
+        "area": 45,
+        "removed": false
+      },
+      {
+        "component": 311,
+        "xywh": [
+          688,
+          970,
+          22,
+          5
+        ],
+        "area": 66,
+        "removed": false
+      },
+      {
+        "component": 312,
+        "xywh": [
+          506,
+          973,
+          10,
+          2
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 313,
+        "xywh": [
+          712,
+          973,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 314,
+        "xywh": [
+          719,
+          975,
+          14,
+          12
+        ],
+        "area": 49,
+        "removed": false
+      },
+      {
+        "component": 316,
+        "xywh": [
+          689,
+          978,
+          8,
+          8
+        ],
+        "area": 27,
+        "removed": false
+      },
+      {
+        "component": 317,
+        "xywh": [
+          480,
+          983,
+          15,
+          12
+        ],
+        "area": 59,
+        "removed": false
+      },
+      {
+        "component": 318,
+        "xywh": [
+          500,
+          985,
+          16,
+          2
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 319,
+        "xywh": [
+          693,
+          985,
+          26,
+          7
+        ],
+        "area": 65,
+        "removed": false
+      },
+      {
+        "component": 320,
+        "xywh": [
+          496,
+          989,
+          12,
+          11
+        ],
+        "area": 79,
+        "removed": false
+      },
+      {
+        "component": 321,
+        "xywh": [
+          694,
+          989,
+          41,
+          9
+        ],
+        "area": 117,
+        "removed": false
+      },
+      {
+        "component": 323,
+        "xywh": [
+          482,
+          992,
+          6,
+          4
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 324,
+        "xywh": [
+          519,
+          993,
+          1,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 325,
+        "xywh": [
+          727,
+          996,
+          9,
+          5
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 326,
+        "xywh": [
+          973,
+          997,
+          15,
+          15
+        ],
+        "area": 56,
+        "removed": false
+      },
+      {
+        "component": 327,
+        "xywh": [
+          494,
+          999,
+          14,
+          6
+        ],
+        "area": 29,
+        "removed": false
+      },
+      {
+        "component": 328,
+        "xywh": [
+          518,
+          1000,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 329,
+        "xywh": [
+          696,
+          1000,
+          25,
+          8
+        ],
+        "area": 78,
+        "removed": false
+      },
+      {
+        "component": 330,
+        "xywh": [
+          731,
+          1001,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 331,
+        "xywh": [
+          478,
+          1002,
+          8,
+          4
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 332,
+        "xywh": [
+          707,
+          1004,
+          15,
+          6
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 333,
+        "xywh": [
+          476,
+          1006,
+          13,
+          9
+        ],
+        "area": 38,
+        "removed": false
+      },
+      {
+        "component": 334,
+        "xywh": [
+          503,
+          1006,
+          15,
+          3
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 335,
+        "xywh": [
+          496,
+          1009,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 336,
+        "xywh": [
+          512,
+          1009,
+          3,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 337,
+        "xywh": [
+          516,
+          1008,
+          2,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 338,
+        "xywh": [
+          733,
+          1009,
+          8,
+          7
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 339,
+        "xywh": [
+          470,
+          1011,
+          22,
+          13
+        ],
+        "area": 86,
+        "removed": false
+      },
+      {
+        "component": 340,
+        "xywh": [
+          698,
+          1010,
+          8,
+          3
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 341,
+        "xywh": [
+          487,
+          1016,
+          9,
+          5
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 342,
+        "xywh": [
+          707,
+          1016,
+          25,
+          6
+        ],
+        "area": 47,
+        "removed": false
+      },
+      {
+        "component": 343,
+        "xywh": [
+          703,
+          1017,
+          36,
+          14
+        ],
+        "area": 91,
+        "removed": false
+      },
+      {
+        "component": 344,
+        "xywh": [
+          740,
+          1016,
+          3,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 345,
+        "xywh": [
+          469,
+          1019,
+          10,
+          17
+        ],
+        "area": 63,
+        "removed": false
+      },
+      {
+        "component": 346,
+        "xywh": [
+          740,
+          1020,
+          10,
+          12
+        ],
+        "area": 41,
+        "removed": false
+      },
+      {
+        "component": 347,
+        "xywh": [
+          500,
+          1025,
+          13,
+          14
+        ],
+        "area": 50,
+        "removed": false
+      },
+      {
+        "component": 348,
+        "xywh": [
+          486,
+          1026,
+          12,
+          7
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 349,
+        "xywh": [
+          502,
+          1026,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 350,
+        "xywh": [
+          740,
+          1031,
+          12,
+          10
+        ],
+        "area": 26,
+        "removed": false
+      },
+      {
+        "component": 352,
+        "xywh": [
+          712,
+          1032,
+          24,
+          5
+        ],
+        "area": 51,
+        "removed": false
+      },
+      {
+        "component": 354,
+        "xywh": [
+          467,
+          1036,
+          13,
+          15
+        ],
+        "area": 85,
+        "removed": false
+      },
+      {
+        "component": 355,
+        "xywh": [
+          476,
+          1037,
+          5,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 356,
+        "xywh": [
+          496,
+          1037,
+          10,
+          4
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 357,
+        "xywh": [
+          720,
+          1037,
+          19,
+          5
+        ],
+        "area": 28,
+        "removed": false
+      },
+      {
+        "component": 359,
+        "xywh": [
+          709,
+          1040,
+          11,
+          12
+        ],
+        "area": 48,
+        "removed": false
+      },
+      {
+        "component": 361,
+        "xywh": [
+          735,
+          1046,
+          18,
+          6
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 362,
+        "xywh": [
+          462,
+          1049,
+          9,
+          11
+        ],
+        "area": 32,
+        "removed": false
+      },
+      {
+        "component": 365,
+        "xywh": [
+          481,
+          1053,
+          11,
+          4
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 368,
+        "xywh": [
+          713,
+          1055,
+          4,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 369,
+        "xywh": [
+          724,
+          1054,
+          21,
+          4
+        ],
+        "area": 27,
+        "removed": false
+      },
+      {
+        "component": 370,
+        "xywh": [
+          476,
+          1056,
+          6,
+          3
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 371,
+        "xywh": [
+          492,
+          1059,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 373,
+        "xywh": [
+          468,
+          1060,
+          20,
+          7
+        ],
+        "area": 70,
+        "removed": false
+      },
+      {
+        "component": 374,
+        "xywh": [
+          501,
+          1061,
+          4,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 375,
+        "xywh": [
+          499,
+          1063,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 376,
+        "xywh": [
+          503,
+          1063,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 377,
+        "xywh": [
+          721,
+          1063,
+          19,
+          4
+        ],
+        "area": 50,
+        "removed": false
+      },
+      {
+        "component": 378,
+        "xywh": [
+          746,
+          1064,
+          5,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 380,
+        "xywh": [
+          495,
+          1067,
+          6,
+          2
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 381,
+        "xywh": [
+          716,
+          1068,
+          12,
+          8
+        ],
+        "area": 54,
+        "removed": false
+      },
+      {
+        "component": 384,
+        "xywh": [
+          731,
+          1071,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 385,
+        "xywh": [
+          723,
+          1074,
+          6,
+          4
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 386,
+        "xywh": [
+          744,
+          1074,
+          9,
+          3
+        ],
+        "area": 11,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      310,
+      107,
+      992,
+      1145
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch19\\Ready\\lv01-a-SD.png",
+    "preparedSha256": "0f21dd05f0679e57327934fb0b83371c566d6ba5c07d766aa91b0fb85e079eb2",
+    "approved": true,
+    "path": "Assets/Art/Characters/Skins/lv01-a-SD.png",
+    "originalPath": "Docs/UIRefresh/SkinBatch19/ReplacedOriginals/lv01-a-SD.png",
+    "beforeSha256": "21b150b9a767e93fe3306a7a79ad16e5fd54c14fcf39d102dd2586d7f8d387a5",
+    "afterSha256": "0f21dd05f0679e57327934fb0b83371c566d6ba5c07d766aa91b0fb85e079eb2",
+    "metaSha256": "7c472b68046a779e55827ccf570042ce1103ef686965cd9ce38cb269c6617e0c",
+    "reason": "Compared to base SD: compact approximately 2.6-head silhouette, large head, short natural limbs. Paired LD costume, lotus/crescent decoration, wraps, sandals, two blade positions retained. Dark/light alpha views inspected; enclosed hair/arm gaps removed, ivory clothing and metal highlights preserved.",
+    "applied": true
+  },
+  {
+    "id": "lv01-b",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch19\\Source\\lv01-b-SD.png",
+    "sourceSha256": "94eaab6a2d5e5dd31aac032450a3e29a6d960c3d463396939a6af38c8e34e267",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 4,
+        "xywh": [
+          508,
+          378,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          666,
+          381,
+          4,
+          2
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          510,
+          386,
+          19,
+          11
+        ],
+        "area": 32,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          655,
+          386,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          631,
+          394,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          637,
+          394,
+          7,
+          6
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 21,
+        "xywh": [
+          537,
+          397,
+          6,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 26,
+        "xywh": [
+          536,
+          401,
+          9,
+          8
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          660,
+          408,
+          3,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 30,
+        "xywh": [
+          506,
+          411,
+          4,
+          3
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          542,
+          411,
+          9,
+          13
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          689,
+          410,
+          25,
+          38
+        ],
+        "area": 215,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          650,
+          412,
+          11,
+          6
+        ],
+        "area": 48,
+        "removed": false
+      },
+      {
+        "component": 34,
+        "xywh": [
+          473,
+          414,
+          37,
+          40
+        ],
+        "area": 297,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          498,
+          415,
+          9,
+          6
+        ],
+        "area": 37,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          628,
+          415,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          631,
+          416,
+          5,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 38,
+        "xywh": [
+          635,
+          419,
+          20,
+          30
+        ],
+        "area": 225,
+        "removed": false
+      },
+      {
+        "component": 39,
+        "xywh": [
+          715,
+          419,
+          4,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 40,
+        "xywh": [
+          466,
+          420,
+          9,
+          12
+        ],
+        "area": 21,
+        "removed": false
+      },
+      {
+        "component": 41,
+        "xywh": [
+          540,
+          421,
+          8,
+          31
+        ],
+        "area": 51,
+        "removed": false
+      },
+      {
+        "component": 45,
+        "xywh": [
+          470,
+          441,
+          5,
+          12
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 50,
+        "xywh": [
+          658,
+          453,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 51,
+        "xywh": [
+          400,
+          455,
+          26,
+          61
+        ],
+        "area": 369,
+        "removed": true
+      },
+      {
+        "component": 53,
+        "xywh": [
+          533,
+          455,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 55,
+        "xywh": [
+          664,
+          454,
+          6,
+          1
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 56,
+        "xywh": [
+          520,
+          457,
+          5,
+          1
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 58,
+        "xywh": [
+          581,
+          456,
+          9,
+          4
+        ],
+        "area": 17,
+        "removed": false
+      },
+      {
+        "component": 59,
+        "xywh": [
+          477,
+          460,
+          4,
+          10
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 61,
+        "xywh": [
+          579,
+          460,
+          11,
+          9
+        ],
+        "area": 25,
+        "removed": false
+      },
+      {
+        "component": 64,
+        "xywh": [
+          483,
+          477,
+          26,
+          21
+        ],
+        "area": 39,
+        "removed": false
+      },
+      {
+        "component": 67,
+        "xywh": [
+          611,
+          486,
+          84,
+          30
+        ],
+        "area": 107,
+        "removed": false
+      },
+      {
+        "component": 68,
+        "xywh": [
+          585,
+          489,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 69,
+        "xywh": [
+          591,
+          489,
+          9,
+          3
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 71,
+        "xywh": [
+          589,
+          493,
+          10,
+          3
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 72,
+        "xywh": [
+          582,
+          494,
+          4,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 73,
+        "xywh": [
+          510,
+          498,
+          66,
+          18
+        ],
+        "area": 79,
+        "removed": false
+      },
+      {
+        "component": 74,
+        "xywh": [
+          468,
+          511,
+          69,
+          49
+        ],
+        "area": 788,
+        "removed": true
+      },
+      {
+        "component": 75,
+        "xywh": [
+          670,
+          511,
+          40,
+          24
+        ],
+        "area": 354,
+        "removed": true
+      },
+      {
+        "component": 76,
+        "xywh": [
+          578,
+          516,
+          30,
+          3
+        ],
+        "area": 38,
+        "removed": false
+      },
+      {
+        "component": 77,
+        "xywh": [
+          732,
+          527,
+          4,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 79,
+        "xywh": [
+          496,
+          557,
+          10,
+          24
+        ],
+        "area": 88,
+        "removed": false
+      },
+      {
+        "component": 80,
+        "xywh": [
+          691,
+          557,
+          28,
+          29
+        ],
+        "area": 132,
+        "removed": false
+      },
+      {
+        "component": 81,
+        "xywh": [
+          621,
+          565,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 82,
+        "xywh": [
+          518,
+          566,
+          32,
+          18
+        ],
+        "area": 87,
+        "removed": false
+      },
+      {
+        "component": 83,
+        "xywh": [
+          630,
+          567,
+          37,
+          17
+        ],
+        "area": 133,
+        "removed": false
+      },
+      {
+        "component": 84,
+        "xywh": [
+          613,
+          571,
+          6,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 86,
+        "xywh": [
+          553,
+          574,
+          52,
+          65
+        ],
+        "area": 78,
+        "removed": false
+      },
+      {
+        "component": 88,
+        "xywh": [
+          573,
+          577,
+          3,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 89,
+        "xywh": [
+          566,
+          580,
+          5,
+          16
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 90,
+        "xywh": [
+          570,
+          581,
+          2,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 91,
+        "xywh": [
+          563,
+          580,
+          48,
+          60
+        ],
+        "area": 69,
+        "removed": false
+      },
+      {
+        "component": 92,
+        "xywh": [
+          498,
+          583,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 96,
+        "xywh": [
+          576,
+          586,
+          3,
+          7
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 98,
+        "xywh": [
+          694,
+          587,
+          5,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 100,
+        "xywh": [
+          686,
+          589,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 101,
+        "xywh": [
+          530,
+          590,
+          22,
+          8
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 102,
+        "xywh": [
+          643,
+          593,
+          25,
+          8
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 103,
+        "xywh": [
+          526,
+          594,
+          6,
+          4
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 104,
+        "xywh": [
+          571,
+          596,
+          4,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 112,
+        "xywh": [
+          675,
+          658,
+          20,
+          49
+        ],
+        "area": 577,
+        "removed": true
+      },
+      {
+        "component": 113,
+        "xywh": [
+          556,
+          689,
+          27,
+          19
+        ],
+        "area": 88,
+        "removed": false
+      },
+      {
+        "component": 115,
+        "xywh": [
+          585,
+          690,
+          10,
+          6
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 116,
+        "xywh": [
+          548,
+          706,
+          4,
+          2
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 117,
+        "xywh": [
+          592,
+          709,
+          13,
+          2
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 119,
+        "xywh": [
+          571,
+          721,
+          9,
+          6
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 120,
+        "xywh": [
+          567,
+          722,
+          10,
+          7
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 121,
+        "xywh": [
+          581,
+          723,
+          15,
+          5
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 125,
+        "xywh": [
+          440,
+          730,
+          53,
+          104
+        ],
+        "area": 1336,
+        "removed": true
+      },
+      {
+        "component": 127,
+        "xywh": [
+          604,
+          765,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 132,
+        "xywh": [
+          392,
+          768,
+          12,
+          12
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 134,
+        "xywh": [
+          605,
+          769,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 137,
+        "xywh": [
+          595,
+          770,
+          21,
+          58
+        ],
+        "area": 194,
+        "removed": false
+      },
+      {
+        "component": 141,
+        "xywh": [
+          545,
+          776,
+          15,
+          53
+        ],
+        "area": 63,
+        "removed": false
+      },
+      {
+        "component": 143,
+        "xywh": [
+          399,
+          783,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 144,
+        "xywh": [
+          547,
+          782,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 145,
+        "xywh": [
+          536,
+          786,
+          11,
+          38
+        ],
+        "area": 43,
+        "removed": false
+      },
+      {
+        "component": 146,
+        "xywh": [
+          410,
+          795,
+          8,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 151,
+        "xywh": [
+          774,
+          804,
+          11,
+          4
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 153,
+        "xywh": [
+          371,
+          809,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 154,
+        "xywh": [
+          403,
+          808,
+          2,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 156,
+        "xywh": [
+          785,
+          817,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 157,
+        "xywh": [
+          767,
+          819,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 158,
+        "xywh": [
+          616,
+          820,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 159,
+        "xywh": [
+          535,
+          825,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 160,
+        "xywh": [
+          617,
+          825,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 161,
+        "xywh": [
+          390,
+          828,
+          3,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 163,
+        "xywh": [
+          607,
+          829,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 164,
+        "xywh": [
+          437,
+          831,
+          150,
+          151
+        ],
+        "area": 353,
+        "removed": false
+      },
+      {
+        "component": 165,
+        "xywh": [
+          544,
+          830,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 166,
+        "xywh": [
+          618,
+          830,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 167,
+        "xywh": [
+          773,
+          831,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 168,
+        "xywh": [
+          533,
+          832,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 169,
+        "xywh": [
+          765,
+          832,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 170,
+        "xywh": [
+          542,
+          834,
+          2,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 171,
+        "xywh": [
+          608,
+          834,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 173,
+        "xywh": [
+          811,
+          835,
+          172,
+          165
+        ],
+        "area": 312,
+        "removed": false
+      },
+      {
+        "component": 181,
+        "xywh": [
+          539,
+          849,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 192,
+        "xywh": [
+          684,
+          871,
+          4,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 193,
+        "xywh": [
+          663,
+          872,
+          19,
+          22
+        ],
+        "area": 106,
+        "removed": false
+      },
+      {
+        "component": 196,
+        "xywh": [
+          487,
+          891,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 199,
+        "xywh": [
+          678,
+          896,
+          13,
+          10
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 200,
+        "xywh": [
+          664,
+          898,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 201,
+        "xywh": [
+          697,
+          899,
+          11,
+          7
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 203,
+        "xywh": [
+          665,
+          903,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 205,
+        "xywh": [
+          877,
+          909,
+          5,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 206,
+        "xywh": [
+          511,
+          913,
+          12,
+          11
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 222,
+        "xywh": [
+          920,
+          948,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 225,
+        "xywh": [
+          587,
+          983,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 229,
+        "xywh": [
+          455,
+          1078,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 230,
+        "xywh": [
+          724,
+          1080,
+          9,
+          11
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 231,
+        "xywh": [
+          749,
+          1083,
+          4,
+          9
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 232,
+        "xywh": [
+          481,
+          1086,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 234,
+        "xywh": [
+          710,
+          1086,
+          9,
+          8
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 235,
+        "xywh": [
+          454,
+          1090,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 237,
+        "xywh": [
+          746,
+          1090,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 240,
+        "xywh": [
+          726,
+          1097,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      314,
+      94,
+      989,
+      1124
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch19\\Ready\\lv01-b-SD.png",
+    "preparedSha256": "f988aaaaace3bb1129cf6d01840ae6042a06fd7a8ef12ebb7bb4747598274390",
+    "approved": true,
+    "path": "Assets/Art/Characters/Skins/lv01-b-SD.png",
+    "originalPath": "Docs/UIRefresh/SkinBatch19/ReplacedOriginals/lv01-b-SD.png",
+    "beforeSha256": "7701d70f9f730ad7ed50d7ce5a15754192b79f1f4e053ccb616b258354fda589",
+    "afterSha256": "f988aaaaace3bb1129cf6d01840ae6042a06fd7a8ef12ebb7bb4747598274390",
+    "metaSha256": "e72ea56b453db36eb5d5f098c6034da3f3bfb95a0c3c5db322303934486d97dd",
+    "reason": "Compared to base SD: compact approximately 2.6-head silhouette, large head, short natural limbs. Paired LD costume, lotus/crescent decoration, wraps, sandals, two blade positions retained. Dark/light alpha views inspected; enclosed hair/arm gaps removed, ivory clothing and metal highlights preserved.",
+    "applied": true
+  }
+]

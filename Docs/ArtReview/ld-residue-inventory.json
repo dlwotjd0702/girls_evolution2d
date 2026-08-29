@@ -1,0 +1,557 @@
+{
+  "scope": "24 base LD + 20 installed skin LD. Outer-alpha checks do not imply fringe-free cutouts. No texture changed by this audit.",
+  "items": {
+    "LD8": {
+      "path": "Assets/닌자2/8.png",
+      "guid": "01fda4bd21478b34b99006c527728096",
+      "sha256": "585591566da258ec6a10e2cad608a1c69129fefbf70a26e025f831d1a568d0bc",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD20": {
+      "path": "Assets/Art/Characters/LD/20.png",
+      "guid": "046e735fd36b4ca89982004b5c55f9d5",
+      "sha256": "be0537371d988a9fb45a645b64e9c94ad880ceed32e8b5faf0b1da5c8fafc915",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD9": {
+      "path": "Assets/닌자2/9.png",
+      "guid": "08b76df47fa64924e8fb2ccb861b0023",
+      "sha256": "021dc5d55d66b1975e25b2f54341314c8c6afe248ef87fab6fc2885fb0d4ac44",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD5": {
+      "path": "Assets/닌자2/5.png",
+      "guid": "117a919f5ffe29846bfe857d849e67b1",
+      "sha256": "58ab2f3d8fe4f00c8b92cc3fb89de4e79373d5ffd673a2374d1e4661ce91a560",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD4": {
+      "path": "Assets/닌자2/4.png",
+      "guid": "12587dea6683fdb42b1450246f2dc9ad",
+      "sha256": "19b81dd81fbb8d48fab974d1114d1a3b32c57bc6ededf054ac734c605980f3a1",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD6": {
+      "path": "Assets/Art/Characters/LD/6.png",
+      "guid": "413c1db832bc01f48a95a15cd6d0cbf5",
+      "sha256": "8cb205c29851181f25e352777fa76b5244bd8ec023e27b73ebc6f3653a3286ab",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD19": {
+      "path": "Assets/Art/Characters/LD/19.png",
+      "guid": "4145d435cbaa7a547b7846c3d6e81b52",
+      "sha256": "0bbb40ffd9b3863a2cb0a825dc67729c937e52b3036f43ca8814f8c3bd70768c",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD14": {
+      "path": "Assets/Art/Characters/LD/14.png",
+      "guid": "48f3e0a9059641709924c1d15d0057d6",
+      "sha256": "deeb4893965ed27312b233fddf5c16f1fd7f68946dbd463284e59153aeb62f66",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD22": {
+      "path": "Assets/닌자2/22.png",
+      "guid": "508acb2301c3d9744adbde542a680d8b",
+      "sha256": "d5e113d51283da1cc8698d580d644b4960059295271e564ba14c5c51827310ab",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD10": {
+      "path": "Assets/Art/Characters/LD/10.png",
+      "guid": "530c2aa2f27f40c2b8a29ef0af0228bb",
+      "sha256": "fd3f54bb72b0ff919064cd88ae322070b7b4bfac8436ecf834e1a77bc4924a77",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD13": {
+      "path": "Assets/Art/Characters/LD/13.png",
+      "guid": "617be306000e429ca7c3cc3c2970bff5",
+      "sha256": "963ef98517852c3028631ace462440b282a944fb81f2cd104ad8d208742d9081",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD16": {
+      "path": "Assets/Art/Characters/LD/16.png",
+      "guid": "6d92e4035cdf47a2a4e19f919ae4584a",
+      "sha256": "bda30a7d1806b4fd5221997e19e3bb7052122022d72a770146a53520a69ef7d8",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD3": {
+      "path": "Assets/닌자2/3.png",
+      "guid": "70c429ab05965ac43b1544b3040f9d09",
+      "sha256": "1cb34b26d9ef2a701baa71b4e03fab1ee41b85fd96c0206c9fa7a2869a604325",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD24": {
+      "path": "Assets/Art/Characters/LD/24.png",
+      "guid": "88265401f8c2cba42b934c52d9ed7541",
+      "sha256": "b01510fecb7697f679a09be5efa50b9ed46f5428203639d21f0c803253308a83",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD1": {
+      "path": "Assets/닌자2/1.png",
+      "guid": "9619bae30bb7be34496c53414c74c9f6",
+      "sha256": "68b31c2a9bac16dc751fe42fb0434a8d42351004612aa437a15c2610a52ebd5f",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD11": {
+      "path": "Assets/Art/Characters/LD/11.png",
+      "guid": "c21233e64b09ce1409eb577b6352bc1e",
+      "sha256": "f8d95a4b1a8295343a25975c76ad418d6c4433e025303c02cab45371b8fd9a2f",
+      "size": [
+        935,
+        1682
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD18": {
+      "path": "Assets/닌자2/18.png",
+      "guid": "caa6878888bdcea4dbae9c87e9e7a6b6",
+      "sha256": "b80082d76ccb5d16d5c1c96867a403a56b9d3c7f812bea166a38891c3bb88006",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD15": {
+      "path": "Assets/Art/Characters/LD/15.png",
+      "guid": "d13031e3500644df9fa7719c6bf0cfe9",
+      "sha256": "23dc7589864027dc98b9c8cac5b729cc0627fbdc65ac33d58c72465a2bcb2fcc",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD12": {
+      "path": "Assets/Art/Characters/LD/12.png",
+      "guid": "d7a65b88bc548a04b829426f7b1039a0",
+      "sha256": "2a71f3a1717ea0ad02ecdf1455a4486003883dec923cbee71a44cead357578fe",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD23": {
+      "path": "Assets/Art/Characters/LD/23.png",
+      "guid": "ecffab6bbb793e1488bf69b622cf4106",
+      "sha256": "d92d50a61311117d7462c29c5ecc4fa026364456a40dcd300ec32a4abd7a5626",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD2": {
+      "path": "Assets/Art/Characters/LD/2.png",
+      "guid": "ee71f863e382466b8695563a4e9333ba",
+      "sha256": "8410f525624daf3a832643fadf4a9686a708dc740d0cbda3a031d58eb2f18aa6",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD21": {
+      "path": "Assets/닌자2/21.png",
+      "guid": "f0f307701b3cedb4bb01ddfe528f60fd",
+      "sha256": "0e07b00701c9a5665e124cf97e217623c6aaa0a6b17704edc385e435521d12c7",
+      "size": [
+        500,
+        500
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD7": {
+      "path": "Assets/Art/Characters/LD/7.png",
+      "guid": "f9cda003bdabb25448d5e13372830c39",
+      "sha256": "9250dae2161e6d774b03307ec8106da10ae6a658a039817586ba0d9b4f493566",
+      "size": [
+        930,
+        1692
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "LD17": {
+      "path": "Assets/Art/Characters/LD/17.png",
+      "guid": "fe15c3ea344bfae4e83e944d2605d480",
+      "sha256": "e4022bf34341e4a39ccfc88d953736582ac96c4db0180e941c618e608c656cc1",
+      "size": [
+        1024,
+        1536
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv01-a": {
+      "path": "Assets/Art/Characters/Skins/lv01-a-LD.png",
+      "sha256": "2f1dca8107fd19080c8cfad6b07b9c6ceb4cd1b1b9f11ca5d6b156477375622a",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv01-b": {
+      "path": "Assets/Art/Characters/Skins/lv01-b-LD.png",
+      "sha256": "e42fe8ec139361c1076a060086b120f27abbf0c017b138ab62013008b3f91e1c",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv02-a": {
+      "path": "Assets/Art/Characters/Skins/lv02-a-LD.png",
+      "sha256": "fe4edd90b3b3b381808dc1e9f95a998b66b30e1e8e7f816ed80f8dd462def3ad",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv02-b": {
+      "path": "Assets/Art/Characters/Skins/lv02-b-LD.png",
+      "sha256": "6314cfa377f7b398d6b62cae0500552b3e3fe10b000d1e174a47bceb9bfc4fc1",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv03-a": {
+      "path": "Assets/Art/Characters/Skins/lv03-a-LD.png",
+      "sha256": "7d94b3274c46adf1e049181367ddf7a034df5f3843e43fde496dbe7ab8b8e9ba",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv03-b": {
+      "path": "Assets/Art/Characters/Skins/lv03-b-LD.png",
+      "sha256": "31faf201b7735a7cf92eb6479afc322690fd921f47a851a70f287c2b29450dbc",
+      "size": [
+        971,
+        971
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv04-a": {
+      "path": "Assets/Art/Characters/Skins/lv04-a-LD.png",
+      "sha256": "5c768fade6b495a0b4d18209556abd6580f10f29a10a18744397f626e21f6956",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv04-b": {
+      "path": "Assets/Art/Characters/Skins/lv04-b-LD.png",
+      "sha256": "dcf678564ca6caca9d536949ac93c97a8a2a177e57eccb2083c6f988833471ed",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv05-a": {
+      "path": "Assets/Art/Characters/Skins/lv05-a-LD.png",
+      "sha256": "1e507fa8d880045c345e79c280fbbad0b69d360c88171f1f1d8b260eb1d8d372",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv05-b": {
+      "path": "Assets/Art/Characters/Skins/lv05-b-LD.png",
+      "sha256": "ecf6a6809bd618ff45ff4bbb94910684eb5eb5deb21bcb9f54091e68e0473304",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "violet-festival": {
+      "path": "Assets/Art/Characters/Skins/violet-festival-LD.png",
+      "sha256": "61860a106593d1b246decca077a390225e37df3309968ec07fef029cb4aee505",
+      "size": [
+        917,
+        917
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv06-b": {
+      "path": "Assets/Art/Characters/Skins/lv06-b-LD.png",
+      "sha256": "6b709384168e6fa451d815c0e25a58229963e103dbdd2cc6041719ab16d245c3",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv07-a": {
+      "path": "Assets/Art/Characters/Skins/lv07-a-LD.png",
+      "sha256": "ad50875c8f58546a74dce995e498503732f977a4d6303cd23f2181b186f5988e",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv07-b": {
+      "path": "Assets/Art/Characters/Skins/lv07-b-LD.png",
+      "sha256": "d0958d1579647d0fbdb3b61cddf38e3d22cd91095f5fa3006210f5a5f220d860",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv08-a": {
+      "path": "Assets/Art/Characters/Skins/lv08-a-LD.png",
+      "sha256": "49868c6247a074ff1cbb5ecd3ac83e53666650898b53849940061678bed2b43f",
+      "size": [
+        975,
+        975
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv08-b": {
+      "path": "Assets/Art/Characters/Skins/lv08-b-LD.png",
+      "sha256": "cabfe89cc38b244f4b1f392a6dd54068adab3be09c4fa020baf355b880a658f6",
+      "size": [
+        927,
+        927
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "lv09-a": {
+      "path": "Assets/Art/Characters/Skins/lv09-a-LD.png",
+      "sha256": "0a3e39c238a0a58d5a827f376c41b1296d1c76c73e8676da3afc131b12606a3d",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "jade-garden": {
+      "path": "Assets/Art/Characters/Skins/jade-garden-LD.png",
+      "sha256": "4887fb0b7600644410a065ec11627b41e35e68e41f8ea157c39d5c306e531baa",
+      "size": [
+        963,
+        963
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "moon-patrol": {
+      "path": "Assets/Art/Characters/Skins/moon-patrol-LD.png",
+      "sha256": "e2ac26faef3ade26286ae899be3285441ad7bedca4809d27f80b3beb66f2b5b7",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    },
+    "rose-oath": {
+      "path": "Assets/Art/Characters/Skins/rose-oath-LD.png",
+      "sha256": "441c7d43fe51ea063dedfc90dd113477eda47cffa9635d0f30ed56c5bcbc518e",
+      "size": [
+        913,
+        913
+      ],
+      "alpha": [
+        0,
+        255
+      ]
+    }
+  }
+}

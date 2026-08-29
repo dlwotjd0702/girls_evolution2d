@@ -1,0 +1,2882 @@
+[
+  {
+    "id": "lv04-c",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch03\\Source\\lv04-c-SD.png",
+    "sourceSha256": "7d8010022581b68ed209702c010614a7219e9bb538e74c24e47221720e887044",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 2,
+        "xywh": [
+          728,
+          291,
+          5,
+          6
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 4,
+        "xywh": [
+          740,
+          290,
+          12,
+          19
+        ],
+        "area": 36,
+        "removed": false
+      },
+      {
+        "component": 6,
+        "xywh": [
+          727,
+          298,
+          4,
+          7
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          623,
+          300,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          609,
+          307,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          746,
+          313,
+          7,
+          17
+        ],
+        "area": 33,
+        "removed": false
+      },
+      {
+        "component": 11,
+        "xywh": [
+          401,
+          320,
+          25,
+          80
+        ],
+        "area": 1066,
+        "removed": true
+      },
+      {
+        "component": 12,
+        "xywh": [
+          569,
+          323,
+          2,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          598,
+          322,
+          5,
+          4
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          607,
+          329,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 16,
+        "xywh": [
+          628,
+          332,
+          7,
+          5
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          524,
+          337,
+          3,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          602,
+          337,
+          3,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 21,
+        "xywh": [
+          715,
+          337,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 22,
+        "xywh": [
+          489,
+          341,
+          6,
+          5
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 23,
+        "xywh": [
+          607,
+          340,
+          32,
+          24
+        ],
+        "area": 451,
+        "removed": false
+      },
+      {
+        "component": 25,
+        "xywh": [
+          709,
+          342,
+          6,
+          9
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 26,
+        "xywh": [
+          529,
+          344,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 27,
+        "xywh": [
+          603,
+          344,
+          4,
+          5
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          475,
+          348,
+          25,
+          23
+        ],
+        "area": 252,
+        "removed": false
+      },
+      {
+        "component": 30,
+        "xywh": [
+          531,
+          348,
+          4,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          663,
+          348,
+          6,
+          7
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          519,
+          354,
+          4,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 34,
+        "xywh": [
+          532,
+          354,
+          4,
+          7
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          471,
+          356,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          524,
+          357,
+          8,
+          14
+        ],
+        "area": 27,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          639,
+          358,
+          17,
+          5
+        ],
+        "area": 24,
+        "removed": false
+      },
+      {
+        "component": 39,
+        "xywh": [
+          594,
+          367,
+          5,
+          2
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 40,
+        "xywh": [
+          542,
+          371,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 42,
+        "xywh": [
+          605,
+          370,
+          5,
+          1
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 43,
+        "xywh": [
+          613,
+          371,
+          15,
+          3
+        ],
+        "area": 27,
+        "removed": false
+      },
+      {
+        "component": 47,
+        "xywh": [
+          508,
+          374,
+          10,
+          8
+        ],
+        "area": 40,
+        "removed": false
+      },
+      {
+        "component": 48,
+        "xywh": [
+          524,
+          374,
+          13,
+          4
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 51,
+        "xywh": [
+          493,
+          379,
+          5,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 53,
+        "xywh": [
+          307,
+          737,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 58,
+        "xywh": [
+          355,
+          756,
+          3,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 59,
+        "xywh": [
+          422,
+          794,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      229,
+      3,
+      951,
+      1235
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch03\\Ready\\lv04-c-SD.png",
+    "preparedSha256": "8ae0155ffe0d065820ad422ca7c3561dcba403b5124d86344bdca35726cc4d96",
+    "approved": true
+  },
+  {
+    "id": "lv04-c",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch03\\Source\\lv04-c-LD.png",
+    "sourceSha256": "1552d7285e8f65c6203c3bbee9d4f2494ef53c9f3fb4860509316fc368fd4b9f",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 4,
+        "xywh": [
+          656,
+          101,
+          50,
+          164
+        ],
+        "area": 3814,
+        "removed": true
+      },
+      {
+        "component": 5,
+        "xywh": [
+          613,
+          121,
+          3,
+          6
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 6,
+        "xywh": [
+          617,
+          136,
+          4,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          668,
+          145,
+          6,
+          7
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          663,
+          146,
+          4,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          604,
+          161,
+          5,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          598,
+          165,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          604,
+          165,
+          10,
+          9
+        ],
+        "area": 50,
+        "removed": false
+      },
+      {
+        "component": 22,
+        "xywh": [
+          545,
+          167,
+          8,
+          10
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 23,
+        "xywh": [
+          628,
+          167,
+          3,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 24,
+        "xywh": [
+          566,
+          171,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 25,
+        "xywh": [
+          539,
+          172,
+          3,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          594,
+          183,
+          6,
+          1
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          533,
+          198,
+          42,
+          56
+        ],
+        "area": 1068,
+        "removed": true
+      },
+      {
+        "component": 36,
+        "xywh": [
+          653,
+          223,
+          2,
+          7
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          526,
+          254,
+          3,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 38,
+        "xywh": [
+          644,
+          376,
+          64,
+          203
+        ],
+        "area": 2716,
+        "removed": true
+      },
+      {
+        "component": 39,
+        "xywh": [
+          845,
+          394,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 41,
+        "xywh": [
+          702,
+          606,
+          4,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 42,
+        "xywh": [
+          440,
+          617,
+          4,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 43,
+        "xywh": [
+          460,
+          630,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      338,
+      1,
+      937,
+      1243
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch03\\Ready\\lv04-c-LD.png",
+    "preparedSha256": "c32420876191e46798c6ecadc89d1115d925d8f275ab748e831e1b8a1a9e3330",
+    "approved": true
+  },
+  {
+    "id": "lv04-d",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch03\\Source\\lv04-d-SD.png",
+    "sourceSha256": "c3f637af2736b7fcf84cf7be650e9e978a2c91da4828229b41c71592e3a01be4",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 2,
+        "xywh": [
+          633,
+          267,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 3,
+        "xywh": [
+          742,
+          279,
+          7,
+          6
+        ],
+        "area": 17,
+        "removed": false
+      },
+      {
+        "component": 4,
+        "xywh": [
+          757,
+          279,
+          9,
+          15
+        ],
+        "area": 44,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          635,
+          290,
+          3,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          627,
+          292,
+          7,
+          4
+        ],
+        "area": 17,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          430,
+          295,
+          25,
+          87
+        ],
+        "area": 1176,
+        "removed": true
+      },
+      {
+        "component": 11,
+        "xywh": [
+          759,
+          301,
+          9,
+          18
+        ],
+        "area": 37,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          592,
+          312,
+          1,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 14,
+        "xywh": [
+          627,
+          313,
+          4,
+          6
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          647,
+          319,
+          7,
+          5
+        ],
+        "area": 25,
+        "removed": false
+      },
+      {
+        "component": 16,
+        "xywh": [
+          677,
+          323,
+          149,
+          260
+        ],
+        "area": 15839,
+        "removed": true
+      },
+      {
+        "component": 17,
+        "xywh": [
+          515,
+          327,
+          6,
+          6
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          628,
+          327,
+          31,
+          21
+        ],
+        "area": 365,
+        "removed": false
+      },
+      {
+        "component": 21,
+        "xywh": [
+          553,
+          331,
+          3,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 22,
+        "xywh": [
+          624,
+          331,
+          3,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 23,
+        "xywh": [
+          681,
+          330,
+          9,
+          11
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 24,
+        "xywh": [
+          501,
+          334,
+          27,
+          23
+        ],
+        "area": 244,
+        "removed": false
+      },
+      {
+        "component": 26,
+        "xywh": [
+          544,
+          340,
+          3,
+          2
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 27,
+        "xywh": [
+          498,
+          342,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 28,
+        "xywh": [
+          547,
+          342,
+          9,
+          14
+        ],
+        "area": 39,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          671,
+          345,
+          4,
+          2
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          659,
+          349,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          615,
+          354,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          555,
+          358,
+          4,
+          3
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          643,
+          359,
+          9,
+          1
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          547,
+          360,
+          8,
+          3
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 38,
+        "xywh": [
+          521,
+          363,
+          5,
+          4
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 39,
+        "xywh": [
+          541,
+          364,
+          4,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 41,
+        "xywh": [
+          737,
+          684,
+          40,
+          94
+        ],
+        "area": 1430,
+        "removed": true
+      },
+      {
+        "component": 42,
+        "xywh": [
+          294,
+          707,
+          5,
+          10
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 44,
+        "xywh": [
+          306,
+          712,
+          4,
+          9
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 48,
+        "xywh": [
+          330,
+          727,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 50,
+        "xywh": [
+          342,
+          727,
+          4,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 53,
+        "xywh": [
+          375,
+          737,
+          6,
+          12
+        ],
+        "area": 26,
+        "removed": false
+      },
+      {
+        "component": 55,
+        "xywh": [
+          392,
+          743,
+          2,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 62,
+        "xywh": [
+          780,
+          1202,
+          3,
+          5
+        ],
+        "area": 11,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      254,
+      6,
+      949,
+      1240
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch03\\Ready\\lv04-d-SD.png",
+    "preparedSha256": "dde17028d8e54537fc993542de39a7a585b9704c8627daffbac355b032c90316",
+    "approved": true
+  },
+  {
+    "id": "lv04-d",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch03\\Source\\lv04-d-LD.png",
+    "sourceSha256": "d4e782c48678a19b443972958550a9b187e764d34ec00f24532bc45f24333c1b",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 2,
+        "xywh": [
+          611,
+          134,
+          3,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 3,
+        "xywh": [
+          603,
+          140,
+          3,
+          7
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 4,
+        "xywh": [
+          547,
+          142,
+          2,
+          6
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 5,
+        "xywh": [
+          783,
+          145,
+          1,
+          9
+        ],
+        "area": 9,
+        "removed": true
+      },
+      {
+        "component": 6,
+        "xywh": [
+          615,
+          155,
+          3,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          782,
+          155,
+          1,
+          5
+        ],
+        "area": 5,
+        "removed": true
+      },
+      {
+        "component": 8,
+        "xywh": [
+          482,
+          158,
+          16,
+          65
+        ],
+        "area": 389,
+        "removed": true
+      },
+      {
+        "component": 9,
+        "xywh": [
+          677,
+          162,
+          2,
+          6
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          670,
+          168,
+          2,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 11,
+        "xywh": [
+          595,
+          170,
+          4,
+          2
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          600,
+          173,
+          11,
+          11
+        ],
+        "area": 62,
+        "removed": false
+      },
+      {
+        "component": 14,
+        "xywh": [
+          539,
+          177,
+          9,
+          10
+        ],
+        "area": 33,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          632,
+          177,
+          3,
+          8
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 16,
+        "xywh": [
+          627,
+          179,
+          4,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 17,
+        "xywh": [
+          561,
+          181,
+          3,
+          6
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          534,
+          185,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 24,
+        "xywh": [
+          595,
+          193,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 25,
+        "xywh": [
+          522,
+          203,
+          54,
+          74
+        ],
+        "area": 1679,
+        "removed": true
+      },
+      {
+        "component": 26,
+        "xywh": [
+          521,
+          229,
+          2,
+          5
+        ],
+        "area": 6,
+        "removed": true
+      },
+      {
+        "component": 28,
+        "xywh": [
+          695,
+          514,
+          24,
+          77
+        ],
+        "area": 525,
+        "removed": true
+      },
+      {
+        "component": 31,
+        "xywh": [
+          733,
+          688,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          442,
+          1176,
+          5,
+          3
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          790,
+          1215,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 34,
+        "xywh": [
+          779,
+          1225,
+          4,
+          2
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          765,
+          1226,
+          5,
+          2
+        ],
+        "area": 6,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      412,
+      4,
+      939,
+      1248
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch03\\Ready\\lv04-d-LD.png",
+    "preparedSha256": "5fa9726636a895811113896fefe998adae35955cbd4b67073d27b7fbef9008bf",
+    "approved": true
+  },
+  {
+    "id": "lv05-c",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch03\\Source\\lv05-c-SD.png",
+    "sourceSha256": "1f41a5da66edc896deec09675456e43c1a98101b0eae85540879c7e6550a4105",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 4,
+        "xywh": [
+          510,
+          306,
+          29,
+          32
+        ],
+        "area": 233,
+        "removed": false
+      },
+      {
+        "component": 5,
+        "xywh": [
+          623,
+          309,
+          41,
+          34
+        ],
+        "area": 339,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          665,
+          313,
+          26,
+          29
+        ],
+        "area": 121,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          551,
+          317,
+          7,
+          18
+        ],
+        "area": 29,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          501,
+          320,
+          3,
+          9
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 14,
+        "xywh": [
+          507,
+          339,
+          3,
+          9
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          540,
+          338,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          513,
+          357,
+          10,
+          16
+        ],
+        "area": 25,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          524,
+          374,
+          23,
+          15
+        ],
+        "area": 29,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          703,
+          382,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 23,
+        "xywh": [
+          552,
+          391,
+          4,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 25,
+        "xywh": [
+          545,
+          405,
+          5,
+          14
+        ],
+        "area": 20,
+        "removed": false
+      },
+      {
+        "component": 26,
+        "xywh": [
+          542,
+          420,
+          3,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 28,
+        "xywh": [
+          712,
+          420,
+          6,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          603,
+          425,
+          4,
+          4
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          484,
+          426,
+          54,
+          77
+        ],
+        "area": 271,
+        "removed": false
+      },
+      {
+        "component": 43,
+        "xywh": [
+          591,
+          434,
+          4,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 44,
+        "xywh": [
+          567,
+          439,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 47,
+        "xywh": [
+          542,
+          444,
+          2,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 48,
+        "xywh": [
+          745,
+          446,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 52,
+        "xywh": [
+          561,
+          468,
+          3,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 54,
+        "xywh": [
+          762,
+          482,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 55,
+        "xywh": [
+          543,
+          484,
+          5,
+          4
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 56,
+        "xywh": [
+          764,
+          488,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 60,
+        "xywh": [
+          471,
+          501,
+          9,
+          20
+        ],
+        "area": 56,
+        "removed": false
+      },
+      {
+        "component": 61,
+        "xywh": [
+          530,
+          500,
+          6,
+          6
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 62,
+        "xywh": [
+          777,
+          503,
+          9,
+          11
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 63,
+        "xywh": [
+          623,
+          510,
+          3,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 69,
+        "xywh": [
+          443,
+          520,
+          24,
+          36
+        ],
+        "area": 122,
+        "removed": false
+      },
+      {
+        "component": 72,
+        "xywh": [
+          792,
+          523,
+          8,
+          10
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 73,
+        "xywh": [
+          634,
+          525,
+          7,
+          8
+        ],
+        "area": 27,
+        "removed": false
+      },
+      {
+        "component": 77,
+        "xywh": [
+          682,
+          535,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 79,
+        "xywh": [
+          697,
+          542,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 80,
+        "xywh": [
+          807,
+          543,
+          7,
+          9
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 81,
+        "xywh": [
+          471,
+          544,
+          3,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 82,
+        "xywh": [
+          649,
+          550,
+          4,
+          4
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 83,
+        "xywh": [
+          689,
+          551,
+          3,
+          4
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 84,
+        "xywh": [
+          814,
+          553,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 85,
+        "xywh": [
+          686,
+          556,
+          4,
+          6
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 86,
+        "xywh": [
+          438,
+          558,
+          6,
+          8
+        ],
+        "area": 32,
+        "removed": false
+      },
+      {
+        "component": 87,
+        "xywh": [
+          752,
+          562,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 91,
+        "xywh": [
+          448,
+          569,
+          3,
+          4
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 92,
+        "xywh": [
+          748,
+          568,
+          5,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 93,
+        "xywh": [
+          733,
+          570,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 97,
+        "xywh": [
+          697,
+          598,
+          2,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 99,
+        "xywh": [
+          691,
+          630,
+          46,
+          96
+        ],
+        "area": 1572,
+        "removed": true
+      },
+      {
+        "component": 100,
+        "xywh": [
+          229,
+          820,
+          67,
+          27
+        ],
+        "area": 274,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      224,
+      28,
+      864,
+      1171
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch03\\Ready\\lv05-c-SD.png",
+    "preparedSha256": "da6d41292dd8accf2a716bf559fbcffe6d3b73899277b89466749a30e8bace7d",
+    "approved": true
+  },
+  {
+    "id": "lv05-c",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch03\\Source\\lv05-c-LD.png",
+    "sourceSha256": "448090bb63f7b5a438fc59c046738e447c86a4ead1932aca29faf8f260595743",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 3,
+        "xywh": [
+          714,
+          124,
+          3,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 4,
+        "xywh": [
+          702,
+          140,
+          7,
+          19
+        ],
+        "area": 42,
+        "removed": true
+      },
+      {
+        "component": 5,
+        "xywh": [
+          650,
+          151,
+          6,
+          9
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 6,
+        "xywh": [
+          626,
+          152,
+          10,
+          10
+        ],
+        "area": 38,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          561,
+          163,
+          10,
+          8
+        ],
+        "area": 23,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          582,
+          163,
+          3,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 11,
+        "xywh": [
+          675,
+          199,
+          13,
+          8
+        ],
+        "area": 42,
+        "removed": true
+      },
+      {
+        "component": 14,
+        "xywh": [
+          681,
+          210,
+          8,
+          3
+        ],
+        "area": 13,
+        "removed": true
+      },
+      {
+        "component": 15,
+        "xywh": [
+          693,
+          223,
+          1,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          628,
+          239,
+          2,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          706,
+          244,
+          10,
+          5
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 26,
+        "xywh": [
+          730,
+          255,
+          13,
+          7
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          603,
+          258,
+          8,
+          7
+        ],
+        "area": 29,
+        "removed": false
+      },
+      {
+        "component": 30,
+        "xywh": [
+          747,
+          264,
+          9,
+          10
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          534,
+          268,
+          7,
+          4
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          496,
+          272,
+          37,
+          50
+        ],
+        "area": 97,
+        "removed": false
+      },
+      {
+        "component": 34,
+        "xywh": [
+          566,
+          277,
+          3,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          758,
+          278,
+          20,
+          42
+        ],
+        "area": 48,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          629,
+          280,
+          2,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 38,
+        "xywh": [
+          608,
+          297,
+          5,
+          6
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 39,
+        "xywh": [
+          566,
+          299,
+          4,
+          5
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 40,
+        "xywh": [
+          554,
+          309,
+          7,
+          7
+        ],
+        "area": 23,
+        "removed": false
+      },
+      {
+        "component": 41,
+        "xywh": [
+          618,
+          313,
+          9,
+          13
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 42,
+        "xywh": [
+          489,
+          323,
+          7,
+          20
+        ],
+        "area": 32,
+        "removed": false
+      },
+      {
+        "component": 43,
+        "xywh": [
+          538,
+          332,
+          5,
+          5
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 45,
+        "xywh": [
+          630,
+          334,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 47,
+        "xywh": [
+          632,
+          336,
+          3,
+          4
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 48,
+        "xywh": [
+          790,
+          339,
+          6,
+          11
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 49,
+        "xywh": [
+          724,
+          341,
+          6,
+          7
+        ],
+        "area": 20,
+        "removed": false
+      },
+      {
+        "component": 51,
+        "xywh": [
+          638,
+          346,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 53,
+        "xywh": [
+          468,
+          350,
+          16,
+          25
+        ],
+        "area": 30,
+        "removed": false
+      },
+      {
+        "component": 54,
+        "xywh": [
+          640,
+          350,
+          2,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 61,
+        "xywh": [
+          523,
+          363,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 63,
+        "xywh": [
+          757,
+          363,
+          5,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 67,
+        "xywh": [
+          520,
+          369,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 68,
+        "xywh": [
+          650,
+          368,
+          2,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 70,
+        "xywh": [
+          806,
+          371,
+          4,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 74,
+        "xywh": [
+          461,
+          378,
+          6,
+          9
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 76,
+        "xywh": [
+          814,
+          387,
+          3,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 77,
+        "xywh": [
+          454,
+          388,
+          7,
+          10
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 78,
+        "xywh": [
+          817,
+          395,
+          4,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 79,
+        "xywh": [
+          775,
+          398,
+          4,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 80,
+        "xywh": [
+          450,
+          400,
+          4,
+          9
+        ],
+        "area": 20,
+        "removed": false
+      },
+      {
+        "component": 81,
+        "xywh": [
+          756,
+          402,
+          4,
+          3
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 83,
+        "xywh": [
+          461,
+          415,
+          7,
+          6
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 84,
+        "xywh": [
+          698,
+          454,
+          53,
+          79
+        ],
+        "area": 811,
+        "removed": true
+      },
+      {
+        "component": 85,
+        "xywh": [
+          724,
+          549,
+          41,
+          100
+        ],
+        "area": 1288,
+        "removed": true
+      },
+      {
+        "component": 86,
+        "xywh": [
+          769,
+          665,
+          1,
+          13
+        ],
+        "area": 13,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      315,
+      4,
+      953,
+      1244
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch03\\Ready\\lv05-c-LD.png",
+    "preparedSha256": "808fe0b2049708292d002eeddb113f94e42209638ad1c64db578e7535035caa9",
+    "approved": true
+  },
+  {
+    "id": "lv05-d",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch03\\Source\\lv05-d-SD.png",
+    "sourceSha256": "2b7d0b2f2973fdd14914f9b5975231f2ace0d535c3ca67389aef29708e695e28",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 2,
+        "xywh": [
+          498,
+          205,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 5,
+        "xywh": [
+          551,
+          302,
+          28,
+          30
+        ],
+        "area": 218,
+        "removed": false
+      },
+      {
+        "component": 6,
+        "xywh": [
+          660,
+          305,
+          36,
+          32
+        ],
+        "area": 325,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          658,
+          307,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          699,
+          309,
+          26,
+          28
+        ],
+        "area": 104,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          580,
+          310,
+          17,
+          23
+        ],
+        "area": 46,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          493,
+          316,
+          19,
+          84
+        ],
+        "area": 568,
+        "removed": true
+      },
+      {
+        "component": 14,
+        "xywh": [
+          551,
+          342,
+          5,
+          11
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          556,
+          354,
+          8,
+          11
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 16,
+        "xywh": [
+          762,
+          357,
+          20,
+          9
+        ],
+        "area": 91,
+        "removed": true
+      },
+      {
+        "component": 17,
+        "xywh": [
+          789,
+          358,
+          9,
+          10
+        ],
+        "area": 29,
+        "removed": true
+      },
+      {
+        "component": 20,
+        "xywh": [
+          712,
+          539,
+          57,
+          165
+        ],
+        "area": 2500,
+        "removed": true
+      },
+      {
+        "component": 22,
+        "xywh": [
+          509,
+          689,
+          3,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 27,
+        "xywh": [
+          277,
+          831,
+          11,
+          5
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          767,
+          1146,
+          5,
+          1
+        ],
+        "area": 5,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      269,
+      31,
+      1093,
+      1168
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch03\\Ready\\lv05-d-SD.png",
+    "preparedSha256": "ca239c333aa53c8217eae67ceb1369e1126844bf6d632b91a165343f721c020e",
+    "approved": true
+  },
+  {
+    "id": "lv05-d",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch03\\Source\\lv05-d-LD.png",
+    "sourceSha256": "ad3fe9538f0f136ef59e03502c45737b1df2085653b772a5d36afdfe588308f4",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 2,
+        "xywh": [
+          792,
+          61,
+          3,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 3,
+        "xywh": [
+          510,
+          85,
+          22,
+          27
+        ],
+        "area": 205,
+        "removed": true
+      },
+      {
+        "component": 5,
+        "xywh": [
+          728,
+          93,
+          20,
+          38
+        ],
+        "area": 235,
+        "removed": true
+      },
+      {
+        "component": 6,
+        "xywh": [
+          665,
+          117,
+          5,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          798,
+          126,
+          1,
+          14
+        ],
+        "area": 14,
+        "removed": true
+      },
+      {
+        "component": 16,
+        "xywh": [
+          703,
+          129,
+          50,
+          89
+        ],
+        "area": 2257,
+        "removed": true
+      },
+      {
+        "component": 20,
+        "xywh": [
+          645,
+          151,
+          14,
+          12
+        ],
+        "area": 70,
+        "removed": false
+      },
+      {
+        "component": 21,
+        "xywh": [
+          667,
+          150,
+          8,
+          11
+        ],
+        "area": 25,
+        "removed": false
+      },
+      {
+        "component": 23,
+        "xywh": [
+          577,
+          155,
+          19,
+          16
+        ],
+        "area": 73,
+        "removed": false
+      },
+      {
+        "component": 24,
+        "xywh": [
+          601,
+          159,
+          7,
+          10
+        ],
+        "area": 29,
+        "removed": false
+      },
+      {
+        "component": 26,
+        "xywh": [
+          617,
+          180,
+          4,
+          5
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 27,
+        "xywh": [
+          694,
+          198,
+          7,
+          4
+        ],
+        "area": 12,
+        "removed": true
+      },
+      {
+        "component": 29,
+        "xywh": [
+          567,
+          205,
+          28,
+          32
+        ],
+        "area": 441,
+        "removed": true
+      },
+      {
+        "component": 32,
+        "xywh": [
+          712,
+          394,
+          22,
+          60
+        ],
+        "area": 656,
+        "removed": true
+      },
+      {
+        "component": 33,
+        "xywh": [
+          704,
+          468,
+          95,
+          198
+        ],
+        "area": 3434,
+        "removed": true
+      },
+      {
+        "component": 35,
+        "xywh": [
+          894,
+          492,
+          7,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          1141,
+          662,
+          7,
+          6
+        ],
+        "area": 16,
+        "removed": true
+      },
+      {
+        "component": 39,
+        "xywh": [
+          804,
+          687,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 40,
+        "xywh": [
+          805,
+          693,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      148,
+      5,
+      1160,
+      1223
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch03\\Ready\\lv05-d-LD.png",
+    "preparedSha256": "3113fdfcb35db1bda9c71f17527017b21bd192e791ba3abc23bc2c4de904d35c",
+    "approved": true
+  }
+]

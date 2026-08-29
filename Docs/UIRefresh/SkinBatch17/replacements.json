@@ -1,0 +1,1473 @@
+[
+  {
+    "id": "lv05-b",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch17\\Source\\lv05-b-LD.png",
+    "sourceSha256": "8f9b24ec8e6d8cf8015b9d128df1c813d8a10a7eeea5630537c7ec71858a37cb",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 4,
+        "xywh": [
+          724,
+          82,
+          16,
+          24
+        ],
+        "area": 76,
+        "removed": true
+      },
+      {
+        "component": 6,
+        "xywh": [
+          591,
+          143,
+          5,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          698,
+          151,
+          6,
+          36
+        ],
+        "area": 95,
+        "removed": true
+      },
+      {
+        "component": 20,
+        "xywh": [
+          645,
+          185,
+          7,
+          6
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          575,
+          195,
+          4,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          577,
+          198,
+          4,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          543,
+          201,
+          3,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          609,
+          207,
+          8,
+          14
+        ],
+        "area": 33,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          585,
+          210,
+          13,
+          13
+        ],
+        "area": 59,
+        "removed": false
+      },
+      {
+        "component": 39,
+        "xywh": [
+          520,
+          213,
+          15,
+          16
+        ],
+        "area": 68,
+        "removed": false
+      },
+      {
+        "component": 40,
+        "xywh": [
+          548,
+          212,
+          3,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 41,
+        "xywh": [
+          546,
+          217,
+          3,
+          10
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 43,
+        "xywh": [
+          558,
+          233,
+          2,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 49,
+        "xywh": [
+          533,
+          253,
+          4,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 54,
+        "xywh": [
+          547,
+          261,
+          8,
+          4
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 56,
+        "xywh": [
+          580,
+          265,
+          6,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 61,
+        "xywh": [
+          856,
+          668,
+          5,
+          1
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 63,
+        "xywh": [
+          627,
+          1120,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      255,
+      39,
+      1023,
+      1248
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch17\\Ready\\lv05-b-LD.png",
+    "preparedSha256": "2ab0913d6ea31989226656b164792a16c806b4c4d0fae82bf3f6d8bc59a6b4cb",
+    "approved": true,
+    "path": "Assets/Art/Characters/Skins/lv05-b-LD.png",
+    "originalPath": "Docs/UIRefresh/SkinBatch17/ReplacedOriginals/lv05-b-LD.png",
+    "beforeSha256": "ac094f7c2cbe8a9317bbd07b3b94197a3cdf2b098d663c31f543d9b216c6aa65",
+    "afterSha256": "2ab0913d6ea31989226656b164792a16c806b4c4d0fae82bf3f6d8bc59a6b4cb",
+    "metaSha256": "ade4959ad753e07c4780b86ae41a362e6878083ac18c501dfc8a652a88bf20ee",
+    "reason": "Raised hood now matches SD; face, ponytail, outfit and weapon preserved.",
+    "applied": true
+  },
+  {
+    "id": "moon-patrol",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch17\\Source\\moon-patrol-SD.png",
+    "sourceSha256": "cbabff62494e079f32ab0ff03bda70d367ab2361e6721c95909d71968d3afba2",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 4,
+        "xywh": [
+          436,
+          260,
+          21,
+          104
+        ],
+        "area": 654,
+        "removed": true
+      },
+      {
+        "component": 6,
+        "xywh": [
+          845,
+          282,
+          11,
+          5
+        ],
+        "area": 23,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          532,
+          286,
+          2,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          848,
+          288,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          661,
+          322,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 14,
+        "xywh": [
+          626,
+          324,
+          3,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          674,
+          327,
+          12,
+          21
+        ],
+        "area": 62,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          632,
+          332,
+          20,
+          21
+        ],
+        "area": 213,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          556,
+          334,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 21,
+        "xywh": [
+          524,
+          339,
+          25,
+          24
+        ],
+        "area": 243,
+        "removed": false
+      },
+      {
+        "component": 22,
+        "xywh": [
+          568,
+          341,
+          3,
+          18
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 24,
+        "xywh": [
+          558,
+          357,
+          2,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 25,
+        "xywh": [
+          460,
+          360,
+          15,
+          49
+        ],
+        "area": 276,
+        "removed": true
+      },
+      {
+        "component": 26,
+        "xywh": [
+          439,
+          365,
+          4,
+          8
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          728,
+          378,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          710,
+          382,
+          18,
+          24
+        ],
+        "area": 104,
+        "removed": true
+      },
+      {
+        "component": 33,
+        "xywh": [
+          666,
+          387,
+          5,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 43,
+        "xywh": [
+          685,
+          402,
+          5,
+          9
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 47,
+        "xywh": [
+          572,
+          409,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 49,
+        "xywh": [
+          667,
+          409,
+          41,
+          29
+        ],
+        "area": 170,
+        "removed": false
+      },
+      {
+        "component": 50,
+        "xywh": [
+          547,
+          410,
+          3,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 51,
+        "xywh": [
+          576,
+          410,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 52,
+        "xywh": [
+          581,
+          411,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 54,
+        "xywh": [
+          594,
+          414,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 55,
+        "xywh": [
+          682,
+          417,
+          4,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 56,
+        "xywh": [
+          684,
+          431,
+          31,
+          35
+        ],
+        "area": 433,
+        "removed": false
+      },
+      {
+        "component": 58,
+        "xywh": [
+          727,
+          434,
+          3,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 60,
+        "xywh": [
+          534,
+          446,
+          4,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 65,
+        "xywh": [
+          712,
+          471,
+          17,
+          11
+        ],
+        "area": 72,
+        "removed": false
+      },
+      {
+        "component": 68,
+        "xywh": [
+          570,
+          477,
+          17,
+          11
+        ],
+        "area": 28,
+        "removed": false
+      },
+      {
+        "component": 69,
+        "xywh": [
+          614,
+          476,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 70,
+        "xywh": [
+          619,
+          476,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 75,
+        "xywh": [
+          605,
+          483,
+          17,
+          17
+        ],
+        "area": 126,
+        "removed": false
+      },
+      {
+        "component": 77,
+        "xywh": [
+          711,
+          483,
+          30,
+          12
+        ],
+        "area": 158,
+        "removed": false
+      },
+      {
+        "component": 80,
+        "xywh": [
+          586,
+          489,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 82,
+        "xywh": [
+          574,
+          491,
+          4,
+          4
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 83,
+        "xywh": [
+          581,
+          491,
+          5,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 84,
+        "xywh": [
+          541,
+          492,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 87,
+        "xywh": [
+          674,
+          523,
+          10,
+          9
+        ],
+        "area": 52,
+        "removed": false
+      },
+      {
+        "component": 88,
+        "xywh": [
+          720,
+          522,
+          10,
+          4
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 89,
+        "xywh": [
+          723,
+          526,
+          4,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 92,
+        "xywh": [
+          723,
+          530,
+          7,
+          3
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 93,
+        "xywh": [
+          551,
+          532,
+          2,
+          6
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 94,
+        "xywh": [
+          584,
+          532,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 95,
+        "xywh": [
+          588,
+          533,
+          6,
+          1
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 96,
+        "xywh": [
+          596,
+          534,
+          16,
+          8
+        ],
+        "area": 57,
+        "removed": false
+      },
+      {
+        "component": 97,
+        "xywh": [
+          486,
+          551,
+          6,
+          7
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 99,
+        "xywh": [
+          473,
+          559,
+          7,
+          7
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 100,
+        "xywh": [
+          551,
+          558,
+          20,
+          12
+        ],
+        "area": 61,
+        "removed": false
+      },
+      {
+        "component": 101,
+        "xywh": [
+          661,
+          558,
+          8,
+          10
+        ],
+        "area": 37,
+        "removed": false
+      },
+      {
+        "component": 102,
+        "xywh": [
+          486,
+          561,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 106,
+        "xywh": [
+          744,
+          561,
+          15,
+          22
+        ],
+        "area": 132,
+        "removed": false
+      },
+      {
+        "component": 109,
+        "xywh": [
+          738,
+          563,
+          9,
+          6
+        ],
+        "area": 21,
+        "removed": false
+      },
+      {
+        "component": 110,
+        "xywh": [
+          594,
+          569,
+          13,
+          12
+        ],
+        "area": 95,
+        "removed": false
+      },
+      {
+        "component": 111,
+        "xywh": [
+          678,
+          568,
+          79,
+          129
+        ],
+        "area": 3045,
+        "removed": true
+      },
+      {
+        "component": 113,
+        "xywh": [
+          465,
+          573,
+          4,
+          11
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 117,
+        "xywh": [
+          490,
+          576,
+          4,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 118,
+        "xywh": [
+          549,
+          579,
+          6,
+          1
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 119,
+        "xywh": [
+          756,
+          582,
+          11,
+          26
+        ],
+        "area": 117,
+        "removed": false
+      },
+      {
+        "component": 121,
+        "xywh": [
+          733,
+          585,
+          4,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 125,
+        "xywh": [
+          557,
+          597,
+          5,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 129,
+        "xywh": [
+          751,
+          601,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 130,
+        "xywh": [
+          754,
+          604,
+          18,
+          26
+        ],
+        "area": 66,
+        "removed": false
+      },
+      {
+        "component": 134,
+        "xywh": [
+          439,
+          617,
+          9,
+          8
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 136,
+        "xywh": [
+          604,
+          617,
+          4,
+          9
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 139,
+        "xywh": [
+          603,
+          627,
+          1,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 140,
+        "xywh": [
+          610,
+          627,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 144,
+        "xywh": [
+          793,
+          643,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 146,
+        "xywh": [
+          435,
+          649,
+          5,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 147,
+        "xywh": [
+          774,
+          649,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 149,
+        "xywh": [
+          776,
+          651,
+          4,
+          9
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 150,
+        "xywh": [
+          796,
+          650,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 152,
+        "xywh": [
+          420,
+          657,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 154,
+        "xywh": [
+          778,
+          662,
+          6,
+          10
+        ],
+        "area": 34,
+        "removed": false
+      },
+      {
+        "component": 156,
+        "xywh": [
+          784,
+          674,
+          4,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 160,
+        "xywh": [
+          787,
+          681,
+          5,
+          8
+        ],
+        "area": 27,
+        "removed": false
+      },
+      {
+        "component": 165,
+        "xywh": [
+          777,
+          685,
+          2,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 167,
+        "xywh": [
+          501,
+          686,
+          3,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 168,
+        "xywh": [
+          611,
+          686,
+          3,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 172,
+        "xywh": [
+          499,
+          693,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 175,
+        "xywh": [
+          789,
+          695,
+          6,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 181,
+        "xywh": [
+          810,
+          698,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 183,
+        "xywh": [
+          628,
+          704,
+          8,
+          20
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 186,
+        "xywh": [
+          619,
+          709,
+          6,
+          15
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 192,
+        "xywh": [
+          487,
+          723,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 193,
+        "xywh": [
+          625,
+          725,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 196,
+        "xywh": [
+          848,
+          725,
+          3,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 197,
+        "xywh": [
+          818,
+          726,
+          9,
+          8
+        ],
+        "area": 21,
+        "removed": false
+      },
+      {
+        "component": 201,
+        "xywh": [
+          627,
+          731,
+          3,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 202,
+        "xywh": [
+          638,
+          730,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 204,
+        "xywh": [
+          639,
+          735,
+          6,
+          12
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 208,
+        "xywh": [
+          630,
+          739,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 218,
+        "xywh": [
+          645,
+          748,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 223,
+        "xywh": [
+          636,
+          755,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 232,
+        "xywh": [
+          468,
+          774,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 234,
+        "xywh": [
+          859,
+          775,
+          5,
+          5
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 240,
+        "xywh": [
+          462,
+          793,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 246,
+        "xywh": [
+          454,
+          813,
+          4,
+          15
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 247,
+        "xywh": [
+          739,
+          813,
+          7,
+          6
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 248,
+        "xywh": [
+          500,
+          818,
+          14,
+          14
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 255,
+        "xywh": [
+          497,
+          828,
+          13,
+          17
+        ],
+        "area": 116,
+        "removed": false
+      },
+      {
+        "component": 257,
+        "xywh": [
+          712,
+          828,
+          13,
+          8
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 258,
+        "xywh": [
+          453,
+          830,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 262,
+        "xywh": [
+          450,
+          834,
+          3,
+          13
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 271,
+        "xywh": [
+          447,
+          848,
+          3,
+          8
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 278,
+        "xywh": [
+          497,
+          912,
+          7,
+          26
+        ],
+        "area": 45,
+        "removed": false
+      },
+      {
+        "component": 280,
+        "xywh": [
+          709,
+          926,
+          4,
+          21
+        ],
+        "area": 25,
+        "removed": false
+      },
+      {
+        "component": 285,
+        "xywh": [
+          1074,
+          1038,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 290,
+        "xywh": [
+          1082,
+          1047,
+          8,
+          9
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 294,
+        "xywh": [
+          1066,
+          1054,
+          12,
+          7
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 295,
+        "xywh": [
+          1084,
+          1058,
+          17,
+          13
+        ],
+        "area": 56,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      300,
+      64,
+      1107,
+      1076
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch17\\Ready\\moon-patrol-SD.png",
+    "preparedSha256": "62e2fc4ae63ec001b9d2dfc3b6f3e60cdad49d0e0c701cf32a86276ac14a16fa",
+    "approved": true,
+    "path": "Assets/Art/Characters/Skins/moon-patrol-SD.png",
+    "originalPath": "Docs/UIRefresh/SkinBatch17/ReplacedOriginals/moon-patrol-SD.png",
+    "beforeSha256": "abe4f1bbdd0bd11651a52128bb7df196b8348ff97aab0172c126cc20f8dd4f2f",
+    "afterSha256": "62e2fc4ae63ec001b9d2dfc3b6f3e60cdad49d0e0c701cf32a86276ac14a16fa",
+    "metaSha256": "11012aaff6cc27302431df2307325921c15db5f9b226e2dd1372d11f08ec6448",
+    "reason": "Drawn cyan sword moved to canvas right to match base and LD; shoulder armor and sheathed sword stay canvas right. Face and costume retained.",
+    "applied": true
+  }
+]

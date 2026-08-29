@@ -1,0 +1,37 @@
+[
+  {
+    "id": "lv15-c",
+    "kind": "LD",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-22c0bf0f-0444-4e85-a872-cc45234d5a04.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/15.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 is approved SD costume: copy garment construction, exact colors, collar, accessories, boots and weapon placement precisely. Image2 BASE LD defines original face, age presentation, natural mature LD anatomy, proportions, hairstyle and pose. Change costume only: Amethyst Pursuit: amethyst fitted pursuit coat, high collar, short split tails, dark shoulder armor, black trousers, purple forearm guards and dark boots. Preserve long dark brown high ponytail fading to rose-red ends, red eyes, black hair bow, calm expression. One silver sword held low towards canvas LEFT, other hand on hip beside waist-mounted sheathed sword and empty sheath.  Match image1 design exactly, natural hands and grips, crisp anime shading and clean dark edges. Whole hair, blade tips and boots inside generous margin. Actual RGBA transparent background and internal gaps. No opaque white backdrop, painted checkerboard, ground shadow, labels, extra weapons or figures."
+  },
+  {
+    "id": "lv15-d",
+    "kind": "LD",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-682d9e3f-18bc-4815-ac1b-1c2ea3994fbd.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/15.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 is approved SD costume: copy garment construction, exact colors, collar, accessories, boots and weapon placement precisely. Image2 BASE LD defines original face, age presentation, natural mature LD anatomy, proportions, hairstyle and pose. Change costume only: Silver Snow Stealth: slate fitted stealth armor, ivory short scarf with ends resting on chest, silver fasteners, slate fitted trousers and wrapped black boots. Preserve long dark brown high ponytail fading to rose-red ends, red eyes, black hair bow, calm expression. One silver sword held low towards canvas LEFT, other hand on hip beside waist-mounted sheathed sword and empty sheath.  Match image1 design exactly, natural hands and grips, crisp anime shading and clean dark edges. Whole hair, blade tips and boots inside generous margin. Actual RGBA transparent background and internal gaps. No opaque white backdrop, painted checkerboard, ground shadow, labels, extra weapons or figures."
+  },
+  {
+    "id": "lv16-a",
+    "kind": "LD",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-a5fd3835-71fe-4522-8b52-e6c065194364.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 is approved SD costume: copy garment construction, exact colors, collar, accessories, boots and weapon placement precisely. Image2 BASE LD defines original face, age presentation, natural mature LD anatomy, proportions, hairstyle and pose. Change costume only: Plum Guard: cream short battle jacket with burgundy plum blossom motifs, burgundy sash over a dark burgundy fitted inner uniform, fitted shorts, purple thigh-high stockings and dark strapped boots. Preserve long dark brown twin ponytails and pointed orange-red ribbon ornaments, fiery amber/red eyes, confident serious expression. Exactly TWO curved serrated silver daggers with dark handles, one held out in each hand matching base; preserve belt utility canisters. No horns or animal ears; ornaments are ribbons.  Match image1 design exactly, natural hands and grips, crisp anime shading and clean dark edges. Whole hair, blade tips and boots inside generous margin. Actual RGBA transparent background and internal gaps. No opaque white backdrop, painted checkerboard, ground shadow, labels, extra weapons or figures."
+  },
+  {
+    "id": "lv16-b",
+    "kind": "SD-correction",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-14ccb497-dab2-48a6-af42-559b452d1b77.png"
+    ],
+    "prompt": "Perform a surgical correction on this exact SD sprite. Remove ONLY the single EXTRA curved silver knife protruding upward from the canvas-right hip utility-canister bundle (between the right-side dagger handle and purple canisters). Replace that unwanted extra knife with empty transparent background; preserve the two canisters and their straps. Keep exactly the TWO large daggers held in her hands, unchanged. Do not change face, hair, costume, fingers, body proportions, pose, canvas size or any other pixels/artwork. Same complete full-body sprite, transparent background, no text or new details."
+  }
+]

@@ -1,0 +1,638 @@
+{
+  "batch": "2026-08-29-14",
+  "method": "Built-in imagegen; authorized alpha-only extraction; matched SD/LD.",
+  "items": [
+    {
+      "id": "lv20-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-64319972-8ba3-414b-a668-a2aefdf75460.png",
+      "half": null,
+      "holes": [
+        412,
+        442,
+        733,
+        777,
+        927
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Crystal Snow Blossom: ice-blue layered light armor, crystal-shaped clasps, ivory waist panels, dark fitted leggings and ice-blue armored boots. Keep long flowing pale-blue hair, white hair ribbon, pointed elf ears and golden amber eyes. ONE cyan flame orb hovering above open canvas LEFT palm, other hand on hip. No additional weapon. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            917,
+            481
+          ],
+          [
+            997,
+            512
+          ],
+          [
+            1076,
+            754
+          ],
+          [
+            161,
+            784
+          ],
+          [
+            290,
+            948
+          ]
+        ],
+        "opaque": [
+          [
+            607,
+            499
+          ],
+          [
+            313,
+            581
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv20-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-97186ce7-eef4-47b9-b78c-b5f3ee7e8ffd.png",
+      "half": null,
+      "holes": [
+        473,
+        556,
+        969,
+        1120,
+        1264
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD female ninja sprite. Image1 approved SD defines the EXACT costume, construction, colors, sleeve shape, cape, armor, waist details and boots. Image2 ORIGINAL LD defines recognizable face, age presentation, natural LD proportions and pose. Copy image1 outfit exactly; no added design elements. Preserve original long flowing pale-blue hair, white hair bow, pointed elf ears, amber eyes; standing with ONE cyan flame orb above open canvas LEFT palm and other hand on hip. No sword. Clean anime outlines, detailed cel shading, natural recognizable original facial structure. Whole ponytail, ribbons, cape tails, weapon and toes must be fully visible inside a generous 6 percent empty margin. Actual transparent background and internal gaps. No gradient, scenery, floor shadow, painted checkerboard, text or additional character.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            761,
+            504
+          ],
+          [
+            848,
+            535
+          ],
+          [
+            922,
+            776
+          ],
+          [
+            63,
+            868
+          ],
+          [
+            185,
+            1010
+          ]
+        ],
+        "opaque": [
+          [
+            520,
+            552
+          ],
+          [
+            191,
+            674
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv20-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-3b6d3020-d9fe-4987-a87d-6a999358609d.png",
+      "half": null,
+      "holes": [
+        444,
+        553,
+        590,
+        599,
+        616
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Dawn Nebula: dawn-peach and midnight-blue light armor, gold star clasps, short cape, midnight leggings and peach-gold armored boots. Keep long flowing pale-blue hair, white hair ribbon, pointed elf ears and golden amber eyes. ONE cyan flame orb hovering above open canvas LEFT palm, other hand on hip. No additional weapon. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            1114,
+            691
+          ],
+          [
+            235,
+            811
+          ],
+          [
+            338,
+            832
+          ],
+          [
+            398,
+            880
+          ],
+          [
+            454,
+            882
+          ]
+        ],
+        "opaque": [
+          [
+            626,
+            489
+          ],
+          [
+            979,
+            513
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv20-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-97aae52e-3421-4cca-8b0d-af5444e5aeef.png",
+      "half": null,
+      "holes": [
+        480,
+        660,
+        729,
+        737,
+        739,
+        789,
+        820
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD female ninja sprite. Image1 approved SD defines the EXACT costume, construction, colors, sleeve shape, cape, armor, waist details and boots. Image2 ORIGINAL LD defines recognizable face, age presentation, natural LD proportions and pose. Copy image1 outfit exactly; no added design elements. Preserve original long flowing pale-blue hair, white hair bow, pointed elf ears, amber eyes; standing with ONE cyan flame orb above open canvas LEFT palm and other hand on hip. No sword. Clean anime outlines, detailed cel shading, natural recognizable original facial structure. Whole ponytail, ribbons, cape tails, weapon and toes must be fully visible inside a generous 6 percent empty margin. Actual transparent background and internal gaps. No gradient, scenery, floor shadow, painted checkerboard, text or additional character.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            932,
+            663
+          ],
+          [
+            942,
+            867
+          ],
+          [
+            202,
+            999
+          ],
+          [
+            70,
+            989
+          ],
+          [
+            296,
+            1028
+          ],
+          [
+            184,
+            1105
+          ],
+          [
+            297,
+            1173
+          ]
+        ],
+        "opaque": [
+          [
+            527,
+            481
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv21-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-80ff834a-b741-472b-9893-61131c345526.png",
+      "half": null,
+      "holes": [
+        11
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Crimson Veil: crimson and ivory ritual combat jacket, gold cords, fitted black pants and black boots. Keep long dark charcoal high ponytail, original red tie and fluttering red ribbon, golden amber eyes, serious original face, red neck scarf. Preserve original SD pose: one forearm bent across chest toward scarf, other arm lowered at side. Hands empty. A short sword stays SHEATHED at waist. Natural articulated fingers and joints. Cape follows original silhouette but new costume construction. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            499,
+            339
+          ]
+        ],
+        "opaque": [
+          [
+            636,
+            563
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv21-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-4f966bf9-44f5-4262-9445-a0ae23413c84.png",
+      "half": null,
+      "holes": [
+        3,
+        4,
+        6,
+        9,
+        10,
+        13,
+        31,
+        20,
+        39
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD female ninja sprite. Image1 approved SD defines the EXACT costume, construction, colors, sleeve shape, cape, armor, waist details and boots. Image2 ORIGINAL LD defines recognizable face, age presentation, natural LD proportions and pose. Copy image1 outfit exactly; no added design elements. Preserve exact base LD dynamic midair leaping pose with bent legs, one open hand reaching forward toward canvas LEFT, other arm back. Do not copy the SD standing pose. Keep charcoal high ponytail, red hair ribbon and neck scarf, amber eyes. EXACTLY ONE short sword SHEATHED at waist, no drawn blade. Naturally formed five-finger hands. Clean anime outlines, detailed cel shading, natural recognizable original facial structure. Whole ponytail, ribbons, cape tails, weapon and toes must be fully visible inside a generous 6 percent empty margin. Actual transparent background and internal gaps. No gradient, scenery, floor shadow, painted checkerboard, text or additional character.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            646,
+            91
+          ],
+          [
+            442,
+            95
+          ],
+          [
+            468,
+            112
+          ],
+          [
+            535,
+            162
+          ],
+          [
+            445,
+            200
+          ],
+          [
+            297,
+            257
+          ],
+          [
+            260,
+            334
+          ],
+          [
+            625,
+            292
+          ],
+          [
+            713,
+            706
+          ]
+        ],
+        "opaque": [
+          [
+            738,
+            349
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv21-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9560ed12-3fcd-474f-b7cb-eee0fa42e039.png",
+      "half": null,
+      "holes": [
+        15,
+        35
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Platinum Sentinel: pale platinum and midnight military coat, simple geometric silver shoulder/forearm armor, fitted navy pants and armored boots. Keep long dark charcoal high ponytail, original red tie and fluttering red ribbon, golden amber eyes, serious original face, red neck scarf. Preserve original SD pose: one forearm bent across chest toward scarf, other arm lowered at side. Hands empty. A short sword stays SHEATHED at waist. Natural articulated fingers and joints. Cape follows original silhouette but new costume construction. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure.",
+      "approved": true,
+      "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e6366ee7-0892-4733-a3a1-bf1d630a8c4d.png",
+      "correctionPrompt": "Edit this exact sprite only to repair framing. The very top of the high ponytail is clipped by canvas. Reconstruct a natural complete rounded ponytail top and provide at least 6 percent empty margin on ALL sides including entire hair, coat tails, boots. Preserve exact face, golden amber eyes, charcoal hair, red scarf/ribbons, platinum navy armor, sword and original proportions and pose. No other redesign. Single full-body SD female ninja on a plain pure white background with no checkerboard and no shadows, ready for transparent extraction.",
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            857,
+            190
+          ],
+          [
+            539,
+            369
+          ]
+        ],
+        "opaque": [
+          [
+            657,
+            606
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv21-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-7b105558-402c-4c4d-aa75-175163808ea2.png",
+      "half": null,
+      "holes": [
+        2,
+        10,
+        17
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD female ninja sprite. Image1 approved SD defines the EXACT costume, construction, colors, sleeve shape, cape, armor, waist details and boots. Image2 ORIGINAL LD defines recognizable face, age presentation, natural LD proportions and pose. Copy image1 outfit exactly; no added design elements. Preserve exact base LD dynamic midair leaping pose with bent legs, one open hand reaching forward toward canvas LEFT, other arm back. Do not copy the SD standing pose. Keep charcoal high ponytail, red hair ribbon and neck scarf, amber eyes. EXACTLY ONE short sword SHEATHED at waist, no drawn blade. Naturally formed five-finger hands. Clean anime outlines, detailed cel shading, natural recognizable original facial structure. Whole ponytail, ribbons, cape tails, weapon and toes must be fully visible inside a generous 6 percent empty margin. Actual transparent background and internal gaps. No gradient, scenery, floor shadow, painted checkerboard, text or additional character.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            677,
+            95
+          ],
+          [
+            778,
+            334
+          ],
+          [
+            412,
+            374
+          ]
+        ],
+        "opaque": [
+          [
+            575,
+            538
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv21-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-bcfc3b70-86b3-46b0-aa0c-1f084b8501cf.png",
+      "half": null,
+      "holes": [
+        12
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Black Gold Veil: black and gold fitted battle armor, short red-lined cape, narrow waist sash, dark pants and black-gold armored boots. Keep long dark charcoal high ponytail, original red tie and fluttering red ribbon, golden amber eyes, serious original face, red neck scarf. Preserve original SD pose: one forearm bent across chest toward scarf, other arm lowered at side. Hands empty. A short sword stays SHEATHED at waist. Natural articulated fingers and joints. Cape follows original silhouette but new costume construction. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            501,
+            350
+          ]
+        ],
+        "opaque": [
+          [
+            653,
+            629
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv21-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1624872a-46c2-48c6-bbf7-833326d81dec.png",
+      "half": null,
+      "holes": [
+        2,
+        3,
+        4,
+        6,
+        8,
+        11,
+        13,
+        10,
+        12,
+        15,
+        21
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD female ninja sprite. Image1 approved SD defines the EXACT costume, construction, colors, sleeve shape, cape, armor, waist details and boots. Image2 ORIGINAL LD defines recognizable face, age presentation, natural LD proportions and pose. Copy image1 outfit exactly; no added design elements. Preserve exact base LD dynamic midair leaping pose with bent legs, one open hand reaching forward toward canvas LEFT, other arm back. Do not copy the SD standing pose. Keep charcoal high ponytail, red hair ribbon and neck scarf, amber eyes. EXACTLY ONE short sword SHEATHED at waist, no drawn blade. Naturally formed five-finger hands. Clean anime outlines, detailed cel shading, natural recognizable original facial structure. Whole ponytail, ribbons, cape tails, weapon and toes must be fully visible inside a generous 6 percent empty margin. Actual transparent background and internal gaps. No gradient, scenery, floor shadow, painted checkerboard, text or additional character.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            389,
+            87
+          ],
+          [
+            476,
+            80
+          ],
+          [
+            602,
+            78
+          ],
+          [
+            479,
+            164
+          ],
+          [
+            436,
+            268
+          ],
+          [
+            338,
+            221
+          ],
+          [
+            213,
+            309
+          ],
+          [
+            748,
+            217
+          ],
+          [
+            794,
+            286
+          ],
+          [
+            534,
+            317
+          ],
+          [
+            683,
+            740
+          ]
+        ],
+        "opaque": [
+          [
+            610,
+            497
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv21-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-55fa04fb-1641-46aa-8a88-3ad45a705597.png",
+      "half": null,
+      "holes": [
+        20
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Azure Flame: deep blue and teal fitted battle armor, short flame-pattern cape, navy pants and teal-edged armored boots. Keep long dark charcoal high ponytail, original red tie and fluttering red ribbon, golden amber eyes, serious original face, red neck scarf. Preserve original SD pose: one forearm bent across chest toward scarf, other arm lowered at side. Hands empty. A short sword stays SHEATHED at waist. Natural articulated fingers and joints. Cape follows original silhouette but new costume construction. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure.",
+      "approved": true,
+      "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9a905044-f464-483a-9d2b-1c941bc5bece.png",
+      "correctionPrompt": "Edit this exact sprite only. Remove the extra thin black and gold sheathed weapon hanging down diagonally on canvas LEFT hip. Keep ONLY the main black and gold sheathed short sword at canvas RIGHT hip, hilt above teal belt loop and sheath near right thigh. Replace removed left weapon with the existing teal sash and navy coat naturally. Preserve exact face, pose, hands, charcoal ponytail, amber eyes, red scarf, navy teal flame armor/cape, all contours and proportions. Complete ponytail and boots with 6 percent empty margin. Single sprite on plain pure white background, no checkerboard, no shadow.",
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            493,
+            341
+          ]
+        ],
+        "opaque": [
+          [
+            642,
+            575
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv21-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-8bc796d4-9ffe-4363-9e78-ab5106e00a1a.png",
+      "half": null,
+      "holes": [
+        2,
+        3,
+        5,
+        7,
+        18,
+        19
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD female ninja sprite. Image1 approved SD defines the EXACT costume, construction, colors, sleeve shape, cape, armor, waist details and boots. Image2 ORIGINAL LD defines recognizable face, age presentation, natural LD proportions and pose. Copy image1 outfit exactly; no added design elements. Preserve exact base LD dynamic midair leaping pose with bent legs, one open hand reaching forward toward canvas LEFT, other arm back. Do not copy the SD standing pose. Keep charcoal high ponytail, red hair ribbon and neck scarf, amber eyes. EXACTLY ONE short sword SHEATHED at waist, no drawn blade. Naturally formed five-finger hands. Clean anime outlines, detailed cel shading, natural recognizable original facial structure. Whole ponytail, ribbons, cape tails, weapon and toes must be fully visible inside a generous 6 percent empty margin. Actual transparent background and internal gaps. No gradient, scenery, floor shadow, painted checkerboard, text or additional character.",
+      "approved": true,
+      "reviewNotes": "Original source close-up distinguishes white hair highlights from actual internal gaps. Explicitly preserved c-SD508, c-LD635 and d-SD294 as hair lighting. Corrected cropped ponytail and duplicate sheathed weapon before LD matching.",
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            572,
+            40
+          ],
+          [
+            485,
+            92
+          ],
+          [
+            987,
+            196
+          ],
+          [
+            715,
+            280
+          ],
+          [
+            394,
+            357
+          ],
+          [
+            1056,
+            354
+          ]
+        ],
+        "opaque": [
+          [
+            518,
+            407
+          ]
+        ]
+      }
+    }
+  ]
+}

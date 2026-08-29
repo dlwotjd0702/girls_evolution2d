@@ -1,0 +1,3186 @@
+{
+  "status": "PASS",
+  "checkedAt": "2026-08-29T02:11:54.905714+09:00",
+  "levels": 24,
+  "skinsPerLevel": 4,
+  "skinPairs": 96,
+  "imageAssets": 192,
+  "visuallyApprovedPairs": 96,
+  "registeredPairs": 96,
+  "baseAppearanceIncluded": false,
+  "skipLevelsFrom": 25,
+  "actualPlayerSaveSha256": "55531c17baf405c188da20129310fd65007e2b6c2d8757611fefdb0d9771f408",
+  "finalRefreshSceneUnchanged": true,
+  "previewFixtures": 0,
+  "protectedHashAssertions": 595,
+  "validatedExistingRevisions": 30,
+  "unityEditModeChecks": 1049,
+  "unityRegressionModifiedAt": "2026-08-29T02:09:54.828715+09:00",
+  "dimensionCounts": {
+    "SD 512x512": 96,
+    "LD 1024x1024": 90,
+    "LD 971x971": 1,
+    "LD 917x917": 1,
+    "LD 975x975": 1,
+    "LD 927x927": 1,
+    "LD 963x963": 1,
+    "LD 913x913": 1
+  },
+  "batchVerification": [
+    {
+      "batch": 1,
+      "checks": 50,
+      "sha256": "fc5e05204f4d7fbcf2d958ce8ef92152bffa3ca1e3293965774056b5cbc410e0"
+    },
+    {
+      "batch": 2,
+      "checks": 51,
+      "sha256": "4a7e83692530ed5f7cf996e68f6086f5333e12e02ead0000224139cdd31d85ed"
+    },
+    {
+      "batch": 3,
+      "checks": 59,
+      "sha256": "30efa9a8cb2b6bab97d16ad8b6f2b554d7cc353036f82b6ed8f56035bfc6a8b5"
+    },
+    {
+      "batch": 4,
+      "checks": 59,
+      "sha256": "e3d86ebd3bf382bb14f61997fae5de4dae1035f49c48f75fb25df1e569c7d6df"
+    },
+    {
+      "batch": 5,
+      "checks": 59,
+      "sha256": "d2c6cd920ccdef80da24c2890c08866b6149d700b00d2c44017f368aae7bf348"
+    },
+    {
+      "batch": 6,
+      "checks": 75,
+      "sha256": "91efc2fdc4b6d0b2a94ffdca6455e2766d06ee6b045db4dc13f4d27d0cc9e4af"
+    },
+    {
+      "batch": 7,
+      "checks": 59,
+      "sha256": "386a9c9f90b91207fdd4650eb43b1b2cdb94a1881cb01a7f0482310c5fae2a74"
+    },
+    {
+      "batch": 8,
+      "checks": 59,
+      "sha256": "e443766c74b7efe65e751286b6858c112284adb7137fb0c0347c330e0d9e6af0"
+    },
+    {
+      "batch": 9,
+      "checks": 59,
+      "sha256": "031a47475eaae14fe7b0e34981f629c83dcb2920cdecf10fd345baa7f4cf2489"
+    },
+    {
+      "batch": 10,
+      "checks": 59,
+      "sha256": "f0ded4e846030d59b42943e2cd5b60d19a14ad4acc7b38dc547453ddc82a8f07"
+    },
+    {
+      "batch": 11,
+      "checks": 59,
+      "sha256": "4eaca23f68696c664e45f40ea598293110f77d609ef929d0ae75ad8d70b73dba"
+    },
+    {
+      "batch": 12,
+      "checks": 63,
+      "sha256": "d0a275e9e09f6c557ff613bbd5ffbf1f2cc57306aa3c675aa73879e06e30166f"
+    },
+    {
+      "batch": 13,
+      "checks": 67,
+      "sha256": "2cd2b7766e57f2c1c33e4f5f8a25d581e90d9805bd2228e164f841d96870faa2"
+    },
+    {
+      "batch": 14,
+      "checks": 67,
+      "sha256": "c92291fab68c7271d1370c8f056b0c6c350543e31b240848d32ff5f548fa5489"
+    },
+    {
+      "batch": 15,
+      "checks": 67,
+      "sha256": "f7c2ff95b16f8b550759ccabe200bdec6745beed54ef0452f8fe5e9f3f56809a"
+    },
+    {
+      "batch": 16,
+      "checks": 63,
+      "sha256": "b9da16635410fb46542c0cf7e3e95f6ee0da319f057a7bb6af261fa7e12ae4d7"
+    }
+  ],
+  "assets": [
+    {
+      "id": "lv01-a",
+      "level": 1,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv01-a-SD.png",
+      "sha256": "21b150b9a767e93fe3306a7a79ad16e5fd54c14fcf39d102dd2586d7f8d387a5",
+      "metaSha256": "7c472b68046a779e55827ccf570042ce1103ef686965cd9ce38cb269c6617e0c",
+      "guid": "d422c33349088b84d95d263d6f574f89",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 204261,
+      "antialiasedPixels": 8655
+    },
+    {
+      "id": "lv01-a",
+      "level": 1,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv01-a-LD.png",
+      "sha256": "d2d82c108ac10fb66dbd9c71a7b35e19ac42d7e6314f459c16e41ab192abb58d",
+      "metaSha256": "32dae63ea0a3f4fb253e0c5d47223fe8909c7133ba9a88af26ced352aefe860f",
+      "guid": "d7b716fb2c341b44893f24d65c71a6ff",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 876299,
+      "antialiasedPixels": 17093
+    },
+    {
+      "id": "lv01-b",
+      "level": 1,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv01-b-SD.png",
+      "sha256": "7701d70f9f730ad7ed50d7ce5a15754192b79f1f4e053ccb616b258354fda589",
+      "metaSha256": "e72ea56b453db36eb5d5f098c6034da3f3bfb95a0c3c5db322303934486d97dd",
+      "guid": "240b04f2af6520a4ca57246d2b6baaef",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 200665,
+      "antialiasedPixels": 7761
+    },
+    {
+      "id": "lv01-b",
+      "level": 1,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv01-b-LD.png",
+      "sha256": "b5f7c0500ce36a098b111d49a564d366ca299af50ac51cf42fef31c8b02945dc",
+      "metaSha256": "8ba5b005e11be6e459b1e9162be40f2ebe0212ab3dc2fc934b26ee328bec34c7",
+      "guid": "ee99899f564fde74aaa3d873de85152a",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 861840,
+      "antialiasedPixels": 15244
+    },
+    {
+      "id": "lv01-c",
+      "level": 1,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv01-c-SD.png",
+      "sha256": "afb0dcdf9941dda05b8b1af8389d2b5ca945bc808ae1e5fe12c22fca668ba215",
+      "metaSha256": "21cc22e0743d44dda96a5a49088c6c53c7a2e0e66e85d8fde36083cf91c3bcad",
+      "guid": "c3fc023fad1b33349b560ee9436f733e",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 195359,
+      "antialiasedPixels": 7699
+    },
+    {
+      "id": "lv01-c",
+      "level": 1,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv01-c-LD.png",
+      "sha256": "329ad979c4c74155d4d67b80368e47b7a9f9b71bf660ed906560c3eca5725606",
+      "metaSha256": "0ddc78631f7f2bbba901401867938ff4cfb4b023d7e78ca7a10cf7f2c0d20daa",
+      "guid": "1386fe686bacc0444a870753952ca314",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 840942,
+      "antialiasedPixels": 16445
+    },
+    {
+      "id": "lv01-d",
+      "level": 1,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv01-d-SD.png",
+      "sha256": "b157f892a9c62b05b42db6d44f59e6e5e027a92d270f41f9298ff99a39ed5945",
+      "metaSha256": "065470fa2e074895e64ad9836a83294ad4ee03cf7b1f3a2d3b9282ed45aa87c9",
+      "guid": "f0b40c002b3a6e44c84c2e9b8cb4cb29",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 193165,
+      "antialiasedPixels": 7605
+    },
+    {
+      "id": "lv01-d",
+      "level": 1,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv01-d-LD.png",
+      "sha256": "570ef4b5f71bcb29de0003d04f5dd502459834a2320c417a98e5b146ceeb9f09",
+      "metaSha256": "ffe8ff3a79c0a549e27d84639c479262bc46ce452a72188cd0b7eef62fea848c",
+      "guid": "d816611b4667c7940be2abdf5c22fd41",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 849005,
+      "antialiasedPixels": 15409
+    },
+    {
+      "id": "lv02-a",
+      "level": 2,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv02-a-SD.png",
+      "sha256": "c2358c2be1131177df7fe14b3a7cb3b21662f81ee72812e09ee6043aaf7f72e2",
+      "metaSha256": "93c53fab33e166855598434dc1f250b32c543d25f435bd491d75fb46878eacb3",
+      "guid": "fc9f9175f2a6e494398806f44d2ac63d",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 196408,
+      "antialiasedPixels": 7441
+    },
+    {
+      "id": "lv02-a",
+      "level": 2,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv02-a-LD.png",
+      "sha256": "5edb11eafbd05f4fb0d4b2f31a05a2c13615668fc45b7fbc86f8fb321d9a9a16",
+      "metaSha256": "156b5d8701e79b0a6fdc9f7473e139a1873d392221ac0d8293ed810d537bbc5a",
+      "guid": "5ef61613dc0cf384fac0bb7c7bb10812",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 897748,
+      "antialiasedPixels": 13538
+    },
+    {
+      "id": "lv02-b",
+      "level": 2,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv02-b-SD.png",
+      "sha256": "888e4be8ab6d47c227a94f0429ced91a0e14e79949d2fc7149c7acf40a280732",
+      "metaSha256": "d34993493956e11b1bbde7f70d3882d299c57d2fff265c83d27c3547667ca293",
+      "guid": "881ca6e3e1aa8cc43ada8e29a9152e70",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 188012,
+      "antialiasedPixels": 6302
+    },
+    {
+      "id": "lv02-b",
+      "level": 2,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv02-b-LD.png",
+      "sha256": "de586c6914958d106cee5e7888fec053dffb67a69559e49a38d2326712b9da18",
+      "metaSha256": "ebcf2dcb44f99f239763abf4538aeceebf4ea4ef526202460b952e0f200fa0c6",
+      "guid": "1e6f6e159a4df054cb3ab21a3df11f0e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 812053,
+      "antialiasedPixels": 12465
+    },
+    {
+      "id": "lv02-c",
+      "level": 2,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv02-c-SD.png",
+      "sha256": "575f01db98c04d9e9242c96b7b4b2ac7ca36af886e6f8bf0ff1b95b7a1bc67e4",
+      "metaSha256": "0b147d93833feef4baa68bf1960a4382eca1414ca662cb021fd87796b4574bc9",
+      "guid": "37ba68c858c8fd4439c6d8db160768e9",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 194337,
+      "antialiasedPixels": 6183
+    },
+    {
+      "id": "lv02-c",
+      "level": 2,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv02-c-LD.png",
+      "sha256": "53b52d409d3df975bc37f3c96a140ed151ddb99382a1efcbb25f39a47c53d299",
+      "metaSha256": "cfed5992ad49634ee803269fab8134bb3f77dbb72bafd8caa84d5c647d673f36",
+      "guid": "cd0c9785c274d3848a1ff4e63034444d",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 856691,
+      "antialiasedPixels": 13742
+    },
+    {
+      "id": "lv02-d",
+      "level": 2,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv02-d-SD.png",
+      "sha256": "6901d2133b7e7d31fdd221e20450b13facacbda1c659b42e49b6fef6a116f1ab",
+      "metaSha256": "675c4759aefaeda019421886575b08c7d16af3d7fce33155d73c6737db47e7c6",
+      "guid": "20400ea306265094fa1d2bd53a402a02",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 194546,
+      "antialiasedPixels": 6625
+    },
+    {
+      "id": "lv02-d",
+      "level": 2,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv02-d-LD.png",
+      "sha256": "1fb97500056de30599bbab11a63f3f7a600161a95c1e1ae840113c3734383474",
+      "metaSha256": "d52d6ac46cc534f24b53993e3608548d8552294857f3035f8cc5323daa9284ce",
+      "guid": "790d485d93b8f574789fd1c0f3109def",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 861740,
+      "antialiasedPixels": 15122
+    },
+    {
+      "id": "lv03-a",
+      "level": 3,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv03-a-SD.png",
+      "sha256": "696acef8bea8303af1c6a988e343bb5eb42d9dad3f2d2aa6cbf1756bea9dc372",
+      "metaSha256": "cf7d6eb7502d9b236092af951dd9ee467f62b4bab84d1fc14fa628566ae4544c",
+      "guid": "e95c135575c30b14b904e30336e912ef",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 188572,
+      "antialiasedPixels": 6187
+    },
+    {
+      "id": "lv03-a",
+      "level": 3,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv03-a-LD.png",
+      "sha256": "7d94b3274c46adf1e049181367ddf7a034df5f3843e43fde496dbe7ab8b8e9ba",
+      "metaSha256": "d0b4fbc7eae748bfcaef10ed8554882df7fdde97fade6429f4f756e9b2f4eff3",
+      "guid": "878909afa4ef6f24bbed1295230aec3c",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 832823,
+      "antialiasedPixels": 13607
+    },
+    {
+      "id": "lv03-b",
+      "level": 3,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv03-b-SD.png",
+      "sha256": "62f38ed17bc944859191b62a7040ae4b840223602a6ac4321c768224e093327e",
+      "metaSha256": "7c0892dc941873cefc5c763dd9d391d0836aa4cdccf3f6f7a0b91ddc3aeec9a7",
+      "guid": "7c0031711a8a53f468eda4477b4fbae9",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 180818,
+      "antialiasedPixels": 7191
+    },
+    {
+      "id": "lv03-b",
+      "level": 3,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv03-b-LD.png",
+      "sha256": "7296780b1895a17bc7ef335ae5f9c19702d7425d660443e2ffb7bbfea464fa32",
+      "metaSha256": "2e232e23b665f81013f44e154521eb128937f594d1c06c76734e2ba7779f3230",
+      "guid": "b63a574ed9e4c6945b95206e26bdbb3f",
+      "dimensions": [
+        971,
+        971
+      ],
+      "transparentPixels": 740003,
+      "antialiasedPixels": 3145
+    },
+    {
+      "id": "lv03-c",
+      "level": 3,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv03-c-SD.png",
+      "sha256": "d3315bde937614ceb9a7bd9e7aa058e0dc890192524801f5290e95dd0aaaee49",
+      "metaSha256": "cb18906235822fbd452949121907ecae21f07aad6ff90ea1921b0f56987e8add",
+      "guid": "49f782f747f45e8459008b3bfaf80f97",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 180689,
+      "antialiasedPixels": 7840
+    },
+    {
+      "id": "lv03-c",
+      "level": 3,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv03-c-LD.png",
+      "sha256": "a207ef23b01d9ee16962f7784584ed31b7bbf20d2e08ca743a7fd10b81aa151b",
+      "metaSha256": "d629280460f91337820383b30ecb9fbf9ca0c9ba90a17b0499b188cfb43e164c",
+      "guid": "b7057825f140cbd4ba037a51eb3e1f92",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 826552,
+      "antialiasedPixels": 17772
+    },
+    {
+      "id": "lv03-d",
+      "level": 3,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv03-d-SD.png",
+      "sha256": "7c0be23b3eaaacaa3d348f09af1f06fb25ef5c31a6fa6dc0c5d2e262b9b8ff83",
+      "metaSha256": "8219fd51c6a0dd041a8725dcb225408fefa2ed6072465bb6db84edc10a0f78a1",
+      "guid": "2202ad3026f1328499afebe07515cf78",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 189755,
+      "antialiasedPixels": 7673
+    },
+    {
+      "id": "lv03-d",
+      "level": 3,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv03-d-LD.png",
+      "sha256": "3d65d8ac6cd5fd977d463447078b9a78560dbef31f6c852a50014493625826ec",
+      "metaSha256": "d1d4730158f1db0bd70a6d6b76e2bb03b0ff5d887c2ed07aba968bb6631c3583",
+      "guid": "4a8595e3e75f68f4eac1f191d447f08a",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 817826,
+      "antialiasedPixels": 17716
+    },
+    {
+      "id": "lv04-a",
+      "level": 4,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv04-a-SD.png",
+      "sha256": "789ae2ab0e3d62f05763369ad9a5db616b49e415c5b2edbc22e0083349959d36",
+      "metaSha256": "d471e3a3c71a4e485fae90668189bdacb9c51d31b8f48fb4826ecefd070b34d7",
+      "guid": "32d2eaa9c869f314da8b1383cedbcdb7",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 171168,
+      "antialiasedPixels": 9869
+    },
+    {
+      "id": "lv04-a",
+      "level": 4,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv04-a-LD.png",
+      "sha256": "5d6697cab2554c154db35b776617cf774d81f4e884d19d5cd99e672f99711a8b",
+      "metaSha256": "5f52db9c95fef0040955f9579aa55eb21fb039f2b3109757f3d65968e3448476",
+      "guid": "0da7a145cc5bcdd45b6c68d1ce8f1d59",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 813020,
+      "antialiasedPixels": 17858
+    },
+    {
+      "id": "lv04-b",
+      "level": 4,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv04-b-SD.png",
+      "sha256": "2505a6742aa876176fb1a64ffc7ef3d7c061a3c0802cc8006b2449ca0201aaf1",
+      "metaSha256": "a6317c868b20c5fee0a774c95455356bb8999960d7e495a207716b42affb22d2",
+      "guid": "b17f19f74e160424eaea862d3e8c845c",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 175127,
+      "antialiasedPixels": 9890
+    },
+    {
+      "id": "lv04-b",
+      "level": 4,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv04-b-LD.png",
+      "sha256": "dcf678564ca6caca9d536949ac93c97a8a2a177e57eccb2083c6f988833471ed",
+      "metaSha256": "c791fa9b5b4889d9420518e738f9f7c71c15bd9a26f494621797c824cbb31f8f",
+      "guid": "711db0031678dd1479e9395a8a5d9b31",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 814002,
+      "antialiasedPixels": 17335
+    },
+    {
+      "id": "lv04-c",
+      "level": 4,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv04-c-SD.png",
+      "sha256": "8ae0155ffe0d065820ad422ca7c3561dcba403b5124d86344bdca35726cc4d96",
+      "metaSha256": "ad087f7ae145c14cfcb03646a8c740bf31eb0f56d9ed4ad905bedfbec1a9431e",
+      "guid": "0bf4eccf2a7b9a44d969075cc24020ad",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 195284,
+      "antialiasedPixels": 9577
+    },
+    {
+      "id": "lv04-c",
+      "level": 4,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv04-c-LD.png",
+      "sha256": "c32420876191e46798c6ecadc89d1115d925d8f275ab748e831e1b8a1a9e3330",
+      "metaSha256": "322eef60561378b1ee9dde8ecf8fba5f801e67332f728b2e3b215f3c4318280d",
+      "guid": "b1c747f9aad8d9b4ba6ecc73fd684609",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 847355,
+      "antialiasedPixels": 20230
+    },
+    {
+      "id": "lv04-d",
+      "level": 4,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv04-d-SD.png",
+      "sha256": "dde17028d8e54537fc993542de39a7a585b9704c8627daffbac355b032c90316",
+      "metaSha256": "c00b2f1c7bf73f022c1ae8e7fddf30e4fe2d34924fe8c3e67ee37a694bd53cc2",
+      "guid": "6538e38c63b056144981c2058048d657",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 199546,
+      "antialiasedPixels": 8952
+    },
+    {
+      "id": "lv04-d",
+      "level": 4,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv04-d-LD.png",
+      "sha256": "5fa9726636a895811113896fefe998adae35955cbd4b67073d27b7fbef9008bf",
+      "metaSha256": "9023cf0a2ef269efcf49929a40263f8dbdb16efd1e9fc4eeaa2702ff8b88f81c",
+      "guid": "6b1777e28e983834aacd4e800c5fb94e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 855697,
+      "antialiasedPixels": 19662
+    },
+    {
+      "id": "lv05-a",
+      "level": 5,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv05-a-SD.png",
+      "sha256": "7277b5c34bc9a3f4224a6de069a8bb720188cb87d74a4d9624197354b56fb628",
+      "metaSha256": "5af474949df992656b72d9d40d164f3ab3030b04e4dd027a14e38f0d89c26d77",
+      "guid": "c10f52c73b3d423429d7f5486779d74f",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 190855,
+      "antialiasedPixels": 7193
+    },
+    {
+      "id": "lv05-a",
+      "level": 5,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv05-a-LD.png",
+      "sha256": "be18aa2ebd964aa5a7c8364dabafefff9d1dc67de86e62fb4458b637200186b8",
+      "metaSha256": "3e1a843f676d9e4dd98fa887e8e55b34cbb51821a89c4a77db9cf7beca96158d",
+      "guid": "a2725883a5950fd4598b18f1f1151ba5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 859204,
+      "antialiasedPixels": 13482
+    },
+    {
+      "id": "lv05-b",
+      "level": 5,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv05-b-SD.png",
+      "sha256": "01e861bfe64e0d516e61441d7748e5794de07f7ea3da4eb04a63a5459a3436be",
+      "metaSha256": "ffd47a9d7da863e830ef0ea949fec9bc647367934ba601526bb6ad527ecd0e9f",
+      "guid": "14c8094a3e7d0494ca0ed94b60a6baf3",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 178077,
+      "antialiasedPixels": 6782
+    },
+    {
+      "id": "lv05-b",
+      "level": 5,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv05-b-LD.png",
+      "sha256": "2ab0913d6ea31989226656b164792a16c806b4c4d0fae82bf3f6d8bc59a6b4cb",
+      "metaSha256": "ade4959ad753e07c4780b86ae41a362e6878083ac18c501dfc8a652a88bf20ee",
+      "guid": "dfe92ef6a43b4f547a0ff7571fcc8122",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 807277,
+      "antialiasedPixels": 16943
+    },
+    {
+      "id": "lv05-c",
+      "level": 5,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv05-c-SD.png",
+      "sha256": "da6d41292dd8accf2a716bf559fbcffe6d3b73899277b89466749a30e8bace7d",
+      "metaSha256": "9b005f30d20a56063eb471cc881557462a6c66c9cc06e0998a3e587837d8c18f",
+      "guid": "9e6ae20dfd404a145a670bfb575b876a",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 202889,
+      "antialiasedPixels": 7032
+    },
+    {
+      "id": "lv05-c",
+      "level": 5,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv05-c-LD.png",
+      "sha256": "808fe0b2049708292d002eeddb113f94e42209638ad1c64db578e7535035caa9",
+      "metaSha256": "a9bc1b6f9c5a7c7618174bc3493b3573b7476718f3125d5832921dbfda3589f1",
+      "guid": "c7e4377ab73a4024da27c72884027211",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 845788,
+      "antialiasedPixels": 16887
+    },
+    {
+      "id": "lv05-d",
+      "level": 5,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv05-d-SD.png",
+      "sha256": "ca239c333aa53c8217eae67ceb1369e1126844bf6d632b91a165343f721c020e",
+      "metaSha256": "7590f7dd73060322139a6fd279f3b906b219f84f1c3a914b23f0c1b4f90832d3",
+      "guid": "554dcd3f5f078b344baf7b513c3dab49",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 199314,
+      "antialiasedPixels": 7970
+    },
+    {
+      "id": "lv05-d",
+      "level": 5,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv05-d-LD.png",
+      "sha256": "3113fdfcb35db1bda9c71f17527017b21bd192e791ba3abc23bc2c4de904d35c",
+      "metaSha256": "fa16a3281fa876beab81aba1589a4e38ab94dc2e062af9952628bf6ed32d7aee",
+      "guid": "a4da239720c01bf4395efbd919ccc974",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 806624,
+      "antialiasedPixels": 23326
+    },
+    {
+      "id": "violet-festival",
+      "level": 6,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/violet-festival-SD.png",
+      "sha256": "9d8189d1eb6e500aba7e37b6e265e2ca609cedf396c398c906070208e571d2fd",
+      "metaSha256": "991ba263cad5c5c6b1d580d0a86313cc0079560a85d8b802e2e8ab0b5bb11d60",
+      "guid": "96cac73ab10d3864d97552f24863be09",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 187126,
+      "antialiasedPixels": 9763
+    },
+    {
+      "id": "violet-festival",
+      "level": 6,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/violet-festival-LD.png",
+      "sha256": "778c1d7b319197ed2be9b988a53a762a9c7eca28493ba2fe849ab565abfaf11f",
+      "metaSha256": "fbf872b1910dc2402648b9805a9affee876fc2e5186ff448b83d6a71fba18c70",
+      "guid": "b93561107fcc106478fb46dc64d4ee3d",
+      "dimensions": [
+        917,
+        917
+      ],
+      "transparentPixels": 686925,
+      "antialiasedPixels": 4326
+    },
+    {
+      "id": "lv06-b",
+      "level": 6,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv06-b-SD.png",
+      "sha256": "1e42c7391afc2d8219965c48b6112afc8bc20606adb03d2fec13217429de9726",
+      "metaSha256": "dcbd22550290730d4c5b17ec5d6e51c7ac27b350a088bcdb2456d04799c29095",
+      "guid": "61f7e544c90c7954bb3f5b250531ddc0",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 189830,
+      "antialiasedPixels": 8039
+    },
+    {
+      "id": "lv06-b",
+      "level": 6,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv06-b-LD.png",
+      "sha256": "0369faef56769c8ada7cdf1b4897b39bfeee0586d69ecc99eb72bd27e4e4655d",
+      "metaSha256": "cd5d4002d91ee7bb56d762def4aaebaaa4dd14e97740baacccfebe937ac90201",
+      "guid": "fa634716595bbd34e861b09029eb18ae",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 876047,
+      "antialiasedPixels": 14087
+    },
+    {
+      "id": "lv06-c",
+      "level": 6,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv06-c-SD.png",
+      "sha256": "d715c4e63c2201cbe3e29df4907439a183dbcf679fb7e3d6cc137eaf60e274e9",
+      "metaSha256": "8fef4bc793cf354b3378b8c60c0f6409ada6a99cc77b1a0d22ac93d610937686",
+      "guid": "7c9f80e0d75fb4f498f9ffc047209a92",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 199189,
+      "antialiasedPixels": 9262
+    },
+    {
+      "id": "lv06-c",
+      "level": 6,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv06-c-LD.png",
+      "sha256": "b473369b7ac7c942887df08e312a4a02b26fd26df473127a9f02af77306bdc1c",
+      "metaSha256": "1ee029bc348148f1c95f0ee8d64145414b38a58da51213ce915fc8c390730986",
+      "guid": "de31e10d5b7bb1942bd8ea6573d4b84c",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 839311,
+      "antialiasedPixels": 22581
+    },
+    {
+      "id": "lv06-d",
+      "level": 6,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv06-d-SD.png",
+      "sha256": "4923aab769a91d5d35a709b57259a109399335071b1f38b6389254cf562c7765",
+      "metaSha256": "e5154fe51e61442f9ce7906ff14dc3858e23387c118b9c9252a9863c5eb0db38",
+      "guid": "5b9febf709c768c48bba52db405fac29",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 218613,
+      "antialiasedPixels": 7094
+    },
+    {
+      "id": "lv06-d",
+      "level": 6,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv06-d-LD.png",
+      "sha256": "32e6ced154cb3f0c83a522bdadaf3ba2de99a0fc63d6692b067bac488a67d17a",
+      "metaSha256": "7637310758a922f8978acc4abeaf77a0c72167c4ad351ad7b44bb9cd3024eb15",
+      "guid": "bf819812f99842244953022583f7ed78",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 900429,
+      "antialiasedPixels": 16834
+    },
+    {
+      "id": "lv07-a",
+      "level": 7,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv07-a-SD.png",
+      "sha256": "fb215e18ad49257d6f8829ec9aa935d6faf5ce355eedeab738b163252fb4a978",
+      "metaSha256": "cf1e9fad2fb601a1c315e845006450110cf239c69fcfccf87eb972cd4fadb2e8",
+      "guid": "6d34fb4429993c141a89338be06c6653",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 195284,
+      "antialiasedPixels": 7692
+    },
+    {
+      "id": "lv07-a",
+      "level": 7,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv07-a-LD.png",
+      "sha256": "ad50875c8f58546a74dce995e498503732f977a4d6303cd23f2181b186f5988e",
+      "metaSha256": "f06d00e718a174ee5cae3b342c2db1ff2592d59c64a008e8dd394929aa11bd25",
+      "guid": "b40453e1a97518a42974add5e39899c7",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 816909,
+      "antialiasedPixels": 16680
+    },
+    {
+      "id": "lv07-b",
+      "level": 7,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv07-b-SD.png",
+      "sha256": "7af79ee8e08ba1ba9f4e9aadc8c08143f6f06b7620bdbea9bd282232b8d272c5",
+      "metaSha256": "92e11fd7cc215c404d41efcba2c79d6cff4b3e71ff56e26eff825346ec1c73d2",
+      "guid": "2d6484893b969c4488f68d0ff2a10588",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 188234,
+      "antialiasedPixels": 7534
+    },
+    {
+      "id": "lv07-b",
+      "level": 7,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv07-b-LD.png",
+      "sha256": "f1bea647bfab8328fa8862c95c5fc4acbf71044957faa869585b5a5ad65df277",
+      "metaSha256": "bf7d48857bfbedbed0342dc9af3776fee0b047c0e050e770d2faa802cc85e003",
+      "guid": "0f275e8f0e15a4c4eb9b97b09540b1f2",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 877732,
+      "antialiasedPixels": 13329
+    },
+    {
+      "id": "lv07-c",
+      "level": 7,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv07-c-SD.png",
+      "sha256": "f205fc21e5cbac08a0135bcff6cc77129e93976f4029b01568aa37e7cc0eb591",
+      "metaSha256": "92aff9885d441a9c71ee349a00c603d15f68220b1383d81ccc9eb8761f4695be",
+      "guid": "fbba76b9bdc070c4e98c51d2ab2e9782",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 208464,
+      "antialiasedPixels": 7757
+    },
+    {
+      "id": "lv07-c",
+      "level": 7,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv07-c-LD.png",
+      "sha256": "f22f92533bfd0cbf5a2735ae99139c7380fb9dfccc050efdda0536fadb76bbb6",
+      "metaSha256": "f268fa98e49b048b49bfb7968aade3d512277c1a3e10dd8cb59d165862bc8a9c",
+      "guid": "e219fb73671870c43926277f98c99c26",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 863002,
+      "antialiasedPixels": 17160
+    },
+    {
+      "id": "lv07-d",
+      "level": 7,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv07-d-SD.png",
+      "sha256": "05e56124a10846a1417d5264ec0bf35173bd135deb4a143a54798b1ab1b25edb",
+      "metaSha256": "ff27822812b111d8816622de9cdc980c74a3626cca915f3f16ea4e6aab15fa58",
+      "guid": "9520370bcd537f14ea6b76bc884dc0e4",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 207288,
+      "antialiasedPixels": 7888
+    },
+    {
+      "id": "lv07-d",
+      "level": 7,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv07-d-LD.png",
+      "sha256": "1c209a2a54078fe74b9290a8be9ba188e1b8d0d3b54fb38756c57511d312cd06",
+      "metaSha256": "64bc0a4cb293cbbaf4613ed62bf8084ee261ba3b6e36cea786014881b4abf7fc",
+      "guid": "1078ec2f04f04f746833cce9ea979137",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 860830,
+      "antialiasedPixels": 17169
+    },
+    {
+      "id": "lv08-a",
+      "level": 8,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv08-a-SD.png",
+      "sha256": "87d83d088d6d0b7bd79061a9becd94f380ffce92d8e8a8d2f48305899cf53c32",
+      "metaSha256": "86c2d12056aed971bd14353d1cbf5240478870f5704df9befb0322fa4412eeac",
+      "guid": "1d1c8a0c2a9fcce45819bbe38e9af713",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 171848,
+      "antialiasedPixels": 10839
+    },
+    {
+      "id": "lv08-a",
+      "level": 8,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv08-a-LD.png",
+      "sha256": "544b4eefd63b18f65b8345fa4b12e140976389e2b371af379e8ca94efb8a186c",
+      "metaSha256": "a578df79c1cf132419c77ad336635ab5aa11a931dff8eae344a76c5ee67fedfd",
+      "guid": "0e4cf001472baa848a9b5c23b4c46bc1",
+      "dimensions": [
+        975,
+        975
+      ],
+      "transparentPixels": 693398,
+      "antialiasedPixels": 3485
+    },
+    {
+      "id": "lv08-b",
+      "level": 8,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv08-b-SD.png",
+      "sha256": "462dafd3d1cace483b309ceba059fd0861e968fc24b33ada4c8da038abb3848c",
+      "metaSha256": "a47142a9d0b407efd548b6f8152c9487dc206f124f4fb92de9aae9f8fb8389f7",
+      "guid": "4235a8227ef68ea478f1ac9f8ede03c6",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 166354,
+      "antialiasedPixels": 10143
+    },
+    {
+      "id": "lv08-b",
+      "level": 8,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv08-b-LD.png",
+      "sha256": "3b22fed9e6461047e716070c811fd6ca9be307e008d032a236db2d9507c0b41f",
+      "metaSha256": "aafaca8b160534f31260a87e84b10aa4b6acb72dd1c382130afdeba3134d1bed",
+      "guid": "ba77ca0a80fcb8141a0e51b7f00824a2",
+      "dimensions": [
+        927,
+        927
+      ],
+      "transparentPixels": 633110,
+      "antialiasedPixels": 4287
+    },
+    {
+      "id": "lv08-c",
+      "level": 8,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv08-c-SD.png",
+      "sha256": "65430cec5a4fe2a0e6f15e27049181529e65e87d6f094ecb3204ae1097466302",
+      "metaSha256": "233014022648772b12f851bdfd47d11f212e396c541d3309b1458f91577a8f6f",
+      "guid": "3d26b6ef5018d684e98d5d53d9ccf0b4",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 184735,
+      "antialiasedPixels": 8460
+    },
+    {
+      "id": "lv08-c",
+      "level": 8,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv08-c-LD.png",
+      "sha256": "187ee5115353cb140faecc1db27dd6d409ae7d99501ce5a9d2332e70fcab7bc6",
+      "metaSha256": "631b9eacdb99462110256e1f05c4e7f4dfff92d73cfc8e1fb5e23813f8b5469a",
+      "guid": "c05c2ab95b3ba094796cae8292704b61",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 766989,
+      "antialiasedPixels": 20690
+    },
+    {
+      "id": "lv08-d",
+      "level": 8,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv08-d-SD.png",
+      "sha256": "f15711581612d9dec951ed42c3c8aef168daa0783af0dd6d434cc3ec1c63e138",
+      "metaSha256": "e81bfe6628700bb7f4c983b82d76da93ca49b9934a2f2549e5aedebb6b580436",
+      "guid": "078c5856c5802d0428406bc8d9bd2d7f",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 181457,
+      "antialiasedPixels": 8420
+    },
+    {
+      "id": "lv08-d",
+      "level": 8,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv08-d-LD.png",
+      "sha256": "85208cbc8fafc400e9ed19b622c937cd5dfd00218a3cc13ab6a7babf8f72c095",
+      "metaSha256": "ed67162fd8eedb7bdeb8bc0f2cbf7cf18fd5b14f7f70e01623c207f811592c0c",
+      "guid": "7050cc34c3f75094bada0c6488f1a86b",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 764363,
+      "antialiasedPixels": 19720
+    },
+    {
+      "id": "lv09-a",
+      "level": 9,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv09-a-SD.png",
+      "sha256": "e74dc81478d30e4b06e31e8fe847287bed54113a985ffbdb0b7624b4e9551f37",
+      "metaSha256": "f0f39760e25e0a3bcfe009507aa03ec7ade32ece46a96ab4635b7db669c39520",
+      "guid": "7f4f9ab30199e3a4c8293f9e89dfa1a1",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 195705,
+      "antialiasedPixels": 7843
+    },
+    {
+      "id": "lv09-a",
+      "level": 9,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv09-a-LD.png",
+      "sha256": "c72a88ed690b99dcdc74d28f546e04f90af165aa977c5a9027c28c88c1edfda1",
+      "metaSha256": "c64c5d4f377ad02aeb80a166cc7c1e3c0a1d27b114b304de40f1cb2c759e49f9",
+      "guid": "17da98dd71cc10346909a8afb51ab084",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 842900,
+      "antialiasedPixels": 12930
+    },
+    {
+      "id": "lv09-b",
+      "level": 9,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv09-b-SD.png",
+      "sha256": "faced2909ea780ef4699c947a3228ccce256f57ee803399e3b9b9738df3829d4",
+      "metaSha256": "85ad13ddac538e640d344f44d6ac2b8cdfe0a540ac1bf9f7d71fb633fdd43ac5",
+      "guid": "40e3781cf6c5cf043a5383cd5f446a47",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 189380,
+      "antialiasedPixels": 7746
+    },
+    {
+      "id": "lv09-b",
+      "level": 9,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv09-b-LD.png",
+      "sha256": "d828e5f00e26515894e86ed4cc1309590af2adcf4658d64588831e54e56e730a",
+      "metaSha256": "a0dba51c472cf61c99a12de0696bd47519eaa6402b1c2a934efba5b8945ce20f",
+      "guid": "775c959b53adec94faab058ca07b4581",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 839136,
+      "antialiasedPixels": 14412
+    },
+    {
+      "id": "lv09-c",
+      "level": 9,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv09-c-SD.png",
+      "sha256": "2eb8b2212bf753e4b78726d3802666f95b25bfab1317fdafa00dcc152e112cf4",
+      "metaSha256": "22ceb4580eb70a32cf19f501284c3c221965374fda5793de793b2194d4214fcc",
+      "guid": "ae6cf63ecc06a8146bae68437512f462",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 193457,
+      "antialiasedPixels": 6247
+    },
+    {
+      "id": "lv09-c",
+      "level": 9,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv09-c-LD.png",
+      "sha256": "4575b5403eebf0d88df0bd2df304593c2c5dd256bff7c4ce94754e96ec00084c",
+      "metaSha256": "1a3d1f7776ad835594b6583adcd26ce2bea6abe789016601a821b6de02d24b95",
+      "guid": "0d3251b21dc011c4a873290404a2ab38",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 790919,
+      "antialiasedPixels": 17526
+    },
+    {
+      "id": "lv09-d",
+      "level": 9,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv09-d-SD.png",
+      "sha256": "b44adb3882ceb3cbb459b815f662cb902d9cfd13431f9511ed76caf70cb7aa86",
+      "metaSha256": "7d5dc34673d88d31647af4c6a90b258b9cf5eed305b12d062c4f9585d8078a26",
+      "guid": "fb4c54334d93945468dcfff5a1d73057",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 193065,
+      "antialiasedPixels": 6318
+    },
+    {
+      "id": "lv09-d",
+      "level": 9,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv09-d-LD.png",
+      "sha256": "9dae7a30d4f0a53c29c826c987af42e7009fa89c80db6a0bc9e34ae43da6ea63",
+      "metaSha256": "6c143df63c0bcaa5b4016d792a71d7dd9e04ba1b349b56ad8fce0c626eb69991",
+      "guid": "3d43a22f25e979f4689d8e9f5b83fb13",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 793313,
+      "antialiasedPixels": 16293
+    },
+    {
+      "id": "lv10-a",
+      "level": 10,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv10-a-SD.png",
+      "sha256": "35e0f94243489a8216420beb0ecb88d50fe98e0ac28f3bc1de3359871408b788",
+      "metaSha256": "0f09283b5cc304b59ab9f57136091e1a29a39b199a7fc52511317e3ef3515f54",
+      "guid": "81f7293b95a9b454a86ea7074ea7d0a1",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 165588,
+      "antialiasedPixels": 14576
+    },
+    {
+      "id": "lv10-a",
+      "level": 10,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv10-a-LD.png",
+      "sha256": "7ab3898d4f6a5c6b76e58b2a15ecff810777064ceb3bdc849e8a23ce84bd6240",
+      "metaSha256": "94168e180003395c9ec25548df7f8c038b40b62649c6907028944d75ef23deaa",
+      "guid": "4534cd53d1aef7e48869ace1655ef4c7",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 825754,
+      "antialiasedPixels": 24871
+    },
+    {
+      "id": "lv10-b",
+      "level": 10,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv10-b-SD.png",
+      "sha256": "4453556dc43d06044fe6845ee75170001b1647da51d2236ab78dbe39a489665f",
+      "metaSha256": "87ee2d947f2c8c1322f2a7b98ec6b3f1b88806590314c4790199d2a6a8ad47f8",
+      "guid": "bee0d7c9a697dfc44a4833a456491fc9",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 177172,
+      "antialiasedPixels": 13326
+    },
+    {
+      "id": "lv10-b",
+      "level": 10,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv10-b-LD.png",
+      "sha256": "3b83b056a82b4c36043d2b6a15ca154d0b0c6126dc14cb35cc9c38c558a30e6b",
+      "metaSha256": "667680efe5df4b7e69329f8c2c702a3e65471c672875be85a8667c95ecf2a718",
+      "guid": "1d42751d04ccd7442b62c1ffddbf007f",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 828790,
+      "antialiasedPixels": 30269
+    },
+    {
+      "id": "lv10-c",
+      "level": 10,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv10-c-SD.png",
+      "sha256": "4296e6a78c3824c95fe6c91f6da1a51281859a6dd31e39346056a80686b445fd",
+      "metaSha256": "84b6f2b3a4bc29d68795c335849546c2db1ceab213b1e236bbb63c2f6753cb48",
+      "guid": "6264059b3af496448b83d561df5ea18b",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 196137,
+      "antialiasedPixels": 12076
+    },
+    {
+      "id": "lv10-c",
+      "level": 10,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv10-c-LD.png",
+      "sha256": "7f7d4bf49a257e9b96b75789b1d78bc56e6f10f8cf8ed27b2fe95dd20b7bb200",
+      "metaSha256": "ecd0c9f001108cb739ab44c1a09e06cb13cfcf6a953f92916afeb60efab73dce",
+      "guid": "37053888ad66c3d45ba564ac79419d0a",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 831123,
+      "antialiasedPixels": 28410
+    },
+    {
+      "id": "lv10-d",
+      "level": 10,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv10-d-SD.png",
+      "sha256": "d3c4409576aaa8049b486adfa757c94ba27165d1b54f69bc016bb915429228f3",
+      "metaSha256": "990131c9f234a663edd34078fb1a6bec3258da37b0d196b9c9e91c5dabd9bd1a",
+      "guid": "191388a29e84b0f45ac7076d945bf0e8",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 197532,
+      "antialiasedPixels": 11249
+    },
+    {
+      "id": "lv10-d",
+      "level": 10,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv10-d-LD.png",
+      "sha256": "af68a31545213f6b26a9f2491a43cf478681f5675ef1f307596d6f0c6fb9a947",
+      "metaSha256": "498189fd981fcb2bc57d7221323a38dd4c0f515485b4d86ed9f5b9f364d4207a",
+      "guid": "23b2095d65c4e0c429590a2a112c2dee",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 840779,
+      "antialiasedPixels": 27335
+    },
+    {
+      "id": "lv11-a",
+      "level": 11,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv11-a-SD.png",
+      "sha256": "44c4e1c111e7d67c2af3481433fc91f9d5a65b959051584f513fd930ed394b12",
+      "metaSha256": "f6a40c3b639d38fe69dd6c3c726d3175cd5b4ca8d5a6eee9bdf26bbb60b9227b",
+      "guid": "d9817114ee490c245933ea7dc953d928",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 161239,
+      "antialiasedPixels": 17397
+    },
+    {
+      "id": "lv11-a",
+      "level": 11,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv11-a-LD.png",
+      "sha256": "ced3157502fcdb6323d1a5da4881a929e25d5e563ea9dda499f51e3b7c1f1ff4",
+      "metaSha256": "118cc2e549b55f5f15dd21a00345e83420dc8fd2b840fdeff1057d6a41d41746",
+      "guid": "5b13fcbc674c4ad4c86e43a3fac02b06",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 785557,
+      "antialiasedPixels": 41611
+    },
+    {
+      "id": "lv11-b",
+      "level": 11,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv11-b-SD.png",
+      "sha256": "ebbfc882c2dce630906e720ec3391d618fd0deb3ac273671472629458e2c9663",
+      "metaSha256": "6150930a15c5f42975d3e6a85225f0e7a37ec1a7ade5a1094b2caadc0ba2523d",
+      "guid": "cfac2ff6928db354c9c9b00bc2085500",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 160931,
+      "antialiasedPixels": 15144
+    },
+    {
+      "id": "lv11-b",
+      "level": 11,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv11-b-LD.png",
+      "sha256": "fd19e37379e7c8cb89a4690302bd1ff7ae902c112c6fb9ff1fb6eca08bb16926",
+      "metaSha256": "0292c6f634f784e53247e0a42de44b9ee06eef5054a9b4ee668a41dccad348a4",
+      "guid": "9b516b3a844d81c4e94b281b8fda3fec",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 838969,
+      "antialiasedPixels": 28194
+    },
+    {
+      "id": "lv11-c",
+      "level": 11,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv11-c-SD.png",
+      "sha256": "b12a0ac506dcab936f84071b355d4d1aa52017fa0645eb845598a957a28e5a1d",
+      "metaSha256": "993cddf8b2c135020e0be05416cc7fe867f56ce832c47c8990459a3722685f69",
+      "guid": "a60aa85f05bdd724b9d7cd7962eb9700",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 188436,
+      "antialiasedPixels": 13108
+    },
+    {
+      "id": "lv11-c",
+      "level": 11,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv11-c-LD.png",
+      "sha256": "2902e61db1c7bcb2e021e5c15935ac42b8b63875ac44a6536d9f2d93faed9993",
+      "metaSha256": "27347120610b2854e5c17252c6baf87102ba64afbca474166a939d6f509c640a",
+      "guid": "b3769adc5d9755e41962182fcd094a92",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 830685,
+      "antialiasedPixels": 29051
+    },
+    {
+      "id": "lv11-d",
+      "level": 11,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv11-d-SD.png",
+      "sha256": "147b8304c7e007574bca1058cd0a18b23867c61092670fa12648022a0053a864",
+      "metaSha256": "ac8404256844ee5f16265628ad046e9dbd5cce57da9f45ec370dad9a83d1b81f",
+      "guid": "08523b0c13c883443aa07b291263f15c",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 180287,
+      "antialiasedPixels": 14093
+    },
+    {
+      "id": "lv11-d",
+      "level": 11,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv11-d-LD.png",
+      "sha256": "11064dc6e3fdc2a5cc3baeeb7722730daaf92cb3a3588950ab8ca65de4ae7723",
+      "metaSha256": "a136590e48a026aeded133707ac721b338ac0a159a67750277bc46848d27cb05",
+      "guid": "d912858698042234b9d4b3970b07601c",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 828752,
+      "antialiasedPixels": 31351
+    },
+    {
+      "id": "jade-garden",
+      "level": 12,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/jade-garden-SD.png",
+      "sha256": "6c830dedc619457e5d5186a0c67d5567468cd514345e161379e2251944a38095",
+      "metaSha256": "d10bf03eaa4dfe42711f96822a234440a46cca67e3296b8da01bb5f8f85a7e20",
+      "guid": "3c665330b85772e48ab957b6588a9670",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 166204,
+      "antialiasedPixels": 15998
+    },
+    {
+      "id": "jade-garden",
+      "level": 12,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/jade-garden-LD.png",
+      "sha256": "4887fb0b7600644410a065ec11627b41e35e68e41f8ea157c39d5c306e531baa",
+      "metaSha256": "edce5e2c6394b6efc1d13c33f2ddd8d2eca3cf64beeecbd189ce0d405d19fdc2",
+      "guid": "14eeb802dd15c27489688e4fcb9c4083",
+      "dimensions": [
+        963,
+        963
+      ],
+      "transparentPixels": 729221,
+      "antialiasedPixels": 5914
+    },
+    {
+      "id": "lv12-b",
+      "level": 12,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv12-b-SD.png",
+      "sha256": "7b6de6150c6c750067cafa4033072e0ee53ea573011c76d99f4174aedf2ba6d8",
+      "metaSha256": "aa10f04b8246d44318d2532cb4b408bdac0797dfc9f9ab8c770daa9931cc4502",
+      "guid": "bb7ddf6dbd9b5794c8c6384d2782f5db",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 165678,
+      "antialiasedPixels": 19776
+    },
+    {
+      "id": "lv12-b",
+      "level": 12,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv12-b-LD.png",
+      "sha256": "f61a8a10ee211ac04741c025e545d2a9d4740f3cc74e900a9a7d827ab0b66359",
+      "metaSha256": "50c593d157690f9e22966cb0ed17ac1126ef3367e9b2f1e699ed95f33029f59d",
+      "guid": "4affb4166d43a204da9c94eda7e632b7",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 800910,
+      "antialiasedPixels": 41922
+    },
+    {
+      "id": "lv12-c",
+      "level": 12,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv12-c-SD.png",
+      "sha256": "5121003ca5148fff8175dd90944a5f898a9b9de778e7514ff7e033101a3e7262",
+      "metaSha256": "eab6a9195f2dc84ab72dd84805597c2581bc08b23f86f06340ac5eb957596c14",
+      "guid": "536184523ae57ce49a287caa09453b80",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 176958,
+      "antialiasedPixels": 15726
+    },
+    {
+      "id": "lv12-c",
+      "level": 12,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv12-c-LD.png",
+      "sha256": "74ce55ed94a3e0374d8dd68bc4bb836beb5c4a0c0e531b62bb42bb4d68444622",
+      "metaSha256": "c08685cf0546ddbba26d28697dbcf53c2b276e7616afb1daf523b625fed878f0",
+      "guid": "4b9ee1322a4649d42bc9aecd60c4a813",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 837546,
+      "antialiasedPixels": 34664
+    },
+    {
+      "id": "lv12-d",
+      "level": 12,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv12-d-SD.png",
+      "sha256": "543c992e6b532080137af43e9960c5ceaaae7d15802484ea536dfd24cc717d44",
+      "metaSha256": "cf96bd553d30e49d92d2544421cdf4c9dd2d5cb7c2cfd93d7682b86aa586e705",
+      "guid": "0b6a083286676ac419d21edd94e1a89e",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 186554,
+      "antialiasedPixels": 14947
+    },
+    {
+      "id": "lv12-d",
+      "level": 12,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv12-d-LD.png",
+      "sha256": "9401b31248662f6bf98ad19cb03fdb597b6d5deb4747451f4df418fe42abadd4",
+      "metaSha256": "6ca8d6dfcde351884c781c841486eeaeb4691d43123be3bea3b5034e23a12a6e",
+      "guid": "1a8ea780036527143b5c8c311e628378",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 834867,
+      "antialiasedPixels": 32336
+    },
+    {
+      "id": "lv13-a",
+      "level": 13,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv13-a-SD.png",
+      "sha256": "6f50bf7cd351447005997a2168e5799437a5f95fc79c1af99c413e7af59205c0",
+      "metaSha256": "53010702b477c62c2e18529995b33b6600c0f1cea63480a0947d67ebd29c98aa",
+      "guid": "81ffef209f81e554c8428dab3b79c588",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 167478,
+      "antialiasedPixels": 14188
+    },
+    {
+      "id": "lv13-a",
+      "level": 13,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv13-a-LD.png",
+      "sha256": "98b85ab817955d6fae14ecce11246a465be788072604ba1d3b74d0266f8b2d41",
+      "metaSha256": "d633f8ef37ec067e37d8551f35257efbca0ee7662282e0ecc25f4321aa4843fe",
+      "guid": "cf07ec253d5e71c4995e119b0fce6e42",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 799379,
+      "antialiasedPixels": 25151
+    },
+    {
+      "id": "lv13-b",
+      "level": 13,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv13-b-SD.png",
+      "sha256": "773c8954cd812788408dbe5ff7b6ff840aae1e203c876b9fca1141c58f3100c6",
+      "metaSha256": "600a541d0c8f01894f6ccf8a3d011f980b86d87dc707fbfa668ee6bb66fd21c9",
+      "guid": "460116e57f0289347b876ad0f333dae7",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 179275,
+      "antialiasedPixels": 15299
+    },
+    {
+      "id": "lv13-b",
+      "level": 13,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv13-b-LD.png",
+      "sha256": "d56c7a7251449ae2fe9774d37ba5a3f1fb3b16443582188ea7aabb6044f28e3f",
+      "metaSha256": "e804a3b3437ab9203251e4aba8c33f4b8400ec2546f2c2ad2009bb2d842ddc06",
+      "guid": "496e6dc76a705ad4482332e7b4863d2e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 834119,
+      "antialiasedPixels": 26728
+    },
+    {
+      "id": "lv13-c",
+      "level": 13,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv13-c-SD.png",
+      "sha256": "ed818fd9209d0b0c3b5084834956004345a16eb742aea18725326fe1ac087454",
+      "metaSha256": "b9e4a69f477c8d598c4ffb45b31794af6311fcc6543705e3cb14b5d7ec4a7b50",
+      "guid": "56d2e6f4571ba0b468c2f27a6a9ad0a5",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 185238,
+      "antialiasedPixels": 12016
+    },
+    {
+      "id": "lv13-c",
+      "level": 13,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv13-c-LD.png",
+      "sha256": "26f57d12915bb861a2d1be5243b7555deba7a6be3f3abcfc942a025530ccdeff",
+      "metaSha256": "d38825ba36023b18174e4edb920085c6be60dcfd245c8e87299c70e3c9767221",
+      "guid": "ce63984601cbdc3489b4e62dc3f95321",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 757229,
+      "antialiasedPixels": 28540
+    },
+    {
+      "id": "lv13-d",
+      "level": 13,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv13-d-SD.png",
+      "sha256": "0a9f9ec00975c46cfaf3e5100d2e05906197df334b2ba74fa71439f56a5f8c4d",
+      "metaSha256": "615c537c09a0f05a66f81573ad9cebf24deed647d1cf3e49eeb27d8e9f93989e",
+      "guid": "b4df5ac6d77358641af7bc23f2dffd58",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 198635,
+      "antialiasedPixels": 11537
+    },
+    {
+      "id": "lv13-d",
+      "level": 13,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv13-d-LD.png",
+      "sha256": "ce5a0ee39da5e7a858d3c69abbf8a78089d93892bca9cdd0dc91789bc481f1dc",
+      "metaSha256": "9bdbc27a2e3ef94830d563c65a14560df82be8b7dc5bc863c5568ef653b0c30f",
+      "guid": "be8cf599e99facb43a0e8e6b78451fa9",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 844792,
+      "antialiasedPixels": 24421
+    },
+    {
+      "id": "lv14-a",
+      "level": 14,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv14-a-SD.png",
+      "sha256": "70cf39f9401ba73e032cc81a981a9f8a34e85a577ea7abaade44995bcf9481a7",
+      "metaSha256": "7f3ca6cb8bf1b48ef6029ccadef19720c7a9c1a93f2c0e29dc8e3fd7bb08de26",
+      "guid": "897997879f798154baa0acededb47232",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 173479,
+      "antialiasedPixels": 14197
+    },
+    {
+      "id": "lv14-a",
+      "level": 14,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv14-a-LD.png",
+      "sha256": "5fb97ab7abcdeea8d7af5245aa9378a4f0c90ce82e9c6edf152594f750e2e2a8",
+      "metaSha256": "9f66ea1f5c4501bae0ca2a02fcb459d1554f3b95a96bdc5ba1ad60f652bbbc91",
+      "guid": "a094fabdc5f2e944881eb070cf3ed6d6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 793676,
+      "antialiasedPixels": 30308
+    },
+    {
+      "id": "lv14-b",
+      "level": 14,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv14-b-SD.png",
+      "sha256": "6a2b86900db11bcadf6f0652ac095665a473f8543a7b098fb63dcca39b502578",
+      "metaSha256": "93432cb96ae836124d0b3ffd2a0dd874c1b20aba042f7564cb1df95f62458e2c",
+      "guid": "b33194d1dd1f64145b0012ef7ed2b59f",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 178845,
+      "antialiasedPixels": 14078
+    },
+    {
+      "id": "lv14-b",
+      "level": 14,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv14-b-LD.png",
+      "sha256": "54a0088b3244e34d794c7c900e5ef9d77e189dd71987bc90ed2c59d8b53945aa",
+      "metaSha256": "62f68733f7f00f5312db90c6a642bf8996beb099b683c4fb1a85f836555301cc",
+      "guid": "333a0d01784fe5243a1c2d77a04f33c1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 785228,
+      "antialiasedPixels": 30750
+    },
+    {
+      "id": "lv14-c",
+      "level": 14,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv14-c-SD.png",
+      "sha256": "ca01e6ff72dd99ea720555e4b66de6ce9f1ea9fa3a00e34e3948461e512063cd",
+      "metaSha256": "c191d799ba02766cd02def4e8f7a9082ecfc36e8d9ca8555ee31686ee29c1689",
+      "guid": "7118a24425677624d8d953378efb6c52",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 203119,
+      "antialiasedPixels": 11442
+    },
+    {
+      "id": "lv14-c",
+      "level": 14,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv14-c-LD.png",
+      "sha256": "49d92cd0a86386e3f978b9b618d90e6fbf8aa70e92d6e342dd7dae4dd1607a51",
+      "metaSha256": "0a6aa4eeb5ab7ca749c02f5d5cc2716297b4df5c7faed15b443ff91a69623a7d",
+      "guid": "5edc6a09b6e21e94dab1f4d4579b02b1",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 848626,
+      "antialiasedPixels": 26846
+    },
+    {
+      "id": "lv14-d",
+      "level": 14,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv14-d-SD.png",
+      "sha256": "31c305270e4273dea93d2ad4ed281656a037c06ea3e90cd707c438144c092eb8",
+      "metaSha256": "4be519473b8f2509902b5c2bd9b3bf029fe1bc3d353b1dedd72ddf96d5525c46",
+      "guid": "d23124c7842d1ab44a1d4f255849d0ad",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 200342,
+      "antialiasedPixels": 11933
+    },
+    {
+      "id": "lv14-d",
+      "level": 14,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv14-d-LD.png",
+      "sha256": "d47dac8f34126fe6a092b6d125f4451c3ff06d878cf6c798fe86d945431c3504",
+      "metaSha256": "3992f7c271759a8f148374a1674803148ab7468ce3810097dda67395e3347789",
+      "guid": "2e43dc660f33a6e448767b556e47e98a",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 879334,
+      "antialiasedPixels": 25078
+    },
+    {
+      "id": "lv15-a",
+      "level": 15,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv15-a-SD.png",
+      "sha256": "1daa578be8cfe81b9be2c85420db2863607344a6e6ad42aa3972ddbe82314d04",
+      "metaSha256": "63e28772bee3111a0c713b43a27de45ba1577d876d33e3a709cb8926c9023e91",
+      "guid": "cd8933460e79af94b9c019011ced9026",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 202302,
+      "antialiasedPixels": 12378
+    },
+    {
+      "id": "lv15-a",
+      "level": 15,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv15-a-LD.png",
+      "sha256": "450b016e4367a2c41587fdf35182809b80e62f7230c9ab0603eb3dd730a9e3c5",
+      "metaSha256": "814f4df5722c9dfef7dad6c4cf622e99b4b4e995717c0c4062dffd237c5dbc02",
+      "guid": "3ed3794fb15fac3429a96b3056153d97",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 849193,
+      "antialiasedPixels": 29744
+    },
+    {
+      "id": "lv15-b",
+      "level": 15,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv15-b-SD.png",
+      "sha256": "03b43844eef57535d2a15bed6c54c34c0fa1e9fb01de8626b0e11242be1ffd78",
+      "metaSha256": "bc6c89c5a8c7fce4647f5be62ce8efc695dad754a256ef11e3d4ef88670b6082",
+      "guid": "010c3c8dbeb036b469b022e4b1492023",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 201663,
+      "antialiasedPixels": 12721
+    },
+    {
+      "id": "lv15-b",
+      "level": 15,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv15-b-LD.png",
+      "sha256": "ba3bcb839ebecb764c8c918954c491695ee77aac19b744b4d32562cfd42c4f25",
+      "metaSha256": "b4c7b3b3a008838eb9515819b3bc263a14e7bc347276c7ac6d18c3dc669b55f4",
+      "guid": "f2e98181f3342534e9fecbd6d9f33d71",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 853588,
+      "antialiasedPixels": 28655
+    },
+    {
+      "id": "lv15-c",
+      "level": 15,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv15-c-SD.png",
+      "sha256": "35b257aa516051f2ceb49e7632b4fc7c3b191d9a9408d18d5a93496708403a6f",
+      "metaSha256": "e2bb8bd6d3d8fd24a3ed7b50b28b761d3251bafc637eba5a2fbcffa548b518b0",
+      "guid": "e7ab996a97c88e14cacdd0f20f89658a",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 200029,
+      "antialiasedPixels": 12531
+    },
+    {
+      "id": "lv15-c",
+      "level": 15,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv15-c-LD.png",
+      "sha256": "578ba8c4b31b4a8b2b75066ba7d3f22acc5ce0397f8724baaaf95f71366f1be0",
+      "metaSha256": "3e4b24194d09fe3e2ffc69ec3cf035c340219191ae896b398922fbc4b2d5a4c0",
+      "guid": "a1ec6cc1388d721478c3d984c9751bc4",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 849195,
+      "antialiasedPixels": 26893
+    },
+    {
+      "id": "lv15-d",
+      "level": 15,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv15-d-SD.png",
+      "sha256": "288b1f1bdd2e8564e8bdb5ccf8bc1248c4f07a63fcbda31bc4333c910ac6734f",
+      "metaSha256": "a5d060af93c82d567118f1090dbc8b8b019dd6a64f487ed55a1f76e37b7ae3ae",
+      "guid": "0e3d44165eaf64640a53ef087411f16d",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 203262,
+      "antialiasedPixels": 12941
+    },
+    {
+      "id": "lv15-d",
+      "level": 15,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv15-d-LD.png",
+      "sha256": "73b99386570cd132996c066e0b2b8aa837fd3d0f0b7a0fc1776cc4381394fd6a",
+      "metaSha256": "9dfe9caf0436b5d905c931436124af4a3acc324489ba71ae144dcbe57021f512",
+      "guid": "6b32d158a6d5f1d48bd03542fd50ef7d",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 828559,
+      "antialiasedPixels": 30457
+    },
+    {
+      "id": "lv16-a",
+      "level": 16,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv16-a-SD.png",
+      "sha256": "813d5ec90153478cca3aaf0ea499ec6834f39080413d334404703426deca0dd4",
+      "metaSha256": "cf166cc5ceb34a594bceda498ac9613b58d017672684da3de739885617bf1adf",
+      "guid": "7f5a541b8100bbc488187ae888e8cc84",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 189073,
+      "antialiasedPixels": 15612
+    },
+    {
+      "id": "lv16-a",
+      "level": 16,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv16-a-LD.png",
+      "sha256": "e73a270186bb759ec4843a446946ca1f2bb7f800c0ba777c1df2b7b971628cf5",
+      "metaSha256": "7f4d622be2bcb1258ad263607f0cfa5e7dc892ed0c547722bb78bdbc3eb73ad1",
+      "guid": "fe4ae05574b611e41a5bf6e01f15df2c",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 844450,
+      "antialiasedPixels": 32645
+    },
+    {
+      "id": "lv16-b",
+      "level": 16,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv16-b-SD.png",
+      "sha256": "47e570a496e4b508f13d510938cc0af61cd9e8a5f85b8a9b30714174a6258c4b",
+      "metaSha256": "c4f0ed5c423e4eb1fc6d4ae5cd06a1becf2a2e13cb5c28d1f68a36045c18e1bd",
+      "guid": "0c348b7c976fd1e4f96a59cc3207cb12",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 187797,
+      "antialiasedPixels": 15108
+    },
+    {
+      "id": "lv16-b",
+      "level": 16,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv16-b-LD.png",
+      "sha256": "d478a692dcddd1b33c04c802eb0c6ea9497408ef558117e378ec57a3b5e23a0e",
+      "metaSha256": "cf8aa14a5ab136bcf80fe5e24de1f46d9e33ad9d876e24315111e3c81a296fd2",
+      "guid": "4c0e55eaab481a945ad8b48d432d7831",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 849083,
+      "antialiasedPixels": 30959
+    },
+    {
+      "id": "lv16-c",
+      "level": 16,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv16-c-SD.png",
+      "sha256": "540bdc5f233217a82f2fc83434024c94e23ccccdb9f9bef3686baada603989af",
+      "metaSha256": "01960cd23f2bf93d389c3507cf4b6183d8c0c3cb4f5371bc2441c6fe1512237a",
+      "guid": "f8f85d325ff865a4298e6d45e74dc62c",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 196985,
+      "antialiasedPixels": 14581
+    },
+    {
+      "id": "lv16-c",
+      "level": 16,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv16-c-LD.png",
+      "sha256": "dbd1a7e51ff614e3be2422d7edf4b942b17950eba02eca07c0738076e65b31c8",
+      "metaSha256": "ce1148c7f49c2701ba7baf460d5004a9e904de71bd9145c9d015f428f551b56b",
+      "guid": "bdf9234512c589c498107da9452362cf",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 854052,
+      "antialiasedPixels": 32481
+    },
+    {
+      "id": "lv16-d",
+      "level": 16,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv16-d-SD.png",
+      "sha256": "27d4b64bac5302f11ed961022b79aa9ed048be166f728f22218c8571bdb8912c",
+      "metaSha256": "19f68520666fd4351a8d22663202947043fbcba824bbd8aa80e1735e427a1ce0",
+      "guid": "199fcb488b1d61c498f09c96b71d6696",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 197627,
+      "antialiasedPixels": 14226
+    },
+    {
+      "id": "lv16-d",
+      "level": 16,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv16-d-LD.png",
+      "sha256": "84d52ed870b15b128cee4ca2ead533573b222e515c7c28a07ea65f8f0cf798b1",
+      "metaSha256": "0ae4313773a07f2b272dc64000786e5efc8204d2d23be41f86ad8592293e9549",
+      "guid": "20848a6f13bfd344e962f6c4253a0321",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 860059,
+      "antialiasedPixels": 30055
+    },
+    {
+      "id": "moon-patrol",
+      "level": 17,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/moon-patrol-SD.png",
+      "sha256": "62e2fc4ae63ec001b9d2dfc3b6f3e60cdad49d0e0c701cf32a86276ac14a16fa",
+      "metaSha256": "11012aaff6cc27302431df2307325921c15db5f9b226e2dd1372d11f08ec6448",
+      "guid": "5c17d38b4bcd52a48a7e239c689240e7",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 196809,
+      "antialiasedPixels": 10541
+    },
+    {
+      "id": "moon-patrol",
+      "level": 17,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/moon-patrol-LD.png",
+      "sha256": "1952a2d6629c125aff3755718b6382286c289bc007556a318ff370e7803672a4",
+      "metaSha256": "2874d1f7781eb4399a61f2cc55238652646ff5c03e927eebfca71668fd92b710",
+      "guid": "3193398dc72d0704a89bfa84dee47fd2",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 846057,
+      "antialiasedPixels": 18681
+    },
+    {
+      "id": "lv17-b",
+      "level": 17,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv17-b-SD.png",
+      "sha256": "f3fa9fbaeb63885b3b02aa1a72017a1ba6e23f9e251bb8de1b18c51b522f097c",
+      "metaSha256": "6b2750d5983b972561257953e0e201482b22ccd4f6c7d581555c1061e03f627e",
+      "guid": "546029ea6f098e54a907f9beeb70a82e",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 196372,
+      "antialiasedPixels": 11160
+    },
+    {
+      "id": "lv17-b",
+      "level": 17,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv17-b-LD.png",
+      "sha256": "82a1670818c458909d23acd159d0e0bc7c88a7bda9832c23182f109091f8e59e",
+      "metaSha256": "f3a0c974b6bc2f9e2dd0731f50fa797d38afc1382efb4c1779b20c93709d2dbb",
+      "guid": "7c99f8e6f8fc0044e9fd5d73aed1db35",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 853124,
+      "antialiasedPixels": 25651
+    },
+    {
+      "id": "lv17-c",
+      "level": 17,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv17-c-SD.png",
+      "sha256": "d0999e6e9792e2198a02059f4db9a7d868822c08b977670e20dbe3ef32ae1500",
+      "metaSha256": "b7e4d21dc5d41c96eac4bd2824f93f6f8d59fdc6468f1de474d4c7b58f2af48f",
+      "guid": "0eff8ef87195ae447b84532308353466",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 202269,
+      "antialiasedPixels": 10508
+    },
+    {
+      "id": "lv17-c",
+      "level": 17,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv17-c-LD.png",
+      "sha256": "0923bad814258a2304572048f765446d720e22f93d161ed9f4ad613985b87c93",
+      "metaSha256": "0a5863f724a603ec40165cfe1e32149e02e1d90b61a113d2bf10e8491c60c39a",
+      "guid": "3fedceaadf728bb46b9b0e2a3c637d9e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 861327,
+      "antialiasedPixels": 24198
+    },
+    {
+      "id": "lv17-d",
+      "level": 17,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv17-d-SD.png",
+      "sha256": "fda8078e9aa118783eecc62064bad16763ed169b910edda61080054f94c95352",
+      "metaSha256": "c72d45e50795e180f479b9936ae24b819bf305e288e861a4533206b654fbfcd5",
+      "guid": "d669c411f223f9b4c830888e5c64bf29",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 201971,
+      "antialiasedPixels": 11264
+    },
+    {
+      "id": "lv17-d",
+      "level": 17,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv17-d-LD.png",
+      "sha256": "c734ee8b8bed12ecccb127a7a7cc8afb5309e1c758e41629cb60048953892668",
+      "metaSha256": "c2745069d16869f493730efb6638817d39686e2e5f05d3e7bafdc9591852863b",
+      "guid": "bc06a845d70d4164fb0c883d5a8df218",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 863439,
+      "antialiasedPixels": 25157
+    },
+    {
+      "id": "lv18-a",
+      "level": 18,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv18-a-SD.png",
+      "sha256": "4a232ce6f52c9c82a74c62af2af0aba4795b88be7e3aa2c2ed68a552067b5cea",
+      "metaSha256": "e0f06c2688970f2f1905074c2a216248a105b7d55f70fe102ac05d6abade2642",
+      "guid": "9de9dcb2ff9c3014a9cdfc1e2fc6183d",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 171551,
+      "antialiasedPixels": 15160
+    },
+    {
+      "id": "lv18-a",
+      "level": 18,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv18-a-LD.png",
+      "sha256": "cdc1715fba68db68caff444349c2c0a5fc0f3f2184df13478df1b2c5841bbcfc",
+      "metaSha256": "aaddf5bc1b0ec77530c451ee919de064cb50d3af61e979aadd75fdaeba375c1e",
+      "guid": "608b383db8abc2648b281ddd09b08aae",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 819885,
+      "antialiasedPixels": 36800
+    },
+    {
+      "id": "lv18-b",
+      "level": 18,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv18-b-SD.png",
+      "sha256": "b979cf66ff24a2c9b9d9bfb84203d9bb6b2d4a153400e747a34bc934c39df3ab",
+      "metaSha256": "3339d531cef70fee904a46d4486072556819d12a098749cdec5114db2e6086db",
+      "guid": "e831c377aea80ed4d91cc9c1ac6a43e4",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 152640,
+      "antialiasedPixels": 17174
+    },
+    {
+      "id": "lv18-b",
+      "level": 18,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv18-b-LD.png",
+      "sha256": "a704e16a66a683c58dcdc8ada502a48a481bfbf96923eb270a6fb3b4ec9c56ed",
+      "metaSha256": "f09bb9b8bcfc6c0733a7674da1217c54836e2bde7b1f3fcdf48d10d71ad7f6a6",
+      "guid": "f18bf06aa6eeddc498bcce26c47d983b",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 763481,
+      "antialiasedPixels": 40073
+    },
+    {
+      "id": "lv18-c",
+      "level": 18,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv18-c-SD.png",
+      "sha256": "842806e1e6758e5a38432809daa399b5398f8ed7372ea8dc93c9b13690017b07",
+      "metaSha256": "7bcbdbc9132048b9e5d565df73784c56f7be3c58fed44ab5654c5b56dac77ee7",
+      "guid": "7b637d3c53a687d428cb5509c561bacd",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 162118,
+      "antialiasedPixels": 17773
+    },
+    {
+      "id": "lv18-c",
+      "level": 18,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv18-c-LD.png",
+      "sha256": "d50029304b3f920bd0fc167bad303e03e461e9395039571c1b6f78f605418daf",
+      "metaSha256": "85fa0dbe222992d8d7d6a2c8d8c978a20115a78d2d8d6077949c624bc1f7266d",
+      "guid": "3fa0eb88be9261240866fab0ad509007",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 800468,
+      "antialiasedPixels": 37237
+    },
+    {
+      "id": "lv18-d",
+      "level": 18,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv18-d-SD.png",
+      "sha256": "98c37fbbdc2e84dd8dda9c279b28deef75de5c306f1fda604b53ddf52293ed73",
+      "metaSha256": "f8c0d82d45d4a6f61968c0c5faa8886148a5bc657f1a2f8071def1c8d5eac602",
+      "guid": "e3f62004620dcce43ac58177bdfc25d4",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 155090,
+      "antialiasedPixels": 16355
+    },
+    {
+      "id": "lv18-d",
+      "level": 18,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv18-d-LD.png",
+      "sha256": "0b6a3732d93af8c45ba71d65d9cd8113beaaa3e04762445483c65272c19bd4f1",
+      "metaSha256": "95a809dea14ae7378826c3ec3d2eeebac00012f35ab23e3b24e747c8e03f608e",
+      "guid": "9354696b5a5a134459b2a9dbf9d03a4b",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 788526,
+      "antialiasedPixels": 43487
+    },
+    {
+      "id": "lv19-a",
+      "level": 19,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv19-a-SD.png",
+      "sha256": "c587fa4437e4d079200820236a5d08685ceba271e74e73a678380393978cc6ef",
+      "metaSha256": "3eeac5b504cec892ff3a39f6a57cda106eea3d5df8dfbb6aa4d6f8e9a3d0b849",
+      "guid": "ce9608f0a5fc36147bc2b9d433d58b4a",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 188935,
+      "antialiasedPixels": 14076
+    },
+    {
+      "id": "lv19-a",
+      "level": 19,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv19-a-LD.png",
+      "sha256": "c5a09c703b8bb947849dfec029cb76ac9ca65fe968def804fc882feea5566bc0",
+      "metaSha256": "97ea59290aa340f4e32dbe2c14e9a61592069609fcdc903558f5826a4eef4fd4",
+      "guid": "3980e6d1b6228704da7ad2f380ecbe6d",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 792682,
+      "antialiasedPixels": 30061
+    },
+    {
+      "id": "lv19-b",
+      "level": 19,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv19-b-SD.png",
+      "sha256": "2d1aa0fab38ee5d886e83cef03cfad98017c0385747c0278aa09ab408e5be5e5",
+      "metaSha256": "a04b6660e9ddf3fcc6c0f9fd7c7875f62ec8826b93348246569f44322c62e208",
+      "guid": "895727018024b4f4f9ca3ae5c598ce63",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 193765,
+      "antialiasedPixels": 13574
+    },
+    {
+      "id": "lv19-b",
+      "level": 19,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv19-b-LD.png",
+      "sha256": "c301a70bfa9e674c7cd78b624951ea6121480a7e9c72f437c2407949a458358d",
+      "metaSha256": "998cdb7c660ceaf4ec75ac675876a9cad4abcd726278977b8f34c6e93c7ea09d",
+      "guid": "b13cf1b58fe193c44a59443f5a56e712",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 805613,
+      "antialiasedPixels": 32409
+    },
+    {
+      "id": "lv19-c",
+      "level": 19,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv19-c-SD.png",
+      "sha256": "4344bcae9bafe81b6a1030c9764608e7663072314f36e378ad5eedcfe46f4b06",
+      "metaSha256": "b1870a57e9c6a56de3078256d29bb41c37d909387082ccea9dc95c27198ecb6e",
+      "guid": "8f0c26291fd0018438c4f9d6c38ce67e",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 197505,
+      "antialiasedPixels": 12094
+    },
+    {
+      "id": "lv19-c",
+      "level": 19,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv19-c-LD.png",
+      "sha256": "0f29860d679a0096e0db836b4444775c68de1dbe7a422bd71a93409f1ec04bfb",
+      "metaSha256": "4bc05213e4305f3253ea0aff863af91f5f79c4596c06fcdb719a4fc284a66e08",
+      "guid": "48c24a16e74f1594cbb9ac23d2da8cc6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 835991,
+      "antialiasedPixels": 27977
+    },
+    {
+      "id": "lv19-d",
+      "level": 19,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv19-d-SD.png",
+      "sha256": "2842a0b23d25aba365a83063e4ab9aa96ff1270bc5bc50f00bc4fe8c17b3fba7",
+      "metaSha256": "0cb1b9da8278f0efe6ee10d0288a435981b441e5f786d1e1b341c4f622550bb1",
+      "guid": "d18d2276c140e6646bf98a2eba714745",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 186237,
+      "antialiasedPixels": 12620
+    },
+    {
+      "id": "lv19-d",
+      "level": 19,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv19-d-LD.png",
+      "sha256": "4e69b19eff905583775a149649e0dce1924b612c5a8e80b4996400aa11fca904",
+      "metaSha256": "4a613ba07106587f8f87381eca81702a886118f512688c2221bb071fed3aeaf8",
+      "guid": "2d806ebc4c9d6694dba13623bf53821d",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 815176,
+      "antialiasedPixels": 28969
+    },
+    {
+      "id": "lv20-a",
+      "level": 20,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv20-a-SD.png",
+      "sha256": "5ef6c1b661d73669a272db64f9179f9975460be8ea16f8a0a049442a08bc7bdc",
+      "metaSha256": "d95265b01b9c6981496021e9369943ac4b1ed7d21eb15d0083f9cf12dbcadd68",
+      "guid": "6b1109995a21d68419ab1a7ed148f4c0",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 183850,
+      "antialiasedPixels": 12572
+    },
+    {
+      "id": "lv20-a",
+      "level": 20,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv20-a-LD.png",
+      "sha256": "bd2aa925eb6fff8799754d60a059408d510cbfa82cfe4e0645d610004cead592",
+      "metaSha256": "06b126624770ced683044fb1d6ad2f042fa185fb938492f3985955be73b27b40",
+      "guid": "4bc6f0393cc6c7445918acb46f76a831",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 765416,
+      "antialiasedPixels": 31562
+    },
+    {
+      "id": "lv20-b",
+      "level": 20,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv20-b-SD.png",
+      "sha256": "402c5328c8717eda0b9188dff1d3a272d979450fb65c056a280a6d8b5ff925be",
+      "metaSha256": "8b8d0beb187c80ee3010e8d18c342f9050ee7b9c549d818a13bd605705b1ae94",
+      "guid": "34f706fa700ca0a4ab23bd09ad041c3b",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 177780,
+      "antialiasedPixels": 12968
+    },
+    {
+      "id": "lv20-b",
+      "level": 20,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv20-b-LD.png",
+      "sha256": "7d78c0eaf7d780e40572b8e2a0fc4a3e3f252025096c0d3d17e85ed480342395",
+      "metaSha256": "4d34d70930cd23098aef1028e21cbd531569bc7f3cc77629c3f734b491d51e94",
+      "guid": "9cd57b3265abb47429310833c6e116eb",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 756599,
+      "antialiasedPixels": 35706
+    },
+    {
+      "id": "lv20-c",
+      "level": 20,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv20-c-SD.png",
+      "sha256": "0cde6d4b51b080c4ee0385e8748c60497aa058cef7342d7e0607a44ed06561ad",
+      "metaSha256": "f7aec2e3c1693d6922ff056c085ba76f55097c912634304cd4bf4c4a2728b943",
+      "guid": "3ea7efba45509344f8a0d758ed2d5c93",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 177700,
+      "antialiasedPixels": 16937
+    },
+    {
+      "id": "lv20-c",
+      "level": 20,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv20-c-LD.png",
+      "sha256": "bfb7af6562b8ac6e2e7ad7baceb6963c9de76efa310f694083cd876ce50a4594",
+      "metaSha256": "7ebf7e632cd9efebc0e69a0a3348bbc09075b3dc5bf7185dad49782ea98eb983",
+      "guid": "f867617797f226842991d435adcb1b57",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 766391,
+      "antialiasedPixels": 40091
+    },
+    {
+      "id": "lv20-d",
+      "level": 20,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv20-d-SD.png",
+      "sha256": "9d71ee1db9a8197aeaeeb2bbc28fc4c00a74a844e3ba4539cf88a32b4dfc8f17",
+      "metaSha256": "7f01f807d2747c5330df893d70b1ac27ccf6d0202bb4a9a4d50e7c4d25030e4e",
+      "guid": "751b09ef689f7af42bde2d58f4e5cecf",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 185334,
+      "antialiasedPixels": 13476
+    },
+    {
+      "id": "lv20-d",
+      "level": 20,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv20-d-LD.png",
+      "sha256": "f23a2bc26b5fd853120f37f9c78cd0dc1d267046aba8767c2d2e3ee24046f4bb",
+      "metaSha256": "2158a858caac58e9cf4f6231ee63882ff87fee7a5fcb47e4d9448eb255a0b029",
+      "guid": "55100bc503ad4e04d8219230e1ac69e0",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 808929,
+      "antialiasedPixels": 33122
+    },
+    {
+      "id": "lv21-a",
+      "level": 21,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv21-a-SD.png",
+      "sha256": "17891de2bfcc5c9b837a3fc809e7663eda322a68110fc1f9530252369594f563",
+      "metaSha256": "a9dda2c3b8d85a2104bf1e90ebff7b6045c2983232364bf5f0d725ec3726d08c",
+      "guid": "b77ceff385dd9bc4994e8ab8872a2737",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 171952,
+      "antialiasedPixels": 11714
+    },
+    {
+      "id": "lv21-a",
+      "level": 21,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv21-a-LD.png",
+      "sha256": "f72d696984073a692bd829ac548ee91c88ef5d26a1b3b09ecb3d811eb01530ca",
+      "metaSha256": "6e4935ea1bec3f2bd88eaaacde8f8260a53229dda75e7b15222041bd7a6f01e7",
+      "guid": "ba6cc1c4d95e08b4a80dcec52af66fc5",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 749516,
+      "antialiasedPixels": 34403
+    },
+    {
+      "id": "lv21-b",
+      "level": 21,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv21-b-SD.png",
+      "sha256": "2192bc9c5f6a8076e1e1f5ab3f45d9e80d0bc179bc35eb6495694911f0e620f3",
+      "metaSha256": "ef6f9fbf4f30e56978d4510ec53adcad1c3e1721d2e62556cea53c8623d615fc",
+      "guid": "7cf7edfb6ba34574ab58b9870ea9d52d",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 171098,
+      "antialiasedPixels": 12109
+    },
+    {
+      "id": "lv21-b",
+      "level": 21,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv21-b-LD.png",
+      "sha256": "1484e850dce98b101102d199c765c0349c0e62fc4bbd87a8dbfe1d6e65d2b3f4",
+      "metaSha256": "a88b972cd8346b08279a798efb479760faf17b5c3eb2dbcb87ab2f2794d3f630",
+      "guid": "b57f4f844aac2ed41985065c5c6ec82e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 728121,
+      "antialiasedPixels": 27609
+    },
+    {
+      "id": "lv21-c",
+      "level": 21,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv21-c-SD.png",
+      "sha256": "1681dd27bfc8ef6326a2ad10742d22c2981bf751cfe95c957608de76468707e7",
+      "metaSha256": "0add61632e2dd88d6766c17dd743f08ef86096db065efba7603eda1cf7f7bac0",
+      "guid": "24654dd40f3fe0a498f879288d61a6aa",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 172267,
+      "antialiasedPixels": 11849
+    },
+    {
+      "id": "lv21-c",
+      "level": 21,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv21-c-LD.png",
+      "sha256": "a9b0cc90dff9798246da33595eff8836c0ce419e580f85a0ddbfdfb73d1bf1b7",
+      "metaSha256": "79957e3eddf2a3acad8d7bccad6fc94e62cfe48bf858c9cc68fd028fdb894e1e",
+      "guid": "c602e50e3ebedcd4fa264ddfddb35a7e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 760465,
+      "antialiasedPixels": 33569
+    },
+    {
+      "id": "lv21-d",
+      "level": 21,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv21-d-SD.png",
+      "sha256": "4ca875bdedf689e3dc01dfd77c5aa38fb5c5318a2f4f3cc3efd0053dbd08b8ac",
+      "metaSha256": "76d4061ad538c6930ed7beff655b2a9ec4d4bb76c4612bc06734cf84897cccb2",
+      "guid": "e4539510c0b340247858f87380a85f2a",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 169842,
+      "antialiasedPixels": 12543
+    },
+    {
+      "id": "lv21-d",
+      "level": 21,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv21-d-LD.png",
+      "sha256": "39cd49ec9da01cf5eca9fb4e45cabf53906ae36eea844db122ef14a08b0dd99d",
+      "metaSha256": "fcbeef101636c868f93408919daae51f7d6346f5296eb19c94aa6cb6b9682001",
+      "guid": "3e00daaf49fc73445bec58fbbbeff1a6",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 699781,
+      "antialiasedPixels": 33520
+    },
+    {
+      "id": "lv22-a",
+      "level": 22,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv22-a-SD.png",
+      "sha256": "42f4cd99d2a305876a66f921e13c409b03ca1e72db915aeacbc8d946969e1e08",
+      "metaSha256": "0be06dd254ee3dc1303e6b634c449ce51ec21074966510a1c483acc557e46f9b",
+      "guid": "3d3d5a56dd8401348a4b1f7e39718b2b",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 171865,
+      "antialiasedPixels": 11300
+    },
+    {
+      "id": "lv22-a",
+      "level": 22,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv22-a-LD.png",
+      "sha256": "576eed1d0f1911210d97477ef593a36bebe7ef6fe12506b6c93b1a527c1d43ef",
+      "metaSha256": "4021d637a9a1620de047d8d7689c8d804ee4fd6b9dfc4bb6c213704e53307bda",
+      "guid": "5c702c4a6c757374fa2e4b17d173b6f0",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 762391,
+      "antialiasedPixels": 33484
+    },
+    {
+      "id": "lv22-b",
+      "level": 22,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv22-b-SD.png",
+      "sha256": "17cba83ac66fccab813187c7c470dd851bd220f644eed81634c06588cf22a1f2",
+      "metaSha256": "66217ffbf3c3f12cfe8b354b21c94edbb79861dced66ad4372dc838923928459",
+      "guid": "1068dc0c469a7c04b9d7bd5b76e820e2",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 168362,
+      "antialiasedPixels": 13194
+    },
+    {
+      "id": "lv22-b",
+      "level": 22,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv22-b-LD.png",
+      "sha256": "73712776a037fd483dd1d516bae46fb68c9c21665713fa213f97f4e44f712fa8",
+      "metaSha256": "777e8726101a7ffeec0f7a32b15574f19173fc99655ce3f784cfc608bc04b73a",
+      "guid": "b2df32b715aacab4c9fae66e391c3457",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 768314,
+      "antialiasedPixels": 31346
+    },
+    {
+      "id": "lv22-c",
+      "level": 22,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv22-c-SD.png",
+      "sha256": "f316aaf964dbc9cd0ada891a329ac60d23ad5b2e055518002665b69b86c3db73",
+      "metaSha256": "2f509eb4346c84acd8bfcdece07e9a2363edc08affad261d598c0ac98eacf54e",
+      "guid": "5fa51c924a1f6e645a25930db20d153f",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 166767,
+      "antialiasedPixels": 12296
+    },
+    {
+      "id": "lv22-c",
+      "level": 22,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv22-c-LD.png",
+      "sha256": "fcb7325fc8c3b4f90c658bf90182844dcfd74d702568e6c90f5cb79231b6fd52",
+      "metaSha256": "e490184239c3fd518e9458b8cef1c73fadfcfd7f5e88fe0971d12712b31e6a69",
+      "guid": "783ce4a6fd3563341b8a43480a642067",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 772816,
+      "antialiasedPixels": 31662
+    },
+    {
+      "id": "lv22-d",
+      "level": 22,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv22-d-SD.png",
+      "sha256": "6899c935c7f024b2223e5ba89d6611053efd2ad550a71bec293b40c2f55a6711",
+      "metaSha256": "e9868898c9320726d533f0c5cf6b47ed3820004d89f95c78d159a3017f5b1c50",
+      "guid": "dd84369a76cd66345a77fef090563803",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 179403,
+      "antialiasedPixels": 11949
+    },
+    {
+      "id": "lv22-d",
+      "level": 22,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv22-d-LD.png",
+      "sha256": "00e011392d82969f3254f0da2d8bce7ad1c70223a520893b45736f40c4032fc3",
+      "metaSha256": "ec7f4e7ef5a30e0c8df18f16d401eaddef21703719793fec40e8f00f6bdbe3af",
+      "guid": "ef01f9c3e21fa1a468892e6452fb1915",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 773234,
+      "antialiasedPixels": 28439
+    },
+    {
+      "id": "rose-oath",
+      "level": 23,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/rose-oath-SD.png",
+      "sha256": "8847248581959cd9c38817c551b4f353c624dd81dd110551050329d38b0ea022",
+      "metaSha256": "1ed47c9b102a4e5a7d6e45ab779c39a820067a540a50155679e0cf01032bc2b8",
+      "guid": "3671b45ba0b5a5644a7f4938ccc9d175",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 173819,
+      "antialiasedPixels": 11429
+    },
+    {
+      "id": "rose-oath",
+      "level": 23,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/rose-oath-LD.png",
+      "sha256": "7ef0eab710149904d65c6d84e8173a3b2a848f5f3f1d928194a79a52e61870cf",
+      "metaSha256": "07637bb7f5991fca0f319874088c0866b7e4bcd38554c15019cbb3d2ec38386b",
+      "guid": "06bbc69330de7da44b438c5eaabeba6e",
+      "dimensions": [
+        913,
+        913
+      ],
+      "transparentPixels": 645772,
+      "antialiasedPixels": 6265
+    },
+    {
+      "id": "lv23-b",
+      "level": 23,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv23-b-SD.png",
+      "sha256": "d09248056b9ed1d9676c1b9c1dcf3628c42c64d6a34bc99ec32f0ec1d71c3b48",
+      "metaSha256": "3301c5687e2de8b880b8cd2152a852e507e4f708b5d324358e978702efd06d96",
+      "guid": "0511b3e5b575a7642a905cc0544b1bf0",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 184187,
+      "antialiasedPixels": 14633
+    },
+    {
+      "id": "lv23-b",
+      "level": 23,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv23-b-LD.png",
+      "sha256": "6825c66441bb1c5ab7783fda855acb3ffb96523d25ae96f882940e09873acac3",
+      "metaSha256": "f5b52c203a525e4aeef9b724a92fae28a5e982b94559a6d234b85aa65c4b99eb",
+      "guid": "6223049920b0a3449ae56f8cc133de4e",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 811342,
+      "antialiasedPixels": 35631
+    },
+    {
+      "id": "lv23-c",
+      "level": 23,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv23-c-SD.png",
+      "sha256": "2b5a4ac4495d9d27c2d8fe1715b1015a1e03fea5d8bba902a67e93084a707235",
+      "metaSha256": "fb6ca057e35c002d4667560e15e443d68267ceb7f6d0942a409aeda520b71621",
+      "guid": "0306c557dce150546a73a3311ed83fb8",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 194931,
+      "antialiasedPixels": 13275
+    },
+    {
+      "id": "lv23-c",
+      "level": 23,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv23-c-LD.png",
+      "sha256": "c15b109ec0a11a1225f3546f34fd2d48a511709058e2ba7a44c1848fe33ce900",
+      "metaSha256": "0c315ef8847d217970682483cb0d75b28f3153135f41ae6094945260a8dec94b",
+      "guid": "52f646d2368438246824bc54f9c06b4a",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 829180,
+      "antialiasedPixels": 31509
+    },
+    {
+      "id": "lv23-d",
+      "level": 23,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv23-d-SD.png",
+      "sha256": "e371f7fe8eaa048dc806fb54e18ae4b41c28973bb7a774917dcc4972b918dadd",
+      "metaSha256": "dd60055a92355eaf50df68885cc3f27bcf57de4286a0984b5fa33db02aaf1816",
+      "guid": "46508e4c592e8254c86992f6397ad3ff",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 208386,
+      "antialiasedPixels": 9443
+    },
+    {
+      "id": "lv23-d",
+      "level": 23,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv23-d-LD.png",
+      "sha256": "8203f37262e7635b951c96e4122306f7a814e38dc0e201c28026960727e08d6b",
+      "metaSha256": "b53e65eb90297e79a1fe1d3cddbcbb6c385bc55b72942802b86b71e65f004452",
+      "guid": "99baa4156ae9a994884419f9bb834a90",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 860359,
+      "antialiasedPixels": 22563
+    },
+    {
+      "id": "lv24-a",
+      "level": 24,
+      "slot": 0,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv24-a-SD.png",
+      "sha256": "578ac3448125502dc1b60cdf5d0a45ec784a742a0ca9c135d387b5f74a886c9f",
+      "metaSha256": "277ac2db66639f2303f8dc6beae312c07581ac7f71468c8af5615e77b615c3a7",
+      "guid": "c17f7857e3b1ac544be2e0f8ac397805",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 158884,
+      "antialiasedPixels": 14336
+    },
+    {
+      "id": "lv24-a",
+      "level": 24,
+      "slot": 0,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv24-a-LD.png",
+      "sha256": "a173680aaec921fe8e0f314a78163be2a50f082f4de4f3c5915e140a0f0c3b57",
+      "metaSha256": "05cfc33d3e187d8a93a8c5c1565e5be0aa3650657a862d3acef57b173d86353c",
+      "guid": "de1cc93da537e4e4ba3b9d23c24cb7be",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 700464,
+      "antialiasedPixels": 40779
+    },
+    {
+      "id": "lv24-b",
+      "level": 24,
+      "slot": 1,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv24-b-SD.png",
+      "sha256": "e862536d8f5c4519102533622eb1c49f5c31137bc6d336df090fc386a4509fad",
+      "metaSha256": "e5f97eed8faca0c247c0ddfd0cd98640adde470391b2256cf41e98b500b75d97",
+      "guid": "9f988c069f89c2d4382e75e05e0c8219",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 164007,
+      "antialiasedPixels": 13900
+    },
+    {
+      "id": "lv24-b",
+      "level": 24,
+      "slot": 1,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv24-b-LD.png",
+      "sha256": "5cadc1f732d066458754fcede5a01ffff668a2e7e7c8b91acaec46cc9705609b",
+      "metaSha256": "117a6b89142c70d26220fb349b6067370cd79d3a4457c629ea3dd54d43521644",
+      "guid": "c8d8060aa4804164d85dcf0753acd0c9",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 681081,
+      "antialiasedPixels": 41230
+    },
+    {
+      "id": "lv24-c",
+      "level": 24,
+      "slot": 2,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv24-c-SD.png",
+      "sha256": "2691894f88e961981e6949169a4b3bd69b0fefa44e796d881a900b311b4cebf2",
+      "metaSha256": "c9d76d60d193a638f07b8a2ffe0bd5ed3e6c8eaa94f0f914ce06ebfe68209ace",
+      "guid": "25846e1262672b54c8d68ca61b9f209e",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 163277,
+      "antialiasedPixels": 12625
+    },
+    {
+      "id": "lv24-c",
+      "level": 24,
+      "slot": 2,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv24-c-LD.png",
+      "sha256": "9cb47a9e7bb4d3056072c50caf0170865bb953e70b218b700c0544633fbab282",
+      "metaSha256": "f91412890a9b742bad24229661cb07ca61b6d50a95718c70c8ed72a4ea337a7f",
+      "guid": "665d6dc218700914fa8923c883746322",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 696216,
+      "antialiasedPixels": 39951
+    },
+    {
+      "id": "lv24-d",
+      "level": 24,
+      "slot": 3,
+      "variant": "SD",
+      "path": "Assets/Art/Characters/Skins/lv24-d-SD.png",
+      "sha256": "7b101088ff240f6214795f90a88114bbdbcdc14c209c639416af30a3ad070755",
+      "metaSha256": "d3ee62712809222f8ff29aba1c91696633ca4c33fe882238980d21dd64d535f8",
+      "guid": "e012ed8c30b3c6c4e822f73d73466f46",
+      "dimensions": [
+        512,
+        512
+      ],
+      "transparentPixels": 155292,
+      "antialiasedPixels": 16101
+    },
+    {
+      "id": "lv24-d",
+      "level": 24,
+      "slot": 3,
+      "variant": "LD",
+      "path": "Assets/Art/Characters/Skins/lv24-d-LD.png",
+      "sha256": "0e88c68acac585be7abf8990cf46671d36ea5edadf590a834083d4a87e8efbb2",
+      "metaSha256": "fdca550f192c01705b1b57bf003a5966793d1dedde3a7218eb72a9b23f75e4c5",
+      "guid": "7437b806c9c2a484c9d315c646f05b77",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "transparentPixels": 710208,
+      "antialiasedPixels": 47706
+    }
+  ],
+  "limitations": "Visual review is recorded separately from pixel checks. Legacy LD canvas dimensions are preserved. Play Mode, device builds, advertising and purchases were not run."
+}

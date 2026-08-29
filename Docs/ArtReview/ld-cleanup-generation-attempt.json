@@ -1,0 +1,11 @@
+{
+  "mode": "built-in image_gen",
+  "prompt": "Use case: background-extraction. Asset type: existing mobile game LD character sprite. Edit the provided image only to clean the extraction: remove the unwanted white background remnants in the empty gaps between arms and torso, between thighs and blades, and along the outside hair silhouette. Produce a genuinely transparent RGBA PNG with alpha zero in all background and enclosed negative-space holes; do not draw black, white, gray or checkerboard background. Preserve the exact original female ninja, face, bob haircut, navy moon-embroidered coat, silver trims, two swords, pose, anatomy, shoes, cel shading, black linework, scale, composition and 1024x1024 canvas. Silver moon embroidery, blade highlights, eye highlights and legitimate silver trim must remain intact. Change only background residue and fringe; do not redraw or redesign the character, do not add glow, outline, drop shadow or ground.",
+  "source": "Assets/Art/Characters/Skins/lv01-b-LD.png",
+  "generated": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1cc8f458-86be-4aaa-897c-9a5389a1b6fb.png",
+  "adopted": false,
+  "reason": "RGB without alpha, baked checkerboard and changed linework/face. Original retained.",
+  "userRejected": true,
+  "doNotUseAsReference": true,
+  "userFeedback": "방금 이미지는 부자연스럽네"
+}

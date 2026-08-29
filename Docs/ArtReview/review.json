@@ -1,0 +1,242 @@
+[
+  {
+    "level": 1,
+    "status": "기존 유지 — 정체성 대응",
+    "note": "검은 단발, 남색 도복, 한손검. LD의 목도리·검 각도는 포즈 차이.",
+    "initialReview": {
+      "status": "일치",
+      "note": "검은 단발, 남색 도복, 한손검. LD의 목도리·검 각도는 포즈 차이."
+    }
+  },
+  {
+    "level": 2,
+    "status": "LD 재작화 적용",
+    "note": "갈색 단발, 긴 갈색 도복, 회색 띠와 초록 책 소품으로 통일.",
+    "initialReview": {
+      "status": "주요 불일치",
+      "note": "SD는 갈색 긴 도복과 두루마리, LD는 어깨가 드러나는 검정 의상과 검. 갈색 단발 외에 복장·소품이 다름. SD의 도복/두루마리를 LD에 유지하는 방향 권장."
+    },
+    "asset": "Assets/Art/Characters/LD/2.png"
+  },
+  {
+    "level": 3,
+    "status": "기존 유지 — 정체성 대응",
+    "note": "청흑 단발, 청회색 도복, 두루마리와 긴 천 장식이 대응함.",
+    "initialReview": {
+      "status": "일치",
+      "note": "청흑 단발, 청회색 도복, 두루마리와 긴 천 장식이 대응함."
+    }
+  },
+  {
+    "level": 4,
+    "status": "기존 유지 — 정체성 대응",
+    "note": "검은 포니테일, 붉은 눈, 마스크, 검은 도복과 칼.",
+    "initialReview": {
+      "status": "일치",
+      "note": "검은 포니테일, 붉은 눈, 마스크, 검은 도복과 칼."
+    }
+  },
+  {
+    "level": 5,
+    "status": "기존 유지 — 정체성 대응",
+    "note": "검은 머리, 초록 목도리, 회흑 도복, 짧은 칼.",
+    "initialReview": {
+      "status": "일치",
+      "note": "검은 머리, 초록 목도리, 회흑 도복, 짧은 칼."
+    }
+  },
+  {
+    "level": 6,
+    "status": "LD 재작화 적용",
+    "note": "검은 스카프, 팔·정강이 붕대와 샌들로 통일.",
+    "initialReview": {
+      "status": "세부 조정 후보",
+      "note": "보라색 포인트 단발과 검은 상의/검은 일치. SD는 붕대 다리와 샌들, LD는 긴 부츠·보라 천 장식. 이전 리터칭도 이 차이를 해소하지 못했음."
+    },
+    "asset": "Assets/Art/Characters/LD/6.png"
+  },
+  {
+    "level": 7,
+    "status": "LD 재작화 적용",
+    "note": "닫힌 검정 도복, 짧은 갈색 트윈테일, 회색 띠와 칼집으로 통일. 이전 일치 판정을 정정.",
+    "initialReview": {
+      "status": "일치",
+      "note": "갈색 트윈테일, 검정 도복, 회색 띠. 비율과 자세 차이."
+    },
+    "asset": "Assets/Art/Characters/LD/7.png"
+  },
+  {
+    "level": 8,
+    "status": "이전 교체 오류 정정",
+    "note": "원본 닌자SD2/8.png는 정상이었음. 이전 작업에서 잘못 바꾼 SD 복사본을 같은 번호의 원본으로 복구. 경로와 PNG 바이트 비교 검사 추가.",
+    "initialReview": {
+      "status": "연결 수정",
+      "note": "CSV는 오색비단 닌자. 기존 SD 8의 검은 도복이 잘못 연결됨. 원본 SD 9의 오색 기모노를 별도 8.png로 복사해 연결. LD 8은 유지."
+    }
+  },
+  {
+    "level": 9,
+    "status": "이전 교체 오류 정정",
+    "note": "원본 닌자SD2/9.png는 정상이었음. 이전 작업에서 잘못 바꾼 SD 복사본을 같은 번호의 원본으로 복구. 경로와 PNG 바이트 비교 검사 추가.",
+    "initialReview": {
+      "status": "연결 수정",
+      "note": "CSV는 검은 두루마리 닌자. 기존 SD 9의 오색 기모노가 잘못 연결됨. 원본 SD 8의 검은 도복/종이 소품을 별도 9.png로 복사해 연결. LD 9는 유지."
+    }
+  },
+  {
+    "level": 10,
+    "status": "LD 재작화 적용",
+    "note": "마스크 없는 보라 단발, 보라 상하의와 독 연기로 통일.",
+    "initialReview": {
+      "status": "주요 불일치",
+      "note": "SD는 보라 상의·바지, 보라 독 연기, 마스크 없음. LD는 검정 상의·파란 바지·마스크·회색 연기. 독극물 테마는 같지만 색과 얼굴 가림이 다름."
+    },
+    "asset": "Assets/Art/Characters/LD/10.png"
+  },
+  {
+    "level": 11,
+    "status": "LD 재작화 적용",
+    "note": "분홍 목도리, 넓은 소매와 분홍 연기 소품으로 통일. 이전 일치 판정을 정정.",
+    "initialReview": {
+      "status": "일치",
+      "note": "검은 트윈테일과 보라 리본, 보라 의상, 연기/병 소품."
+    },
+    "asset": "Assets/Art/Characters/LD/11.png"
+  },
+  {
+    "level": 12,
+    "status": "LD 재작화 적용",
+    "note": "청록 일자 앞머리·땋은 머리, 초록 짧은 하의와 방어구로 통일. 이전 일치 판정을 정정.",
+    "initialReview": {
+      "status": "일치",
+      "note": "청록 땋은 머리, 초록/노란 머리띠, 에너지 장식과 초록 방어구."
+    },
+    "asset": "Assets/Art/Characters/LD/12.png"
+  },
+  {
+    "level": 13,
+    "status": "LD 재작화 적용",
+    "note": "붉은 포니테일, 노출된 얼굴과 불꽃 검으로 통일.",
+    "initialReview": {
+      "status": "주요 불일치",
+      "note": "SD는 선명한 적색 포니테일, LD는 자홍 장발과 얼굴 가림. 의상 적색 계열은 비슷하나 머리색·머리 묶음·소품이 다름."
+    },
+    "asset": "Assets/Art/Characters/LD/13.png"
+  },
+  {
+    "level": 14,
+    "status": "LD 재작화 적용",
+    "note": "청록 머리끝, 청록 상의, 빨간 목도리와 쌍검으로 통일.",
+    "initialReview": {
+      "status": "주요 불일치",
+      "note": "SD는 청록 머리끝·청록 가슴옷, LD는 적갈색 머리와 검정/빨강 방어구. 쌍검은 대응함. 이전 SD 리터칭은 원래 SD 정체성만 유지했고 LD와의 통일은 못 했음."
+    },
+    "asset": "Assets/Art/Characters/LD/14.png"
+  },
+  {
+    "level": 15,
+    "status": "LD 재작화 적용",
+    "note": "어두운 갈색에서 붉어지는 머리끝과 가벼운 검정 복장으로 통일.",
+    "initialReview": {
+      "status": "주요 불일치",
+      "note": "SD는 어두운 갈색→적색 머리끝, 가벼운 검정 복장. LD는 선명한 붉은 포니테일과 붉은 중갑. 머리색/장비 실루엣을 통일할 필요."
+    },
+    "asset": "Assets/Art/Characters/LD/15.png"
+  },
+  {
+    "level": 16,
+    "status": "LD 재작화 적용",
+    "note": "갈색 트윈테일, 보라 의상, 주황 장식과 쌍검으로 통일.",
+    "initialReview": {
+      "status": "주요 불일치",
+      "note": "SD는 갈색 트윈테일, 보라 옷, 주황 장식, 쌍검. LD는 갈색 포니테일과 주황 바지/재킷. CSV 쌍검 콘셉트는 SD 쪽이 더 명확함."
+    },
+    "asset": "Assets/Art/Characters/LD/16.png"
+  },
+  {
+    "level": 17,
+    "status": "LD 재작화 적용",
+    "note": "청록 단발, 금빛 목 장식, 짧은 하의와 청록 검으로 통일.",
+    "initialReview": {
+      "status": "세부 조정 후보",
+      "note": "청록 단발·청록/남색 옷·검은 대응. SD의 목 장식과 반바지, LD의 얇은 천/어깨 덮개 디테일은 차이."
+    },
+    "asset": "Assets/Art/Characters/LD/17.png"
+  },
+  {
+    "level": 18,
+    "status": "기존 유지 — 정체성 대응",
+    "note": "보라 긴 머리, 금색 머리 장식, 보라/검정 중갑과 검. 세부 장식 밀도 차이.",
+    "initialReview": {
+      "status": "일치",
+      "note": "보라 긴 머리, 금색 머리 장식, 보라/검정 중갑과 검. 세부 장식 밀도 차이."
+    }
+  },
+  {
+    "level": 19,
+    "status": "LD 재작화 적용",
+    "note": "노란 머리띠, 백청 단발과 보석 단검으로 통일.",
+    "initialReview": {
+      "status": "세부 조정 후보",
+      "note": "백청 단발, 노란 스카프/천, 청록 보석 무기는 대응. SD의 노란 머리띠와 LD의 검정 헤어 장식이 다름."
+    },
+    "asset": "Assets/Art/Characters/LD/19.png"
+  },
+  {
+    "level": 20,
+    "status": "LD 재작화 적용",
+    "note": "백청색 갑옷과 파란 오브로 통일.",
+    "initialReview": {
+      "status": "주요 불일치",
+      "note": "백청색 장발과 청백색 갑옷은 대응. SD는 푸른 오브, LD는 두루마리. CSV 오브 닌자에 맞추려면 LD의 손 소품을 오브로 바꿀 필요."
+    },
+    "asset": "Assets/Art/Characters/LD/20.png"
+  },
+  {
+    "level": 21,
+    "status": "기존 유지 — 정체성 대응",
+    "note": "검은 포니테일, 붉은 머리끈·스카프/망토, 검정/적색 갑옷.",
+    "initialReview": {
+      "status": "일치",
+      "note": "검은 포니테일, 붉은 머리끈·스카프/망토, 검정/적색 갑옷."
+    }
+  },
+  {
+    "level": 22,
+    "status": "기존 유지 — 정체성 대응",
+    "note": "검은 장발, 금색 머리 장식, 검정/금색 갑옷과 검.",
+    "initialReview": {
+      "status": "일치",
+      "note": "검은 장발, 금색 머리 장식, 검정/금색 갑옷과 검."
+    }
+  },
+  {
+    "level": 23,
+    "status": "LD 재작화 적용",
+    "note": "백적 갑옷과 떠 있는 붉은 보석으로 통일.",
+    "initialReview": {
+      "status": "세부 조정 후보",
+      "note": "백색 머리와 백적 갑옷은 대응. SD의 붉은 보석/떠 있는 오브와 LD의 붉은 지팡이·푸른 보석은 다름."
+    },
+    "asset": "Assets/Art/Characters/LD/23.png"
+  },
+  {
+    "level": 24,
+    "status": "LD 재작화 적용",
+    "note": "마스크 없는 보라 머리와 검정·금색 갑옷으로 통일.",
+    "initialReview": {
+      "status": "세부 조정 후보",
+      "note": "보라/검은 장발, 검정/보라 갑옷과 검은 대응. LD 마스크/눈 가림과 SD의 노출된 얼굴을 통일할지 결정 필요."
+    },
+    "asset": "Assets/Art/Characters/LD/24.png"
+  },
+  {
+    "level": 25,
+    "status": "사용자 요청으로 제외",
+    "note": "25단계 및 그 이후 형태는 기존 LD 공용 구조 유지. 재작화·SD 분리·연결 변경 없음.",
+    "initialReview": {
+      "status": "공유 이미지",
+      "note": "기존 SD·LD는 사실상 같은 비율의 전신 일러스트. 별도 SD 데포르메가 아님. 신규 월영/홍련도 현재 동일 스프라이트를 SD·LD에 공용함."
+    }
+  }
+]

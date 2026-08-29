@@ -1,0 +1,13 @@
+{
+  "id": "lv18-a",
+  "kind": "LD",
+  "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-d5c5c8b2-cc2d-4710-b177-3b562b1712e7.png",
+  "half": null,
+  "holes": [],
+  "threshold": 232,
+  "spread": 10,
+  "edgeInsetPixels": 0.8,
+  "prompt": "Use case: identity-preserve. Create ONLY one complete LD female ninja portrait sprite. Image1 newly drawn SD defines EXACT costume colors, construction, emblems, hair accessories, boots and weapons. Image2 original BASE LD defines original recognizable face, natural LD proportions, age presentation and ORIGINAL LD pose. Match image1 outfit exactly but use image2 anatomy and pose. Coral Guardian: coral-pink and cream combat haori, warm gold protective shoulder and forearm armor, coral fitted inner battle suit, cream-edged split flowing waist cape, dark leggings and gold-edged boots. Preserve long flowing dark purple side ponytail, pink-red eyes, original gold flower hair ornament and purple tassel. Exactly TWO violet katana blades, one in each hand, preserving image1 energetic balanced stance and original blade angles; sheaths stay attached at waist. Retain original recognizable face. Soft cloth panels flow naturally, do not obscure hands or weapons. For level18 preserve BASE LD pose: sword at canvas LEFT angled up, sword at canvas RIGHT angled down; TWO violet katana, two natural hands. Do not copy SD chibi proportions. Clean anime linework, beautiful natural face, crisp cel shading. Entire figure and every blade tip and flowing hair strand comfortably inside generous canvas margin. Actual RGBA transparent background including all hair/arm gaps, no white backdrop or checkerboard painted in, no shadow, floor, text or extra figure.\nSleeve correction: Correct the LD outfit in image1 to EXACTLY MATCH approved SD outfit in image2. Preserve image1 face, mature proportions, hair, full-body LD pose and TWO violet swords. Remove the oversized flowing sleeves from BOTH arms. The approved SD has SHORT coral puff sleeves ending above elbows, fitted dark forearm sleeves and compact gold armor/bracers on forearms; copy this sleeve construction exactly. No large flared fabric cuffs at wrists. Keep the long coral/cream split cloth panels attached ONLY at waist, matching image2. All other clothing, gold belt emblem, hair ornament, face, boots and leg armor unchanged. Full body all swords and hair within margin. Clean plain white #FFFFFF background for production cutout; no gradient, glow, floor shadow, text or extra figure.",
+  "approved": false,
+  "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1cec6f61-e55f-4894-b823-2032ff388370.png"
+}

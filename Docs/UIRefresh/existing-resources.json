@@ -1,0 +1,222 @@
+[
+  {
+    "index": 0,
+    "guid": "f24cf080bda7ecc44bd83febcf89d7aa",
+    "path": "Assets/Prefabs/sprite/도감배경.png"
+  },
+  {
+    "index": 1,
+    "guid": "7aacff2df43163a46bc29f1eeca034a4",
+    "path": "Assets/Prefabs/sprite/강화구매맥스.png"
+  },
+  {
+    "index": 2,
+    "guid": "4aacfba3c8cbe0d4f96222c9285cfcaa",
+    "path": "Assets/Prefabs/sprite/클릭골드.png"
+  },
+  {
+    "index": 3,
+    "guid": "9dbd8cd5016af6a4a97797d0c1ce4541",
+    "path": "Assets/Prefabs/sprite/cell_bg_rounded_1024x256.png"
+  },
+  {
+    "index": 4,
+    "guid": "befbab96bb3fb874f991b9429cab1596",
+    "path": "Assets/Prefabs/sprite/로딩화면.png"
+  },
+  {
+    "index": 5,
+    "guid": "7357b312da3c45f296d5abd3906ae430",
+    "path": "Assets/Art/Fields/garden-v2.png"
+  },
+  {
+    "index": 6,
+    "guid": "b78a0e3274703d141831d8a63c0c8fe4",
+    "path": "Assets/Prefabs/sprite/환생시작자금.png"
+  },
+  {
+    "index": 7,
+    "guid": "8610b40d22e0e8342808c6715bcd5b3a",
+    "path": "Assets/Prefabs/sprite/환포.png"
+  },
+  {
+    "index": 8,
+    "guid": "b396d4e551398ef4d87100921e0563cc",
+    "path": "Assets/Prefabs/sprite/도감패널.png"
+  },
+  {
+    "index": 9,
+    "guid": "eaacfa04851db4c4494ee8c64d539ef3",
+    "path": "Assets/Prefabs/sprite/optionbuttons.png"
+  },
+  {
+    "index": 10,
+    "guid": "a22809f90cfd21b4a98798ad5012fe72",
+    "path": "Assets/Prefabs/sprite/소환버튼.png"
+  },
+  {
+    "index": 11,
+    "guid": "1d4dd7e5a3d0b14428b2c8da1a716c3a",
+    "path": "Assets/Prefabs/sprite/골포.png"
+  },
+  {
+    "index": 12,
+    "guid": "ffe54d6922014a54c87ee38a7239ec02",
+    "path": "Assets/Prefabs/sprite/번역아이콘.png"
+  },
+  {
+    "index": 13,
+    "guid": "1f30b76f61504184f96874061f7f2aee",
+    "path": "Assets/Prefabs/sprite/medium.png"
+  },
+  {
+    "index": 14,
+    "guid": "6351f77cea423b44b96e18f13f3aa800",
+    "path": "Assets/Prefabs/sprite/자동합성ㅁ.png"
+  },
+  {
+    "index": 15,
+    "guid": "ff8544d5b57dd4e46bf7d220789b9b07",
+    "path": "Assets/Prefabs/sprite/닫기.png"
+  },
+  {
+    "index": 16,
+    "guid": "9f6234b04c3f64b4281cb91177ffbb17",
+    "path": "Assets/Prefabs/sprite/상점 패널.png"
+  },
+  {
+    "index": 17,
+    "guid": "3d296914d4b7f894887be9a494a6ef5b",
+    "path": "Assets/Prefabs/sprite/수동소환 쿨타임.png"
+  },
+  {
+    "index": 18,
+    "guid": "045641be61b49514da5f0eb9c7964d4a",
+    "path": "Assets/Prefabs/sprite/오프라인보상.png"
+  },
+  {
+    "index": 19,
+    "guid": "6a3a2cfbf57ac064c8607cca8ba5a933",
+    "path": "Assets/Prefabs/field/2button.png"
+  },
+  {
+    "index": 20,
+    "guid": "5db105383dedad74cbf53a1841ab5eba",
+    "path": "Assets/Prefabs/sprite/spotlight_fan_1080x1920.png"
+  },
+  {
+    "index": 21,
+    "guid": "2049c0cd321b4c12b0fa6bfa3dddeb56",
+    "path": "Assets/Art/UI/products-tab.png"
+  },
+  {
+    "index": 22,
+    "guid": "58205018d3a0f6e4db900a41bd6b28c9",
+    "path": "Assets/Prefabs/sprite/수익배율.png"
+  },
+  {
+    "index": 23,
+    "guid": "81665392f3108384197d8049a9281959",
+    "path": "Assets/Prefabs/sprite/광고시청.png"
+  },
+  {
+    "index": 24,
+    "guid": "0b52175e7b49e8a468da3ef2d90ba860",
+    "path": "Assets/Prefabs/sprite/필드인구수.png"
+  },
+  {
+    "index": 25,
+    "guid": "a3c9e6e11e645e641b43e9609437bca9",
+    "path": "Assets/Prefabs/sprite/보석.png"
+  },
+  {
+    "index": 26,
+    "guid": "726610429aba78341a48539f460044e8",
+    "path": "Assets/Prefabs/sprite/자동소환ㅇ.png"
+  },
+  {
+    "index": 27,
+    "guid": "1652156776903fb44a74818fec132e8a",
+    "path": "Assets/Prefabs/sprite/2단강화.png"
+  },
+  {
+    "index": 28,
+    "guid": "ac2c35a2cd9624c42a5d9003de1fae2b",
+    "path": "Assets/Prefabs/sprite/수동소환맥스.png"
+  },
+  {
+    "index": 29,
+    "guid": "fb24a03a1c1ce0d4d8bc33d1222c92c0",
+    "path": "Assets/Prefabs/sprite/환생버튼.png"
+  },
+  {
+    "index": 30,
+    "guid": "d97dd35bec6e67d439da4a3d0f67c315",
+    "path": "Assets/Prefabs/sprite/adremove.png"
+  },
+  {
+    "index": 31,
+    "guid": "88d1c049c6f242d49a66d176adc22b93",
+    "path": "Assets/Prefabs/sprite/보석 1.png"
+  },
+  {
+    "index": 32,
+    "guid": "55617816fa8da5e468cca5dc033448c3",
+    "path": "Assets/Prefabs/sprite/자동소환ㅁ.png"
+  },
+  {
+    "index": 33,
+    "guid": "bbf6f1a0dbd46df42b103baf1083479a",
+    "path": "Assets/Prefabs/sprite/자동합성ㅇ.png"
+  },
+  {
+    "index": 34,
+    "guid": "0fb6d5ec5b3ee3648ad4790cdd8b4015",
+    "path": "Assets/Prefabs/sprite/topbar_clean.png"
+  },
+  {
+    "index": 35,
+    "guid": "9fd4dedfba6765a4f983a5c7b224fa9f",
+    "path": "Assets/Prefabs/sprite/환포배율.png"
+  },
+  {
+    "index": 36,
+    "guid": "580667a6becff0b448642d080eb4aee0",
+    "path": "Assets/Prefabs/sprite/환생.png"
+  },
+  {
+    "index": 37,
+    "guid": "886bcbe7c44f57e4bab51e19cf37851e",
+    "path": "Assets/Prefabs/sprite/인구수.png"
+  },
+  {
+    "index": 38,
+    "guid": "48031389e0b73454ba8c58d6eeb640c3",
+    "path": "Assets/Prefabs/sprite/옵션버튼.png"
+  },
+  {
+    "index": 39,
+    "guid": "7290e06d4f67b59488af32c86a54136b",
+    "path": "Assets/Prefabs/sprite/large.png"
+  },
+  {
+    "index": 40,
+    "guid": "aad59832798a62e4e81d2f6d050f240e",
+    "path": "Assets/Prefabs/sprite/골드.png"
+  },
+  {
+    "index": 41,
+    "guid": "5e6607496aabba5478cc7206886f91bc",
+    "path": "Assets/Prefabs/sprite/small.png"
+  },
+  {
+    "index": 42,
+    "guid": "947b6acef17910d4194cac3bbd1fbe77",
+    "path": "Assets/Prefabs/sprite/버튼.png"
+  },
+  {
+    "index": 43,
+    "guid": "e174f8377a9862f4e8433f48e54c6beb",
+    "path": "Assets/Prefabs/sprite/소환패널.png"
+  }
+]

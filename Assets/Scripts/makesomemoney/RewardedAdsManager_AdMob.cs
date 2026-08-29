@@ -26,11 +26,13 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
 
     private RewardedAd _rewardedAd;
     private bool _isLoading;
+    private bool _isShowing;
+    private Action _onFinished;
     private bool _isInitialized = false;
     private float _lastLoadAttemptTime = 0f;
     private const float MIN_LOAD_INTERVAL = 2f; // 최소 로드 간격 (초)
 
-    public bool IsReady => _rewardedAd != null && _rewardedAd.CanShowAd();
+    public bool IsReady => !_isShowing && _rewardedAd != null && _rewardedAd.CanShowAd();
     public bool IsInitialized => _isInitialized;
 
     void Awake()
@@ -43,6 +45,7 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
             Debug.Log($"[RewardedAdsManager] Initializing AdMob SDK... AdUnitId: {rewardedAdUnitId}");
         
         // AdMob SDK 초기화
+        MobileAds.RaiseAdEventsOnUnityMainThread = true;
         MobileAds.Initialize(initStatus =>
         {
             _isInitialized = true;
@@ -66,6 +69,7 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
 
     public void Load()
     {
+        if (_isShowing) return;
         // 초기화가 완료되지 않았으면 대기
         if (!_isInitialized)
         {
@@ -178,6 +182,7 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
                 if (enableDebugLogs)
                     Debug.Log("[RewardedAdsManager] Ad closed. Reloading...");
                 _rewardedAd = null;
+                FinishShowing();
                 Load();
             };
             
@@ -185,6 +190,7 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
             {
                 Debug.LogError($"[RewardedAdsManager] Ad failed to show. Error: {error?.GetMessage() ?? "Unknown"}");
                 _rewardedAd = null;
+                FinishShowing();
                 Load();
             };
 
@@ -196,26 +202,41 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
         });
     }
 
-    public void Show(Action onReward)
+    private void FinishShowing()
+    {
+        _isShowing = false;
+        var callback = _onFinished;
+        _onFinished = null;
+        callback?.Invoke();
+    }
+
+    public void Show(Action onReward, Action onFinished = null)
     {
         if (!IsReady)
         {
             Debug.LogWarning("[RewardedAdsManager] Cannot show ad: ad is not ready. Attempting to load...");
             Load();
+            onFinished?.Invoke();
             return;
         }
 
         if (enableDebugLogs)
             Debug.Log("[RewardedAdsManager] Showing rewarded ad...");
 
-        _rewardedAd.Show(reward =>
+        _isShowing = true;
+        _onFinished = onFinished;
+        bool granted = false;
+        try { _rewardedAd.Show(reward =>
         {
+            if (granted) return;
+            granted = true;
             if (enableDebugLogs)
                 Debug.Log($"[RewardedAdsManager] Ad reward granted: {reward.Type} - {reward.Amount}");
             try { onReward?.Invoke(); } catch (Exception e) 
             { 
                 Debug.LogError($"[RewardedAdsManager] Error in reward callback: {e.Message}");
             }
-        });
+        }); }
+        catch (Exception error) { FinishShowing(); Debug.LogException(error); }
     }
 }

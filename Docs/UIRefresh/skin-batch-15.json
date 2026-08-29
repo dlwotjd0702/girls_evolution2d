@@ -1,0 +1,936 @@
+{
+  "batch": "2026-08-29-15",
+  "method": "Built-in imagegen; authorized alpha-only extraction; matched SD/LD.",
+  "items": [
+    {
+      "id": "lv22-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-168c368c-457d-4362-b12c-e29a1633abac.png",
+      "half": null,
+      "holes": [
+        43,
+        208,
+        157,
+        349,
+        400,
+        424
+      ],
+      "threshold": 225,
+      "spread": 16,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja cosmetic sprite. Image1 ORIGINAL SD defines exact recognizable face, age presentation, SD proportions and pose; image2 ORIGINAL LD confirms identity. New costume Jade Ascendant: jade and gold ceremonial armored tunic with ivory shoulder cape. Keep long dark charcoal hair with gold hair ornaments, golden-green eyes, original confident expression. Preserve original SD stance and the single long black-and-gold katana held diagonally across shoulder, handle toward canvas upper LEFT, scabbard/blade end toward lower RIGHT. Exactly one weapon; no duplicated swords or floating pieces. Natural hands and original proportions. Clean dark anime outlines, cel shading. Fully visible hair, cape, all props and both feet inside at least 6 percent empty margin. Actual transparent RGBA including internal gaps. No painted checkerboard, white backdrop, floor shadow, text or extra figure. Preserve natural original face; do not turn into generic doll or baby.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            505,
+            278
+          ],
+          [
+            308,
+            612
+          ],
+          [
+            1135,
+            579
+          ],
+          [
+            986,
+            768
+          ],
+          [
+            1136,
+            703
+          ],
+          [
+            314,
+            729
+          ]
+        ],
+        "opaque": [
+          [
+            700,
+            622
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv22-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-ce6c7899-864f-4610-8e5c-4c3dfbe76e5f.png",
+      "half": null,
+      "holes": [
+        3,
+        4,
+        25,
+        21,
+        43,
+        59,
+        60,
+        73,
+        123,
+        120,
+        157,
+        178,
+        187,
+        226,
+        248,
+        210,
+        224,
+        244,
+        277,
+        281,
+        126,
+        255
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 new SD defines EXACT costume construction, colors, ornament shapes, sleeve length, cape, boots and weapon decoration. Image2 ORIGINAL LD defines recognizable facial identity, age presentation, ORIGINAL natural LD proportions and pose. Do not copy SD head/body proportions. Costume: jade and gold ceremonial armored tunic with ivory shoulder cape. Keep long flowing charcoal hair, original golden eyes, gold hair ornaments. Match SD ornaments and outfit. Use original LD relaxed standing pose: canvas LEFT hand grips ONE long katana hilt, exposed silver-blue blade pointing down toward canvas lower LEFT. Matching black-gold scabbard attached to waist; clearly one blade with one empty scabbard, no additional weapons. Other hand at hip naturally. Clean anime cel shading, natural articulated hands. Entire hair, cloak, sword tip and toes within 6 percent empty margin. Actual RGBA transparency including internal gaps; no scenery, opaque background, gradient, floor shadow, painted checkerboard, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            381,
+            204
+          ],
+          [
+            375,
+            257
+          ],
+          [
+            397,
+            358
+          ],
+          [
+            684,
+            357
+          ],
+          [
+            745,
+            379
+          ],
+          [
+            723,
+            416
+          ],
+          [
+            772,
+            429
+          ],
+          [
+            364,
+            448
+          ],
+          [
+            340,
+            533
+          ],
+          [
+            810,
+            525
+          ],
+          [
+            979,
+            641
+          ],
+          [
+            791,
+            625
+          ],
+          [
+            274,
+            638
+          ],
+          [
+            297,
+            707
+          ],
+          [
+            283,
+            744
+          ],
+          [
+            811,
+            671
+          ],
+          [
+            859,
+            701
+          ],
+          [
+            966,
+            777
+          ],
+          [
+            800,
+            807
+          ],
+          [
+            901,
+            812
+          ],
+          [
+            893,
+            555
+          ],
+          [
+            870,
+            755
+          ]
+        ],
+        "opaque": [
+          [
+            544,
+            674
+          ],
+          [
+            176,
+            1068
+          ],
+          [
+            208,
+            834
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv22-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e96990a4-43bb-455f-8c5f-f4d3b071ac19.png",
+      "half": null,
+      "holes": [
+        72,
+        230,
+        274,
+        296,
+        419,
+        504,
+        444,
+        428,
+        446,
+        498
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja cosmetic sprite. Image1 ORIGINAL SD defines exact recognizable face, age presentation, SD proportions and pose; image2 ORIGINAL LD confirms identity. New costume Midnight Wing: deep navy and violet armored coat with small silver feather-shaped details. Keep long dark charcoal hair with gold hair ornaments, golden-green eyes, original confident expression. Preserve original SD stance and the single long black-and-gold katana held diagonally across shoulder, handle toward canvas upper LEFT, scabbard/blade end toward lower RIGHT. Exactly one weapon; no duplicated swords or floating pieces. Natural hands and original proportions. Clean dark anime outlines, cel shading. Fully visible hair, cape, all props and both feet inside at least 6 percent empty margin. Actual transparent RGBA including internal gaps. No painted checkerboard, white backdrop, floor shadow, text or extra figure. Preserve natural original face; do not turn into generic doll or baby.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            510,
+            288
+          ],
+          [
+            1096,
+            512
+          ],
+          [
+            1112,
+            575
+          ],
+          [
+            323,
+            606
+          ],
+          [
+            409,
+            746
+          ],
+          [
+            413,
+            794
+          ],
+          [
+            327,
+            731
+          ],
+          [
+            1126,
+            711
+          ],
+          [
+            1012,
+            801
+          ],
+          [
+            923,
+            771
+          ]
+        ],
+        "opaque": [
+          [
+            701,
+            620
+          ],
+          [
+            484,
+            288
+          ],
+          [
+            849,
+            697
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv22-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-8b073230-af43-4c6c-a877-f1ca33d72d32.png",
+      "half": null,
+      "holes": [
+        13,
+        44,
+        191,
+        215,
+        320,
+        328,
+        334,
+        359,
+        373,
+        396,
+        401,
+        405,
+        432,
+        566,
+        601,
+        745,
+        754,
+        762
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 new SD defines EXACT costume construction, colors, ornament shapes, sleeve length, cape, boots and weapon decoration. Image2 ORIGINAL LD defines recognizable facial identity, age presentation, ORIGINAL natural LD proportions and pose. Do not copy SD head/body proportions. Costume: deep navy and violet armored coat with small silver feather-shaped details. Keep long flowing charcoal hair, original golden eyes, gold hair ornaments. Match SD ornaments and outfit. Use original LD relaxed standing pose: canvas LEFT hand grips ONE long katana hilt, exposed silver-blue blade pointing down toward canvas lower LEFT. Matching black-gold scabbard attached to waist; clearly one blade with one empty scabbard, no additional weapons. Other hand at hip naturally. Clean anime cel shading, natural articulated hands. Entire hair, cloak, sword tip and toes within 6 percent empty margin. Actual RGBA transparency including internal gaps; no scenery, opaque background, gradient, floor shadow, painted checkerboard, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            383,
+            167
+          ],
+          [
+            346,
+            384
+          ],
+          [
+            749,
+            409
+          ],
+          [
+            835,
+            466
+          ],
+          [
+            839,
+            509
+          ],
+          [
+            894,
+            549
+          ],
+          [
+            947,
+            599
+          ],
+          [
+            598,
+            595
+          ],
+          [
+            835,
+            649
+          ],
+          [
+            963,
+            684
+          ],
+          [
+            287,
+            645
+          ],
+          [
+            936,
+            677
+          ],
+          [
+            632,
+            651
+          ],
+          [
+            914,
+            789
+          ],
+          [
+            764,
+            820
+          ],
+          [
+            717,
+            891
+          ],
+          [
+            865,
+            965
+          ],
+          [
+            736,
+            926
+          ]
+        ],
+        "opaque": [
+          [
+            488,
+            828
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv22-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1bac1449-30b1-40c2-82f6-85394cee2199.png",
+      "half": null,
+      "holes": [
+        84,
+        104,
+        109,
+        113,
+        115,
+        117,
+        120,
+        121,
+        125
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja cosmetic sprite. Image1 ORIGINAL SD defines exact recognizable face, age presentation, SD proportions and pose; image2 ORIGINAL LD confirms identity. New costume Sapphire Twilight: sapphire and black armor with gold fittings and structured waist panels. Keep long dark charcoal hair with gold hair ornaments, golden-green eyes, original confident expression. Preserve original SD stance and the single long black-and-gold katana held diagonally across shoulder, handle toward canvas upper LEFT, scabbard/blade end toward lower RIGHT. Exactly one weapon; no duplicated swords or floating pieces. Natural hands and original proportions. Clean dark anime outlines, cel shading. Fully visible hair, cape, all props and both feet inside at least 6 percent empty margin. Actual transparent RGBA including internal gaps. No painted checkerboard, white backdrop, floor shadow, text or extra figure. Preserve natural original face; do not turn into generic doll or baby.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            484,
+            307
+          ],
+          [
+            274,
+            634
+          ],
+          [
+            995,
+            745
+          ],
+          [
+            930,
+            733
+          ],
+          [
+            1145,
+            697
+          ],
+          [
+            259,
+            736
+          ],
+          [
+            1136,
+            756
+          ],
+          [
+            384,
+            822
+          ],
+          [
+            908,
+            837
+          ]
+        ],
+        "opaque": [
+          [
+            652,
+            666
+          ],
+          [
+            462,
+            315
+          ],
+          [
+            951,
+            796
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv22-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-cfbe1bca-2fac-4fc3-92bf-755acb18fb1d.png",
+      "half": null,
+      "holes": [
+        3,
+        8,
+        9,
+        37,
+        45,
+        42,
+        47,
+        59,
+        57,
+        60,
+        61,
+        65,
+        70,
+        72,
+        73,
+        107
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 new SD defines EXACT costume construction, colors, ornament shapes, sleeve length, cape, boots and weapon decoration. Image2 ORIGINAL LD defines recognizable facial identity, age presentation, ORIGINAL natural LD proportions and pose. Do not copy SD head/body proportions. Costume: sapphire and black armor with gold fittings and structured waist panels. Keep long flowing charcoal hair, original golden eyes, gold hair ornaments. Match SD ornaments and outfit. Use original LD relaxed standing pose: canvas LEFT hand grips ONE long katana hilt, exposed silver-blue blade pointing down toward canvas lower LEFT. Matching black-gold scabbard attached to waist; clearly one blade with one empty scabbard, no additional weapons. Other hand at hip naturally. Clean anime cel shading, natural articulated hands. Entire hair, cloak, sword tip and toes within 6 percent empty margin. Actual RGBA transparency including internal gaps; no scenery, opaque background, gradient, floor shadow, painted checkerboard, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            421,
+            137
+          ],
+          [
+            398,
+            200
+          ],
+          [
+            622,
+            213
+          ],
+          [
+            719,
+            364
+          ],
+          [
+            758,
+            401
+          ],
+          [
+            387,
+            370
+          ],
+          [
+            354,
+            420
+          ],
+          [
+            254,
+            582
+          ],
+          [
+            948,
+            565
+          ],
+          [
+            883,
+            572
+          ],
+          [
+            837,
+            658
+          ],
+          [
+            957,
+            619
+          ],
+          [
+            749,
+            785
+          ],
+          [
+            845,
+            719
+          ],
+          [
+            948,
+            741
+          ],
+          [
+            274,
+            980
+          ]
+        ],
+        "opaque": [
+          [
+            533,
+            592
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv22-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-53c6e9ab-8197-4a99-8eb2-7f373a76eae0.png",
+      "half": null,
+      "holes": [
+        120,
+        345,
+        313,
+        381,
+        515,
+        560,
+        518
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja cosmetic sprite. Image1 ORIGINAL SD defines exact recognizable face, age presentation, SD proportions and pose; image2 ORIGINAL LD confirms identity. New costume Silver Moon Ascent: silver and black armor, short crescent-pattern shoulder mantle. Keep long dark charcoal hair with gold hair ornaments, golden-green eyes, original confident expression. Preserve original SD stance and the single long black-and-gold katana held diagonally across shoulder, handle toward canvas upper LEFT, scabbard/blade end toward lower RIGHT. Exactly one weapon; no duplicated swords or floating pieces. Natural hands and original proportions. Clean dark anime outlines, cel shading. Fully visible hair, cape, all props and both feet inside at least 6 percent empty margin. Actual transparent RGBA including internal gaps. No painted checkerboard, white backdrop, floor shadow, text or extra figure. Preserve natural original face; do not turn into generic doll or baby.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            506,
+            319
+          ],
+          [
+            308,
+            633
+          ],
+          [
+            1078,
+            611
+          ],
+          [
+            976,
+            710
+          ],
+          [
+            382,
+            780
+          ],
+          [
+            366,
+            806
+          ],
+          [
+            1074,
+            739
+          ]
+        ],
+        "opaque": [
+          [
+            673,
+            650
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv22-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1eb4b269-f159-4a4b-9ecf-7a4608b1b848.png",
+      "half": null,
+      "holes": [
+        19,
+        39,
+        177,
+        148,
+        196,
+        289,
+        494,
+        470,
+        679,
+        811,
+        750,
+        738
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 new SD defines EXACT costume construction, colors, ornament shapes, sleeve length, cape, boots and weapon decoration. Image2 ORIGINAL LD defines recognizable facial identity, age presentation, ORIGINAL natural LD proportions and pose. Do not copy SD head/body proportions. Costume: silver and black armor, short crescent-pattern shoulder mantle. Keep long flowing charcoal hair, original golden eyes, gold hair ornaments. Match SD ornaments and outfit. Use original LD relaxed standing pose: canvas LEFT hand grips ONE long katana hilt, exposed silver-blue blade pointing down toward canvas lower LEFT. Matching black-gold scabbard attached to waist; clearly one blade with one empty scabbard, no additional weapons. Other hand at hip naturally. Clean anime cel shading, natural articulated hands. Entire hair, cloak, sword tip and toes within 6 percent empty margin. Actual RGBA transparency including internal gaps; no scenery, opaque background, gradient, floor shadow, painted checkerboard, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            375,
+            257
+          ],
+          [
+            360,
+            380
+          ],
+          [
+            306,
+            507
+          ],
+          [
+            827,
+            443
+          ],
+          [
+            890,
+            524
+          ],
+          [
+            768,
+            578
+          ],
+          [
+            887,
+            685
+          ],
+          [
+            245,
+            689
+          ],
+          [
+            274,
+            801
+          ],
+          [
+            811,
+            910
+          ],
+          [
+            977,
+            835
+          ],
+          [
+            839,
+            815
+          ]
+        ],
+        "opaque": [
+          [
+            546,
+            694
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv23-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-d5eaf9ec-9ec8-4ae6-9cb9-35da680dde2e.png",
+      "half": null,
+      "holes": [
+        340
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja cosmetic sprite. Image1 ORIGINAL SD defines exact recognizable face, age presentation, SD proportions and pose; image2 ORIGINAL LD confirms identity. New costume Moon Ivory: ivory and dark silver ceremonial ninja regalia, pale blue gem accents. Keep original short silver-white bob and longer white rear hair tails, red eyes and silver/red hair ornament. Original SD standing pose with ONE floating ornate red crystal orb above open canvas LEFT palm; other hand rests on hip. No weapon. Keep small detached tip above orb as original ornament. Clean dark anime outlines, cel shading. Fully visible hair, cape, all props and both feet inside at least 6 percent empty margin. Actual transparent RGBA including internal gaps. No painted checkerboard, white backdrop, floor shadow, text or extra figure. Preserve natural original face; do not turn into generic doll or baby.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            679,
+            505
+          ]
+        ],
+        "opaque": [
+          [
+            629,
+            228
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv23-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-cc3b561e-272c-4fb8-8dcc-f3dc183a5239.png",
+      "half": null,
+      "holes": [
+        165,
+        551,
+        435,
+        470,
+        568,
+        930,
+        386
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 new SD defines EXACT costume construction, colors, ornament shapes, sleeve length, cape, boots and weapon decoration. Image2 ORIGINAL LD defines recognizable facial identity, age presentation, ORIGINAL natural LD proportions and pose. Do not copy SD head/body proportions. Costume: ivory and dark silver ceremonial ninja regalia, pale blue gem accents. Keep short silver-white bob with long trailing white rear locks, ruby red eyes, original silver/red hair ornament. Match SD outfit including gemstone/tassel colors. ONE ornate red crystal orb above open canvas LEFT palm, other hand on hip. No weapon. Clean anime cel shading, natural articulated hands. Entire hair, cloak, sword tip and toes within 6 percent empty margin. Actual RGBA transparency including internal gaps; no scenery, opaque background, gradient, floor shadow, painted checkerboard, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            614,
+            296
+          ],
+          [
+            803,
+            620
+          ],
+          [
+            801,
+            532
+          ],
+          [
+            817,
+            513
+          ],
+          [
+            894,
+            556
+          ],
+          [
+            866,
+            705
+          ],
+          [
+            595,
+            483
+          ]
+        ],
+        "opaque": [
+          [
+            522,
+            182
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv23-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9bd50e07-4d42-4f5f-97e8-1e2cbe3ae0d8.png",
+      "half": null,
+      "holes": [
+        340,
+        450
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja cosmetic sprite. Image1 ORIGINAL SD defines exact recognizable face, age presentation, SD proportions and pose; image2 ORIGINAL LD confirms identity. New costume Black Rose Rite: charcoal and burgundy ceremonial armor, black rose embroidery and silver fittings. Keep original short silver-white bob and longer white rear hair tails, red eyes and silver/red hair ornament. Original SD standing pose with ONE floating ornate red crystal orb above open canvas LEFT palm; other hand rests on hip. No weapon. Keep small detached tip above orb as original ornament. Clean dark anime outlines, cel shading. Fully visible hair, cape, all props and both feet inside at least 6 percent empty margin. Actual transparent RGBA including internal gaps. No painted checkerboard, white backdrop, floor shadow, text or extra figure. Preserve natural original face; do not turn into generic doll or baby.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            695,
+            457
+          ],
+          [
+            777,
+            705
+          ]
+        ],
+        "opaque": [
+          [
+            656,
+            203
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    },
+    {
+      "id": "lv23-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-093decb4-d212-47e6-810b-e8a0aad5baec.png",
+      "half": null,
+      "holes": [
+        142,
+        406,
+        480,
+        465
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONLY one full-body LD female ninja portrait sprite. Image1 new SD defines EXACT costume construction, colors, ornament shapes, sleeve length, cape, boots and weapon decoration. Image2 ORIGINAL LD defines recognizable facial identity, age presentation, ORIGINAL natural LD proportions and pose. Do not copy SD head/body proportions. Costume: charcoal and burgundy ceremonial armor, black rose embroidery and silver fittings. Keep short silver-white bob with long trailing white rear locks, ruby red eyes, original silver/red hair ornament. Match SD outfit including gemstone/tassel colors. ONE ornate red crystal orb above open canvas LEFT palm, other hand on hip. No weapon. Clean anime cel shading, natural articulated hands. Entire hair, cloak, sword tip and toes within 6 percent empty margin. Actual RGBA transparency including internal gaps; no scenery, opaque background, gradient, floor shadow, painted checkerboard, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            596,
+            240
+          ],
+          [
+            562,
+            444
+          ],
+          [
+            744,
+            513
+          ],
+          [
+            800,
+            458
+          ]
+        ],
+        "opaque": [
+          [
+            426,
+            540
+          ]
+        ]
+      },
+      "reviewNotes": "SD/LD face, hair, costume and weapons matched. Dark/light final review and source detail: internal hair/arm/cape gaps cleared; white garment, silver blade and hair highlights retained."
+    }
+  ]
+}

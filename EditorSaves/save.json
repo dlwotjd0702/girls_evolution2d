@@ -1,15 +1,45 @@
 {
-    "dataVersion": 2,
+    "dataVersion": 5,
+    "codexDiscoveredMask": 7,
+    "ownedSkinIds": [
+        "lv01-a",
+        "lv02-c"
+    ],
+    "equippedSkins": [
+        {
+            "level": 1,
+            "skinId": "lv01-a"
+        }
+    ],
+    "activeMythicFormId": "sakura",
+    "discoveredMythicForms": [],
+    "incomeBoostUntilUtc": 0,
     "autoMergeOn": false,
     "autoSpawnOn": false,
-    "gold": 0.0,
+    "gold": 133761.0,
     "gems": 0,
     "adsRemoved": 0,
     "currentTierIndex": 0,
     "unlockedTierMask": 1,
-    "discoveredMask": 0,
-    "girls": [],
-    "maxLevelReached": 1,
+    "discoveredMask": 7,
+    "girls": [
+        {
+            "level": 3
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 2
+        },
+        {
+            "level": 1
+        },
+        {
+            "level": 2
+        }
+    ],
+    "maxLevelReached": 3,
     "level25UpgradeLevel": 0,
     "prestigePoint": 0,
     "totalPrestigeCount": 0,
@@ -21,6 +51,16 @@
     "clickBonusUpgrade": 0,
     "offlineRewardUpgrade": 0,
     "offlineMaxTimeUpgrade": 0,
+    "permanentUpgradeLevels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
     "summonPurchaseCounts": [
         0,
         0,
@@ -88,22 +128,22 @@
     "ppClickBonusLv": 0,
     "ppOfflineRewardLv": 0,
     "ppOfflineMaxTimeLv": 0,
-    "savedAt": "2026-02-03 08:36:03",
+    "savedAt": "2026-08-29 04:18:20",
     "languageCode": 1,
     "usedCoupons": [
         "return"
     ],
-    "totalPlayTimeSeconds": 2497.090815874748,
+    "totalPlayTimeSeconds": 3123.6090294814203,
     "firstPlayTime": "2025-12-05 13:32:22",
-    "lastPlayTime": "2026-02-03 08:36:03",
+    "lastPlayTime": "2026-08-29 04:18:20",
     "level25ReachedCount": 1,
     "level25ReachedTimes": [
         "2025-12-09 15:01:59"
     ],
-    "totalClicks": 219,
-    "totalMerges": 22,
-    "totalSpawns": 53,
-    "totalGoldEarned": 656631435663.0,
+    "totalClicks": 326,
+    "totalMerges": 27,
+    "totalSpawns": 68,
+    "totalGoldEarned": 656631569424.0,
     "totalGoldSpent": 41071600.0,
     "tutorialCompleted": false
 }

@@ -1,0 +1,577 @@
+{
+  "batch": "2026-08-29-13",
+  "method": "Built-in imagegen; authorized alpha-only extraction; matched SD/LD.",
+  "items": [
+    {
+      "id": "lv19-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-b4c091b8-721c-4346-8eff-7ce8d3ed8371.png",
+      "half": null,
+      "holes": [
+        128
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Reference1 exact BASE SD defines recognizable facial identity, original SD proportions, age presentation and pose. Reference2 BASE LD confirms identity. Costume only: Ginkgo Oath: mustard-gold and forest-green long traveler jacket, ginkgo leaf embroidery, green fitted pants, gold-edged boots. Preserve short silver-white bob with turquoise front streak, heterochromia: eye on canvas LEFT orange-red, eye on canvas RIGHT cyan-blue. Keep original head scarf/band and scarf around neck, recolored to match outfit. EXACTLY TWO faceted turquoise crystal daggers with golden holders, one held in each raised hand as original SD. Correct hands naturally grip crystal dagger handles. Distinct costume construction, crisp cel shading and dark anime contours. All hair, cloth tails, feet and props comfortably inside generous margin. Actual RGBA transparent background and internal gaps, no white backdrop, painted checkerboard, ground shadow, text or extra figure. Preserve original natural face, do not impose generic baby chibi proportions.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            782,
+            374
+          ]
+        ],
+        "opaque": [
+          [
+            631,
+            183
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv19-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-b4254699-0d42-4fc7-92dc-42025d1d38e6.png",
+      "half": null,
+      "holes": [
+        184
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD ninja portrait sprite. Reference1 approved SD defines EXACT outfit structure, colors, jewelry, emblems, sleeve shape, boots and scarf. Reference2 BASE LD defines original face, natural LD anatomy, age presentation and pose. Copy reference1 costume exactly, no extra robe or sleeves. Ginkgo Oath: mustard-gold and forest-green long traveler jacket, ginkgo leaf embroidery, green fitted pants, gold-edged boots. Short silver-white bob with cyan front streak, eye on canvas LEFT orange-red, eye on canvas RIGHT bright cyan-blue. Headscarf and neckscarf match SD. EXACTLY TWO turquoise crystal daggers with gold holders: canvas LEFT hand raised holding dagger up, canvas RIGHT hand lowered holding dagger down in original LD pose. No extra weapons. Natural original LD proportions, NOT chibi. Crisp anime linework, cel shading, recognizable natural face. Entire hair, flowing cloth and every toe and prop tip inside generous canvas margin. Actual RGBA transparency including gaps; no opaque backdrop, painted checkerboard, gradient, floor shadow, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            347,
+            612
+          ]
+        ],
+        "opaque": [
+          [
+            456,
+            643
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv19-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-413832e5-a7f6-43dd-b913-6ac5530498ec.png",
+      "half": null,
+      "holes": [
+        164,
+        449
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Reference1 exact BASE SD defines recognizable facial identity, original SD proportions, age presentation and pose. Reference2 BASE LD confirms identity. Costume only: Glacier Envoy: ivory and icy-blue diplomat ninja coat, silver trim, fitted navy pants and tall ivory-blue boots. Preserve short silver-white bob with turquoise front streak, heterochromia: eye on canvas LEFT orange-red, eye on canvas RIGHT cyan-blue. Keep original head scarf/band and scarf around neck, recolored to match outfit. EXACTLY TWO faceted turquoise crystal daggers with golden holders, one held in each raised hand as original SD. Correct hands naturally grip crystal dagger handles. Distinct costume construction, crisp cel shading and dark anime contours. All hair, cloth tails, feet and props comfortably inside generous margin. Actual RGBA transparent background and internal gaps, no white backdrop, painted checkerboard, ground shadow, text or extra figure. Preserve original natural face, do not impose generic baby chibi proportions.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            759,
+            363
+          ],
+          [
+            888,
+            778
+          ]
+        ],
+        "opaque": [
+          [
+            620,
+            190
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv19-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9bf75467-d8b8-41f1-90ac-6a4dda5df868.png",
+      "half": null,
+      "holes": [
+        551
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD ninja portrait sprite. Reference1 approved SD defines EXACT outfit structure, colors, jewelry, emblems, sleeve shape, boots and scarf. Reference2 BASE LD defines original face, natural LD anatomy, age presentation and pose. Copy reference1 costume exactly, no extra robe or sleeves. Glacier Envoy: ivory and icy-blue diplomat ninja coat, silver trim, fitted navy pants and tall ivory-blue boots. Short silver-white bob with cyan front streak, eye on canvas LEFT orange-red, eye on canvas RIGHT bright cyan-blue. Headscarf and neckscarf match SD. EXACTLY TWO turquoise crystal daggers with gold holders: canvas LEFT hand raised holding dagger up, canvas RIGHT hand lowered holding dagger down in original LD pose. No extra weapons. Natural original LD proportions, NOT chibi. Crisp anime linework, cel shading, recognizable natural face. Entire hair, flowing cloth and every toe and prop tip inside generous canvas margin. Actual RGBA transparency including gaps; no opaque backdrop, painted checkerboard, gradient, floor shadow, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            331,
+            635
+          ]
+        ],
+        "opaque": [
+          [
+            484,
+            258
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv19-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9397e211-5216-43fe-a32d-320ba5e04dee.png",
+      "half": null,
+      "holes": [
+        80,
+        133
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Reference1 exact BASE SD defines recognizable facial identity, original SD proportions, age presentation and pose. Reference2 BASE LD confirms identity. Costume only: Jade Jewels: emerald fitted traveler armor, gold-trimmed short cloak, emerald jewel clasps, dark green pants and armored boots. Preserve short silver-white bob with turquoise front streak, heterochromia: eye on canvas LEFT orange-red, eye on canvas RIGHT cyan-blue. Keep original head scarf/band and scarf around neck, recolored to match outfit. EXACTLY TWO faceted turquoise crystal daggers with golden holders, one held in each raised hand as original SD. Correct hands naturally grip crystal dagger handles. Distinct costume construction, crisp cel shading and dark anime contours. All hair, cloth tails, feet and props comfortably inside generous margin. Actual RGBA transparent background and internal gaps, no white backdrop, painted checkerboard, ground shadow, text or extra figure. Preserve original natural face, do not impose generic baby chibi proportions.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            771,
+            194
+          ],
+          [
+            785,
+            342
+          ]
+        ],
+        "opaque": [
+          [
+            641,
+            188
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv19-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-78f34053-ccb4-4da2-8aee-0eac6f817b33.png",
+      "half": null,
+      "holes": [
+        155,
+        167
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD ninja portrait sprite. Reference1 approved SD defines EXACT outfit structure, colors, jewelry, emblems, sleeve shape, boots and scarf. Reference2 BASE LD defines original face, natural LD anatomy, age presentation and pose. Copy reference1 costume exactly, no extra robe or sleeves. Jade Jewels: emerald fitted traveler armor, gold-trimmed short cloak, emerald jewel clasps, dark green pants and armored boots. Short silver-white bob with cyan front streak, eye on canvas LEFT orange-red, eye on canvas RIGHT bright cyan-blue. Headscarf and neckscarf match SD. EXACTLY TWO turquoise crystal daggers with gold holders: canvas LEFT hand raised holding dagger up, canvas RIGHT hand lowered holding dagger down in original LD pose. No extra weapons. Natural original LD proportions, NOT chibi. Crisp anime linework, cel shading, recognizable natural face. Entire hair, flowing cloth and every toe and prop tip inside generous canvas margin. Actual RGBA transparency including gaps; no opaque backdrop, painted checkerboard, gradient, floor shadow, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            566,
+            526
+          ],
+          [
+            338,
+            647
+          ]
+        ],
+        "opaque": [
+          [
+            515,
+            237
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv19-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-56ee3616-ed01-4615-bb81-94f8cb1716a6.png",
+      "half": null,
+      "holes": [
+        41,
+        103,
+        236
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Reference1 exact BASE SD defines recognizable facial identity, original SD proportions, age presentation and pose. Reference2 BASE LD confirms identity. Costume only: Star Cluster Envoy: navy star-pattern short traveler cloak, silver fasteners, fitted midnight armor, navy pants and boots. Preserve short silver-white bob with turquoise front streak, heterochromia: eye on canvas LEFT orange-red, eye on canvas RIGHT cyan-blue. Keep original head scarf/band and scarf around neck, recolored to match outfit. EXACTLY TWO faceted turquoise crystal daggers with golden holders, one held in each raised hand as original SD. Correct hands naturally grip crystal dagger handles. Distinct costume construction, crisp cel shading and dark anime contours. All hair, cloth tails, feet and props comfortably inside generous margin. Actual RGBA transparent background and internal gaps, no white backdrop, painted checkerboard, ground shadow, text or extra figure. Preserve original natural face, do not impose generic baby chibi proportions.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            800,
+            240
+          ],
+          [
+            804,
+            338
+          ],
+          [
+            699,
+            489
+          ]
+        ],
+        "opaque": [
+          [
+            646,
+            187
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv19-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-2c97b623-8b81-43a6-80ed-b165d7055619.png",
+      "half": null,
+      "holes": [
+        207
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD ninja portrait sprite. Reference1 approved SD defines EXACT outfit structure, colors, jewelry, emblems, sleeve shape, boots and scarf. Reference2 BASE LD defines original face, natural LD anatomy, age presentation and pose. Copy reference1 costume exactly, no extra robe or sleeves. Star Cluster Envoy: navy star-pattern short traveler cloak, silver fasteners, fitted midnight armor, navy pants and boots. Short silver-white bob with cyan front streak, eye on canvas LEFT orange-red, eye on canvas RIGHT bright cyan-blue. Headscarf and neckscarf match SD. EXACTLY TWO turquoise crystal daggers with gold holders: canvas LEFT hand raised holding dagger up, canvas RIGHT hand lowered holding dagger down in original LD pose. No extra weapons. Natural original LD proportions, NOT chibi. Crisp anime linework, cel shading, recognizable natural face. Entire hair, flowing cloth and every toe and prop tip inside generous canvas margin. Actual RGBA transparency including gaps; no opaque backdrop, painted checkerboard, gradient, floor shadow, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            534,
+            549
+          ]
+        ],
+        "opaque": [
+          [
+            495,
+            262
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv20-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-348996c3-c782-4faf-ac9f-2c76675df43b.png",
+      "half": null,
+      "holes": [
+        136,
+        140,
+        468,
+        610,
+        652,
+        784,
+        869,
+        878,
+        923
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Reference1 exact BASE SD defines recognizable facial identity, original SD proportions, age presentation and pose. Reference2 BASE LD confirms identity. Costume only: Radiant Starlight: lavender and ivory celestial combat dress over fitted dark leggings, gold star clasps, lavender armored boots. Preserve long pale-blue flowing hair, original white ribbon and pointed elf ears, golden amber eyes. One cyan flame orb hovering ABOVE open palm at canvas LEFT, other hand on hip. Orb belongs to character silhouette, no extra weapon or wand. Distinct costume construction, crisp cel shading and dark anime contours. All hair, cloth tails, feet and props comfortably inside generous margin. Actual RGBA transparent background and internal gaps, no white backdrop, painted checkerboard, ground shadow, text or extra figure. Preserve original natural face, do not impose generic baby chibi proportions.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            367,
+            311
+          ],
+          [
+            397,
+            327
+          ],
+          [
+            917,
+            562
+          ],
+          [
+            1003,
+            677
+          ],
+          [
+            892,
+            715
+          ],
+          [
+            435,
+            772
+          ],
+          [
+            971,
+            842
+          ],
+          [
+            356,
+            882
+          ],
+          [
+            895,
+            914
+          ]
+        ],
+        "opaque": [
+          [
+            627,
+            628
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv20-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-83e13f7b-9e2a-4fc5-acab-3bcee8911af8.png",
+      "half": null,
+      "holes": [
+        553,
+        558,
+        734,
+        784,
+        917,
+        1017,
+        1024,
+        1077,
+        135,
+        153
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD ninja portrait sprite. Reference1 approved SD defines EXACT outfit structure, colors, jewelry, emblems, sleeve shape, boots and scarf. Reference2 BASE LD defines original face, natural LD anatomy, age presentation and pose. Copy reference1 costume exactly, no extra robe or sleeves. Radiant Starlight: lavender and ivory celestial combat dress over fitted dark leggings, gold star clasps, lavender armored boots. Long pale-blue flowing hair, golden-amber eyes, pointed elf ears, original white hair ribbon. One cyan flame orb above canvas LEFT open palm and canvas RIGHT hand on hip. Match SD dress, sleeve, legwear and jewelry construction precisely. Natural original LD proportions, NOT chibi. Crisp anime linework, cel shading, recognizable natural face. Entire hair, flowing cloth and every toe and prop tip inside generous canvas margin. Actual RGBA transparency including gaps; no opaque backdrop, painted checkerboard, gradient, floor shadow, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            811,
+            611
+          ],
+          [
+            252,
+            633
+          ],
+          [
+            913,
+            750
+          ],
+          [
+            789,
+            864
+          ],
+          [
+            305,
+            831
+          ],
+          [
+            875,
+            906
+          ],
+          [
+            224,
+            943
+          ],
+          [
+            792,
+            981
+          ],
+          [
+            239,
+            326
+          ],
+          [
+            244,
+            342
+          ]
+        ],
+        "opaque": [
+          [
+            514,
+            685
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv20-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-ea9bb0d8-31a8-4242-a4b8-6d08b5d108c0.png",
+      "half": null,
+      "holes": [
+        95,
+        96,
+        207,
+        237,
+        330,
+        333,
+        449
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Reference1 exact BASE SD defines recognizable facial identity, original SD proportions, age presentation and pose. Reference2 BASE LD confirms identity. Costume only: Obsidian Oracle: black and amethyst full-sleeved battle robe, silver angular ornaments, black fitted leggings and amethyst boots. Preserve long pale-blue flowing hair, original white ribbon and pointed elf ears, golden amber eyes. One cyan flame orb hovering ABOVE open palm at canvas LEFT, other hand on hip. Orb belongs to character silhouette, no extra weapon or wand. Distinct costume construction, crisp cel shading and dark anime contours. All hair, cloth tails, feet and props comfortably inside generous margin. Actual RGBA transparent background and internal gaps, no white backdrop, painted checkerboard, ground shadow, text or extra figure. Preserve original natural face, do not impose generic baby chibi proportions.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            365,
+            319
+          ],
+          [
+            343,
+            313
+          ],
+          [
+            947,
+            545
+          ],
+          [
+            279,
+            604
+          ],
+          [
+            352,
+            793
+          ],
+          [
+            1066,
+            722
+          ],
+          [
+            306,
+            912
+          ]
+        ],
+        "opaque": [
+          [
+            569,
+            624
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    },
+    {
+      "id": "lv20-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9c567fc4-2440-411b-a3cf-1bc31e635921.png",
+      "half": null,
+      "holes": [
+        352,
+        486,
+        611,
+        693,
+        794,
+        907,
+        973,
+        403
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD ninja portrait sprite. Reference1 approved SD defines EXACT outfit structure, colors, jewelry, emblems, sleeve shape, boots and scarf. Reference2 BASE LD defines original face, natural LD anatomy, age presentation and pose. Copy reference1 costume exactly, no extra robe or sleeves. Obsidian Oracle: black and amethyst full-sleeved battle robe, silver angular ornaments, black fitted leggings and amethyst boots. Long pale-blue flowing hair, golden-amber eyes, pointed elf ears, original white hair ribbon. One cyan flame orb above canvas LEFT open palm and canvas RIGHT hand on hip. Match SD dress, sleeve, legwear and jewelry construction precisely. Natural original LD proportions, NOT chibi. Crisp anime linework, cel shading, recognizable natural face. Entire hair, flowing cloth and every toe and prop tip inside generous canvas margin. Actual RGBA transparency including gaps; no opaque backdrop, painted checkerboard, gradient, floor shadow, text or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            810,
+            514
+          ],
+          [
+            122,
+            679
+          ],
+          [
+            930,
+            701
+          ],
+          [
+            229,
+            834
+          ],
+          [
+            908,
+            807
+          ],
+          [
+            175,
+            916
+          ],
+          [
+            159,
+            1007
+          ],
+          [
+            182,
+            582
+          ]
+        ],
+        "opaque": [
+          [
+            457,
+            606
+          ]
+        ]
+      },
+      "reviewNotes": "Matched SD/LD costume, identity, heterochromia and weapon counts. Dark/light and enlarged hair and finger gap review; preserve pale hair, garment and eye highlights. Removed only confirmed background components."
+    }
+  ]
+}

@@ -327,8 +327,19 @@ public class TierManager : MonoBehaviour, ISaveable
     public void ForceSwitchTo(int tierIndex)
     {
         if ((uint)tierIndex > 3u) return;
-        if (CurrentTierIndex == tierIndex) return;
-        SwitchToInternal(tierIndex);
+        if (tierSequenceRoutine != null) StopCoroutine(tierSequenceRoutine);
+        tierSequenceRoutine = null;
+        seq?.Kill();
+        isSequenceRunning = isTransitioning = false;
+        if (fieldRoot)
+        {
+            fieldRoot.DOKill();
+            fieldRoot.localScale = _fieldOrigScale;
+        }
+        CurrentTierIndex = tierIndex;
+        SyncImmediate(tierIndex);
+        OnTierChanged?.Invoke(tierIndex);
+        RefreshAscendUI();
     }
 
     IEnumerator SwitchDownSequence(int targetTier)

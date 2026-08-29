@@ -4,7 +4,13 @@ using System.Collections.Generic;
 [Serializable]
 public class SaveData
 {
-    public int dataVersion = 2;
+    public int dataVersion = 5;
+    public int codexDiscoveredMask;
+    public List<string> ownedSkinIds;
+    public List<EquippedSkinSave> equippedSkins;
+    public string activeMythicFormId;
+    public List<string> discoveredMythicForms;
+    public long incomeBoostUntilUtc;
 
     public bool autoMergeOn;
     public bool autoSpawnOn;
@@ -41,6 +47,10 @@ public class SaveData
     // 오프라인/메타
     public int offlineRewardUpgrade;
     public int offlineMaxTimeUpgrade;
+
+    // v3: permanent purchases; indexes are EconomyManager.UpgradeKind values.
+    // null distinguishes old saves without currency provenance.
+    public int[] permanentUpgradeLevels;
 
     // 레벨별 소환 누적 구매수
     public int[] summonPurchaseCounts = new int[25];
@@ -95,4 +105,11 @@ public class GirlSaveInfo
 {
     public int level;
     public GirlSaveInfo(int level){ this.level = level; }
+}
+
+[Serializable]
+public class EquippedSkinSave
+{
+    public int level;
+    public string skinId;
 }

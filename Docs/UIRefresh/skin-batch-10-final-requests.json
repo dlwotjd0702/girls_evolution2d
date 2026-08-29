@@ -1,0 +1,20 @@
+[
+  {
+    "id": "lv16-b",
+    "kind": "LD",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-2933cc43-7a3e-47f9-9cf9-63426156e93e.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait. Image1 is corrected SD outfit: reproduce exact charcoal-violet commander jacket, silver eclipse insignia, violet inner uniform and shorts, dark thigh stockings, straps, boots, belt utility canisters. Image2 original BASE LD defines natural mature LD proportions, face, hair and pose. Preserve dark twin ponytails, pointed orange-red hair ribbons, amber-red eyes. Exactly TWO original serrated daggers, one in each hand. NO extra hip knife. Match every outfit detail in image1, natural hands, crisp anime shading. Entire hair, blade tips and feet inside comfortable margin. Actual RGBA transparent background and enclosed gaps. No checkerboard, opaque backdrop, shadow, labels or extra figure."
+  },
+  {
+    "id": "lv15-c",
+    "kind": "LD-correction",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-29c939ab-d73e-44f5-8e55-e9d6040ff032.png",
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-22c0bf0f-0444-4e85-a872-cc45234d5a04.png"
+    ],
+    "prompt": "Make a surgical accessory correction to image1 LD sprite. It is missing the red waist cord and tassel from matching SD image2. Add the same narrow red cord hanging from the canvas-right side of waist/hip, curving behind the right arm near the sheathed sword, with round red knot and red tassel ending beside upper thigh, exactly like image2. Keep all image1 face, hair, LD anatomy, pose, coat, armor, sword and boots unchanged. No additional weapons. One complete LD character on transparent background. Do not change head or body proportions."
+  }
+]

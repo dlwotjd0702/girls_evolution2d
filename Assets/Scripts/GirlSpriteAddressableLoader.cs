@@ -108,17 +108,44 @@ public class GirlSpriteAddressableLoader : MonoBehaviour
         return key;
     }
 
-    public Sprite GetSpriteForData(GirlData data, bool preferLD = false)
+    public Sprite GetSpriteForData(GirlData data, bool preferLD = false, bool includeSkin = true)
     {
         if (data == null) return null;
+        // Cosmetic identity is a level, not a digit guessed from an asset filename.
+        if (includeSkin && CodexCollectionManager.Instance)
+        {
+            var equipped = CodexCollectionManager.Instance.EquippedSprite(data.level, preferLD);
+            if (equipped) return equipped;
+        }
         string rawKey = !string.IsNullOrEmpty(data.spriteName) ? data.spriteName : data.level.ToString();
-        return GetSpriteByKey(rawKey, preferLD);
+        return GetSpriteByKey(rawKey, preferLD, false);
     }
 
-    public Sprite GetSpriteByKey(string rawKey, bool preferLD = false)
+    public Sprite GetFieldSprite(GirlData data)
+    {
+        if (data == null) return null;
+        // Lv.25 keeps its existing LD-only mythic presentation.
+        if (data.level >= TierRules.MaxLevel) return GetSpriteForData(data, true);
+        var equipped = CodexCollectionManager.Instance ? CodexCollectionManager.Instance.EquippedSprite(data.level, false) : null;
+        if (equipped) return equipped;
+        string rawKey = string.IsNullOrEmpty(data.spriteName) ? data.level.ToString() : data.spriteName;
+        string key = toLowercaseKeys ? rawKey.ToLowerInvariant() : rawKey;
+        if (_sd.TryGetValue(key, out var sprite)) return sprite;
+        return useDigitsKey && _sd.TryGetValue(MakeKey(rawKey), out sprite) ? sprite : null;
+    }
+
+    public Sprite GetSpriteByKey(string rawKey, bool preferLD = false, bool includeSkin = true)
     {
         if (string.IsNullOrEmpty(rawKey)) return null;
         string key = toLowercaseKeys ? rawKey.ToLowerInvariant() : rawKey;
+        if (includeSkin && CodexCollectionManager.Instance && int.TryParse(MakeKey(key), out int level))
+        {
+            var skin = CodexCollectionManager.Instance.EquippedSprite(level, preferLD);
+            if (skin) return skin;
+        }
+        if (MakeKey(key) == "25" && MythicCollectionManager.Instance != null
+            && MythicCollectionManager.Instance.CurrentForm?.sprite != null)
+            return MythicCollectionManager.Instance.CurrentForm.sprite;
 
         if (preferLD)
         {

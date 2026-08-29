@@ -1,0 +1,2640 @@
+[
+  {
+    "id": "lv06-c",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch04\\Source\\lv06-c-SD.png",
+    "sourceSha256": "be2ce5ec321b68f51911488c6dea8fdb3cebd2407ae05e199d312c091191bc8d",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 2,
+        "xywh": [
+          366,
+          36,
+          2,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 5,
+        "xywh": [
+          338,
+          57,
+          20,
+          58
+        ],
+        "area": 402,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          343,
+          109,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          344,
+          114,
+          2,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          346,
+          123,
+          2,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          580,
+          186,
+          6,
+          11
+        ],
+        "area": 30,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          583,
+          201,
+          8,
+          5
+        ],
+        "area": 23,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          577,
+          207,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 15,
+        "xywh": [
+          580,
+          210,
+          10,
+          9
+        ],
+        "area": 49,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          578,
+          222,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          595,
+          222,
+          9,
+          5
+        ],
+        "area": 28,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          574,
+          225,
+          4,
+          2
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 22,
+        "xywh": [
+          595,
+          228,
+          8,
+          3
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 24,
+        "xywh": [
+          614,
+          235,
+          5,
+          3
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 25,
+        "xywh": [
+          574,
+          247,
+          21,
+          23
+        ],
+        "area": 199,
+        "removed": false
+      },
+      {
+        "component": 27,
+        "xywh": [
+          616,
+          253,
+          10,
+          17
+        ],
+        "area": 88,
+        "removed": false
+      },
+      {
+        "component": 28,
+        "xywh": [
+          636,
+          252,
+          7,
+          5
+        ],
+        "area": 16,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          721,
+          252,
+          12,
+          14
+        ],
+        "area": 63,
+        "removed": false
+      },
+      {
+        "component": 30,
+        "xywh": [
+          661,
+          254,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          674,
+          254,
+          21,
+          18
+        ],
+        "area": 176,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          667,
+          257,
+          3,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          648,
+          258,
+          19,
+          7
+        ],
+        "area": 52,
+        "removed": false
+      },
+      {
+        "component": 34,
+        "xywh": [
+          637,
+          262,
+          16,
+          23
+        ],
+        "area": 153,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          569,
+          324,
+          3,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          498,
+          509,
+          29,
+          49
+        ],
+        "area": 461,
+        "removed": true
+      },
+      {
+        "component": 44,
+        "xywh": [
+          496,
+          724,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 45,
+        "xywh": [
+          491,
+          732,
+          1,
+          9
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 47,
+        "xywh": [
+          745,
+          761,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 48,
+        "xywh": [
+          503,
+          1137,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 49,
+        "xywh": [
+          498,
+          1141,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 51,
+        "xywh": [
+          773,
+          1150,
+          4,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      268,
+      28,
+      1042,
+      1215
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch04\\Ready\\lv06-c-SD.png",
+    "preparedSha256": "d715c4e63c2201cbe3e29df4907439a183dbcf679fb7e3d6cc137eaf60e274e9",
+    "approved": true
+  },
+  {
+    "id": "lv06-c",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch04\\Source\\lv06-c-LD.png",
+    "sourceSha256": "7b7ed17b45cd72d8ac4f16f0b4538f8663ce7712df8a99013b943d589a770ec9",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 4,
+        "xywh": [
+          400,
+          31,
+          4,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 5,
+        "xywh": [
+          408,
+          39,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 6,
+        "xywh": [
+          389,
+          40,
+          25,
+          109
+        ],
+        "area": 754,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          403,
+          45,
+          4,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 11,
+        "xywh": [
+          406,
+          150,
+          4,
+          17
+        ],
+        "area": 17,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          571,
+          151,
+          6,
+          36
+        ],
+        "area": 66,
+        "removed": true
+      },
+      {
+        "component": 14,
+        "xywh": [
+          673,
+          152,
+          4,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          615,
+          156,
+          4,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 24,
+        "xywh": [
+          416,
+          163,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 26,
+        "xywh": [
+          659,
+          163,
+          6,
+          4
+        ],
+        "area": 9,
+        "removed": false
+      },
+      {
+        "component": 28,
+        "xywh": [
+          745,
+          164,
+          3,
+          19
+        ],
+        "area": 27,
+        "removed": true
+      },
+      {
+        "component": 31,
+        "xywh": [
+          667,
+          167,
+          10,
+          10
+        ],
+        "area": 47,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          410,
+          168,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          411,
+          173,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          638,
+          174,
+          5,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 38,
+        "xywh": [
+          623,
+          176,
+          6,
+          5
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 39,
+        "xywh": [
+          412,
+          178,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 42,
+        "xywh": [
+          647,
+          185,
+          2,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 46,
+        "xywh": [
+          588,
+          195,
+          1,
+          8
+        ],
+        "area": 8,
+        "removed": true
+      },
+      {
+        "component": 47,
+        "xywh": [
+          624,
+          195,
+          4,
+          6
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 48,
+        "xywh": [
+          685,
+          197,
+          6,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 50,
+        "xywh": [
+          630,
+          203,
+          10,
+          7
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 52,
+        "xywh": [
+          663,
+          207,
+          16,
+          11
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 53,
+        "xywh": [
+          707,
+          207,
+          8,
+          11
+        ],
+        "area": 16,
+        "removed": true
+      },
+      {
+        "component": 54,
+        "xywh": [
+          641,
+          210,
+          4,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 58,
+        "xywh": [
+          626,
+          215,
+          5,
+          5
+        ],
+        "area": 11,
+        "removed": true
+      },
+      {
+        "component": 60,
+        "xywh": [
+          650,
+          214,
+          4,
+          3
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 61,
+        "xywh": [
+          618,
+          216,
+          5,
+          7
+        ],
+        "area": 18,
+        "removed": true
+      },
+      {
+        "component": 68,
+        "xywh": [
+          477,
+          308,
+          4,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 73,
+        "xywh": [
+          458,
+          324,
+          9,
+          7
+        ],
+        "area": 22,
+        "removed": false
+      },
+      {
+        "component": 77,
+        "xywh": [
+          836,
+          468,
+          64,
+          62
+        ],
+        "area": 1390,
+        "removed": true
+      },
+      {
+        "component": 80,
+        "xywh": [
+          532,
+          591,
+          26,
+          9
+        ],
+        "area": 37,
+        "removed": false
+      },
+      {
+        "component": 81,
+        "xywh": [
+          689,
+          590,
+          15,
+          6
+        ],
+        "area": 35,
+        "removed": false
+      },
+      {
+        "component": 84,
+        "xywh": [
+          687,
+          600,
+          9,
+          12
+        ],
+        "area": 47,
+        "removed": false
+      },
+      {
+        "component": 85,
+        "xywh": [
+          546,
+          602,
+          5,
+          29
+        ],
+        "area": 84,
+        "removed": false
+      },
+      {
+        "component": 87,
+        "xywh": [
+          570,
+          606,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 88,
+        "xywh": [
+          745,
+          607,
+          6,
+          5
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 91,
+        "xywh": [
+          702,
+          616,
+          16,
+          12
+        ],
+        "area": 20,
+        "removed": false
+      },
+      {
+        "component": 96,
+        "xywh": [
+          724,
+          632,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 99,
+        "xywh": [
+          692,
+          645,
+          5,
+          6
+        ],
+        "area": 17,
+        "removed": false
+      },
+      {
+        "component": 101,
+        "xywh": [
+          692,
+          660,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 103,
+        "xywh": [
+          522,
+          1094,
+          4,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 104,
+        "xywh": [
+          519,
+          1100,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 107,
+        "xywh": [
+          512,
+          1111,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 110,
+        "xywh": [
+          779,
+          1114,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 113,
+        "xywh": [
+          523,
+          1119,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 114,
+        "xywh": [
+          529,
+          1118,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 119,
+        "xywh": [
+          498,
+          1122,
+          4,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 124,
+        "xywh": [
+          486,
+          1134,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 126,
+        "xywh": [
+          488,
+          1137,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 129,
+        "xywh": [
+          511,
+          1136,
+          5,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 132,
+        "xywh": [
+          791,
+          1136,
+          8,
+          2
+        ],
+        "area": 8,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      293,
+      19,
+      1118,
+      1194
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch04\\Ready\\lv06-c-LD.png",
+    "preparedSha256": "b473369b7ac7c942887df08e312a4a02b26fd26df473127a9f02af77306bdc1c",
+    "approved": true
+  },
+  {
+    "id": "lv06-d",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch04\\Source\\lv06-d-SD.png",
+    "sourceSha256": "79e24b16c77ba6422ff04cc2321444ee1bfa01cbc1f602d6663e776daf69aedf",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 4,
+        "xywh": [
+          356,
+          59,
+          18,
+          62
+        ],
+        "area": 364,
+        "removed": false
+      },
+      {
+        "component": 5,
+        "xywh": [
+          377,
+          65,
+          3,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          361,
+          112,
+          3,
+          14
+        ],
+        "area": 14,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          364,
+          127,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          365,
+          131,
+          2,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 11,
+        "xywh": [
+          367,
+          140,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          368,
+          144,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          369,
+          148,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          597,
+          177,
+          4,
+          9
+        ],
+        "area": 17,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          597,
+          189,
+          8,
+          4
+        ],
+        "area": 18,
+        "removed": false
+      },
+      {
+        "component": 22,
+        "xywh": [
+          593,
+          194,
+          13,
+          13
+        ],
+        "area": 61,
+        "removed": false
+      },
+      {
+        "component": 24,
+        "xywh": [
+          611,
+          206,
+          5,
+          4
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 25,
+        "xywh": [
+          592,
+          209,
+          6,
+          1
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 30,
+        "xywh": [
+          592,
+          226,
+          18,
+          20
+        ],
+        "area": 140,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          631,
+          226,
+          5,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 32,
+        "xywh": [
+          627,
+          231,
+          8,
+          15
+        ],
+        "area": 51,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          644,
+          231,
+          4,
+          5
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 34,
+        "xywh": [
+          674,
+          231,
+          17,
+          15
+        ],
+        "area": 119,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          713,
+          230,
+          9,
+          11
+        ],
+        "area": 36,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          654,
+          235,
+          12,
+          9
+        ],
+        "area": 60,
+        "removed": false
+      },
+      {
+        "component": 40,
+        "xywh": [
+          650,
+          253,
+          3,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 50,
+        "xywh": [
+          585,
+          288,
+          12,
+          8
+        ],
+        "area": 40,
+        "removed": true
+      },
+      {
+        "component": 55,
+        "xywh": [
+          539,
+          382,
+          4,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 60,
+        "xywh": [
+          731,
+          637,
+          5,
+          9
+        ],
+        "area": 26,
+        "removed": true
+      },
+      {
+        "component": 62,
+        "xywh": [
+          509,
+          1103,
+          9,
+          10
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 63,
+        "xywh": [
+          520,
+          1120,
+          4,
+          1
+        ],
+        "area": 4,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      353,
+      31,
+      853,
+      1203
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch04\\Ready\\lv06-d-SD.png",
+    "preparedSha256": "4923aab769a91d5d35a709b57259a109399335071b1f38b6389254cf562c7765",
+    "approved": true
+  },
+  {
+    "id": "lv06-d",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch04\\Source\\lv06-d-LD.png",
+    "sourceSha256": "5b37bbb82f24767f621330301332ddb1085756fee65b46434e78d08a4a481e5b",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 3,
+        "xywh": [
+          364,
+          45,
+          21,
+          114
+        ],
+        "area": 689,
+        "removed": false
+      },
+      {
+        "component": 4,
+        "xywh": [
+          380,
+          51,
+          3,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 6,
+        "xywh": [
+          565,
+          138,
+          11,
+          49
+        ],
+        "area": 134,
+        "removed": true
+      },
+      {
+        "component": 7,
+        "xywh": [
+          385,
+          142,
+          4,
+          10
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          743,
+          148,
+          5,
+          35
+        ],
+        "area": 74,
+        "removed": true
+      },
+      {
+        "component": 15,
+        "xywh": [
+          680,
+          151,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 16,
+        "xywh": [
+          388,
+          153,
+          1,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          382,
+          160,
+          2,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          390,
+          163,
+          3,
+          10
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 21,
+        "xywh": [
+          634,
+          165,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 27,
+        "xywh": [
+          665,
+          166,
+          10,
+          11
+        ],
+        "area": 49,
+        "removed": false
+      },
+      {
+        "component": 28,
+        "xywh": [
+          384,
+          169,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 30,
+        "xywh": [
+          385,
+          173,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          616,
+          173,
+          9,
+          8
+        ],
+        "area": 35,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          386,
+          177,
+          2,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 38,
+        "xywh": [
+          388,
+          186,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 41,
+        "xywh": [
+          617,
+          191,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 46,
+        "xywh": [
+          391,
+          198,
+          1,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 48,
+        "xywh": [
+          683,
+          199,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 51,
+        "xywh": [
+          589,
+          206,
+          7,
+          20
+        ],
+        "area": 38,
+        "removed": true
+      },
+      {
+        "component": 52,
+        "xywh": [
+          628,
+          206,
+          4,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 56,
+        "xywh": [
+          668,
+          208,
+          8,
+          6
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 57,
+        "xywh": [
+          706,
+          209,
+          6,
+          7
+        ],
+        "area": 12,
+        "removed": true
+      },
+      {
+        "component": 65,
+        "xywh": [
+          700,
+          214,
+          2,
+          3
+        ],
+        "area": 3,
+        "removed": true
+      },
+      {
+        "component": 66,
+        "xywh": [
+          614,
+          217,
+          4,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 68,
+        "xywh": [
+          633,
+          217,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 77,
+        "xywh": [
+          602,
+          221,
+          4,
+          6
+        ],
+        "area": 12,
+        "removed": true
+      },
+      {
+        "component": 88,
+        "xywh": [
+          561,
+          303,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 89,
+        "xywh": [
+          566,
+          307,
+          8,
+          8
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 91,
+        "xywh": [
+          726,
+          309,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 94,
+        "xywh": [
+          564,
+          319,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 97,
+        "xywh": [
+          436,
+          332,
+          7,
+          8
+        ],
+        "area": 13,
+        "removed": false
+      },
+      {
+        "component": 105,
+        "xywh": [
+          528,
+          363,
+          4,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 108,
+        "xywh": [
+          479,
+          372,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 110,
+        "xywh": [
+          522,
+          376,
+          4,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 119,
+        "xywh": [
+          742,
+          570,
+          8,
+          23
+        ],
+        "area": 83,
+        "removed": true
+      },
+      {
+        "component": 122,
+        "xywh": [
+          689,
+          611,
+          3,
+          8
+        ],
+        "area": 17,
+        "removed": false
+      },
+      {
+        "component": 126,
+        "xywh": [
+          684,
+          618,
+          12,
+          10
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 127,
+        "xywh": [
+          697,
+          628,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 128,
+        "xywh": [
+          701,
+          631,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 130,
+        "xywh": [
+          706,
+          635,
+          7,
+          6
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 134,
+        "xywh": [
+          687,
+          656,
+          4,
+          5
+        ],
+        "area": 11,
+        "removed": false
+      },
+      {
+        "component": 139,
+        "xywh": [
+          555,
+          674,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 140,
+        "xywh": [
+          564,
+          998,
+          1,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 144,
+        "xywh": [
+          519,
+          1114,
+          4,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 145,
+        "xywh": [
+          516,
+          1119,
+          3,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 146,
+        "xywh": [
+          505,
+          1124,
+          11,
+          17
+        ],
+        "area": 19,
+        "removed": false
+      },
+      {
+        "component": 147,
+        "xywh": [
+          776,
+          1135,
+          4,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 148,
+        "xywh": [
+          493,
+          1142,
+          7,
+          6
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 149,
+        "xywh": [
+          520,
+          1142,
+          5,
+          1
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 150,
+        "xywh": [
+          487,
+          1154,
+          3,
+          3
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 151,
+        "xywh": [
+          506,
+          1159,
+          5,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 154,
+        "xywh": [
+          478,
+          1161,
+          3,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      362,
+      26,
+      860,
+      1218
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch04\\Ready\\lv06-d-LD.png",
+    "preparedSha256": "32e6ced154cb3f0c83a522bdadaf3ba2de99a0fc63d6692b067bac488a67d17a",
+    "approved": true
+  },
+  {
+    "id": "lv07-c",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch04\\Source\\lv07-c-SD.png",
+    "sourceSha256": "e613bdcafe9475df363661e4a85fe02653c32fa3c5e28dfb26bec782dbb75864",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 7,
+        "xywh": [
+          511,
+          33,
+          4,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 8,
+        "xywh": [
+          509,
+          39,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          496,
+          57,
+          4,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          489,
+          59,
+          6,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 14,
+        "xywh": [
+          518,
+          69,
+          7,
+          7
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 17,
+        "xywh": [
+          748,
+          187,
+          11,
+          42
+        ],
+        "area": 179,
+        "removed": true
+      },
+      {
+        "component": 19,
+        "xywh": [
+          790,
+          218,
+          4,
+          8
+        ],
+        "area": 14,
+        "removed": true
+      },
+      {
+        "component": 23,
+        "xywh": [
+          490,
+          229,
+          10,
+          14
+        ],
+        "area": 45,
+        "removed": true
+      },
+      {
+        "component": 24,
+        "xywh": [
+          640,
+          228,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 25,
+        "xywh": [
+          648,
+          228,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 26,
+        "xywh": [
+          688,
+          229,
+          1,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 28,
+        "xywh": [
+          556,
+          232,
+          5,
+          2
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          582,
+          233,
+          4,
+          9
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 30,
+        "xywh": [
+          648,
+          233,
+          4,
+          6
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 31,
+        "xywh": [
+          678,
+          234,
+          9,
+          9
+        ],
+        "area": 15,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          548,
+          236,
+          15,
+          18
+        ],
+        "area": 77,
+        "removed": false
+      },
+      {
+        "component": 35,
+        "xywh": [
+          653,
+          242,
+          3,
+          2
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          495,
+          245,
+          5,
+          4
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 37,
+        "xywh": [
+          582,
+          246,
+          3,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 38,
+        "xywh": [
+          563,
+          255,
+          3,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 39,
+        "xywh": [
+          596,
+          262,
+          2,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 45,
+        "xywh": [
+          556,
+          287,
+          7,
+          8
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 46,
+        "xywh": [
+          712,
+          292,
+          2,
+          6
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 47,
+        "xywh": [
+          564,
+          295,
+          5,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 51,
+        "xywh": [
+          684,
+          496,
+          102,
+          186
+        ],
+        "area": 4144,
+        "removed": true
+      }
+    ],
+    "bbox": [
+      362,
+      14,
+      921,
+      1242
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch04\\Ready\\lv07-c-SD.png",
+    "preparedSha256": "f205fc21e5cbac08a0135bcff6cc77129e93976f4029b01568aa37e7cc0eb591",
+    "approved": true
+  },
+  {
+    "id": "lv07-c",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch04\\Source\\lv07-c-LD.png",
+    "sourceSha256": "9913c479bd7f1eb7880630d74b19235d334389b203deaee0ab38125e87de79d1",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 7,
+        "xywh": [
+          712,
+          54,
+          3,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          521,
+          66,
+          7,
+          8
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          491,
+          174,
+          4,
+          15
+        ],
+        "area": 37,
+        "removed": true
+      },
+      {
+        "component": 14,
+        "xywh": [
+          504,
+          191,
+          8,
+          12
+        ],
+        "area": 33,
+        "removed": true
+      },
+      {
+        "component": 15,
+        "xywh": [
+          631,
+          192,
+          8,
+          7
+        ],
+        "area": 24,
+        "removed": false
+      },
+      {
+        "component": 17,
+        "xywh": [
+          582,
+          196,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          665,
+          197,
+          4,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 19,
+        "xywh": [
+          553,
+          198,
+          14,
+          16
+        ],
+        "area": 56,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          639,
+          198,
+          4,
+          6
+        ],
+        "area": 12,
+        "removed": false
+      },
+      {
+        "component": 22,
+        "xywh": [
+          507,
+          202,
+          5,
+          7
+        ],
+        "area": 12,
+        "removed": true
+      },
+      {
+        "component": 24,
+        "xywh": [
+          593,
+          219,
+          2,
+          4
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 29,
+        "xywh": [
+          555,
+          228,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 33,
+        "xywh": [
+          560,
+          240,
+          9,
+          9
+        ],
+        "area": 10,
+        "removed": false
+      },
+      {
+        "component": 34,
+        "xywh": [
+          570,
+          249,
+          4,
+          3
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 36,
+        "xywh": [
+          668,
+          254,
+          10,
+          13
+        ],
+        "area": 25,
+        "removed": true
+      },
+      {
+        "component": 37,
+        "xywh": [
+          670,
+          436,
+          101,
+          216
+        ],
+        "area": 5820,
+        "removed": true
+      },
+      {
+        "component": 38,
+        "xywh": [
+          769,
+          654,
+          2,
+          5
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 40,
+        "xywh": [
+          789,
+          662,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      }
+    ],
+    "bbox": [
+      411,
+      15,
+      885,
+      1251
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch04\\Ready\\lv07-c-LD.png",
+    "preparedSha256": "f22f92533bfd0cbf5a2735ae99139c7380fb9dfccc050efdda0536fadb76bbb6",
+    "approved": true
+  },
+  {
+    "id": "lv07-d",
+    "kind": "SD",
+    "source": "Docs\\UIRefresh\\SkinBatch04\\Source\\lv07-d-SD.png",
+    "sourceSha256": "615c79fba13eba534960ebf59205d5f2f8ffebd03b06e8e917240d05099c0a59",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 2,
+        "xywh": [
+          737,
+          40,
+          3,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 3,
+        "xywh": [
+          470,
+          57,
+          13,
+          8
+        ],
+        "area": 32,
+        "removed": false
+      },
+      {
+        "component": 4,
+        "xywh": [
+          734,
+          219,
+          6,
+          31
+        ],
+        "area": 95,
+        "removed": true
+      },
+      {
+        "component": 5,
+        "xywh": [
+          671,
+          241,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          524,
+          255,
+          6,
+          10
+        ],
+        "area": 25,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          802,
+          254,
+          3,
+          3
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          530,
+          267,
+          8,
+          9
+        ],
+        "area": 20,
+        "removed": false
+      },
+      {
+        "component": 14,
+        "xywh": [
+          651,
+          314,
+          8,
+          7
+        ],
+        "area": 24,
+        "removed": true
+      },
+      {
+        "component": 18,
+        "xywh": [
+          671,
+          494,
+          104,
+          201
+        ],
+        "area": 5834,
+        "removed": true
+      },
+      {
+        "component": 19,
+        "xywh": [
+          782,
+          704,
+          5,
+          6
+        ],
+        "area": 12,
+        "removed": true
+      }
+    ],
+    "bbox": [
+      350,
+      25,
+      903,
+      1238
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch04\\Ready\\lv07-d-SD.png",
+    "preparedSha256": "05e56124a10846a1417d5264ec0bf35173bd135deb4a143a54798b1ab1b25edb",
+    "approved": true
+  },
+  {
+    "id": "lv07-d",
+    "kind": "LD",
+    "source": "Docs\\UIRefresh\\SkinBatch04\\Source\\lv07-d-LD.png",
+    "sourceSha256": "52a45fa95a1f0926b6e6031cb606e5b3321b82ea98f1a1865ca213863e7090e4",
+    "sourceMode": "RGB",
+    "alphaOnlyBeforeCanvasFit": true,
+    "holes": [
+      {
+        "component": 4,
+        "xywh": [
+          509,
+          50,
+          5,
+          4
+        ],
+        "area": 5,
+        "removed": false
+      },
+      {
+        "component": 7,
+        "xywh": [
+          717,
+          181,
+          5,
+          23
+        ],
+        "area": 54,
+        "removed": true
+      },
+      {
+        "component": 8,
+        "xywh": [
+          666,
+          199,
+          2,
+          2
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 9,
+        "xywh": [
+          668,
+          205,
+          2,
+          4
+        ],
+        "area": 4,
+        "removed": false
+      },
+      {
+        "component": 10,
+        "xywh": [
+          554,
+          208,
+          3,
+          1
+        ],
+        "area": 3,
+        "removed": false
+      },
+      {
+        "component": 12,
+        "xywh": [
+          548,
+          210,
+          10,
+          17
+        ],
+        "area": 40,
+        "removed": false
+      },
+      {
+        "component": 13,
+        "xywh": [
+          577,
+          210,
+          2,
+          5
+        ],
+        "area": 6,
+        "removed": false
+      },
+      {
+        "component": 18,
+        "xywh": [
+          635,
+          215,
+          4,
+          5
+        ],
+        "area": 8,
+        "removed": false
+      },
+      {
+        "component": 20,
+        "xywh": [
+          555,
+          255,
+          6,
+          5
+        ],
+        "area": 7,
+        "removed": false
+      },
+      {
+        "component": 21,
+        "xywh": [
+          647,
+          258,
+          9,
+          7
+        ],
+        "area": 28,
+        "removed": true
+      },
+      {
+        "component": 22,
+        "xywh": [
+          673,
+          425,
+          103,
+          211
+        ],
+        "area": 6068,
+        "removed": true
+      }
+    ],
+    "bbox": [
+      375,
+      24,
+      901,
+      1234
+    ],
+    "preparedPath": "Docs\\UIRefresh\\SkinBatch04\\Ready\\lv07-d-LD.png",
+    "preparedSha256": "1c209a2a54078fe74b9290a8be9ba188e1b8d0d3b54fb38756c57511d312cd06",
+    "approved": true
+  }
+]

@@ -1,0 +1,1251 @@
+{
+  "batch": "2026-08-28-06",
+  "method": "Reviewed reuse of historical built-in imagegen sources; authorized alpha-only background extraction and figure separation. No recoloring or replacement of installed art.",
+  "items": [
+    {
+      "id": "lv10-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-78b2019b-243c-44bd-8266-522c330604ea.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          800,
+          0
+        ],
+        [
+          800,
+          940
+        ],
+        [
+          0,
+          940
+        ]
+      ],
+      "holes": [
+        135,
+        172,
+        184,
+        268,
+        325,
+        338,
+        430,
+        438,
+        584
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Sun Sentinel cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: warm ivory and amber gold ceremonial armor over dark trousers. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            421,
+            489
+          ],
+          [
+            567,
+            624
+          ],
+          [
+            379,
+            356
+          ],
+          [
+            629,
+            406
+          ]
+        ],
+        "opaque": [
+          [
+            495,
+            430
+          ],
+          [
+            448,
+            650
+          ],
+          [
+            434,
+            760
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv10-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-78b2019b-243c-44bd-8266-522c330604ea.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          800,
+          0
+        ],
+        [
+          1671,
+          0
+        ],
+        [
+          1671,
+          940
+        ],
+        [
+          800,
+          940
+        ]
+      ],
+      "holes": [
+        2,
+        3,
+        4,
+        9,
+        15,
+        17,
+        26,
+        119
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Sun Sentinel cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: warm ivory and amber gold ceremonial armor over dark trousers. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            1177,
+            327
+          ],
+          [
+            1057,
+            195
+          ],
+          [
+            1046,
+            130
+          ],
+          [
+            1222,
+            136
+          ]
+        ],
+        "opaque": [
+          [
+            1137,
+            155
+          ],
+          [
+            1087,
+            460
+          ],
+          [
+            1240,
+            740
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv11-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-26c9d8e1-135d-4899-85fa-bba89cad40f5.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          720,
+          0
+        ],
+        [
+          720,
+          1023
+        ],
+        [
+          0,
+          1023
+        ]
+      ],
+      "holes": [
+        232,
+        335,
+        351,
+        423,
+        526
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Breeze Dance cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: mint and ivory dancer-ninja combat tunic, flowing teal ribbons, dark leggings. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            568,
+            554
+          ],
+          [
+            226,
+            583
+          ],
+          [
+            281,
+            494
+          ],
+          [
+            340,
+            483
+          ]
+        ],
+        "opaque": [
+          [
+            388,
+            460
+          ],
+          [
+            451,
+            663
+          ],
+          [
+            465,
+            806
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv11-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-26c9d8e1-135d-4899-85fa-bba89cad40f5.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          720,
+          0
+        ],
+        [
+          1535,
+          0
+        ],
+        [
+          1535,
+          1023
+        ],
+        [
+          720,
+          1023
+        ]
+      ],
+      "holes": [
+        6,
+        39,
+        54,
+        149,
+        155,
+        191,
+        210,
+        219,
+        293,
+        318,
+        384,
+        409,
+        447,
+        482,
+        659,
+        685,
+        698
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Breeze Dance cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: mint and ivory dancer-ninja combat tunic, flowing teal ribbons, dark leggings. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            1142,
+            357
+          ],
+          [
+            892,
+            584
+          ],
+          [
+            1194,
+            250
+          ],
+          [
+            905,
+            432
+          ]
+        ],
+        "opaque": [
+          [
+            1082,
+            168
+          ],
+          [
+            1127,
+            461
+          ],
+          [
+            1259,
+            958
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv11-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-19ec0629-463b-491a-88fe-1d871c2e648e.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          720,
+          0
+        ],
+        [
+          720,
+          1023
+        ],
+        [
+          0,
+          1023
+        ]
+      ],
+      "holes": [
+        52,
+        62,
+        63,
+        73,
+        79,
+        80,
+        91,
+        93,
+        95,
+        97,
+        101,
+        117,
+        119,
+        120,
+        121,
+        123,
+        124,
+        125,
+        127
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Scarlet Night cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: crimson and charcoal messenger jacket, gold belt and black boots. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            556,
+            631
+          ],
+          [
+            267,
+            651
+          ],
+          [
+            586,
+            672
+          ],
+          [
+            634,
+            504
+          ]
+        ],
+        "opaque": [
+          [
+            384,
+            472
+          ],
+          [
+            396,
+            604
+          ],
+          [
+            446,
+            845
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv11-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-19ec0629-463b-491a-88fe-1d871c2e648e.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          720,
+          0
+        ],
+        [
+          1535,
+          0
+        ],
+        [
+          1535,
+          1023
+        ],
+        [
+          720,
+          1023
+        ]
+      ],
+      "holes": [
+        3,
+        10,
+        24,
+        26,
+        29,
+        38,
+        40,
+        44,
+        51,
+        59,
+        83,
+        92,
+        94,
+        96,
+        104,
+        110
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Scarlet Night cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: crimson and charcoal messenger jacket, gold belt and black boots. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            1120,
+            214
+          ],
+          [
+            1263,
+            346
+          ],
+          [
+            1275,
+            505
+          ],
+          [
+            969,
+            195
+          ]
+        ],
+        "opaque": [
+          [
+            1023,
+            156
+          ],
+          [
+            1023,
+            300
+          ],
+          [
+            946,
+            935
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv12-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-abcbe225-5715-4f19-97e9-636269fc2488.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          705,
+          0
+        ],
+        [
+          705,
+          1023
+        ],
+        [
+          0,
+          1023
+        ]
+      ],
+      "holes": [
+        551,
+        621,
+        691,
+        716,
+        718,
+        762,
+        830,
+        869,
+        923,
+        944,
+        976,
+        1048,
+        1871,
+        1883,
+        1888,
+        1972
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Snow Blossom cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: pale ice-blue and ivory winter guardian jacket with silver flower trims. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "matteFringe": [
+        180,
+        75,
+        7
+      ],
+      "alphaProbes": {
+        "clear": [
+          [
+            93,
+            796
+          ],
+          [
+            83,
+            521
+          ],
+          [
+            656,
+            549
+          ],
+          [
+            131,
+            458
+          ]
+        ],
+        "opaque": [
+          [
+            340,
+            519
+          ],
+          [
+            331,
+            737
+          ],
+          [
+            441,
+            928
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv12-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-abcbe225-5715-4f19-97e9-636269fc2488.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          705,
+          0
+        ],
+        [
+          1535,
+          0
+        ],
+        [
+          1535,
+          1023
+        ],
+        [
+          705,
+          1023
+        ]
+      ],
+      "holes": [
+        72,
+        75,
+        82,
+        86,
+        87,
+        97,
+        99,
+        108,
+        114,
+        125,
+        139,
+        147,
+        169,
+        181,
+        190,
+        301,
+        339,
+        1103,
+        1188,
+        1199,
+        1249
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Snow Blossom cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: pale ice-blue and ivory winter guardian jacket with silver flower trims. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "matteFringe": [
+        180,
+        75,
+        7
+      ],
+      "alphaProbes": {
+        "clear": [
+          [
+            996,
+            209
+          ],
+          [
+            1339,
+            611
+          ],
+          [
+            758,
+            566
+          ],
+          [
+            761,
+            269
+          ]
+        ],
+        "opaque": [
+          [
+            1035,
+            199
+          ],
+          [
+            986,
+            515
+          ],
+          [
+            1030,
+            59
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv13-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-627be117-1827-4bc1-a91a-3368aa88a778.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          725,
+          0
+        ],
+        [
+          725,
+          1023
+        ],
+        [
+          0,
+          1023
+        ]
+      ],
+      "holes": [
+        23,
+        34,
+        39,
+        47,
+        60
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Amber Lantern cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: warm amber and dark brown festival ninja coat with tiny lantern-shaped ornaments. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            290,
+            371
+          ],
+          [
+            182,
+            484
+          ],
+          [
+            242,
+            261
+          ],
+          [
+            160,
+            370
+          ]
+        ],
+        "opaque": [
+          [
+            425,
+            441
+          ],
+          [
+            400,
+            653
+          ],
+          [
+            512,
+            865
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv13-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-627be117-1827-4bc1-a91a-3368aa88a778.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          725,
+          0
+        ],
+        [
+          1535,
+          0
+        ],
+        [
+          1535,
+          1023
+        ],
+        [
+          725,
+          1023
+        ]
+      ],
+      "holes": [
+        3,
+        6,
+        8,
+        16,
+        22,
+        24
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Amber Lantern cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: warm amber and dark brown festival ninja coat with tiny lantern-shaped ornaments. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            979,
+            197
+          ],
+          [
+            911,
+            245
+          ],
+          [
+            999,
+            259
+          ],
+          [
+            959,
+            71
+          ]
+        ],
+        "opaque": [
+          [
+            1099,
+            184
+          ],
+          [
+            1047,
+            444
+          ],
+          [
+            970,
+            951
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv13-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-bb431384-aeb2-4538-aa5b-dbb827795722.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          725,
+          0
+        ],
+        [
+          725,
+          1023
+        ],
+        [
+          0,
+          1023
+        ]
+      ],
+      "holes": [
+        110,
+        135,
+        176,
+        191,
+        237,
+        270,
+        327,
+        337,
+        389,
+        394,
+        419
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Glass Mist cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: cool slate and cyan tunic with translucent-looking rigid crystal accents. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            287,
+            381
+          ],
+          [
+            507,
+            628
+          ],
+          [
+            191,
+            470
+          ],
+          [
+            469,
+            590
+          ]
+        ],
+        "opaque": [
+          [
+            435,
+            428
+          ],
+          [
+            430,
+            702
+          ],
+          [
+            490,
+            825
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv13-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-bb431384-aeb2-4538-aa5b-dbb827795722.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          725,
+          0
+        ],
+        [
+          1535,
+          0
+        ],
+        [
+          1535,
+          1023
+        ],
+        [
+          725,
+          1023
+        ]
+      ],
+      "holes": [
+        15,
+        17,
+        35,
+        76,
+        111,
+        147
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Glass Mist cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: cool slate and cyan tunic with translucent-looking rigid crystal accents. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            967,
+            207
+          ],
+          [
+            1201,
+            434
+          ],
+          [
+            899,
+            245
+          ],
+          [
+            1144,
+            389
+          ]
+        ],
+        "opaque": [
+          [
+            1080,
+            184
+          ],
+          [
+            1136,
+            555
+          ],
+          [
+            933,
+            940
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv14-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-7e3bbdba-11db-4c59-8abd-9aae4b4aaf42.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          775,
+          0
+        ],
+        [
+          775,
+          915
+        ],
+        [
+          0,
+          915
+        ]
+      ],
+      "holes": [
+        84,
+        111,
+        133
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Amethyst Oath cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: rich purple and ivory armored robe, small amethyst brooch and gold edges. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            370,
+            460
+          ],
+          [
+            216,
+            388
+          ],
+          [
+            222,
+            457
+          ]
+        ],
+        "opaque": [
+          [
+            478,
+            460
+          ],
+          [
+            451,
+            675
+          ],
+          [
+            372,
+            772
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv14-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-7e3bbdba-11db-4c59-8abd-9aae4b4aaf42.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          775,
+          0
+        ],
+        [
+          1716,
+          0
+        ],
+        [
+          1716,
+          915
+        ],
+        [
+          775,
+          915
+        ]
+      ],
+      "holes": [
+        6,
+        8,
+        17,
+        21,
+        102
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Amethyst Oath cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: rich purple and ivory armored robe, small amethyst brooch and gold edges. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            1145,
+            169
+          ],
+          [
+            1022,
+            162
+          ],
+          [
+            1340,
+            384
+          ],
+          [
+            1025,
+            215
+          ]
+        ],
+        "opaque": [
+          [
+            1227,
+            172
+          ],
+          [
+            1190,
+            525
+          ],
+          [
+            1351,
+            838
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv14-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-74897ec2-0b4e-4fe1-9b4c-601baa2e318d.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          0,
+          0
+        ],
+        [
+          745,
+          0
+        ],
+        [
+          745,
+          550
+        ],
+        [
+          690,
+          550
+        ],
+        [
+          690,
+          940
+        ],
+        [
+          0,
+          940
+        ]
+      ],
+      "holes": [
+        141,
+        232,
+        572
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Ocean Oath cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: deep sea-blue longcoat, silver wave-shaped trim and turquoise accessories. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            208,
+            356
+          ],
+          [
+            520,
+            575
+          ],
+          [
+            209,
+            413
+          ]
+        ],
+        "opaque": [
+          [
+            450,
+            433
+          ],
+          [
+            517,
+            657
+          ],
+          [
+            348,
+            803
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    },
+    {
+      "id": "lv14-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-74897ec2-0b4e-4fe1-9b4c-601baa2e318d.png",
+      "half": null,
+      "keepPolygon": [
+        [
+          745,
+          0
+        ],
+        [
+          1671,
+          0
+        ],
+        [
+          1671,
+          940
+        ],
+        [
+          690,
+          940
+        ],
+        [
+          690,
+          550
+        ],
+        [
+          745,
+          550
+        ]
+      ],
+      "holes": [
+        12,
+        14,
+        27,
+        110,
+        211
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create the Ocean Oath cosmetic skin for the exact female ninja in the base SD and LD references. Costume only: deep sea-blue longcoat, silver wave-shaped trim and turquoise accessories. Preserve recognizable face, eye shape/color, hair color/style, signature weapon or magical prop and age presentation. Use each base reference's own natural anatomy, proportions, expression, stance and cel-shaded dark linework; do not impose a universal head-to-body ratio. Do not use the rejected lv01-b cleanup redraw as reference. The SD and LD versions must depict identical costume construction, palette and accessories; keep a consistent identity and do not change the face between variants. Make the costume distinct in construction, not just recolored. Output only the explicitly requested SD or LD variant as one full-body sprite on its own canvas with all weapons and shoes inside the margin. Actual transparent RGBA required. No white backdrop substitute or painted checkerboard. No stiff mannequin stance, generic doll face, glossy 3D rendering, exaggerated anatomy, ground shadow, labels or watermark.",
+      "promptProvenance": "Planning prompt retained in skins-96-plan.json; exact historical generation call is not stored in Generated record. This batch reuses the existing source, with no new generation call.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            1069,
+            173
+          ],
+          [
+            1053,
+            375
+          ],
+          [
+            951,
+            145
+          ],
+          [
+            1271,
+            390
+          ]
+        ],
+        "opaque": [
+          [
+            1145,
+            156
+          ],
+          [
+            1107,
+            580
+          ],
+          [
+            1258,
+            854
+          ]
+        ]
+      },
+      "reviewNotes": "Dark/light review: identity, matched outfit and props, enclosed matte gaps, white garment/highlight opacity, and full weapon silhouette checked. Source RGB unchanged."
+    }
+  ]
+}

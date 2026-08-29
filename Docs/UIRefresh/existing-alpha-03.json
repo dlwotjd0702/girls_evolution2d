@@ -1,0 +1,145 @@
+{
+  "method": "User-authorized alpha-only cleanup, no RGB or canvas change",
+  "items": [
+    {
+      "key": "lv04-a-SD",
+      "path": "Assets/Art/Characters/Skins/lv04-a-SD.png",
+      "beforeSha256": "9bb33787a28a2c78d461ebd67ee6f63c117960b585f381961ff91c867755f0f3",
+      "components": [
+        7,
+        18,
+        38,
+        55,
+        79,
+        80,
+        97,
+        118
+      ],
+      "edgeRegions": [
+        [
+          90,
+          20,
+          420,
+          350
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch03/ExistingAlpha/alpha-review-sheet.jpg"
+    },
+    {
+      "key": "lv05-a-SD",
+      "path": "Assets/Art/Characters/Skins/lv05-a-SD.png",
+      "beforeSha256": "84326e4d5e29dfe2bd7405196d5b07ddfeb92c722c8a5a339c23785829b5e400",
+      "components": [
+        5,
+        6,
+        7,
+        12,
+        21,
+        48,
+        49,
+        51,
+        53,
+        59,
+        70,
+        117
+      ],
+      "edgeRegions": [
+        [
+          100,
+          20,
+          405,
+          230
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch03/ExistingAlpha/alpha-review-sheet.jpg"
+    },
+    {
+      "key": "lv05-a-LD",
+      "path": "Assets/Art/Characters/Skins/lv05-a-LD.png",
+      "beforeSha256": "1e507fa8d880045c345e79c280fbbad0b69d360c88171f1f1d8b260eb1d8d372",
+      "components": [
+        26,
+        34,
+        36,
+        39,
+        45,
+        59,
+        65,
+        71,
+        86,
+        111,
+        115,
+        180,
+        205,
+        2
+      ],
+      "edgeRegions": [
+        [
+          285,
+          25,
+          740,
+          990
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.8,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch03/ExistingAlpha/alpha-review-sheet.jpg"
+    },
+    {
+      "key": "lv05-b-SD",
+      "path": "Assets/Art/Characters/Skins/lv05-b-SD.png",
+      "beforeSha256": "6a612f760ad25a4bcfab1c96b578cdcf5dcc647f8806c717f049727a5ae6d8fa",
+      "components": [
+        7,
+        12,
+        26
+      ],
+      "edgeRegions": [
+        [
+          110,
+          20,
+          395,
+          205
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch03/ExistingAlpha/alpha-review-sheet.jpg"
+    },
+    {
+      "key": "lv05-b-LD",
+      "path": "Assets/Art/Characters/Skins/lv05-b-LD.png",
+      "beforeSha256": "ecf6a6809bd618ff45ff4bbb94910684eb5eb5deb21bcb9f54091e68e0473304",
+      "components": [
+        30,
+        34,
+        55,
+        56,
+        57,
+        73,
+        75,
+        78
+      ],
+      "edgeRegions": [
+        [
+          340,
+          30,
+          605,
+          205
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.45,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch03/ExistingAlpha/alpha-review-sheet.jpg"
+    }
+  ],
+  "inspectedWithoutChanges": [
+    "lv04-a-LD",
+    "lv04-b-SD",
+    "lv04-b-LD"
+  ]
+}

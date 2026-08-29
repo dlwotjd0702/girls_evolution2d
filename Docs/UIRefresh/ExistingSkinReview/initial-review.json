@@ -1,0 +1,298 @@
+{
+  "scope": "20 initial registered pairs; final detailed visual review complete, with explicit corrections recorded separately from alpha-only cleanup.",
+  "records": [
+    {
+      "id": "lv01-a",
+      "level": 1,
+      "status": "approved",
+      "initialFindings": "Review LD proportions against original compact base LD; inspect fine hair/foot alpha at full size. Costume pair otherwise matches.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained. Original accepted LD proportions retained; rejected cleanup redraw was never used.",
+      "finalAlphaRepairs": [
+        "lv01-a-SD"
+      ],
+      "finalSha256": {
+        "SD": "21b150b9a767e93fe3306a7a79ad16e5fd54c14fcf39d102dd2586d7f8d387a5",
+        "LD": "d2d82c108ac10fb66dbd9c71a7b35e19ac42d7e6314f459c16e41ab192abb58d"
+      }
+    },
+    {
+      "id": "lv01-b",
+      "level": 1,
+      "status": "approved",
+      "initialFindings": "Review LD proportions against original compact base LD; inspect hair alpha. Never use rejected cleanup redraw.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained. Original accepted LD proportions retained; rejected cleanup redraw was never used.",
+      "finalAlphaRepairs": [
+        "lv01-b-SD",
+        "lv01-b-LD"
+      ],
+      "finalSha256": {
+        "SD": "7701d70f9f730ad7ed50d7ce5a15754192b79f1f4e053ccb616b258354fda589",
+        "LD": "b5f7c0500ce36a098b111d49a564d366ca299af50ac51cf42fef31c8b02945dc"
+      }
+    },
+    {
+      "id": "lv02-a",
+      "level": 2,
+      "status": "approved",
+      "initialFindings": "Identity and costume match in overview; full-resolution alpha review pending.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [
+        "lv02-a-LD"
+      ],
+      "finalSha256": {
+        "SD": "c2358c2be1131177df7fe14b3a7cb3b21662f81ee72812e09ee6043aaf7f72e2",
+        "LD": "5edb11eafbd05f4fb0d4b2f31a05a2c13615668fc45b7fbc86f8fb321d9a9a16"
+      }
+    },
+    {
+      "id": "lv02-b",
+      "level": 2,
+      "status": "approved",
+      "initialFindings": "White enclosed gaps at hair ribbons in both variants need alpha review. White cape is intentional.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [],
+      "finalSha256": {
+        "SD": "888e4be8ab6d47c227a94f0429ced91a0e14e79949d2fc7149c7acf40a280732",
+        "LD": "de586c6914958d106cee5e7888fec053dffb67a69559e49a38d2326712b9da18"
+      }
+    },
+    {
+      "id": "lv03-a",
+      "level": 3,
+      "status": "approved",
+      "initialFindings": "Costume and LD identity match; full-resolution edge/alpha review pending.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [],
+      "finalSha256": {
+        "SD": "696acef8bea8303af1c6a988e343bb5eb42d9dad3f2d2aa6cbf1756bea9dc372",
+        "LD": "7d94b3274c46adf1e049181367ddf7a034df5f3843e43fde496dbe7ab8b8e9ba"
+      }
+    },
+    {
+      "id": "lv03-b",
+      "level": 3,
+      "status": "approved",
+      "initialFindings": "Silver dragon armor highlights intentional; inspect hair-edge matte, preserve armor.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [
+        "lv03-b-LD"
+      ],
+      "finalSha256": {
+        "SD": "62f38ed17bc944859191b62a7040ae4b840223602a6ac4321c768224e093327e",
+        "LD": "7296780b1895a17bc7ef335ae5f9c19702d7425d660443e2ffb7bbfea464fa32"
+      }
+    },
+    {
+      "id": "lv04-a",
+      "level": 4,
+      "status": "approved",
+      "initialFindings": "Costume/identity match; prior SD alpha repaired in Batch03. Final full-resolution review pending.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [],
+      "finalSha256": {
+        "SD": "789ae2ab0e3d62f05763369ad9a5db616b49e415c5b2edbc22e0083349959d36",
+        "LD": "5d6697cab2554c154db35b776617cf774d81f4e884d19d5cd99e672f99711a8b"
+      }
+    },
+    {
+      "id": "lv04-b",
+      "level": 4,
+      "status": "approved",
+      "initialFindings": "Costume/identity match in overview; no visible large matte holes. Full-resolution review pending.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [],
+      "finalSha256": {
+        "SD": "2505a6742aa876176fb1a64ffc7ef3d7c061a3c0802cc8006b2449ca0201aaf1",
+        "LD": "dcf678564ca6caca9d536949ac93c97a8a2a177e57eccb2083c6f988833471ed"
+      }
+    },
+    {
+      "id": "lv05-a",
+      "level": 5,
+      "status": "approved",
+      "initialFindings": "Costume/identity match; green eyes agree with base LD. Prior SD/LD alpha repaired.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [
+        "lv05-a-SD"
+      ],
+      "finalSha256": {
+        "SD": "7277b5c34bc9a3f4224a6de069a8bb720188cb87d74a4d9624197354b56fb628",
+        "LD": "be18aa2ebd964aa5a7c8364dabafefff9d1dc67de86e62fb4458b637200186b8"
+      }
+    },
+    {
+      "id": "lv05-b",
+      "level": 5,
+      "status": "approved",
+      "initialFindings": "SD hood raised but LD hood lowered: actual outfit presentation mismatch, repair one variant with imagegen. Prior alpha repaired; preserve revision provenance.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained. LD raised hood corrected to match SD; see SkinBatch17/replacements.json.",
+      "finalAlphaRepairs": [
+        "lv05-b-SD"
+      ],
+      "finalSha256": {
+        "SD": "01e861bfe64e0d516e61441d7748e5794de07f7ea3da4eb04a63a5459a3436be",
+        "LD": "2ab0913d6ea31989226656b164792a16c806b4c4d0fae82bf3f6d8bc59a6b4cb"
+      }
+    },
+    {
+      "id": "violet-festival",
+      "level": 6,
+      "status": "approved",
+      "initialFindings": "Costume/identity match; verify sword edge and hair alpha without removing metal highlights.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [
+        "violet-festival-SD",
+        "violet-festival-LD"
+      ],
+      "finalSha256": {
+        "SD": "9d8189d1eb6e500aba7e37b6e265e2ca609cedf396c398c906070208e571d2fd",
+        "LD": "778c1d7b319197ed2be9b988a53a762a9c7eca28493ba2fe849ab565abfaf11f"
+      }
+    },
+    {
+      "id": "lv06-b",
+      "level": 6,
+      "status": "approved",
+      "initialFindings": "White hair/ear-side gap in SD and coat/arm gaps need alpha review.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [
+        "lv06-b-LD"
+      ],
+      "finalSha256": {
+        "SD": "1e42c7391afc2d8219965c48b6112afc8bc20606adb03d2fec13217429de9726",
+        "LD": "0369faef56769c8ada7cdf1b4897b39bfeee0586d69ecc99eb72bd27e4e4655d"
+      }
+    },
+    {
+      "id": "lv07-a",
+      "level": 7,
+      "status": "approved",
+      "initialFindings": "Costume/identity match; full-resolution alpha review pending.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [],
+      "finalSha256": {
+        "SD": "fb215e18ad49257d6f8829ec9aa935d6faf5ce355eedeab738b163252fb4a978",
+        "LD": "ad50875c8f58546a74dce995e498503732f977a4d6303cd23f2181b186f5988e"
+      }
+    },
+    {
+      "id": "lv07-b",
+      "level": 7,
+      "status": "approved",
+      "initialFindings": "Costume/identity match; full-resolution alpha review pending.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [
+        "lv07-b-SD",
+        "lv07-b-LD"
+      ],
+      "finalSha256": {
+        "SD": "7af79ee8e08ba1ba9f4e9aadc8c08143f6f06b7620bdbea9bd282232b8d272c5",
+        "LD": "f1bea647bfab8328fa8862c95c5fc4acbf71044957faa869585b5a5ad65df277"
+      }
+    },
+    {
+      "id": "lv08-a",
+      "level": 8,
+      "status": "approved",
+      "initialFindings": "Visible white enclosed hair/ribbon gaps in SD and LD require alpha cleanup. Preserve ivory sleeves and lotus patterns.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [],
+      "finalSha256": {
+        "SD": "87d83d088d6d0b7bd79061a9becd94f380ffce92d8e8a8d2f48305899cf53c32",
+        "LD": "544b4eefd63b18f65b8345fa4b12e140976389e2b371af379e8ca94efb8a186c"
+      }
+    },
+    {
+      "id": "lv08-b",
+      "level": 8,
+      "status": "approved",
+      "initialFindings": "Visible white enclosed hair/ribbon gaps in SD and LD require alpha cleanup. Preserve aurora sleeve highlights.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [],
+      "finalSha256": {
+        "SD": "462dafd3d1cace483b309ceba059fd0861e968fc24b33ada4c8da038abb3848c",
+        "LD": "3b22fed9e6461047e716070c811fd6ca9be307e008d032a236db2d9507c0b41f"
+      }
+    },
+    {
+      "id": "lv09-a",
+      "level": 9,
+      "status": "approved",
+      "initialFindings": "Visible white gap beneath side hair/cheek in SD, inspect LD as well. Preserve ivory garment.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [
+        "lv09-a-LD"
+      ],
+      "finalSha256": {
+        "SD": "e74dc81478d30e4b06e31e8fe847287bed54113a985ffbdb0b7624b4e9551f37",
+        "LD": "c72a88ed690b99dcdc74d28f546e04f90af165aa977c5a9027c28c88c1edfda1"
+      }
+    },
+    {
+      "id": "jade-garden",
+      "level": 12,
+      "status": "approved",
+      "initialFindings": "Identity/costume match; inspect pale green fringe on braids and hair-tie gaps.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [],
+      "finalSha256": {
+        "SD": "6c830dedc619457e5d5186a0c67d5567468cd514345e161379e2251944a38095",
+        "LD": "4887fb0b7600644410a065ec11627b41e35e68e41f8ea157c39d5c306e531baa"
+      }
+    },
+    {
+      "id": "moon-patrol",
+      "level": 17,
+      "status": "approved",
+      "initialFindings": "SD glowing sword is on opposite side from base and LD; correct SD hand/prop arrangement while preserving costume and identity.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained. SD drawn cyan sword moved to canvas right to match LD/base; see SkinBatch17/replacements.json.",
+      "finalAlphaRepairs": [
+        "moon-patrol-LD"
+      ],
+      "finalSha256": {
+        "SD": "62e2fc4ae63ec001b9d2dfc3b6f3e60cdad49d0e0c701cf32a86276ac14a16fa",
+        "LD": "1952a2d6629c125aff3755718b6382286c289bc007556a318ff370e7803672a4"
+      }
+    },
+    {
+      "id": "rose-oath",
+      "level": 23,
+      "status": "approved",
+      "initialFindings": "Costume/identity match; LD alpha previously repaired. Full-resolution SD hair/cape gaps review pending; white fabric intentional.",
+      "reviewedAt": "2026-08-29",
+      "resolution": "Compared base identity and SD/LD hair, eyes, costume construction, accessories, weapons and natural anatomy; inspected full-body and detail views. Reviewed actual alpha on light/dark backgrounds; intentional white cloth, metal and hair highlights retained.",
+      "finalAlphaRepairs": [
+        "rose-oath-SD"
+      ],
+      "finalSha256": {
+        "SD": "8847248581959cd9c38817c551b4f353c624dd81dd110551050329d38b0ea022",
+        "LD": "7ef0eab710149904d65c6d84e8173a3b2a848f5f3f1d928194a79a52e61870cf"
+      }
+    }
+  ],
+  "evidence": [
+    "final-detail-01.jpg through final-detail-10.jpg (pre-correction inspection)",
+    "../SkinBatch17/replacements.json (2 approved redraws)",
+    "../SkinBatch18/ExistingAlpha/report.json (15 approved alpha-only refinements)",
+    "../SkinBatch18/ExistingAlpha/final-review-1.jpg through final-review-4.jpg (post-repair inspection)"
+  ]
+}

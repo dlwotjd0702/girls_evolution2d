@@ -1,0 +1,484 @@
+{
+  "skins": [
+    {
+      "level": 1,
+      "slot": 0,
+      "id": "lv01-a",
+      "koreanName": "연꽃 수련",
+      "englishName": "Lotus Novice",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/1.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Lotus Novice cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to soft peach and ivory layered training tunic, lotus clasp, dark leggings. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 1,
+      "slot": 1,
+      "id": "lv01-b",
+      "koreanName": "흑월 잠행",
+      "englishName": "Black Moon",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/1.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Black Moon cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to midnight blue short stealth coat, silver crescent pins, wrapped boots. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 2,
+      "slot": 0,
+      "id": "lv02-a",
+      "koreanName": "대나무 척후",
+      "englishName": "Bamboo Scout",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/2.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Bamboo Scout cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to jade and cream scout jacket, bamboo leaf embroidery, practical shorts over leggings. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 2,
+      "slot": 1,
+      "id": "lv02-b",
+      "koreanName": "은설 유랑",
+      "englishName": "Silver Snow",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/2.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Silver Snow cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to ivory winter cloak over slate fitted ninja uniform, silver snowflake clasp. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 3,
+      "slot": 0,
+      "id": "lv03-a",
+      "koreanName": "홍매 서신",
+      "englishName": "Red Plum Scroll",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/3.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Red Plum cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to red plum blossom-pattern kimono jacket, gold sash, dark sword trousers. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 3,
+      "slot": 1,
+      "id": "lv03-b",
+      "koreanName": "청룡 호위",
+      "englishName": "Azure Dragon",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/3.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Azure Dragon cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to azure and navy armored haori, silver dragon-scale shoulder guards. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 4,
+      "slot": 0,
+      "id": "lv04-a",
+      "koreanName": "단풍 밀사",
+      "englishName": "Maple Courier",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/4.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Maple Courier cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to rust-red autumn travel jacket, maple clasp, cream scarf. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 4,
+      "slot": 1,
+      "id": "lv04-b",
+      "koreanName": "유성 추적",
+      "englishName": "Meteor Tracker",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/4.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Meteor Tracker cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to dark violet star-trim longcoat, bronze shooting-star belt, travel boots. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 5,
+      "slot": 0,
+      "id": "lv05-a",
+      "koreanName": "비취 호위",
+      "englishName": "Jade Escort",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/5.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Jade Escort cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to jade short military coat with ivory piping and leaf-shaped pauldrons. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 5,
+      "slot": 1,
+      "id": "lv05-b",
+      "koreanName": "황혼 사냥",
+      "englishName": "Twilight Hunt",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/5.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Twilight Hunt cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to aubergine hooded shoulder cape, dark burgundy tunic, gold trim. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 6,
+      "slot": 0,
+      "id": "violet-festival",
+      "koreanName": "보랏빛 축제",
+      "englishName": "Violet Festival",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/6.png",
+      "prompt": "Use case: identity-preserve. Create a production skin sprite pair for this exact referenced adult female anime ninja, keeping face, hair color and recognizable weapon identity. Violet Festival skin: deep violet fully covered short festival kimono jacket over dark trousers, pale gold waist sash, tiny violet blossom hair ornament, dark purple blunt bob, purple eyes, single katana and trailing plum scarf. Preserve face and bob identity. Elegant modest ninja costume. One horizontal image divided into TWO equal-width cells: LEFT shows the skin in cute SD big-head chibi game proportions, RIGHT shows the SAME skin in taller 5.5-head LD proportions. Both full-body, both feet visible, centered in their own cell, no overlap across center, each complete character and all props inside its half with 8% outer margin. SD height about 65% of cell height; LD height about 86%. Identical costume details and palette across pair, clean cel shading matching reference, two arms and two legs each, clear hands. Actual transparent RGBA background, no ground shadow, no scenery, no labels, no letters, no divider line, no text, no watermark. If transparency cannot be supplied use entirely flat pure white, NEVER checkerboard.",
+      "existing": true
+    },
+    {
+      "level": 6,
+      "slot": 1,
+      "id": "lv06-b",
+      "koreanName": "백야 검무",
+      "englishName": "White Night",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/6.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the White Night cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to ivory and cool violet formal sword jacket with silver trim, dark fitted trousers. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 7,
+      "slot": 0,
+      "id": "lv07-a",
+      "koreanName": "벚꽃 행진",
+      "englishName": "Sakura March",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/7.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Sakura March cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to pale pink cherry blossom combat haori with burgundy sash. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 7,
+      "slot": 1,
+      "id": "lv07-b",
+      "koreanName": "청동 파수",
+      "englishName": "Bronze Watch",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/7.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Bronze Watch cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to dark teal military jacket with bronze lamellar armor and matching boots. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 8,
+      "slot": 0,
+      "id": "lv08-a",
+      "koreanName": "수련 축제",
+      "englishName": "Water Lily",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/8.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Water Lily cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to ivory and mint festival kimono with water lily embroidery, gold waist sash. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 8,
+      "slot": 1,
+      "id": "lv08-b",
+      "koreanName": "극광 유람",
+      "englishName": "Aurora Wanderer",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/8.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Aurora Wanderer cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to midnight and iridescent aqua travel coat with aurora gradient sleeve edges. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 9,
+      "slot": 0,
+      "id": "lv09-a",
+      "koreanName": "먹향 서고",
+      "englishName": "Ink Archive",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/9.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Ink Archive cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to ivory scholarly ninja robe with dark ink brush motifs and dark sash. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 9,
+      "slot": 1,
+      "id": "lv09-b",
+      "koreanName": "홍련 봉인",
+      "englishName": "Crimson Seal",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/9.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Crimson Seal cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to deep red sealed-scroll ninja coat, black gloves, restrained gold rune motifs. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 10,
+      "slot": 0,
+      "id": "lv10-a",
+      "koreanName": "달빛 항해",
+      "englishName": "Moon Voyage",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/10.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Moon Voyage cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to navy nautical ninja jacket with silver wave embroidery and cream sash. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 10,
+      "slot": 1,
+      "id": "lv10-b",
+      "koreanName": "태양 수호",
+      "englishName": "Sun Sentinel",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/10.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Sun Sentinel cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to warm ivory and amber gold ceremonial armor over dark trousers. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 11,
+      "slot": 0,
+      "id": "lv11-a",
+      "koreanName": "청풍 무희",
+      "englishName": "Breeze Dance",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/11.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Breeze Dance cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to mint and ivory dancer-ninja combat tunic, flowing teal ribbons, dark leggings. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 11,
+      "slot": 1,
+      "id": "lv11-b",
+      "koreanName": "적야 전령",
+      "englishName": "Scarlet Night",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/11.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Scarlet Night cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to crimson and charcoal messenger jacket, gold belt and black boots. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 12,
+      "slot": 0,
+      "id": "jade-garden",
+      "koreanName": "비취 정원",
+      "englishName": "Jade Garden",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/12.png",
+      "prompt": "Use case: identity-preserve. Create a production skin sprite pair for this exact referenced adult female anime ninja, keeping face, hair color and recognizable weapon identity. Jade Garden skin: jade and cream leaf-pattern closed tunic, green short armored skirt over shorts, gold belt, leaf hair clip and two long teal braids with blunt bangs, green eyes, leaf-shaped wrist guards and green boots. Preserve recognizable hairstyle. Adult ninja garden guardian. One horizontal image divided into TWO equal-width cells: LEFT shows the skin in cute SD big-head chibi game proportions, RIGHT shows the SAME skin in taller 5.5-head LD proportions. Both full-body, both feet visible, centered in their own cell, no overlap across center, each complete character and all props inside its half with 8% outer margin. SD height about 65% of cell height; LD height about 86%. Identical costume details and palette across pair, clean cel shading matching reference, two arms and two legs each, clear hands. Actual transparent RGBA background, no ground shadow, no scenery, no labels, no letters, no divider line, no text, no watermark. If transparency cannot be supplied use entirely flat pure white, NEVER checkerboard.",
+      "existing": true
+    },
+    {
+      "level": 12,
+      "slot": 1,
+      "id": "lv12-b",
+      "koreanName": "설원의 꽃",
+      "englishName": "Snow Blossom",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/12.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Snow Blossom cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to pale ice-blue and ivory winter guardian jacket with silver flower trims. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 13,
+      "slot": 0,
+      "id": "lv13-a",
+      "koreanName": "금빛 등불",
+      "englishName": "Amber Lantern",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/13.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Amber Lantern cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to warm amber and dark brown festival ninja coat with tiny lantern-shaped ornaments. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 13,
+      "slot": 1,
+      "id": "lv13-b",
+      "koreanName": "유리 안개",
+      "englishName": "Glass Mist",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/13.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Glass Mist cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to cool slate and cyan tunic with translucent-looking rigid crystal accents. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 14,
+      "slot": 0,
+      "id": "lv14-a",
+      "koreanName": "자수정 서약",
+      "englishName": "Amethyst Oath",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/14.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Amethyst Oath cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to rich purple and ivory armored robe, small amethyst brooch and gold edges. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 14,
+      "slot": 1,
+      "id": "lv14-b",
+      "koreanName": "청해 맹세",
+      "englishName": "Ocean Oath",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/14.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Ocean Oath cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to deep sea-blue longcoat, silver wave-shaped trim and turquoise accessories. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 15,
+      "slot": 0,
+      "id": "lv15-a",
+      "koreanName": "금빛 해오름",
+      "englishName": "Golden Dawn",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/15.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Golden Dawn cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to ivory and warm gold dawn ceremonial tunic, gold shoulder guards. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 15,
+      "slot": 1,
+      "id": "lv15-b",
+      "koreanName": "흑장미 결의",
+      "englishName": "Black Rose",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/15.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Black Rose cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to black and burgundy military-style coat with rose clasp and silver buttons. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 16,
+      "slot": 0,
+      "id": "lv16-a",
+      "koreanName": "매화 호위",
+      "englishName": "Plum Guard",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Plum Guard cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to cream jacket with plum blossom motifs, burgundy sash, dark boots. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 16,
+      "slot": 1,
+      "id": "lv16-b",
+      "koreanName": "월식 지휘",
+      "englishName": "Eclipse Command",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Eclipse Command cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to charcoal and violet commander coat with restrained silver eclipse emblem. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 17,
+      "slot": 0,
+      "id": "moon-patrol",
+      "koreanName": "월광 순찰",
+      "englishName": "Moon Patrol",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/17.png",
+      "prompt": "Use case: identity-preserve. Create a production skin sprite pair for this exact referenced adult female anime ninja, keeping face, hair color and recognizable weapon identity. Moon Patrol skin: midnight navy and silver armored long jacket over dark trousers, crescent silver shoulder plate, cyan glowing katana, small silver necklace. Teal bob hair and cyan eyes unchanged. Adult ninja moon knight. One horizontal image divided into TWO equal-width cells: LEFT shows the skin in cute SD big-head chibi game proportions, RIGHT shows the SAME skin in taller 5.5-head LD proportions. Both full-body, both feet visible, centered in their own cell, no overlap across center, each complete character and all props inside its half with 8% outer margin. SD height about 65% of cell height; LD height about 86%. Identical costume details and palette across pair, clean cel shading matching reference, two arms and two legs each, clear hands. Actual transparent RGBA background, no ground shadow, no scenery, no labels, no letters, no divider line, no text, no watermark. If transparency cannot be supplied use entirely flat pure white, NEVER checkerboard.",
+      "existing": true
+    },
+    {
+      "level": 17,
+      "slot": 1,
+      "id": "lv17-b",
+      "koreanName": "청옥 기사",
+      "englishName": "Sapphire Knight",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/17.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Sapphire Knight cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to royal blue and ivory armored coat with sapphire clasps and silver pauldrons. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 18,
+      "slot": 0,
+      "id": "lv18-a",
+      "koreanName": "산호 수호",
+      "englishName": "Coral Guardian",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/18.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Coral Guardian cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to coral pink and cream combat haori with warm gold protective armor. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 18,
+      "slot": 1,
+      "id": "lv18-b",
+      "koreanName": "심해 정찰",
+      "englishName": "Deep Sea Scout",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/18.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Deep Sea Scout cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to ink blue and cyan stealth uniform with scale-shaped silver arm guards. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 19,
+      "slot": 0,
+      "id": "lv19-a",
+      "koreanName": "은행잎 서약",
+      "englishName": "Ginkgo Oath",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/19.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Ginkgo Oath cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to mustard gold and forest-green long jacket with ginkgo leaf embroidery. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 19,
+      "slot": 1,
+      "id": "lv19-b",
+      "koreanName": "빙하 사절",
+      "englishName": "Glacier Envoy",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/19.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Glacier Envoy cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to ivory and icy blue diplomat-ninja coat with silver trim and tall boots. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 20,
+      "slot": 0,
+      "id": "lv20-a",
+      "koreanName": "영롱 별빛",
+      "englishName": "Radiant Starlight",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/20.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Radiant Starlight cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to lavender and ivory celestial combat dress over fitted dark leggings, gold star clasps. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 20,
+      "slot": 1,
+      "id": "lv20-b",
+      "koreanName": "흑요 예언",
+      "englishName": "Obsidian Oracle",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/20.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Obsidian Oracle cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to black and amethyst full-sleeved battle robe, silver angular ornaments. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 21,
+      "slot": 0,
+      "id": "lv21-a",
+      "koreanName": "진홍 장막",
+      "englishName": "Crimson Veil",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/21.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Crimson Veil cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to crimson and ivory ritual combat jacket, gold cords and black boots. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 21,
+      "slot": 1,
+      "id": "lv21-b",
+      "koreanName": "백금 파수",
+      "englishName": "Platinum Sentinel",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/21.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Platinum Sentinel cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to pale platinum and midnight military coat with simple geometric silver armor. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 22,
+      "slot": 0,
+      "id": "lv22-a",
+      "koreanName": "비취 비상",
+      "englishName": "Jade Ascendant",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/22.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Jade Ascendant cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to jade and gold ceremonial armored tunic with ivory shoulder cape. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 22,
+      "slot": 1,
+      "id": "lv22-b",
+      "koreanName": "자정 비익",
+      "englishName": "Midnight Wing",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/22.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Midnight Wing cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to deep navy and violet armored coat with small silver feather-shaped details. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 23,
+      "slot": 0,
+      "id": "rose-oath",
+      "koreanName": "장미의 맹세",
+      "englishName": "Rose Oath",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/23.png",
+      "prompt": "Use case: identity-preserve. Create a production skin sprite pair for this exact referenced adult female anime ninja, keeping face, hair color and recognizable weapon identity. Rose Oath skin: burgundy red and ivory ceremonial armored coat with rose embroidery, red gloves, dark tall boots, floating red gemstone above palm, white long hair with blunt fringe and red eyes unchanged. Adult ninja rose guardian, restrained silver armor. One horizontal image divided into TWO equal-width cells: LEFT shows the skin in cute SD big-head chibi game proportions, RIGHT shows the SAME skin in taller 5.5-head LD proportions. Both full-body, both feet visible, centered in their own cell, no overlap across center, each complete character and all props inside its half with 8% outer margin. SD height about 65% of cell height; LD height about 86%. Identical costume details and palette across pair, clean cel shading matching reference, two arms and two legs each, clear hands. Actual transparent RGBA background, no ground shadow, no scenery, no labels, no letters, no divider line, no text, no watermark. If transparency cannot be supplied use entirely flat pure white, NEVER checkerboard.",
+      "existing": true
+    },
+    {
+      "level": 23,
+      "slot": 1,
+      "id": "lv23-b",
+      "koreanName": "월백 왕관",
+      "englishName": "Moon Ivory",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/23.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Moon Ivory cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to ivory and dark silver ceremonial ninja regalia, pale blue gem accents. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 24,
+      "slot": 0,
+      "id": "lv24-a",
+      "koreanName": "금련 계승",
+      "englishName": "Golden Lotus",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/24.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Golden Lotus cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to white and antique-gold ceremonial longcoat with lotus motif and elegant sash. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    },
+    {
+      "level": 24,
+      "slot": 1,
+      "id": "lv24-b",
+      "koreanName": "천극 심판",
+      "englishName": "Astral Verdict",
+      "ref": "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/24.png",
+      "prompt": "Use case: identity-preserve. Reference image role: exact character identity and drawing style reference. Create the Astral Verdict cosmetic skin of this same female anime ninja. Preserve the exact recognizable hair color, hair arrangement, eye color, face and signature weapon or magical prop from the reference. Change costume to midnight navy and violet celestial armor over modest full-body suit with cyan gem trim. Adult ninja, fully clothed practical fantasy outfit, no nudity, no body exaggeration. Skin should differ clearly in costume construction from the reference, not merely recoloring it. One production sprite pair on a horizontal canvas with TWO equal-width separate cells: LEFT is a cute SD chibi with large head and compact 2.8-head body; RIGHT is the same skin in taller LD 5.5-head anime proportions. Both show the SAME costume design, accessories, hairstyle and weapon identity. Full body head to shoes, exactly two arms and legs, clear hands, readable silhouette, restrained cel shading and clean dark linework matching reference. Center each complete figure inside its own half, SD height 75% canvas, LD height 86%, 8% clear outer margin, no crossing center, no overlapping characters. Transparent RGBA background preferred. If actual transparency cannot be produced use a perfectly flat pure white background, absolutely never draw checkerboard. No ground, no shadows, no letters, no labels, no text, no watermark.",
+      "existing": false
+    }
+  ]
+}

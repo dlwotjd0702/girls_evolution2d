@@ -1,0 +1,179 @@
+{
+  "batch": "2026-08-28-02",
+  "method": "Built-in imagegen; user-authorized local alpha extraction; original game sprites are not overwritten.",
+  "items": [
+    {
+      "id": "lv02-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-f01c172d-15f5-42e5-b2c5-b6cc28767c62.png",
+      "half": null,
+      "holes": [
+        12,
+        13,
+        15,
+        16,
+        17
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. Asset: ONE SD costume sprite for level 2 female ninja in a Korean merge game. Image 1 is the exact base SD to preserve. Image 2 is her base LD for identity context only. Create 'Ink Letter / 수묵 서찰'. Change clothing only: an ivory crossover robe with short skirt panels and restrained black ink-brush border along hems, a fitted charcoal sleeveless vest worn over it, simple dark cloth sash, charcoal ninja trousers, dark calf wraps and original open-toe sandals. Add one small rectangular document pouch at the sash; keep the original olive-green book held in exactly the same hand. Costume should be simple and legible on a phone. Preserve image 1's chestnut brown blunt bob, black temple headband with flowing black tails, round brown eyes, calm reserved face, same SD head/body proportions and original standing pose. Do not redesign face, change age, add weapons, alter fingers, make a generic doll or change rendering style. Keep original dark linework and restrained cel shading. Exactly one full-body SD with all book, ribbon tips and feet inside clear margin on a square canvas. Real transparent RGBA background; no fake checkerboard pixels or opaque white background, no floor shadow, no text, watermark or extra figures.",
+      "correctionPrompt": null,
+      "approved": true,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch02/review-sheet.jpg",
+      "visualReview": "Compared base identity and paired costume; checked full-body framing, hands, props, dark/light alpha and enclosed gaps. Costume-only new art; original assets preserved."
+    },
+    {
+      "id": "lv02-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-661cde60-f24a-467c-843d-80541d60936e.png",
+      "half": null,
+      "holes": [
+        2,
+        12,
+        14,
+        15,
+        16,
+        17,
+        18,
+        20,
+        21
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. Create ONE LD full-body skin sprite, 'Ink Letter / 수묵 서찰', for the exact female ninja in image 1. Image 1 is base LD: preserve her brown bob with blunt bangs and black temple ribbon/headband, brown eyes and reserved expression, age presentation, LD body proportions and natural standing pose, original olive-green book held by the lowered hand, footwear and rendering style. Image 2 is the SD skin outfit to reproduce exactly on that LD body. Outfit: ivory crossover robe with knee-length split skirt panels and black ink-brush borders at sleeve and skirt hems; fitted sleeveless charcoal open-front vest, dark sash with two hanging tails, one rectangular document pouch on the same hip as image 2; charcoal trousers and dark wrapped calves with black open-toe sandals. It must be recognizably the same costume as image 2, not a reinterpretation. No new hat, jewelry, weapons or facial changes. Keep original simple dark outlines and restrained cel shading, not glossy 3D or a fashion-doll body. One full-body LD only, square canvas, all ribbons/book/feet fully within a clear margin. Real transparent RGBA background. No drawn checkerboard, no white background, no ground shadow, no text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "edgeInsetPixels": 0.8,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch02/review-sheet.jpg",
+      "visualReview": "Compared base identity and paired costume; checked full-body framing, hands, props, dark/light alpha and enclosed gaps. Costume-only new art; original assets preserved."
+    },
+    {
+      "id": "lv02-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-4add934e-2e9e-4f86-a864-3aa9211247e8.png",
+      "half": null,
+      "holes": [
+        2,
+        27,
+        28,
+        30,
+        31,
+        32,
+        35,
+        38
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. ONE SD costume sprite for the exact level 2 female ninja in image 1; image 2 is her base LD for identity only. 'Peach Blossom Outing / 복숭아꽃 소풍'. Change clothes only: a short soft peach travel cape covering shoulders to elbows, with a small petal-shaped clasp centered at the throat, over a fitted charcoal crossover ninja jacket, charcoal gathered trousers, muted peach sash with short tails, peach wrist wraps and dark wrapped calves with the original open-toe sandals. The cape is a practical ninja travel garment, not a dress; no hood worn, no hat. Retain the olive-green book in exactly the original lowered hand. Keep image 1's chestnut-brown blunt bob, black headband and flying ribbon tails, brown eyes, reserved face, SD head/body proportions, original stance and hands. No new facial expression, weapons, flowers in hair, long hair, extra accessories or generic chibi reinterpretation. Original clean dark linework and simple cel shading. One full-body SD centered on a square canvas; book, headband ribbons and feet fully visible inside clear margin. Real transparent RGBA background, no fake checkerboard or white backdrop, no ground/shadow, text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "removeIslands": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "islandReview": "1-8 pixel detached fringe fragments at the hair/ribbon, arm/book and outer trouser edge; no body component removed.",
+      "reviewRecord": "Docs/UIRefresh/SkinBatch02/review-sheet.jpg",
+      "visualReview": "Compared base identity and paired costume; checked full-body framing, hands, props, dark/light alpha and enclosed gaps. Costume-only new art; original assets preserved."
+    },
+    {
+      "id": "lv02-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-d68643b3-55ed-4475-9f5f-39716036fa77.png",
+      "half": null,
+      "holes": [
+        17,
+        19,
+        21,
+        24,
+        25
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. ONE LD skin sprite 'Peach Blossom Outing / 복숭아꽃 소풍'. Input 1 is the exact base LD female ninja to preserve. Input 2 is the completed SD skin costume that must be transferred to that LD, not a new chibi. Costume: short soft peach travel cape to elbows with small petal clasp at center throat, charcoal fitted crossover ninja jacket, peach waist sash with two straight short tails, charcoal trousers, peach wrist wraps and dark calf wraps, original dark open-toe sandals. Same simple palette/construction/clasp as input 2. Keep input 1's exact brown bob with blunt fringe and black headband with flowing black ribbon tails, brown eyes, reserved face, age, natural LD standing pose/body proportions, hands, and olive-green book in the lowered hand. Do not elongate limbs, change face/hairstyle, add weapons/jewelry/flowers or new props. Restrained base-game cel shading and clean dark outlines. A single centered full-body LD, all ribbons/book/feet within a clear margin, square canvas. Real transparent RGBA background required; no painted checkerboard or white backdrop, no floor oval/shadow, text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "removeIslands": [
+        2,
+        3
+      ],
+      "islandReview": "Detached matte in empty background at (910,195), and between the headband ribbon and bob at (723,248).",
+      "edgeInsetPixels": 0.8,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch02/review-sheet.jpg",
+      "visualReview": "Compared base identity and paired costume; checked full-body framing, hands, props, dark/light alpha and enclosed gaps. Costume-only new art; original assets preserved."
+    },
+    {
+      "id": "lv03-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-2aad5af3-6b1a-4f4f-a6df-a241c1aa27e6.png",
+      "half": null,
+      "holes": [],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. ONE SD cosmetic sprite for level 3 female ninja. Image 1 is the exact base SD; image 2 is her base LD for identity context. Create 'Ink Secret / 먹빛 비전'. Costume only: charcoal fitted scribe vest over ivory long sleeves, dark charcoal training trousers, an ivory sash with restrained black ink-brush markings, one small cylindrical scroll case at the waist. Preserve the navy scarf at the neck and its flowing trailing ends, only with subtle ink-toned edging to integrate the outfit. Keep the held tan paper/scroll sheet in the same hand and pose as the original SD. Preserve image 1's blue-black short blunt bob, eye shape and muted violet eyes, reserved expression and face, age presentation, exact SD proportions, original slightly turned stance, sandals and hands. Do not make a generic round baby chibi, change hair/pose, add weapons, large hats or floating effects. Simple base-game dark outlines and restrained cel shading, readable garment shapes on mobile. Exactly one full-body SD on a square canvas with clear margin around all scarf tips, paper and shoes. Actual transparent RGBA, no painted checkerboard pixels or white background, no ground/shadow, no text/watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch02/review-sheet.jpg",
+      "visualReview": "Compared base identity and paired costume; checked full-body framing, hands, props, dark/light alpha and enclosed gaps. Costume-only new art; original assets preserved."
+    },
+    {
+      "id": "lv03-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-182aa5e8-39ca-4c39-98e6-655966d933ad.png",
+      "half": null,
+      "holes": [
+        58,
+        82
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. ONE LD cosmetic sprite for exact level 3 female ninja. Image 1 is the base LD: preserve face, muted dark-violet eyes, blue-black short blunt bob, serious reserved expression, age presentation, natural LD proportions and the original turned stance, hands with held tan scroll/paper at chest height, navy neck scarf and long flowing ends. Image 2 is the SD costume reference, to reproduce precisely on input 1's LD body: charcoal fitted crossover scribe vest over ivory long sleeves, ivory waist sash with black ink-brush patterns near its tails, dark trousers, a single small cylindrical dark scroll case with tan end caps at the same waist side as image 2, dark calf wraps and open-toe sandals. Keep the navy scarf and subtle dark ink edging. Same construction, materials, palette and accessories as SD; do not add armor, sword, extra hats or redesign identity. Preserve the input 1 pose (paper held at chest), not the SD pose. Natural restrained original-game dark linework/cel shading, not glossy or elongated fashion proportions. Single full-body LD, square canvas, all scarf ends, paper and feet fully inside clear margin. Real transparent RGBA, no checkerboard pixels or white backdrop, no floor/shadow, labels or watermark.",
+      "correctionPrompt": "Use case: precise-object-edit. This exact generated LD sprite needs ONE local correction. Remove ONLY the extra narrow diagonal rear scroll cylinder at the character's hip, which protrudes just to the right of the main vertical black cylinder (viewer-right hip, near x=785 y=615 on this 1254-square image). Keep the single main vertical black scroll case with tan round caps at x=754 y=600. Fill the small area revealed by removal with the existing charcoal tunic/waist silhouette and background as appropriate. Do not change any other clothing, sash/ink markings, blue scarf, paper, hands/fingers, face, hair, eyes, proportions, pose, shoes, framing or linework. The approved design has ONE scroll case, not two. Keep all original pixels/appearance outside that tiny local object as faithfully as possible. Output the full original-sized single LD sprite, not a crop, with true transparent RGBA background and no painted checkerboard. No labels or watermark.",
+      "approved": true,
+      "edgeInsetPixels": 0.8,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch02/review-sheet.jpg",
+      "visualReview": "Compared base identity and paired costume; checked full-body framing, hands, props, dark/light alpha and enclosed gaps. Costume-only new art; original assets preserved.",
+      "rejectedDraft": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-3eb3a561-1623-4aa1-bd43-da1af11cd858.png",
+      "correctionReason": "Removed duplicate rear scroll case; only the intended front case remains, matching SD."
+    },
+    {
+      "id": "lv03-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-afbb8ca9-51b0-4ea8-82d1-4a3f89856416.png",
+      "half": null,
+      "holes": [],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. ONE SD skin for exact level 3 female ninja in image 1, with image 2 showing her base LD for identity context only. 'Golden Seal / 금빛 봉인'. Costume only: short ceremonial navy shoulder cape with muted gold hem and a simple geometric seal emblem, charcoal crossover ninja uniform, dark gold waist sash, one slim cylindrical navy scroll case with tan end caps and a small gold seal emblem at the waist. Keep the characteristic navy neck scarf and its flowing tails visible; cape is short so it does not hide arms or held paper. Retain the original tan paper sheet in exactly the original hand. Preserve the blue-black blunt bob, muted violet eye shape/color, reserved face, age presentation, original slightly turned SD pose, proportions, hands and open-toe sandals. Mobile-readable gold and dark navy blocks, restrained dark linework/cel shading matching source. No crown, armor, jewelry, floating effects, extra scroll cases, swords, stiff new pose or generic chibi face. Exactly one SD full-body centered on a square canvas with clear margins around scarf ends, paper and feet. Actual transparent RGBA background required, not painted checkerboard or white backdrop; no shadow/floor, text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch02/review-sheet.jpg",
+      "visualReview": "Compared base identity and paired costume; checked full-body framing, hands, props, dark/light alpha and enclosed gaps. Costume-only new art; original assets preserved."
+    },
+    {
+      "id": "lv03-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-fdc1de26-c13c-4f33-a6be-3b737ee970c8.png",
+      "half": null,
+      "holes": [
+        13,
+        14
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. ONE LD costume sprite 'Golden Seal / 금빛 봉인' for the exact female ninja of input 1. Input 1 governs original LD face, muted dark eyes, blue-black short blunt bob, reserved serious expression, age presentation, compact natural LD body proportions and turned standing pose, hands holding tan paper at chest height, footwear and navy neck scarf with long trailing ends. Input 2 is the completed SD costume that must be matched precisely: short navy shoulder cape with muted gold edging and the small square geometric seal emblem, dark charcoal crossover ninja uniform, dull gold waist sash with two tails, ONE navy cylindrical scroll case with gold end caps and the same gold seal emblem hanging at the same waist side as SD. Exactly ONE cylinder; do not duplicate it behind the first. Keep the cape separate from original scarf, with matching construction/palette to SD. No new weapons, armor, hat or jewelry. Preserve the base LD's paper-at-chest hand pose, rather than copying the SD hand pose. Original-style restrained cel shading and dark linework, no glossy doll or exaggerated anatomy. Single full-body LD on square canvas, all scarf ends, paper and feet within clear margin. Actual transparent RGBA; no painted checkerboard or white backdrop, ground shadow, text or watermark.",
+      "correctionPrompt": "Use case: precise-object-edit. One tiny local correction only to this exact LD sprite: remove the extra narrow rectangular/cylindrical navy-and-tan object behind the large blue/gold scroll case at the viewer-right hip (approximately x=780 y=595 on the 1254-square source). Keep the large main navy cylinder with its gold end caps and gold seal emblem, its short attachment chain, and the belt intact. There must be only ONE scroll case, as designed for the matching SD. Fill only the revealed region with the existing charcoal tunic or transparent background as appropriate. Do not modify the face, hair, eyes, paper, hand pose, cape, seal emblems, scarf, sash, trousers, shoes, anatomy, proportions, overall pose, crop or any other detail. Preserve the exact full-body composition and linework. Output single full-size LD on genuine transparent RGBA; no painted checkerboard, white backdrop, text or watermark.",
+      "approved": true,
+      "edgeInsetPixels": 0.8,
+      "reviewRecord": "Docs/UIRefresh/SkinBatch02/review-sheet.jpg",
+      "visualReview": "Compared base identity and paired costume; checked full-body framing, hands, props, dark/light alpha and enclosed gaps. Costume-only new art; original assets preserved.",
+      "rejectedDraft": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-22c17cf7-48be-4bdb-8fc7-d17da6470fb9.png",
+      "correctionReason": "Removed duplicate rear scroll case; only the intended front case remains, matching SD."
+    }
+  ]
+}

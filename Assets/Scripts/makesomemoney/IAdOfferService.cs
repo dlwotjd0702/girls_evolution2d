@@ -11,6 +11,11 @@ public interface IAdOfferService
     event Action<bool> OnRewardedReadyChanged;
 }
 
+public interface IAdOfferWithCompletion : IAdOfferService
+{
+    void ShowRewarded(Action onReward, Action onFinished);
+}
+
 
 
 

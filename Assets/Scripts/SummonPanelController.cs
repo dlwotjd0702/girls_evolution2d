@@ -22,6 +22,7 @@ public class SummonPanelController : MonoBehaviour
     [SerializeField] private GameObject      cellPrefab;    // SummonCell 프리팹(GameObject)
     [SerializeField] private TextMeshProUGUI reasonLabel;   // 공용 사유 라벨
     [SerializeField] private InsufficientFundsPanel insufficientFundsPanel; // 골드 부족 패널
+    public TextMeshProUGUI availabilityLabel;
 
     [Header("Refresh")]
     [SerializeField] private float interactableRefreshInterval = 0.25f;
@@ -96,7 +97,7 @@ public class SummonPanelController : MonoBehaviour
         cells.Clear();
 
         int currentMax = fieldManager != null ? Mathf.Max(1, fieldManager.CurrentMaxLevel) : 3;
-        int maxSummonable = Mathf.Clamp(currentMax - 2, 1, TierRules.MaxLevel - 2);
+        int maxSummonable = MaxSummonableLevel(currentMax);
 
         for (int level = 1; level <= maxSummonable; level++)
         {
@@ -131,6 +132,20 @@ public class SummonPanelController : MonoBehaviour
             cells[level] = cell;
         }
         HideReasonImmediate();
+        RefreshCostsOnly();
+    }
+
+    public static int MaxSummonableLevel(int currentMax) => Mathf.Clamp(currentMax - 2, 1, TierRules.MaxLevel - 2);
+
+    bool ValidateSummon(int level)
+    {
+        if (!fieldManager || dataManager == null || !dataManager.IsLoaded || dataManager.GetDataByLevel(level) == null
+            || level < 1 || level > MaxSummonableLevel(fieldManager.CurrentMaxLevel))
+        {
+            ShowReasonTemp(LocalizationManager.GetText("아직 소환할 수 없는 단계입니다.", "This stage is not available yet."));
+            return false;
+        }
+        return true;
     }
 
     double CurrentCost(int level)
@@ -143,6 +158,7 @@ public class SummonPanelController : MonoBehaviour
 
     void OnClickSummon(int level)
     {
+        if (!ValidateSummon(level)) return;
         if (fieldManager == null) { ShowReasonTemp("필드가 없습니다."); return; }
 
         int fieldCap = (economy != null) ? economy.GetMaxFieldCount() : 8;
@@ -179,6 +195,7 @@ public class SummonPanelController : MonoBehaviour
             cell.UpdateCost(CurrentCost(level));
 
         HideReasonImmediate();
+        RefreshCostsOnly();
     }
 
     // ─── Reason helpers ───
@@ -196,6 +213,18 @@ public class SummonPanelController : MonoBehaviour
     void RefreshCostsOnly()
     {
         long currentGems = premiumCurrency != null ? premiumCurrency.GetGems() : 0;
+        int count = fieldManager ? fieldManager.girlList.Count : 0;
+        int cap = economy ? economy.GetMaxFieldCount() : 8;
+        bool hasSpace = fieldManager && count < cap;
+        int maxLevel = MaxSummonableLevel(fieldManager ? fieldManager.CurrentMaxLevel : 1);
+        if (availabilityLabel)
+        {
+            string next = maxLevel < TierRules.MaxLevel - 2
+                ? LocalizationManager.GetText($"{maxLevel + 3}단계 도달 → {maxLevel + 1}단계 소환 해금", $"Reach Lv.{maxLevel + 3} to summon Lv.{maxLevel + 1}")
+                : LocalizationManager.GetText("모든 소환 단계 해금", "All summon stages unlocked");
+            availabilityLabel.text = LocalizationManager.GetText($"필드 {count}/{cap} · {(hasSpace ? $"빈자리 {cap - count}칸" : "합성 후 소환 가능")}",
+                $"Field {count}/{cap} · {(hasSpace ? $"{cap - count} free" : "Merge to free space")}") + "\n" + next;
+        }
         
         foreach (var kv in cells)
         {
@@ -208,6 +237,8 @@ public class SummonPanelController : MonoBehaviour
             
             cell.UpdateCost(goldCost);
             cell.UpdateGemCost(gemCost, currentGems >= gemCost);
+            // Keep shortage explanations reachable; only capacity/readiness blocks the action.
+            cell.SetButtonsInteractable(hasSpace && economy, hasSpace && premiumCurrency && economy);
         }
     }
     
@@ -239,6 +270,7 @@ public class SummonPanelController : MonoBehaviour
     
     void OnClickGemSummon(int level)
     {
+        if (!ValidateSummon(level) || !economy) return;
         if (fieldManager == null) { ShowReasonTemp("필드가 없습니다."); return; }
 
         int fieldCap = (economy != null) ? economy.GetMaxFieldCount() : 8;
@@ -280,5 +312,6 @@ public class SummonPanelController : MonoBehaviour
         }
 
         HideReasonImmediate();
+        RefreshCostsOnly();
     }
 }

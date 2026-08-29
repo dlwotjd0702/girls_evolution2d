@@ -1,0 +1,96 @@
+{
+  "batch": "2026-08-29-17",
+  "method": "Reviewed initial-pair identity/costume corrections; count remains 192.",
+  "items": [
+    {
+      "id": "lv05-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-35ad8de5-17c9-4885-8da6-bc7a0f1ca3bb.png",
+      "half": null,
+      "holes": [
+        4,
+        9
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: precise-object-edit, identity-preserve. First reference is the EXACT LD sprite to edit; second is the matching SD costume reference. Change ONLY the lowered hood of first image to the same raised plum hood with gold border visible on second image. Preserve first image exact natural LD anatomy, green eyes, face shape, dark ponytail behind hood, expression, burgundy tunic, plum cloak, gold embroidery, sword and sheath, both hands, legs, boots and pose. Keep face exposed with original bangs. No other design or proportion changes. One full-body sprite; whole cape, ponytail and boots visible with 5 percent empty margin. Transparent RGBA background including hair gaps. No checkerboard, shadow, new weapons, text or border.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            734,
+            91
+          ],
+          [
+            700,
+            159
+          ]
+        ],
+        "opaque": [
+          [
+            608,
+            580
+          ]
+        ]
+      },
+      "reviewNotes": "Raised hood now matches SD; face, ponytail, outfit and weapon preserved.",
+      "beforeSha256": "ac094f7c2cbe8a9317bbd07b3b94197a3cdf2b098d663c31f543d9b216c6aa65",
+      "metaSha256": "ade4959ad753e07c4780b86ae41a362e6878083ac18c501dfc8a652a88bf20ee"
+    },
+    {
+      "id": "moon-patrol",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-0b9db33d-6411-4334-9f57-1bc93cef4bfc.png",
+      "half": null,
+      "holes": [
+        4,
+        25,
+        32,
+        111
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: precise-object-edit, identity-preserve. First reference is exact SD cosmetic sprite to correct. Second matching LD and third base SD define correct weapon handedness. Change ONLY the cyan glowing drawn sword from canvas LEFT hand to canvas RIGHT hand, blade pointing diagonally lower RIGHT like refs2/3. Canvas LEFT hand now empty resting near hip. Preserve original first-image teal bob, cyan eyes, face, SD proportions, navy longcoat, silver shoulder plate on canvas RIGHT, armor, boots, two waist belts, moon chest clasp, and navy sheathed sword behind canvas RIGHT shoulder. Keep the sheath and shoulder armor on same side, DO NOT simply mirror whole sprite. Exactly one drawn cyan sword, one sheathed dark sword. Naturally formed hands grip handles. Full body and sword tip inside 5 percent margin. Transparent RGBA with internal gaps. No checkerboard, ground shadow, words or other design changes.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            441,
+            328
+          ],
+          [
+            464,
+            390
+          ],
+          [
+            716,
+            403
+          ],
+          [
+            697,
+            606
+          ]
+        ],
+        "opaque": [
+          [
+            608,
+            276
+          ]
+        ]
+      },
+      "reviewNotes": "Drawn cyan sword moved to canvas right to match base and LD; shoulder armor and sheathed sword stay canvas right. Face and costume retained.",
+      "beforeSha256": "abe4f1bbdd0bd11651a52128bb7df196b8348ff97aab0172c126cc20f8dd4f2f",
+      "metaSha256": "11012aaff6cc27302431df2307325921c15db5f9b226e2dd1372d11f08ec6448"
+    }
+  ]
+}

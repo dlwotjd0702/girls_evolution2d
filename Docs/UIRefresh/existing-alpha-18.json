@@ -1,0 +1,639 @@
+{
+  "items": [
+    {
+      "key": "lv01-a-SD",
+      "path": "Assets/Art/Characters/Skins/lv01-a-SD.png",
+      "beforeSha256": "ef089025f3c9c7e324810a794ef86cfc461659a7e959fbe3f522860ce9892203",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        58,
+        71,
+        73,
+        76,
+        79,
+        80,
+        96
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            154,
+            142
+          ],
+          [
+            190,
+            159
+          ],
+          [
+            202,
+            165
+          ],
+          [
+            208,
+            167
+          ],
+          [
+            193,
+            172
+          ],
+          [
+            257,
+            172
+          ],
+          [
+            184,
+            181
+          ]
+        ],
+        "opaque": [
+          [
+            225,
+            99
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv01-b-SD",
+      "path": "Assets/Art/Characters/Skins/lv01-b-SD.png",
+      "beforeSha256": "6c1ea8a8159bbe1cfcad79dcf8c29b3f53f656571c096217c3d8e089a4108bb3",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        45,
+        51,
+        52,
+        53
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            167,
+            171
+          ],
+          [
+            190,
+            180
+          ],
+          [
+            196,
+            178
+          ],
+          [
+            264,
+            180
+          ]
+        ],
+        "opaque": [
+          [
+            227,
+            102
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv02-a-LD",
+      "path": "Assets/Art/Characters/Skins/lv02-a-LD.png",
+      "beforeSha256": "fe4edd90b3b3b381808dc1e9f95a998b66b30e1e8e7f816ed80f8dd462def3ad",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        24,
+        25
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            499,
+            197
+          ],
+          [
+            558,
+            202
+          ]
+        ],
+        "opaque": [
+          [
+            513,
+            463
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv03-b-LD",
+      "path": "Assets/Art/Characters/Skins/lv03-b-LD.png",
+      "beforeSha256": "31faf201b7735a7cf92eb6479afc322690fd921f47a851a70f287c2b29450dbc",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        157,
+        163,
+        197,
+        345
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            430,
+            337
+          ],
+          [
+            431,
+            348
+          ],
+          [
+            619,
+            498
+          ],
+          [
+            590,
+            682
+          ]
+        ],
+        "opaque": [
+          [
+            497,
+            527
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv05-a-SD",
+      "path": "Assets/Art/Characters/Skins/lv05-a-SD.png",
+      "beforeSha256": "ea9b325aa5c62509f4bf1dac80c2dcf0c843bf1e4f572455cb6d38a67e926c5d",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        38,
+        39,
+        62,
+        64
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            181,
+            208
+          ],
+          [
+            190,
+            207
+          ],
+          [
+            270,
+            279
+          ],
+          [
+            275,
+            286
+          ]
+        ],
+        "opaque": [
+          [
+            237,
+            121
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "violet-festival-SD",
+      "path": "Assets/Art/Characters/Skins/violet-festival-SD.png",
+      "beforeSha256": "112c0119ed026a5b8ea583786d7f5b20c91c15479ca23055fba543a51d4544e7",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        42,
+        75,
+        79
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            331,
+            145
+          ],
+          [
+            141,
+            164
+          ],
+          [
+            150,
+            173
+          ]
+        ],
+        "opaque": [
+          [
+            259,
+            123
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "violet-festival-LD",
+      "path": "Assets/Art/Characters/Skins/violet-festival-LD.png",
+      "beforeSha256": "61860a106593d1b246decca077a390225e37df3309968ec07fef029cb4aee505",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        15,
+        18,
+        28,
+        35,
+        37,
+        73,
+        76
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            322,
+            119
+          ],
+          [
+            456,
+            126
+          ],
+          [
+            327,
+            144
+          ],
+          [
+            329,
+            157
+          ],
+          [
+            337,
+            160
+          ],
+          [
+            421,
+            330
+          ],
+          [
+            449,
+            440
+          ]
+        ],
+        "opaque": [
+          [
+            335,
+            342
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv06-b-LD",
+      "path": "Assets/Art/Characters/Skins/lv06-b-LD.png",
+      "beforeSha256": "6b709384168e6fa451d815c0e25a58229963e103dbdd2cc6041719ab16d245c3",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        25,
+        26,
+        43,
+        45,
+        57,
+        66
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            458,
+            129
+          ],
+          [
+            591,
+            130
+          ],
+          [
+            463,
+            163
+          ],
+          [
+            585,
+            160
+          ],
+          [
+            475,
+            180
+          ],
+          [
+            488,
+            191
+          ]
+        ],
+        "opaque": [
+          [
+            511,
+            474
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv07-b-SD",
+      "path": "Assets/Art/Characters/Skins/lv07-b-SD.png",
+      "beforeSha256": "0da611c12bf06acaee680a1c66473d987aa1c165fdac28fac8f518417c36aa45",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        88
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            279,
+            294
+          ]
+        ],
+        "opaque": [
+          [
+            240,
+            128
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv07-b-LD",
+      "path": "Assets/Art/Characters/Skins/lv07-b-LD.png",
+      "beforeSha256": "d0958d1579647d0fbdb3b61cddf38e3d22cd91095f5fa3006210f5a5f220d860",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        184
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            542,
+            388
+          ]
+        ],
+        "opaque": [
+          [
+            467,
+            467
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv09-a-LD",
+      "path": "Assets/Art/Characters/Skins/lv09-a-LD.png",
+      "beforeSha256": "0a3e39c238a0a58d5a827f376c41b1296d1c76c73e8676da3afc131b12606a3d",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        51,
+        64,
+        84,
+        137
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            481,
+            202
+          ],
+          [
+            489,
+            217
+          ],
+          [
+            467,
+            233
+          ],
+          [
+            562,
+            380
+          ]
+        ],
+        "opaque": [
+          [
+            483,
+            530
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "moon-patrol-LD",
+      "path": "Assets/Art/Characters/Skins/moon-patrol-LD.png",
+      "beforeSha256": "e2ac26faef3ade26286ae899be3285441ad7bedca4809d27f80b3beb66f2b5b7",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        45,
+        47,
+        49
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            569,
+            169
+          ],
+          [
+            560,
+            178
+          ],
+          [
+            466,
+            187
+          ]
+        ],
+        "opaque": [
+          [
+            478,
+            508
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "rose-oath-SD",
+      "path": "Assets/Art/Characters/Skins/rose-oath-SD.png",
+      "beforeSha256": "537ed8ac9c98c1355f8634982d207a20b87bba6776da8831f8f941a503fe1983",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        177
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            367,
+            262
+          ]
+        ],
+        "opaque": [
+          [
+            251,
+            112
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv01-b-LD",
+      "path": "Assets/Art/Characters/Skins/lv01-b-LD.png",
+      "beforeSha256": "277412e48396add65cb7d8ec5848e0c4356a0cc0a568327742a4f415aaac1777",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        16,
+        27,
+        34
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            522,
+            171
+          ],
+          [
+            401,
+            194
+          ],
+          [
+            410,
+            204
+          ]
+        ],
+        "opaque": [
+          [
+            461,
+            514
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    },
+    {
+      "key": "lv05-b-SD",
+      "path": "Assets/Art/Characters/Skins/lv05-b-SD.png",
+      "beforeSha256": "d9381b8dd32cbbc0f5b8df9a80496cae885c1e35c487a61d97714b315dcf38ce",
+      "threshold": 215,
+      "spread": 24,
+      "components": [
+        2,
+        47
+      ],
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            0,
+            0
+          ],
+          [
+            338,
+            55
+          ],
+          [
+            323,
+            183
+          ]
+        ],
+        "opaque": [
+          [
+            245,
+            305
+          ]
+        ]
+      },
+      "notes": "Individual dark/light, enlarged source and selected-mask review. Only enclosed hair/arm/cape background removed; garment/metal and face highlights retained."
+    }
+  ]
+}

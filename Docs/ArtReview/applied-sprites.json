@@ -1,0 +1,304 @@
+{
+    "sprites": [
+        {
+            "quality": "LD",
+            "address": "8",
+            "path": "Assets/닌자2/8.png",
+            "spriteName": "8"
+        },
+        {
+            "quality": "LD",
+            "address": "10",
+            "path": "Assets/Art/Characters/LD/10.png",
+            "spriteName": "10"
+        },
+        {
+            "quality": "SD",
+            "address": "21",
+            "path": "Assets/닌자SD2/21.png",
+            "spriteName": "21"
+        },
+        {
+            "quality": "LD",
+            "address": "9",
+            "path": "Assets/닌자2/9.png",
+            "spriteName": "9"
+        },
+        {
+            "quality": "SD",
+            "address": "20",
+            "path": "Assets/닌자SD2/20.png",
+            "spriteName": "20"
+        },
+        {
+            "quality": "LD",
+            "address": "2",
+            "path": "Assets/Art/Characters/LD/2.png",
+            "spriteName": "2"
+        },
+        {
+            "quality": "LD",
+            "address": "5",
+            "path": "Assets/닌자2/5.png",
+            "spriteName": "5"
+        },
+        {
+            "quality": "LD",
+            "address": "4",
+            "path": "Assets/닌자2/4.png",
+            "spriteName": "4"
+        },
+        {
+            "quality": "SD",
+            "address": "14",
+            "path": "Assets/Art/Characters/SD/14.png",
+            "spriteName": "14"
+        },
+        {
+            "quality": "LD",
+            "address": "19",
+            "path": "Assets/Art/Characters/LD/19.png",
+            "spriteName": "19"
+        },
+        {
+            "quality": "SD",
+            "address": "2",
+            "path": "Assets/닌자SD2/2.png",
+            "spriteName": "2"
+        },
+        {
+            "quality": "LD",
+            "address": "23",
+            "path": "Assets/Art/Characters/LD/23.png",
+            "spriteName": "23"
+        },
+        {
+            "quality": "LD",
+            "address": "6",
+            "path": "Assets/Art/Characters/LD/6.png",
+            "spriteName": "6"
+        },
+        {
+            "quality": "SD",
+            "address": "3",
+            "path": "Assets/닌자SD2/3.png",
+            "spriteName": "3"
+        },
+        {
+            "quality": "SD",
+            "address": "15",
+            "path": "Assets/닌자SD2/15.png",
+            "spriteName": "15"
+        },
+        {
+            "quality": "LD",
+            "address": "14",
+            "path": "Assets/Art/Characters/LD/14.png",
+            "spriteName": "14"
+        },
+        {
+            "quality": "LD",
+            "address": "25",
+            "path": "Assets/닌자2/25.png",
+            "spriteName": "25"
+        },
+        {
+            "quality": "LD",
+            "address": "7",
+            "path": "Assets/Art/Characters/LD/7.png",
+            "spriteName": "7"
+        },
+        {
+            "quality": "SD",
+            "address": "11",
+            "path": "Assets/닌자SD2/11.png",
+            "spriteName": "11"
+        },
+        {
+            "quality": "LD",
+            "address": "22",
+            "path": "Assets/닌자2/22.png",
+            "spriteName": "22"
+        },
+        {
+            "quality": "LD",
+            "address": "16",
+            "path": "Assets/Art/Characters/LD/16.png",
+            "spriteName": "16"
+        },
+        {
+            "quality": "SD",
+            "address": "4",
+            "path": "Assets/닌자SD2/4.png",
+            "spriteName": "4"
+        },
+        {
+            "quality": "SD",
+            "address": "18",
+            "path": "Assets/닌자SD2/18.png",
+            "spriteName": "18"
+        },
+        {
+            "quality": "LD",
+            "address": "3",
+            "path": "Assets/닌자2/3.png",
+            "spriteName": "3"
+        },
+        {
+            "quality": "SD",
+            "address": "25",
+            "path": "Assets/닌자SD2/25.png",
+            "spriteName": "25"
+        },
+        {
+            "quality": "SD",
+            "address": "12",
+            "path": "Assets/닌자SD2/12.png",
+            "spriteName": "12"
+        },
+        {
+            "quality": "SD",
+            "address": "23",
+            "path": "Assets/닌자SD2/23.png",
+            "spriteName": "23"
+        },
+        {
+            "quality": "SD",
+            "address": "24",
+            "path": "Assets/닌자SD2/24.png",
+            "spriteName": "24"
+        },
+        {
+            "quality": "SD",
+            "address": "1",
+            "path": "Assets/닌자SD2/1.png",
+            "spriteName": "1"
+        },
+        {
+            "quality": "SD",
+            "address": "5",
+            "path": "Assets/닌자SD2/5.png",
+            "spriteName": "5"
+        },
+        {
+            "quality": "LD",
+            "address": "1",
+            "path": "Assets/닌자2/1.png",
+            "spriteName": "1"
+        },
+        {
+            "quality": "LD",
+            "address": "24",
+            "path": "Assets/Art/Characters/LD/24.png",
+            "spriteName": "24"
+        },
+        {
+            "quality": "SD",
+            "address": "13",
+            "path": "Assets/닌자SD2/13.png",
+            "spriteName": "13"
+        },
+        {
+            "quality": "SD",
+            "address": "6",
+            "path": "Assets/Art/Characters/SD/6.png",
+            "spriteName": "6"
+        },
+        {
+            "quality": "SD",
+            "address": "7",
+            "path": "Assets/닌자SD2/7.png",
+            "spriteName": "7"
+        },
+        {
+            "quality": "SD",
+            "address": "17",
+            "path": "Assets/닌자SD2/17.png",
+            "spriteName": "17"
+        },
+        {
+            "quality": "LD",
+            "address": "13",
+            "path": "Assets/Art/Characters/LD/13.png",
+            "spriteName": "13"
+        },
+        {
+            "quality": "LD",
+            "address": "11",
+            "path": "Assets/Art/Characters/LD/11.png",
+            "spriteName": "11"
+        },
+        {
+            "quality": "SD",
+            "address": "16",
+            "path": "Assets/닌자SD2/16.png",
+            "spriteName": "16"
+        },
+        {
+            "quality": "SD",
+            "address": "9",
+            "path": "Assets/Art/Characters/SD/9.png",
+            "spriteName": "9"
+        },
+        {
+            "quality": "SD",
+            "address": "22",
+            "path": "Assets/닌자SD2/22.png",
+            "spriteName": "22"
+        },
+        {
+            "quality": "LD",
+            "address": "18",
+            "path": "Assets/닌자2/18.png",
+            "spriteName": "18"
+        },
+        {
+            "quality": "LD",
+            "address": "20",
+            "path": "Assets/Art/Characters/LD/20.png",
+            "spriteName": "20"
+        },
+        {
+            "quality": "LD",
+            "address": "15",
+            "path": "Assets/Art/Characters/LD/15.png",
+            "spriteName": "15"
+        },
+        {
+            "quality": "SD",
+            "address": "8",
+            "path": "Assets/Art/Characters/SD/8.png",
+            "spriteName": "8"
+        },
+        {
+            "quality": "LD",
+            "address": "12",
+            "path": "Assets/Art/Characters/LD/12.png",
+            "spriteName": "12"
+        },
+        {
+            "quality": "LD",
+            "address": "21",
+            "path": "Assets/닌자2/21.png",
+            "spriteName": "21"
+        },
+        {
+            "quality": "SD",
+            "address": "19",
+            "path": "Assets/닌자SD2/19.png",
+            "spriteName": "19"
+        },
+        {
+            "quality": "SD",
+            "address": "10",
+            "path": "Assets/닌자SD2/10.png",
+            "spriteName": "10"
+        },
+        {
+            "quality": "LD",
+            "address": "17",
+            "path": "Assets/Art/Characters/LD/17.png",
+            "spriteName": "17"
+        }
+    ]
+}

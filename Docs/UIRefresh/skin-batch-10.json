@@ -1,0 +1,510 @@
+{
+  "batch": "2026-08-28-10",
+  "method": "Built-in imagegen; authorized alpha-only extraction; SD/LD matching.",
+  "items": [
+    {
+      "id": "lv15-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-22c0bf0f-0444-4e85-a872-cc45234d5a04.png",
+      "half": null,
+      "holes": [
+        4,
+        7,
+        11,
+        14,
+        19,
+        22,
+        39,
+        43
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact BASE SD facial identity, age presentation, original natural SD proportions and pose. Image2 is BASE LD identity confirmation. Change costume only: Amethyst Pursuit: amethyst fitted pursuit coat, high collar, short split tails, dark shoulder armor, black trousers, purple forearm guards and dark boots. Preserve long dark brown high ponytail fading to rose-red ends, red eyes, black hair bow, calm expression. One silver sword held low towards canvas LEFT, other hand on hip beside waist-mounted sheathed sword and empty sheath. Natural hands with correct grips. Crisp anime cel shading and dark contours, no generic baby chibi, no face redesign. Entire hair, blade tips and boots well within generous margin. Actual transparent RGBA background including enclosed hair/arm gaps. No white backdrop, painted checkerboard, ground shadow, text, watermark, extra characters or weapons.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            866,
+            396
+          ],
+          [
+            793,
+            309
+          ],
+          [
+            963,
+            582
+          ],
+          [
+            739,
+            503
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            290
+          ],
+          [
+            596,
+            496
+          ],
+          [
+            691,
+            611
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base facial identity and SD/LD garments, accessories and two-weapon count. Corrected missing tassel and removed extra hip knife before alpha work. Dark/light visual review; hair and arm negative spaces clear, face, ivory scarf/jacket and skin opaque; source RGB preserved."
+    },
+    {
+      "id": "lv15-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-8e3839fd-f8ef-42dc-9e7e-52a87ca71ef2.png",
+      "half": null,
+      "holes": [
+        2,
+        4,
+        11,
+        23,
+        25,
+        34,
+        55,
+        57,
+        59,
+        61,
+        77,
+        86
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 is approved SD costume: copy garment construction, exact colors, collar, accessories, boots and weapon placement precisely. Image2 BASE LD defines original face, age presentation, natural mature LD anatomy, proportions, hairstyle and pose. Change costume only: Amethyst Pursuit: amethyst fitted pursuit coat, high collar, short split tails, dark shoulder armor, black trousers, purple forearm guards and dark boots. Preserve long dark brown high ponytail fading to rose-red ends, red eyes, black hair bow, calm expression. One silver sword held low towards canvas LEFT, other hand on hip beside waist-mounted sheathed sword and empty sheath.  Match image1 design exactly, natural hands and grips, crisp anime shading and clean dark edges. Whole hair, blade tips and boots inside generous margin. Actual RGBA transparent background and internal gaps. No opaque white backdrop, painted checkerboard, ground shadow, labels, extra weapons or figures.",
+      "approved": true,
+      "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-29c939ab-d73e-44f5-8e55-e9d6040ff032.png",
+      "correctionPrompt": "Make a surgical accessory correction to image1 LD sprite. It is missing the red waist cord and tassel from matching SD image2. Add the same narrow red cord hanging from the canvas-right side of waist/hip, curving behind the right arm near the sheathed sword, with round red knot and red tassel ending beside upper thigh, exactly like image2. Keep all image1 face, hair, LD anatomy, pose, coat, armor, sword and boots unchanged. No additional weapons. One complete LD character on transparent background. Do not change head or body proportions.",
+      "alphaProbes": {
+        "clear": [
+          [
+            710,
+            426
+          ],
+          [
+            801,
+            603
+          ],
+          [
+            644,
+            355
+          ],
+          [
+            620,
+            551
+          ]
+        ],
+        "opaque": [
+          [
+            535,
+            351
+          ],
+          [
+            496,
+            526
+          ],
+          [
+            575,
+            645
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base facial identity and SD/LD garments, accessories and two-weapon count. Corrected missing tassel and removed extra hip knife before alpha work. Dark/light visual review; hair and arm negative spaces clear, face, ivory scarf/jacket and skin opaque; source RGB preserved."
+    },
+    {
+      "id": "lv15-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-682d9e3f-18bc-4815-ac1b-1c2ea3994fbd.png",
+      "half": null,
+      "holes": [
+        4,
+        12,
+        18,
+        22,
+        63,
+        76,
+        91,
+        100,
+        128,
+        131,
+        133
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact BASE SD facial identity, age presentation, original natural SD proportions and pose. Image2 is BASE LD identity confirmation. Change costume only: Silver Snow Stealth: slate fitted stealth armor, ivory short scarf with ends resting on chest, silver fasteners, slate fitted trousers and wrapped black boots. Preserve long dark brown high ponytail fading to rose-red ends, red eyes, black hair bow, calm expression. One silver sword held low towards canvas LEFT, other hand on hip beside waist-mounted sheathed sword and empty sheath. Natural hands with correct grips. Crisp anime cel shading and dark contours, no generic baby chibi, no face redesign. Entire hair, blade tips and boots well within generous margin. Actual transparent RGBA background including enclosed hair/arm gaps. No white backdrop, painted checkerboard, ground shadow, text, watermark, extra characters or weapons.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            757,
+            281
+          ],
+          [
+            731,
+            464
+          ],
+          [
+            1055,
+            479
+          ],
+          [
+            974,
+            306
+          ]
+        ],
+        "opaque": [
+          [
+            638,
+            287
+          ],
+          [
+            612,
+            350
+          ],
+          [
+            664,
+            539
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base facial identity and SD/LD garments, accessories and two-weapon count. Corrected missing tassel and removed extra hip knife before alpha work. Dark/light visual review; hair and arm negative spaces clear, face, ivory scarf/jacket and skin opaque; source RGB preserved."
+    },
+    {
+      "id": "lv15-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-0b7bd765-1b7b-4469-9453-16276562048e.png",
+      "half": null,
+      "holes": [
+        2,
+        4,
+        10,
+        13,
+        19,
+        88,
+        115,
+        147,
+        168
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 is approved SD costume: copy garment construction, exact colors, collar, accessories, boots and weapon placement precisely. Image2 BASE LD defines original face, age presentation, natural mature LD anatomy, proportions, hairstyle and pose. Change costume only: Silver Snow Stealth: slate fitted stealth armor, ivory short scarf with ends resting on chest, silver fasteners, slate fitted trousers and wrapped black boots. Preserve long dark brown high ponytail fading to rose-red ends, red eyes, black hair bow, calm expression. One silver sword held low towards canvas LEFT, other hand on hip beside waist-mounted sheathed sword and empty sheath.  Match image1 design exactly, natural hands and grips, crisp anime shading and clean dark edges. Whole hair, blade tips and boots inside generous margin. Actual RGBA transparent background and internal gaps. No opaque white backdrop, painted checkerboard, ground shadow, labels, extra weapons or figures.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            775,
+            284
+          ],
+          [
+            739,
+            451
+          ],
+          [
+            1045,
+            473
+          ],
+          [
+            966,
+            295
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            280
+          ],
+          [
+            620,
+            337
+          ],
+          [
+            681,
+            535
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base facial identity and SD/LD garments, accessories and two-weapon count. Corrected missing tassel and removed extra hip knife before alpha work. Dark/light visual review; hair and arm negative spaces clear, face, ivory scarf/jacket and skin opaque; source RGB preserved."
+    },
+    {
+      "id": "lv16-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-a5fd3835-71fe-4522-8b52-e6c065194364.png",
+      "half": null,
+      "holes": [
+        4,
+        11,
+        12,
+        14,
+        16,
+        17,
+        22,
+        23,
+        24,
+        26,
+        27,
+        29,
+        40,
+        43,
+        44,
+        46,
+        47,
+        51,
+        56,
+        66,
+        73,
+        88
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact BASE SD facial identity, age presentation, original natural SD proportions and pose. Image2 is BASE LD identity confirmation. Change costume only: Plum Guard: cream short battle jacket with burgundy plum blossom motifs, burgundy sash over a dark burgundy fitted inner uniform, fitted shorts, purple thigh-high stockings and dark strapped boots. Preserve long dark brown twin ponytails and pointed orange-red ribbon ornaments, fiery amber/red eyes, confident serious expression. Exactly TWO curved serrated silver daggers with dark handles, one held out in each hand matching base; preserve belt utility canisters. No horns or animal ears; ornaments are ribbons. Natural hands with correct grips. Crisp anime cel shading and dark contours, no generic baby chibi, no face redesign. Entire hair, blade tips and boots well within generous margin. Actual transparent RGBA background including enclosed hair/arm gaps. No white backdrop, painted checkerboard, ground shadow, text, watermark, extra characters or weapons.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            727,
+            337
+          ],
+          [
+            1017,
+            384
+          ],
+          [
+            388,
+            400
+          ],
+          [
+            814,
+            346
+          ]
+        ],
+        "opaque": [
+          [
+            602,
+            302
+          ],
+          [
+            701,
+            467
+          ],
+          [
+            508,
+            708
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base facial identity and SD/LD garments, accessories and two-weapon count. Corrected missing tassel and removed extra hip knife before alpha work. Dark/light visual review; hair and arm negative spaces clear, face, ivory scarf/jacket and skin opaque; source RGB preserved."
+    },
+    {
+      "id": "lv16-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-bf0053ce-c668-42d1-98d2-e88ecb5808d1.png",
+      "half": null,
+      "holes": [
+        9,
+        16,
+        17,
+        18,
+        20,
+        27,
+        30,
+        35,
+        43,
+        47,
+        50,
+        60,
+        68,
+        83,
+        90,
+        91,
+        108,
+        114
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 is approved SD costume: copy garment construction, exact colors, collar, accessories, boots and weapon placement precisely. Image2 BASE LD defines original face, age presentation, natural mature LD anatomy, proportions, hairstyle and pose. Change costume only: Plum Guard: cream short battle jacket with burgundy plum blossom motifs, burgundy sash over a dark burgundy fitted inner uniform, fitted shorts, purple thigh-high stockings and dark strapped boots. Preserve long dark brown twin ponytails and pointed orange-red ribbon ornaments, fiery amber/red eyes, confident serious expression. Exactly TWO curved serrated silver daggers with dark handles, one held out in each hand matching base; preserve belt utility canisters. No horns or animal ears; ornaments are ribbons.  Match image1 design exactly, natural hands and grips, crisp anime shading and clean dark edges. Whole hair, blade tips and boots inside generous margin. Actual RGBA transparent background and internal gaps. No opaque white backdrop, painted checkerboard, ground shadow, labels, extra weapons or figures.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            329,
+            538
+          ],
+          [
+            756,
+            333
+          ],
+          [
+            793,
+            390
+          ],
+          [
+            637,
+            358
+          ]
+        ],
+        "opaque": [
+          [
+            493,
+            325
+          ],
+          [
+            584,
+            438
+          ],
+          [
+            416,
+            769
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base facial identity and SD/LD garments, accessories and two-weapon count. Corrected missing tassel and removed extra hip knife before alpha work. Dark/light visual review; hair and arm negative spaces clear, face, ivory scarf/jacket and skin opaque; source RGB preserved."
+    },
+    {
+      "id": "lv16-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-2933cc43-7a3e-47f9-9cf9-63426156e93e.png",
+      "half": null,
+      "holes": [
+        4,
+        6,
+        12,
+        13,
+        15,
+        20,
+        23,
+        25,
+        30,
+        31,
+        34,
+        40,
+        61,
+        76,
+        95,
+        98,
+        122,
+        127
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact BASE SD facial identity, age presentation, original natural SD proportions and pose. Image2 is BASE LD identity confirmation. Change costume only: Eclipse Command: charcoal and violet commander short coat, restrained silver eclipse emblem and buttons, violet fitted inner uniform and shorts, dark thigh-high stockings, charcoal strapped boots. Preserve long dark brown twin ponytails and pointed orange-red ribbon ornaments, fiery amber/red eyes, confident serious expression. Exactly TWO curved serrated silver daggers with dark handles, one held out in each hand matching base; preserve belt utility canisters. No horns or animal ears; ornaments are ribbons. Natural hands with correct grips. Crisp anime cel shading and dark contours, no generic baby chibi, no face redesign. Entire hair, blade tips and boots well within generous margin. Actual transparent RGBA background including enclosed hair/arm gaps. No white backdrop, painted checkerboard, ground shadow, text, watermark, extra characters or weapons.",
+      "approved": true,
+      "rejectedSource": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-14ccb497-dab2-48a6-af42-559b452d1b77.png",
+      "correctionPrompt": "Perform a surgical correction on this exact SD sprite. Remove ONLY the single EXTRA curved silver knife protruding upward from the canvas-right hip utility-canister bundle (between the right-side dagger handle and purple canisters). Replace that unwanted extra knife with empty transparent background; preserve the two canisters and their straps. Keep exactly the TWO large daggers held in her hands, unchanged. Do not change face, hair, costume, fingers, body proportions, pose, canvas size or any other pixels/artwork. Same complete full-body sprite, transparent background, no text or new details.",
+      "alphaProbes": {
+        "clear": [
+          [
+            924,
+            536
+          ],
+          [
+            1007,
+            367
+          ],
+          [
+            439,
+            473
+          ],
+          [
+            320,
+            563
+          ]
+        ],
+        "opaque": [
+          [
+            609,
+            321
+          ],
+          [
+            518,
+            731
+          ],
+          [
+            571,
+            516
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base facial identity and SD/LD garments, accessories and two-weapon count. Corrected missing tassel and removed extra hip knife before alpha work. Dark/light visual review; hair and arm negative spaces clear, face, ivory scarf/jacket and skin opaque; source RGB preserved."
+    },
+    {
+      "id": "lv16-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-86705eb9-f9f5-4f10-bcbf-111038ea456c.png",
+      "half": null,
+      "holes": [
+        8,
+        9,
+        13,
+        14,
+        15,
+        17,
+        19,
+        28,
+        32,
+        33,
+        40,
+        41,
+        51,
+        53,
+        59,
+        109,
+        129,
+        209
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait. Image1 is corrected SD outfit: reproduce exact charcoal-violet commander jacket, silver eclipse insignia, violet inner uniform and shorts, dark thigh stockings, straps, boots, belt utility canisters. Image2 original BASE LD defines natural mature LD proportions, face, hair and pose. Preserve dark twin ponytails, pointed orange-red hair ribbons, amber-red eyes. Exactly TWO original serrated daggers, one in each hand. NO extra hip knife. Match every outfit detail in image1, natural hands, crisp anime shading. Entire hair, blade tips and feet inside comfortable margin. Actual RGBA transparent background and enclosed gaps. No checkerboard, opaque backdrop, shadow, labels or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            761,
+            368
+          ],
+          [
+            792,
+            434
+          ],
+          [
+            234,
+            433
+          ],
+          [
+            330,
+            351
+          ]
+        ],
+        "opaque": [
+          [
+            480,
+            332
+          ],
+          [
+            371,
+            829
+          ],
+          [
+            428,
+            570
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base facial identity and SD/LD garments, accessories and two-weapon count. Corrected missing tassel and removed extra hip knife before alpha work. Dark/light visual review; hair and arm negative spaces clear, face, ivory scarf/jacket and skin opaque; source RGB preserved."
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "batch": "2026-08-28-08",
+  "method": "Built-in imagegen; approved alpha-only extraction; SD/LD matched to base identities.",
+  "items": [
+    {
+      "id": "lv12-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-dd3d005c-f2bd-457d-8374-306cb956530e.png",
+      "half": null,
+      "holes": [
+        70,
+        94,
+        117,
+        151,
+        159,
+        322
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 base SD is the exact face, proportions and natural pose reference. Image2 base LD confirms identity. Costume only: Golden Leaf Garden: ivory and gold leaf-pattern light ninja armor, high collar, short emerald split waist panels, dark green fitted trousers, ivory/gold forearm and shin armor, dark green boots. Preserve Teal twin braids changing to blue at tips, distinctive yellow zigzag fringe highlight, emerald eyes, serious calm expression. Hands empty and open, no weapons. Maintain recognizable identity, age presentation, natural hands and body, original SD head/body proportions (not generic baby chibi). Crisp anime cel-shading, clean dark contours including hair edges. No costume detail or prop mismatches. Entire hair, weapon where applicable and feet within generous margin. Actual transparent RGBA and clear internal gaps; no painted checkerboard, white backdrop, floor shadow, text, watermark or second figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            487,
+            426
+          ],
+          [
+            750,
+            262
+          ],
+          [
+            455,
+            767
+          ],
+          [
+            511,
+            405
+          ]
+        ],
+        "opaque": [
+          [
+            564,
+            373
+          ],
+          [
+            604,
+            491
+          ],
+          [
+            823,
+            1143
+          ],
+          [
+            511,
+            155
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base identity, SD/LD costume construction and signature props. Dark/light review checks hair loops and side locks, intentional light hair reflections, ivory armor, metal blade and flower motifs. Source RGB preserved before canvas fit."
+    },
+    {
+      "id": "lv12-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e0d5c81d-a09c-4e32-a5ae-15e35fdfa190.png",
+      "half": null,
+      "holes": [
+        545
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Generate ONLY one full-body LD sprite. Image1 is exact base LD face, eye color, hair, age, anatomy, pose and cel-shading reference. Image2 is the approved SD COSTUME reference; copy its costume construction and accessories to the original LD anatomy, not SD proportions. Ivory/gold cropped high-collar chest armor with leaf motif, dark green collar insert, same upper-arm gaps and long ivory/gold detached sleeves, gold leaf belt buckle and cord, ivory/gold/green split hip panels, dark green trousers, ivory/gold leaf shin armor and green/ivory armored boots. Do not turn this into a full winter coat. Preserve teal twin braids with blue tips, yellow angular fringe highlight, green eyes, serious expression and empty open hands. No weapon. Correct natural fingers, crisp anime dark linework, no white outlines, no changes to identity. Full hair, flames/weapons if present and feet inside margin. Actual transparent RGBA and clear internal gaps. No painted checkerboard, white backdrop, floor shadow, text, extra character or outfit mismatch.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            880,
+            826
+          ]
+        ],
+        "opaque": [
+          [
+            493,
+            289
+          ],
+          [
+            521,
+            407
+          ],
+          [
+            688,
+            1376
+          ],
+          [
+            513,
+            135
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base identity, SD/LD costume construction and signature props. Dark/light review checks hair loops and side locks, intentional light hair reflections, ivory armor, metal blade and flower motifs. Source RGB preserved before canvas fit."
+    },
+    {
+      "id": "lv12-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-f6b394c1-e99b-4631-adb5-ed08885d397c.png",
+      "half": null,
+      "holes": [
+        65,
+        74,
+        76,
+        86
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 base SD is the exact face, proportions and natural pose reference. Image2 base LD confirms identity. Costume only: Coral Vines: coral-pink light ninja armor over deep green fitted uniform, delicate green vine motifs, short split waist panels, deep green waist knot, coral forearm guards and shin armor, green boots. Preserve Teal twin braids changing to blue at tips, distinctive yellow zigzag fringe highlight, emerald eyes, serious calm expression. Hands empty and open, no weapons. Maintain recognizable identity, age presentation, natural hands and body, original SD head/body proportions (not generic baby chibi). Crisp anime cel-shading, clean dark contours including hair edges. No costume detail or prop mismatches. Entire hair, weapon where applicable and feet within generous margin. Actual transparent RGBA and clear internal gaps; no painted checkerboard, white backdrop, floor shadow, text, watermark or second figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            529,
+            400
+          ],
+          [
+            536,
+            340
+          ],
+          [
+            551,
+            370
+          ],
+          [
+            635,
+            314
+          ]
+        ],
+        "opaque": [
+          [
+            590,
+            363
+          ],
+          [
+            595,
+            469
+          ],
+          [
+            829,
+            1124
+          ],
+          [
+            555,
+            172
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base identity, SD/LD costume construction and signature props. Dark/light review checks hair loops and side locks, intentional light hair reflections, ivory armor, metal blade and flower motifs. Source RGB preserved before canvas fit."
+    },
+    {
+      "id": "lv12-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-12cea35d-edf2-4559-9b52-6d54c01dac89.png",
+      "half": null,
+      "holes": [
+        55,
+        174
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Generate ONLY one full-body LD sprite. Image1 is exact base LD face, eye color, hair, age, anatomy, pose and cel-shading reference. Image2 is the approved SD COSTUME reference; copy its costume construction and accessories to the original LD anatomy, not SD proportions. Coral-pink fitted light chest armor with green vine motif and high dark-green neck scarf, same bare shoulders and pink detached forearm armor over green arm sleeves, dark green waist knot, short coral split hip panels with vines, green shorts and small exposed upper-thigh gaps above tall green leg armor with coral knee/shin guards, green boots. Match the SD garment lengths exactly. Preserve teal twin braids with blue tips, yellow angular fringe highlight, green eyes, serious expression and empty open hands. No weapon. Correct natural fingers, crisp anime dark linework, no white outlines, no changes to identity. Full hair, flames/weapons if present and feet inside margin. Actual transparent RGBA and clear internal gaps. No painted checkerboard, white backdrop, floor shadow, text, extra character or outfit mismatch.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            428,
+            316
+          ],
+          [
+            902,
+            839
+          ]
+        ],
+        "opaque": [
+          [
+            492,
+            289
+          ],
+          [
+            497,
+            463
+          ],
+          [
+            740,
+            1370
+          ],
+          [
+            516,
+            137
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base identity, SD/LD costume construction and signature props. Dark/light review checks hair loops and side locks, intentional light hair reflections, ivory armor, metal blade and flower motifs. Source RGB preserved before canvas fit."
+    },
+    {
+      "id": "lv13-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-cbd3f9b9-78ea-4f62-98dd-509a81592325.png",
+      "half": null,
+      "holes": [
+        19,
+        47,
+        48
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 base SD is the exact face, proportions and natural pose reference. Image2 base LD confirms identity. Costume only: Plum Blossom Flame: short crimson cape and red neck scarf with sparse plum blossoms, charcoal fitted sword uniform, red rope waist knots and tassels, charcoal loose trousers, red shin straps and dark open-toe ninja boots. Preserve Red high ponytail with deep purple sweeping bangs, red eyes and calm confident smile. Hold the original short upright silver sword with pink magical flame in the raised right side hand, one dark red sheath at waist, lowered other hand empty. Maintain recognizable identity, age presentation, natural hands and body, original SD head/body proportions (not generic baby chibi). Crisp anime cel-shading, clean dark contours including hair edges. No costume detail or prop mismatches. Entire hair, weapon where applicable and feet within generous margin. Actual transparent RGBA and clear internal gaps; no painted checkerboard, white backdrop, floor shadow, text, watermark or second figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            473,
+            257
+          ],
+          [
+            345,
+            402
+          ],
+          [
+            587,
+            353
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            340
+          ],
+          [
+            727,
+            382
+          ],
+          [
+            978,
+            102
+          ],
+          [
+            430,
+            1152
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base identity, SD/LD costume construction and signature props. Dark/light review checks hair loops and side locks, intentional light hair reflections, ivory armor, metal blade and flower motifs. Source RGB preserved before canvas fit."
+    },
+    {
+      "id": "lv13-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-02bc25b7-9703-43d7-b263-1e9ab797eba8.png",
+      "half": null,
+      "holes": [
+        17,
+        31
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Generate ONLY one full-body LD sprite. Image1 is exact base LD face, eye color, hair, age, anatomy, pose and cel-shading reference. Image2 is the approved SD COSTUME reference; copy its costume construction and accessories to the original LD anatomy, not SD proportions. Crimson cape and neck scarf with pale plum blossom motifs and gold edging, charcoal short-sleeve fitted sword uniform with forearm mesh guards and fingerless gloves, red rope waist knots and tassels, dark red sheath, charcoal baggy trousers, red shin ties and dark open-toe boots. Same cape silhouette and torn lower edge. Preserve red high ponytail, deep purple sweeping bangs, red eyes and calm smile. Original upright short silver sword with pink magical flame in raised RIGHT side hand, single sheath at waist, lowered LEFT side hand empty. Correct natural fingers, crisp anime dark linework, no white outlines, no changes to identity. Full hair, flames/weapons if present and feet inside margin. Actual transparent RGBA and clear internal gaps. No painted checkerboard, white backdrop, floor shadow, text, extra character or outfit mismatch.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            490,
+            240
+          ],
+          [
+            401,
+            310
+          ]
+        ],
+        "opaque": [
+          [
+            656,
+            254
+          ],
+          [
+            660,
+            317
+          ],
+          [
+            950,
+            67
+          ],
+          [
+            428,
+            1175
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base identity, SD/LD costume construction and signature props. Dark/light review checks hair loops and side locks, intentional light hair reflections, ivory armor, metal blade and flower motifs. Source RGB preserved before canvas fit."
+    },
+    {
+      "id": "lv13-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-ad87aebe-7369-48ed-b121-f8fbd3217d9f.png",
+      "half": null,
+      "holes": [
+        17,
+        42,
+        45
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 base SD is the exact face, proportions and natural pose reference. Image2 base LD confirms identity. Costume only: Sapphire Blade Dance: deep blue fitted sword jacket with silver fasteners, turquoise scale-pattern waist sash and side panels, dark blue loose trousers, silver-edged blue forearm guards, dark blue shin guards and open-toe ninja boots. Preserve Red high ponytail with deep purple sweeping bangs, red eyes and calm confident smile. Hold the original short upright silver sword with pink magical flame in the raised right side hand, one dark blue sheath at waist, lowered other hand empty. Maintain recognizable identity, age presentation, natural hands and body, original SD head/body proportions (not generic baby chibi). Crisp anime cel-shading, clean dark contours including hair edges. No costume detail or prop mismatches. Entire hair, weapon where applicable and feet within generous margin. Actual transparent RGBA and clear internal gaps; no painted checkerboard, white backdrop, floor shadow, text, watermark or second figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            453,
+            250
+          ],
+          [
+            323,
+            397
+          ],
+          [
+            579,
+            371
+          ]
+        ],
+        "opaque": [
+          [
+            643,
+            327
+          ],
+          [
+            599,
+            418
+          ],
+          [
+            974,
+            90
+          ],
+          [
+            859,
+            1186
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base identity, SD/LD costume construction and signature props. Dark/light review checks hair loops and side locks, intentional light hair reflections, ivory armor, metal blade and flower motifs. Source RGB preserved before canvas fit."
+    },
+    {
+      "id": "lv13-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-87b87eca-d24b-4183-aee0-33211d447486.png",
+      "half": null,
+      "holes": [
+        14,
+        36,
+        40
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Generate ONLY one full-body LD sprite. Image1 is exact base LD face, eye color, hair, age, anatomy, pose and cel-shading reference. Image2 is the approved SD COSTUME reference; copy its costume construction and accessories to the original LD anatomy, not SD proportions. Deep sapphire fitted high-collar jacket with three silver toggles and silver piping, turquoise scale-pattern sash and long split side panels with silver edges and twin tassels, dark blue sheath, navy baggy trousers, blue/silver forearm armor and fingerless gloves, blue shin guards with silver buckle straps, dark blue open-toe boots. Preserve red high ponytail, deep purple sweeping bangs, red eyes and calm smile. Original upright short silver sword with pink magical flame in raised RIGHT side hand, single sheath at waist, lowered LEFT side hand empty. Correct natural fingers, crisp anime dark linework, no white outlines, no changes to identity. Full hair, flames/weapons if present and feet inside margin. Actual transparent RGBA and clear internal gaps. No painted checkerboard, white backdrop, floor shadow, text, extra character or outfit mismatch.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            490,
+            243
+          ],
+          [
+            403,
+            312
+          ],
+          [
+            606,
+            282
+          ]
+        ],
+        "opaque": [
+          [
+            652,
+            248
+          ],
+          [
+            631,
+            326
+          ],
+          [
+            965,
+            60
+          ],
+          [
+            872,
+            1205
+          ]
+        ]
+      },
+      "reviewNotes": "Matched base identity, SD/LD costume construction and signature props. Dark/light review checks hair loops and side locks, intentional light hair reflections, ivory armor, metal blade and flower motifs. Source RGB preserved before canvas fit."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "lv15-c",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/15.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/15.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact BASE SD facial identity, age presentation, original natural SD proportions and pose. Image2 is BASE LD identity confirmation. Change costume only: Amethyst Pursuit: amethyst fitted pursuit coat, high collar, short split tails, dark shoulder armor, black trousers, purple forearm guards and dark boots. Preserve long dark brown high ponytail fading to rose-red ends, red eyes, black hair bow, calm expression. One silver sword held low towards canvas LEFT, other hand on hip beside waist-mounted sheathed sword and empty sheath. Natural hands with correct grips. Crisp anime cel shading and dark contours, no generic baby chibi, no face redesign. Entire hair, blade tips and boots well within generous margin. Actual transparent RGBA background including enclosed hair/arm gaps. No white backdrop, painted checkerboard, ground shadow, text, watermark, extra characters or weapons."
+  },
+  {
+    "id": "lv15-d",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/15.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/15.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact BASE SD facial identity, age presentation, original natural SD proportions and pose. Image2 is BASE LD identity confirmation. Change costume only: Silver Snow Stealth: slate fitted stealth armor, ivory short scarf with ends resting on chest, silver fasteners, slate fitted trousers and wrapped black boots. Preserve long dark brown high ponytail fading to rose-red ends, red eyes, black hair bow, calm expression. One silver sword held low towards canvas LEFT, other hand on hip beside waist-mounted sheathed sword and empty sheath. Natural hands with correct grips. Crisp anime cel shading and dark contours, no generic baby chibi, no face redesign. Entire hair, blade tips and boots well within generous margin. Actual transparent RGBA background including enclosed hair/arm gaps. No white backdrop, painted checkerboard, ground shadow, text, watermark, extra characters or weapons."
+  },
+  {
+    "id": "lv16-a",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/16.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact BASE SD facial identity, age presentation, original natural SD proportions and pose. Image2 is BASE LD identity confirmation. Change costume only: Plum Guard: cream short battle jacket with burgundy plum blossom motifs, burgundy sash over a dark burgundy fitted inner uniform, fitted shorts, purple thigh-high stockings and dark strapped boots. Preserve long dark brown twin ponytails and pointed orange-red ribbon ornaments, fiery amber/red eyes, confident serious expression. Exactly TWO curved serrated silver daggers with dark handles, one held out in each hand matching base; preserve belt utility canisters. No horns or animal ears; ornaments are ribbons. Natural hands with correct grips. Crisp anime cel shading and dark contours, no generic baby chibi, no face redesign. Entire hair, blade tips and boots well within generous margin. Actual transparent RGBA background including enclosed hair/arm gaps. No white backdrop, painted checkerboard, ground shadow, text, watermark, extra characters or weapons."
+  },
+  {
+    "id": "lv16-b",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/16.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD game sprite. Image1 is exact BASE SD facial identity, age presentation, original natural SD proportions and pose. Image2 is BASE LD identity confirmation. Change costume only: Eclipse Command: charcoal and violet commander short coat, restrained silver eclipse emblem and buttons, violet fitted inner uniform and shorts, dark thigh-high stockings, charcoal strapped boots. Preserve long dark brown twin ponytails and pointed orange-red ribbon ornaments, fiery amber/red eyes, confident serious expression. Exactly TWO curved serrated silver daggers with dark handles, one held out in each hand matching base; preserve belt utility canisters. No horns or animal ears; ornaments are ribbons. Natural hands with correct grips. Crisp anime cel shading and dark contours, no generic baby chibi, no face redesign. Entire hair, blade tips and boots well within generous margin. Actual transparent RGBA background including enclosed hair/arm gaps. No white backdrop, painted checkerboard, ground shadow, text, watermark, extra characters or weapons."
+  }
+]

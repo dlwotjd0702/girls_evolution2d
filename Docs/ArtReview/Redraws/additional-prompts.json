@@ -1,0 +1,15 @@
+{
+  "mode": "built-in imagegen; user-authorized local background extraction",
+  "excluded": "25+ forms unchanged per user instruction",
+  "redraws": [
+    {
+      "id": "7-LD",
+      "prompt": "Use case: identity-preserve redraw. Make an LD/full-proportion anime mobile game character sprite matching reference 1 SD identity and outfit exactly. Reference 2 is ONLY the desired taller LD body proportion and rendering style; do NOT copy its wrong outfit or hairstyle. One adult female ninja, brown short twin ponytails at both sides, straight brown fringe, amber eyes, fully closed dark charcoal wrap kimono tunic with elbow-length rolled sleeves, broad gray cloth waist sash tied at front, loose dark hakama trousers, black fingerless gloves, black shin wraps and open-toed dark sandals. Small belt pouch and a sheathed short sword. Relaxed standing ready pose, anatomically coherent hands, two arms and two legs. 5.5-head-tall proportions, clean anime linework and cel shading, not chibi. Full body centered, feet and accessories entirely visible with margin, isolated. No lettering, no scenery, no shadow or floor. Actual transparent alpha background; if unsupported, flat pure white background. Never draw a checkerboard. Keep the simple early-stage ninja design: no added armor, no jewels, no elaborate magical effects."
+    },
+    {
+      "id": "12-LD",
+      "prompt": "Use case: identity-preserve redraw. Create a polished full-proportion LD anime mobile game sprite of the adult female ninja in reference 1 SD. Reference 1 defines identity, hair, and clothing; reference 2 is only a guide to tall LD proportions and cel-shaded rendering. Preserve teal/turquoise blunt fringe bangs (NOT a bandana covering the forehead), two long thick braided pigtails fading blue at the ends, yellow zigzag hair ribbon/headband, green eyes, green cropped high-neck sleeveless tunic with blue chest straps, dark-blue neck scarf, green short skirt/shorts with blue waistband, segmented green thigh/knee/shin armor over dark fitted leggings, green armored gauntlets and boots, two blue cloth tails. No baggy long pants and no blue bra top from old LD. Two natural visible hands held in a light martial ready stance, feet grounded and balanced, compact readable silhouette with full braids visible. Adult 5.5-head-tall anime proportion, not chibi. Full body centered with margin around all hair and feet, clean line art and crisp cel shading. No added sword, no text, no watermark, no scenery, no floor shadow. Transparent alpha; if unavailable flat pure white, never a checker pattern."
+    }
+  ],
+  "status": "Applied: source drafts preserved; user-authorized local background extraction; final RGBA assets in Assets/Art/Characters/LD."
+}

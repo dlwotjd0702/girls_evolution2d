@@ -1,0 +1,461 @@
+{
+  "batch": "2026-08-28-09",
+  "method": "Built-in imagegen; authorized alpha-only extraction; SD/LD reference matching.",
+  "items": [
+    {
+      "id": "lv14-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-657c814f-4189-43ca-bb53-f9df4f40a2a9.png",
+      "half": null,
+      "holes": [
+        11,
+        18,
+        33,
+        35,
+        98,
+        247
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Produce ONLY one full-body SD game sprite. Image1 is the exact BASE SD face, natural anatomy, proportions, age presentation and pose reference. Image2 base LD confirms identity. Costume only: Black Gold Twin Moons: black fitted armor with gold edges and layered shoulder guards, black high collar, short split waist panels, gold moon-shaped belt clasp, dark loose ninja trousers, black/gold shin guards and boots. Preserve Dark high ponytail with teal ends, red eyes, hairpin/tassel, serious expression. Exactly TWO curved black katanas with silver zigzag blade edge, one in each hand, same blade angles as base. Do not make generic baby chibi or change face. Correct fingers and prop count, clean anime cel shading and dark outlines. All hair, long blade tips and boots comfortably inside generous canvas margin. Actual transparent RGBA background and internal gaps. No white backdrop, checkerboard, ground shadow, text, watermark or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            789,
+            560
+          ],
+          [
+            391,
+            237
+          ],
+          [
+            404,
+            332
+          ],
+          [
+            582,
+            269
+          ]
+        ],
+        "opaque": [
+          [
+            658,
+            277
+          ],
+          [
+            700,
+            535
+          ],
+          [
+            500,
+            450
+          ]
+        ]
+      },
+      "reviewNotes": "Base identity and matched SD/LD costume reviewed. Dark/light composites checked; hair, face-side, arm and sheath gaps cleared, ivory clothing, gold trim, face and blade visually preserved. RGB unchanged before canvas fitting. Outer blade tips are intentionally antialiased."
+    },
+    {
+      "id": "lv14-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-108205c1-63f0-469c-8e3d-78a424096d3d.png",
+      "half": null,
+      "holes": [
+        10,
+        22,
+        23,
+        25,
+        31,
+        76
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY ONE full-body LD portrait game sprite. Image1 is the approved new SD costume: reproduce its exact colors, garment layers, collar, belt, gloves, boots, accessories, handedness and prop count. Image2 is the original BASE LD: preserve its recognizable face, age presentation, natural mature LD proportions, hair and pose, clean anime linework. Do not use the SD body proportions. Costume only: Black Gold Twin Moons: black fitted armor with gold edges and layered shoulder guards, black high collar, short split waist panels, gold moon-shaped belt clasp, dark loose ninja trousers, black/gold shin guards and boots. Preserve Dark high ponytail with teal ends, red eyes, hairpin/tassel, serious expression. Exactly TWO curved black katanas with silver zigzag blade edge, one in each hand, same blade angles as base.  Match image1 outfit precisely. Natural hands and grasp, correct blade geometry. Entire hair, long weapon tips and footwear within generous empty margin. Actual transparent RGBA including enclosed gaps. No opaque backdrop, painted checkerboard, ground shadow, text, watermark, extra figure or extra weapons.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            256,
+            265
+          ],
+          [
+            664,
+            611
+          ],
+          [
+            250,
+            348
+          ],
+          [
+            458,
+            305
+          ]
+        ],
+        "opaque": [
+          [
+            526,
+            319
+          ],
+          [
+            570,
+            550
+          ],
+          [
+            380,
+            380
+          ]
+        ]
+      },
+      "reviewNotes": "Base identity and matched SD/LD costume reviewed. Dark/light composites checked; hair, face-side, arm and sheath gaps cleared, ivory clothing, gold trim, face and blade visually preserved. RGB unchanged before canvas fitting. Outer blade tips are intentionally antialiased."
+    },
+    {
+      "id": "lv14-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-22aa4055-49f4-4ed2-b79e-5f572dc92dc2.png",
+      "half": null,
+      "holes": [
+        22,
+        26,
+        33,
+        42,
+        43,
+        48,
+        126,
+        253,
+        388
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Produce ONLY one full-body SD game sprite. Image1 is the exact BASE SD face, natural anatomy, proportions, age presentation and pose reference. Image2 base LD confirms identity. Costume only: White Lotus Twin Blades: ivory short battle haori over teal fitted armor, white lotus-pattern teal waist sash with silver clasp, short ivory/teal split waist panels, dark loose ninja trousers, teal shin guards and ivory-edged boots. Preserve Dark high ponytail with teal ends, red eyes, hairpin/tassel, serious expression. Exactly TWO curved black katanas with silver zigzag blade edge, one in each hand, same blade angles as base. Do not make generic baby chibi or change face. Correct fingers and prop count, clean anime cel shading and dark outlines. All hair, long blade tips and boots comfortably inside generous canvas margin. Actual transparent RGBA background and internal gaps. No white backdrop, checkerboard, ground shadow, text, watermark or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            557,
+            532
+          ],
+          [
+            817,
+            634
+          ],
+          [
+            343,
+            239
+          ],
+          [
+            358,
+            324
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            297
+          ],
+          [
+            565,
+            436
+          ],
+          [
+            601,
+            690
+          ]
+        ]
+      },
+      "reviewNotes": "Base identity and matched SD/LD costume reviewed. Dark/light composites checked; hair, face-side, arm and sheath gaps cleared, ivory clothing, gold trim, face and blade visually preserved. RGB unchanged before canvas fitting. Outer blade tips are intentionally antialiased."
+    },
+    {
+      "id": "lv14-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-efee9547-0d84-4cb8-a5b2-a34fef47e4a8.png",
+      "half": null,
+      "holes": [
+        2,
+        9,
+        10,
+        26,
+        30,
+        33,
+        482
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY ONE full-body LD portrait game sprite. Image1 is the approved new SD costume: reproduce its exact colors, garment layers, collar, belt, gloves, boots, accessories, handedness and prop count. Image2 is the original BASE LD: preserve its recognizable face, age presentation, natural mature LD proportions, hair and pose, clean anime linework. Do not use the SD body proportions. Costume only: White Lotus Twin Blades: ivory short battle haori over teal fitted armor, white lotus-pattern teal waist sash with silver clasp, short ivory/teal split waist panels, dark loose ninja trousers, teal shin guards and ivory-edged boots. Preserve Dark high ponytail with teal ends, red eyes, hairpin/tassel, serious expression. Exactly TWO curved black katanas with silver zigzag blade edge, one in each hand, same blade angles as base.  Match image1 outfit precisely. Natural hands and grasp, correct blade geometry. Entire hair, long weapon tips and footwear within generous empty margin. Actual transparent RGBA including enclosed gaps. No opaque backdrop, painted checkerboard, ground shadow, text, watermark, extra figure or extra weapons.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            446,
+            288
+          ],
+          [
+            292,
+            251
+          ],
+          [
+            574,
+            306
+          ],
+          [
+            699,
+            669
+          ]
+        ],
+        "opaque": [
+          [
+            547,
+            306
+          ],
+          [
+            457,
+            430
+          ],
+          [
+            510,
+            760
+          ]
+        ]
+      },
+      "reviewNotes": "Base identity and matched SD/LD costume reviewed. Dark/light composites checked; hair, face-side, arm and sheath gaps cleared, ivory clothing, gold trim, face and blade visually preserved. RGB unchanged before canvas fitting. Outer blade tips are intentionally antialiased."
+    },
+    {
+      "id": "lv15-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-8ba34daa-fa5e-4bdc-9197-6bfa1574f8f3.png",
+      "half": null,
+      "holes": [
+        3,
+        8,
+        10,
+        16,
+        21,
+        25,
+        33,
+        62,
+        86,
+        90,
+        141
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Produce ONLY one full-body SD game sprite. Image1 is the exact BASE SD face, natural anatomy, proportions, age presentation and pose reference. Image2 base LD confirms identity. Costume only: Golden Dawn: ivory and warm gold ceremonial ninja tunic with subtle dawn-ray motifs, gold shoulder guards, warm gold rope belt, charcoal fitted trousers, ivory/gold forearm armor and shin guards, dark boots. Preserve Long dark brown high ponytail fading to muted rose-red tips, red eyes, black hair bow, calm expression. Original long silver sword pointed down toward canvas LEFT in lowered left-side hand; other hand rests on hip beside original one sheathed sword at waist. Do not make generic baby chibi or change face. Correct fingers and prop count, clean anime cel shading and dark outlines. All hair, long blade tips and boots comfortably inside generous canvas margin. Actual transparent RGBA background and internal gaps. No white backdrop, checkerboard, ground shadow, text, watermark or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            838,
+            379
+          ],
+          [
+            770,
+            301
+          ],
+          [
+            927,
+            554
+          ],
+          [
+            732,
+            489
+          ]
+        ],
+        "opaque": [
+          [
+            644,
+            299
+          ],
+          [
+            593,
+            472
+          ],
+          [
+            782,
+            1003
+          ]
+        ]
+      },
+      "reviewNotes": "Base identity and matched SD/LD costume reviewed. Dark/light composites checked; hair, face-side, arm and sheath gaps cleared, ivory clothing, gold trim, face and blade visually preserved. RGB unchanged before canvas fitting. Outer blade tips are intentionally antialiased."
+    },
+    {
+      "id": "lv15-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-be94e28c-c1e3-48c8-bf6d-2d40c3137912.png",
+      "half": null,
+      "holes": [
+        3,
+        6,
+        10,
+        22,
+        28,
+        30,
+        31,
+        42,
+        67,
+        134,
+        165
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY ONE full-body LD portrait game sprite. Image1 is the approved new SD costume: reproduce its exact colors, garment layers, collar, belt, gloves, boots, accessories, handedness and prop count. Image2 is the original BASE LD: preserve its recognizable face, age presentation, natural mature LD proportions, hair and pose, clean anime linework. Do not use the SD body proportions. Costume only: Golden Dawn: ivory and warm gold ceremonial ninja tunic with subtle dawn-ray motifs, gold shoulder guards, warm gold rope belt, charcoal fitted trousers, ivory/gold forearm armor and shin guards, dark boots. Preserve Long dark brown high ponytail fading to muted rose-red tips, red eyes, black hair bow, calm expression. Original long silver sword pointed down toward canvas LEFT in lowered left-side hand; other hand rests on hip beside original one sheathed sword at waist.  Match image1 outfit precisely. Natural hands and grasp, correct blade geometry. Entire hair, long weapon tips and footwear within generous empty margin. Actual transparent RGBA including enclosed gaps. No opaque backdrop, painted checkerboard, ground shadow, text, watermark, extra figure or extra weapons.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            739,
+            452
+          ],
+          [
+            644,
+            324
+          ],
+          [
+            623,
+            519
+          ],
+          [
+            917,
+            507
+          ]
+        ],
+        "opaque": [
+          [
+            548,
+            321
+          ],
+          [
+            510,
+            466
+          ],
+          [
+            660,
+            1091
+          ]
+        ]
+      },
+      "reviewNotes": "Base identity and matched SD/LD costume reviewed. Dark/light composites checked; hair, face-side, arm and sheath gaps cleared, ivory clothing, gold trim, face and blade visually preserved. RGB unchanged before canvas fitting. Outer blade tips are intentionally antialiased."
+    },
+    {
+      "id": "lv15-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-3abc309a-74d5-4d71-8b9f-bec5f83168d9.png",
+      "half": null,
+      "holes": [
+        2,
+        6,
+        11,
+        12,
+        17,
+        19,
+        34,
+        36,
+        46
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Produce ONLY one full-body SD game sprite. Image1 is the exact BASE SD face, natural anatomy, proportions, age presentation and pose reference. Image2 base LD confirms identity. Costume only: Black Rose: black and burgundy military-style fitted coat with short split tails, rose-shaped silver collar clasp and double-row silver buttons, burgundy waist belt, charcoal fitted trousers, black/burgundy forearm guards and black boots. Preserve Long dark brown high ponytail fading to muted rose-red tips, red eyes, black hair bow, calm expression. Original long silver sword pointed down toward canvas LEFT in lowered left-side hand; other hand rests on hip beside original one sheathed sword at waist. Do not make generic baby chibi or change face. Correct fingers and prop count, clean anime cel shading and dark outlines. All hair, long blade tips and boots comfortably inside generous canvas margin. Actual transparent RGBA background and internal gaps. No white backdrop, checkerboard, ground shadow, text, watermark or extra figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            856,
+            419
+          ],
+          [
+            780,
+            336
+          ],
+          [
+            738,
+            506
+          ],
+          [
+            1061,
+            513
+          ]
+        ],
+        "opaque": [
+          [
+            640,
+            316
+          ],
+          [
+            639,
+            384
+          ],
+          [
+            620,
+            454
+          ]
+        ]
+      },
+      "reviewNotes": "Base identity and matched SD/LD costume reviewed. Dark/light composites checked; hair, face-side, arm and sheath gaps cleared, ivory clothing, gold trim, face and blade visually preserved. RGB unchanged before canvas fitting. Outer blade tips are intentionally antialiased."
+    },
+    {
+      "id": "lv15-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e7a6c7e9-b5e4-44eb-af7a-7195a0574413.png",
+      "half": null,
+      "holes": [
+        2,
+        4,
+        5,
+        9,
+        19,
+        20,
+        22,
+        25,
+        38,
+        50,
+        56,
+        82
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONLY ONE full-body LD portrait game sprite. Image1 is the approved new SD costume: reproduce its exact colors, garment layers, collar, belt, gloves, boots, accessories, handedness and prop count. Image2 is the original BASE LD: preserve its recognizable face, age presentation, natural mature LD proportions, hair and pose, clean anime linework. Do not use the SD body proportions. Costume only: Black Rose: black and burgundy military-style fitted coat with short split tails, rose-shaped silver collar clasp and double-row silver buttons, burgundy waist belt, charcoal fitted trousers, black/burgundy forearm guards and black boots. Preserve Long dark brown high ponytail fading to muted rose-red tips, red eyes, black hair bow, calm expression. Original long silver sword pointed down toward canvas LEFT in lowered left-side hand; other hand rests on hip beside original one sheathed sword at waist.  Match image1 outfit precisely. Natural hands and grasp, correct blade geometry. Entire hair, long weapon tips and footwear within generous empty margin. Actual transparent RGBA including enclosed gaps. No opaque backdrop, painted checkerboard, ground shadow, text, watermark, extra figure or extra weapons.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            658,
+            341
+          ],
+          [
+            652,
+            536
+          ],
+          [
+            741,
+            390
+          ],
+          [
+            825,
+            317
+          ]
+        ],
+        "opaque": [
+          [
+            550,
+            323
+          ],
+          [
+            547,
+            396
+          ],
+          [
+            529,
+            513
+          ]
+        ]
+      },
+      "reviewNotes": "Base identity and matched SD/LD costume reviewed. Dark/light composites checked; hair, face-side, arm and sheath gaps cleared, ivory clothing, gold trim, face and blade visually preserved. RGB unchanged before canvas fitting. Outer blade tips are intentionally antialiased."
+    }
+  ]
+}

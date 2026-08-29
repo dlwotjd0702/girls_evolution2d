@@ -1,0 +1,386 @@
+{
+  "checks": [
+    {
+      "objectId": "51035796",
+      "property": "m_AnchorMin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "51035796",
+      "property": "m_AnchorMax",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "51035796",
+      "property": "m_AnchoredPosition",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "51035796",
+      "property": "m_SizeDelta",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "51035796",
+      "property": "m_Pivot",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "51035796",
+      "property": "m_LocalScale",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "51035796",
+      "property": "m_LocalRotation",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952148",
+      "property": "m_AnchorMin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952148",
+      "property": "m_AnchorMax",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952148",
+      "property": "m_AnchoredPosition",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952148",
+      "property": "m_SizeDelta",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952148",
+      "property": "m_Pivot",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952148",
+      "property": "m_LocalScale",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952148",
+      "property": "m_LocalRotation",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "666970145",
+      "property": "m_AnchorMin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "666970145",
+      "property": "m_AnchorMax",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "666970145",
+      "property": "m_AnchoredPosition",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "666970145",
+      "property": "m_SizeDelta",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "666970145",
+      "property": "m_Pivot",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "666970145",
+      "property": "m_LocalScale",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "666970145",
+      "property": "m_LocalRotation",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441311",
+      "property": "m_AnchorMin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441311",
+      "property": "m_AnchorMax",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441311",
+      "property": "m_AnchoredPosition",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441311",
+      "property": "m_SizeDelta",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441311",
+      "property": "m_Pivot",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441311",
+      "property": "m_LocalScale",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441311",
+      "property": "m_LocalRotation",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451919",
+      "property": "m_AnchorMin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451919",
+      "property": "m_AnchorMax",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451919",
+      "property": "m_AnchoredPosition",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451919",
+      "property": "m_SizeDelta",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451919",
+      "property": "m_Pivot",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451919",
+      "property": "m_LocalScale",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451919",
+      "property": "m_LocalRotation",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1580721930",
+      "property": "m_AnchorMin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1580721930",
+      "property": "m_AnchorMax",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1580721930",
+      "property": "m_AnchoredPosition",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1580721930",
+      "property": "m_SizeDelta",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1580721930",
+      "property": "m_Pivot",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1580721930",
+      "property": "m_LocalScale",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1580721930",
+      "property": "m_LocalRotation",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090922",
+      "property": "m_AnchorMin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090922",
+      "property": "m_AnchorMax",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090922",
+      "property": "m_AnchoredPosition",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090922",
+      "property": "m_SizeDelta",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090922",
+      "property": "m_Pivot",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090922",
+      "property": "m_LocalScale",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090922",
+      "property": "m_LocalRotation",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "2096439120",
+      "property": "m_AnchorMin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "2096439120",
+      "property": "m_AnchorMax",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "2096439120",
+      "property": "m_AnchoredPosition",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "2096439120",
+      "property": "m_SizeDelta",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "2096439120",
+      "property": "m_Pivot",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "2096439120",
+      "property": "m_LocalScale",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "2096439120",
+      "property": "m_LocalRotation",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952150",
+      "property": "m_Sprite",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952150",
+      "property": "m_PreserveAspect",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952150",
+      "property": "m_Type",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952150",
+      "property": "m_FillMethod",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "284952150",
+      "property": "m_FillOrigin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441312",
+      "property": "m_Sprite",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441312",
+      "property": "m_PreserveAspect",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441312",
+      "property": "m_Type",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441312",
+      "property": "m_FillMethod",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "923441312",
+      "property": "m_FillOrigin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451922",
+      "property": "m_Sprite",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451922",
+      "property": "m_PreserveAspect",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451922",
+      "property": "m_Type",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451922",
+      "property": "m_FillMethod",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "962451922",
+      "property": "m_FillOrigin",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090925",
+      "property": "m_Sprite",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090925",
+      "property": "m_PreserveAspect",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090925",
+      "property": "m_Type",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090925",
+      "property": "m_FillMethod",
+      "matchesInitial": true
+    },
+    {
+      "objectId": "1644090925",
+      "property": "m_FillOrigin",
+      "matchesInitial": true
+    }
+  ],
+  "allMatch": true,
+  "saveSHA256": "8038f32eb5c757582b5fc2ea3b7b8c240b3ce0ba903d6ac3bf074d2a8fa0c439"
+}

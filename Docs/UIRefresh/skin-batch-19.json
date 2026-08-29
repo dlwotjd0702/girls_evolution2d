@@ -1,0 +1,141 @@
+{
+  "purpose": "Correct lv01 SD proportions to match the base SD; paired LD costume remains unchanged.",
+  "items": [
+    {
+      "id": "lv01-a",
+      "kind": "SD",
+      "prompt": "Use case: style-transfer. Create a corrected SD field sprite for the female ninja skin lv01-a. Image 1 is the canonical BASE SD and is authoritative for large head size, short limbs, compact body, cute face and eyes, charcoal bob haircut, dark cel-shaded outlines and standing silhouette. Image 2 is the paired LD, authoritative ONLY for the EXACT skin costume, palette, decorative motifs, wrist/shin wraps and two weapons. Image 3 is the old SD to replace: its body/legs are too long and head too small, so DO NOT copy its proportions. Produce the character in the exact compact approximately 2.6-head-tall SD proportions of image 1 (head including hair about 38% of full character height). Preserve the paired LD's peach wrap tunic with ivory sleeves, lotus chest clasp, white waist ribbon, lotus skirt border, dark cropped trousers, ivory shin wraps and open-toe sandals. Compress and simplify detail to read at 80 screen pixels without losing costume matching. Keep both weapons from image 2: one short drawn blade in each hand pointing diagonally down, no extra blades. Natural short chibi arms and hands; no distorted fingers. Flat clean game sprite, entire body and weapons fully inside square canvas with margin, actual transparent RGBA background. No ground shadow, no white halo, no drawn checkerboard, no text. Output one SD character only, never LD.",
+      "referenced_image_paths": [
+        "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/1.png",
+        "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/Skins/lv01-a-LD.png",
+        "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/Skins/lv01-a-SD.png"
+      ],
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-16ecaaab-d363-4264-af06-50f9d047e58f.png",
+      "half": null,
+      "threshold": 225,
+      "spread": 24,
+      "holes": [
+        17,
+        23,
+        24,
+        85,
+        133
+      ],
+      "edgeInset": 0.8,
+      "approved": true,
+      "reviewNotes": "Compared to base SD: compact approximately 2.6-head silhouette, large head, short natural limbs. Paired LD costume, lotus/crescent decoration, wraps, sandals, two blade positions retained. Dark/light alpha views inspected; enclosed hair/arm gaps removed, ivory clothing and metal highlights preserved.",
+      "beforeSha256": "21b150b9a767e93fe3306a7a79ad16e5fd54c14fcf39d102dd2586d7f8d387a5",
+      "metaSha256": "7c472b68046a779e55827ccf570042ce1103ef686965cd9ce38cb269c6617e0c",
+      "alphaProbes": {
+        "clear": [
+          [
+            421,
+            475
+          ],
+          [
+            515,
+            521
+          ],
+          [
+            688,
+            514
+          ],
+          [
+            724,
+            725
+          ],
+          [
+            470,
+            775
+          ]
+        ],
+        "opaque": [
+          [
+            590,
+            465
+          ],
+          [
+            585,
+            605
+          ],
+          [
+            605,
+            693
+          ],
+          [
+            715,
+            1043
+          ]
+        ]
+      }
+    },
+    {
+      "id": "lv01-b",
+      "kind": "SD",
+      "prompt": "Use case: style-transfer. Create a corrected SD field sprite for the female ninja skin lv01-b. Image 1 is the canonical BASE SD and is authoritative for large head size, short limbs, compact body, cute face and eyes, charcoal bob haircut, dark cel-shaded outlines and standing silhouette. Image 2 is the paired LD, authoritative ONLY for the EXACT skin costume, palette, decorative motifs, wrist/shin wraps and two weapons. Image 3 is the old SD to replace: its body/legs are too long and head too small, so DO NOT copy its proportions. Produce the character in the exact compact approximately 2.6-head-tall SD proportions of image 1 (head including hair about 38% of full character height). Preserve the paired LD's navy silver-trimmed short stealth coat with high collar, two silver chest crescents, crescent belt buckle and crescent skirt motif, dark cropped trousers, wrapped shins and open-toe sandals. Compress and simplify detail to read at 80 screen pixels without losing costume matching. Keep both weapons from image 2: one short drawn blade in each hand pointing diagonally down, no extra blades. Natural short chibi arms and hands; no distorted fingers. Flat clean game sprite, entire body and weapons fully inside square canvas with margin, actual transparent RGBA background. No ground shadow, no white halo, no drawn checkerboard, no text. Output one SD character only, never LD.",
+      "referenced_image_paths": [
+        "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/1.png",
+        "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/Skins/lv01-b-LD.png",
+        "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/Skins/lv01-b-SD.png"
+      ],
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-d4d6117b-580b-4624-b031-399f052ce10c.png",
+      "half": null,
+      "threshold": 225,
+      "spread": 24,
+      "holes": [
+        51,
+        74,
+        75,
+        112,
+        125
+      ],
+      "edgeInset": 0.8,
+      "approved": true,
+      "reviewNotes": "Compared to base SD: compact approximately 2.6-head silhouette, large head, short natural limbs. Paired LD costume, lotus/crescent decoration, wraps, sandals, two blade positions retained. Dark/light alpha views inspected; enclosed hair/arm gaps removed, ivory clothing and metal highlights preserved.",
+      "beforeSha256": "7701d70f9f730ad7ed50d7ce5a15754192b79f1f4e053ccb616b258354fda589",
+      "metaSha256": "e72ea56b453db36eb5d5f098c6034da3f3bfb95a0c3c5db322303934486d97dd",
+      "alphaProbes": {
+        "clear": [
+          [
+            410,
+            491
+          ],
+          [
+            492,
+            533
+          ],
+          [
+            693,
+            525
+          ],
+          [
+            683,
+            685
+          ],
+          [
+            461,
+            778
+          ]
+        ],
+        "opaque": [
+          [
+            590,
+            465
+          ],
+          [
+            585,
+            605
+          ],
+          [
+            605,
+            693
+          ],
+          [
+            715,
+            1043
+          ]
+        ]
+      }
+    }
+  ]
+}

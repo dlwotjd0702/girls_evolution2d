@@ -1,0 +1,445 @@
+{
+  "batch": "2026-08-28-04",
+  "method": "Built-in imagegen; authorized Python alpha extraction; staged visual review before registration.",
+  "items": [
+    {
+      "id": "lv06-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-04878d79-ca39-4108-84f6-d972d1b021c2.png",
+      "half": null,
+      "holes": [
+        37
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Create ONE SD full-body costume sprite 'Crimson Lotus Sword Dance' for the female ninja in image 1, the SD edit target. Image 2 is LD identity reference only. Preserve image 1's exact chibi proportions, stern purple eyes, short straight charcoal bob with purple tips, face, stance, upright sword in right hand, sheathed sword across hips, gloves, thigh-high stockings and wrapped open-toe boots. Change outfit to a crimson red sword-dance haori, elbow-length sleeves, long split side hems flowing behind, fine gold hem piping, over charcoal sleeveless fitted ninja tunic and shorts, a flat muted gold obi belt. Preserve original modest game styling, no additional skin exposure, no new weapons or jewelry. Original clean dark linework and matte cel shading. Same recognizable ninja, not a generic doll. One complete figure centered with sword tip, all cloth and toes inside 5 percent margin. Output actual transparent RGBA, including gaps between arms, sword, hair and cloth. Never draw checkerboard pixels, white backdrop, floor shadow, text, glow or extra figures.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            514,
+            536
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            300
+          ],
+          [
+            600,
+            450
+          ],
+          [
+            352,
+            90
+          ]
+        ]
+      },
+      "visualReview": "SD/LD identity, outfit construction and accessories match; full-body margins and dark/light alpha inspected. Internal hair/arm gaps cleared selectively; blade, skin and toenail highlights protected. Source RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv06-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-af753310-de9d-4a99-9817-8bb96cdd913c.png",
+      "half": null,
+      "holes": [
+        12,
+        28,
+        46,
+        53,
+        58,
+        61,
+        77
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body LD sprite 'Crimson Lotus Sword Dance'. Image 1 is the base LD edit target: preserve exact face, stern purple eyes, short straight dark bob with purple tips, original LD anatomy and stance, upright sword, diagonal sheathed sword, gloves, thigh-high stockings and wrapped open-toe boots. Image 2 supplies the exact new costume only: crimson red elbow-sleeve open haori with narrow gold edging, long separated side tails and a restrained gold lotus motif on the lower viewer-right tail; charcoal sleeveless fitted tunic covering torso and shorts; muted gold obi belt, original dark neck scarf. Match all costume parts and colors between SD and LD, no extra accessories. Original matte cel shading and clean linework, no glossy render or generic face. One centered full-body female ninja on square canvas, sword tip, cloth tails and toes fully inside generous 5 percent margin. Actual transparent RGBA including enclosed gaps, no checkerboard drawn into pixels, opaque backdrop, floor shadow, text or watermark.",
+      "approved": true,
+      "connectedMatteRegions": [
+        [
+          474,
+          1136,
+          579,
+          1178,
+          100,
+          28
+        ],
+        [
+          758,
+          1160,
+          837,
+          1203,
+          100,
+          28
+        ]
+      ],
+      "alphaProbes": {
+        "clear": [
+          [
+            573,
+            170
+          ],
+          [
+            747,
+            173
+          ],
+          [
+            588,
+            199
+          ],
+          [
+            710,
+            213
+          ],
+          [
+            627,
+            218
+          ],
+          [
+            619,
+            220
+          ],
+          [
+            860,
+            493
+          ],
+          [
+            567,
+            1150
+          ],
+          [
+            825,
+            1180
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            190
+          ],
+          [
+            620,
+            360
+          ],
+          [
+            400,
+            100
+          ],
+          [
+            496,
+            1140
+          ],
+          [
+            521,
+            1148
+          ],
+          [
+            782,
+            1168
+          ],
+          [
+            809,
+            1164
+          ]
+        ]
+      },
+      "visualReview": "SD/LD identity, outfit construction and accessories match; full-body margins and dark/light alpha inspected. Internal hair/arm gaps cleared selectively; blade, skin and toenail highlights protected. Source RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv06-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-a6328726-92ad-4b58-ba19-73ea4c986bf2.png",
+      "half": null,
+      "holes": [
+        50,
+        60
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE SD costume sprite 'Moonlit Sword Dance' for the exact female ninja in image 1. Image 1 edit target locks original SD proportions, short dark bob with purple tips, stern purple eyes, facial expression, standing pose, upright sword and sheathed sword across hips, gloved hands and open-toe wrapped boots. Image 2 only provides LD identity context. Change costume to a cool silver-gray fitted sleeveless crossover sword tunic covering torso, charcoal fitted shorts, dark thigh stockings, charcoal forearm guards; a short midnight-blue shoulder cape ending at waist, fastened with ONE small silver crescent clasp at upper chest, narrow silver edging. Dark navy flat waist belt. No red haori, no gold lotus, no extra decoration or weapon. Match original matte anime game cel shading and strong clean outlines. One complete centered figure on square canvas with all sword tips, cape and feet inside clear margin. Genuine transparent RGBA background including hair, blade and arm gaps. No painted checkerboard, opaque backdrop, floor shadow, text, watermark or second figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            587,
+            293
+          ],
+          [
+            734,
+            639
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            260
+          ],
+          [
+            620,
+            420
+          ]
+        ]
+      },
+      "visualReview": "SD/LD identity, outfit construction and accessories match; full-body margins and dark/light alpha inspected. Internal hair/arm gaps cleared selectively; blade, skin and toenail highlights protected. Source RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv06-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-a0f9a6ce-760f-42e0-8b20-6bac0dd27707.png",
+      "half": null,
+      "holes": [
+        6,
+        12,
+        51,
+        57,
+        65,
+        77,
+        119
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body LD sprite 'Moonlit Sword Dance'. Image 1 is the LD edit target: preserve face, stern purple eyes, charcoal bob with purple tips, adult LD anatomy, original standing pose, upright sword in one hand, sheathed second sword diagonally across hips, gloves and wrapped open-toe boots. Image 2 is the exact SD costume reference. Match its silver-gray sleeveless crossover tunic covering abdomen with a split pointed thigh-length front panel, charcoal shorts and thigh-high stockings, fitted dark forearm guards, flat midnight-blue obi, and short midnight-blue shoulder cape with thin silver border and ONE silver crescent clasp at the front collar. Keep the same practical costume construction; no long cape tails or new jewelry. Original restrained cel-shaded game illustration and clean dark outlines. Entire figure centered in square, generous clear margin around hair, sword and feet. Actual transparent RGBA background with fully empty gaps. NO painted checkerboard, white edge matte, ground shadow beneath feet, text, border or watermark.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            566,
+            162
+          ],
+          [
+            745,
+            168
+          ],
+          [
+            592,
+            217
+          ],
+          [
+            708,
+            213
+          ],
+          [
+            701,
+            215
+          ],
+          [
+            604,
+            224
+          ],
+          [
+            745,
+            577
+          ]
+        ],
+        "opaque": [
+          [
+            650,
+            200
+          ],
+          [
+            620,
+            360
+          ]
+        ]
+      },
+      "visualReview": "SD/LD identity, outfit construction and accessories match; full-body margins and dark/light alpha inspected. Internal hair/arm gaps cleared selectively; blade, skin and toenail highlights protected. Source RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv07-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-756399cb-af5b-4fba-af30-c069c824c246.png",
+      "half": null,
+      "holes": [
+        17,
+        19,
+        23,
+        51
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE SD full-body skin sprite 'Maple Steps'. Image 1 is base SD edit target: keep its particular chibi proportions, warm brown twin short ponytails with dark ties, bangs, amber-gold eyes, friendly small smile, standing stance, one fist raised and other hand near the single sheathed short sword at hip, pouch, loose ninja trousers and open-toe wrapped sandals. Image 2 is LD identity context only. Change outfit to a russet-red short crossover jacket with subtle maple-leaf embroidery concentrated near lower hem and one sleeve, dark brown trim, fitted light-tan wrist wraps beneath fingerless gloves, flat charcoal cloth sash tied at waist; charcoal gathered trousers and black shin wraps. Practical female ninja, no dress, cape or new weapon, no extra bows in hair. Match the original matte anime cel shading and clean dark outlines. One full-body figure with both ponytails and soles fully inside 5 percent empty margin. Genuine transparent RGBA including arm and hair gaps. Remove original floor shadow; no fake checkerboard, opaque white background, text, frame or watermark.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            756,
+            207
+          ],
+          [
+            790,
+            223
+          ],
+          [
+            496,
+            235
+          ],
+          [
+            757,
+            620
+          ]
+        ],
+        "opaque": [
+          [
+            610,
+            270
+          ],
+          [
+            600,
+            410
+          ]
+        ]
+      },
+      "visualReview": "SD/LD identity, outfit construction and accessories match; full-body margins and dark/light alpha inspected. Internal hair/arm gaps cleared selectively; blade, skin and toenail highlights protected. Source RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv07-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-218667f8-f308-4559-bc46-e8e0477c8e8f.png",
+      "half": null,
+      "holes": [
+        10,
+        14,
+        22,
+        36,
+        37
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body LD sprite 'Maple Steps'. Image 1 is the LD edit target: keep her exact friendly face, warm brown twin ponytails with black ties, amber eyes, smile, LD anatomy, relaxed standing pose, raised fist, other hand near original single sheathed short sword and pouch at hip, loose trousers and wrapped sandals. Image 2 gives exact SD costume. Match its russet crossover short jacket, dark brown collar/hem trim, copper maple leaves on lower jacket and viewer-right sleeve, charcoal knot sash with two flat ends, light tan wrist wraps below fingerless black gloves, charcoal gathered ninja trousers and black shin wraps. Same costume and accessories with LD detail, no extra weapon or ornaments. Keep original clean matte anime cel shading and dark outlines. One whole character centered on square canvas, all hair and feet inside empty margin. Output genuinely transparent RGBA including hair and arm gaps; no checkerboard pixels, white background, ground shadow, text or watermark.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            491,
+            183
+          ],
+          [
+            507,
+            197
+          ],
+          [
+            509,
+            206
+          ],
+          [
+            672,
+            259
+          ],
+          [
+            740,
+            560
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            220
+          ],
+          [
+            600,
+            400
+          ]
+        ]
+      },
+      "visualReview": "SD/LD identity, outfit construction and accessories match; full-body margins and dark/light alpha inspected. Internal hair/arm gaps cleared selectively; blade, skin and toenail highlights protected. Source RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv07-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-c385971c-2d09-4b30-8afd-fd1a3b897cce.png",
+      "half": null,
+      "holes": [
+        4,
+        14,
+        18,
+        19
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body SD ninja sprite 'Indigo Patrol'. Image 1 SD edit target locks her original chibi proportions, warm brown twin ponytails, dark ties, amber eyes, smile, standing pose and hand gestures, single sheathed short sword and pouch, charcoal gathered trousers and shin wraps. Image 2 gives LD identity only. Change outfit to an indigo sleeveless practical patrol vest, straight front opening with three simple dark cloth toggles, two small lower utility pockets, pale blue-gray fitted elbow-length undersleeves, dark leather utility belt with compact rectangular buckle. Dark fingerless gloves and original wrapped open-toe sandals. Distinct patrol garment construction, no maple leaves, no ornate robe, no cape, no additional weapons or hair accessories. Keep the original matte cel-shaded anime ninja art and clean dark outlines. One whole figure centered in square canvas, clear margin above ponytails and below feet. Genuine transparent RGBA, remove floor shadow and all background in hair/arm gaps. No checkerboard painted into image, opaque white background, text, watermark, frame or second figure.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            738,
+            232
+          ],
+          [
+            654,
+            318
+          ],
+          [
+            742,
+            606
+          ],
+          [
+            783,
+            707
+          ]
+        ],
+        "opaque": [
+          [
+            590,
+            290
+          ],
+          [
+            600,
+            450
+          ]
+        ]
+      },
+      "visualReview": "SD/LD identity, outfit construction and accessories match; full-body margins and dark/light alpha inspected. Internal hair/arm gaps cleared selectively; blade, skin and toenail highlights protected. Source RGB unchanged before canvas fit."
+    },
+    {
+      "id": "lv07-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-8765d9bf-cabd-44ae-831b-a9a9817ebf42.png",
+      "half": null,
+      "holes": [
+        7,
+        21,
+        22
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body LD female ninja skin sprite 'Indigo Patrol'. Image 1 is LD edit target: preserve exact face, friendly small smile, amber-gold eyes, warm brown twin ponytails with dark ties, LD anatomy and relaxed stance, one raised fist, original sheathed short sword and hip pouch, gathered trousers and wrapped sandals. Image 2 supplies exact SD outfit. Match its indigo standing-collar sleeveless vest, three dark horizontal toggle closures down chest, two small dark flap pockets on lower front sides in addition to original larger sword-side pouch, pale slate-blue rolled elbow sleeves, dark leather belt with compact rectangular buckle, charcoal gathered trousers, black fingerless gloves and shin wraps. Keep same palette and all details, no cape, emblems or additional weapon. Original matte cel-shaded anime game art with dark linework; not glossy or doll-like. Complete character centered on square with generous margin around hair, weapon and feet. Genuine transparent RGBA including empty hair and arm gaps. No checkerboard drawn in pixels, opaque white backdrop, floor shadow, text or watermark.",
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            721,
+            191
+          ],
+          [
+            652,
+            262
+          ],
+          [
+            740,
+            547
+          ]
+        ],
+        "opaque": [
+          [
+            590,
+            235
+          ],
+          [
+            600,
+            365
+          ]
+        ]
+      },
+      "visualReview": "SD/LD identity, outfit construction and accessories match; full-body margins and dark/light alpha inspected. Internal hair/arm gaps cleared selectively; blade, skin and toenail highlights protected. Source RGB unchanged before canvas fit."
+    }
+  ]
+}

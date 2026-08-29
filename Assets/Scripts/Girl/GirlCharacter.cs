@@ -28,6 +28,7 @@ public class GirlCharacter : MonoBehaviour,
 
     // UI/이펙트
     private Image imageUI;
+    private Sprite pendingFieldSprite;
     private Vector3 baseScale;       // 방향(Flip) 제외한 기준 스케일의 절대값
     private Color originColor;
     private RectTransform rectT;
@@ -48,6 +49,7 @@ public class GirlCharacter : MonoBehaviour,
     [SerializeField] private bool isDragging = false;
     [SerializeField] private bool highlightOn = false;
     [SerializeField] private bool inputLocked = false; // LD 연출 등으로 입력 막을 때 사용
+    public bool IsBusyForAutoMerge => inputLocked || isDragging;
     private Vector3 dragOffset;
     private int currentDirectionX = 1; // 1(왼쪽), -1(오른쪽)
     private IEnumerator autoRoutine;
@@ -91,6 +93,7 @@ public class GirlCharacter : MonoBehaviour,
 
     public void OnReturnToPool()
     {
+        pendingFieldSprite = null;
         KillAllTweens();
         if (imageUI != null) imageUI.color = originColor;
         isJumping = false;
@@ -122,6 +125,7 @@ public class GirlCharacter : MonoBehaviour,
 
     public void Init(GirlData data, Sprite sprite)
     {
+        pendingFieldSprite = null;
         this.data = data;
         this.Level = data.level;
         this.displayName = data.name;
@@ -229,9 +233,30 @@ public class GirlCharacter : MonoBehaviour,
         idleGrooveTween = groove;
     }
 
+    void RefreshMovementBounds()
+    {
+        var field = mergeManager ? mergeManager.fieldManager : null;
+        if (!field || !rectT) return;
+        Rect bounds = field.GetMovementBounds(rectT.rect.width * baseScale.x * 0.5f,
+            rectT.rect.height * baseScale.y * 0.5f);
+        minX = bounds.xMin; maxX = bounds.xMax;
+        minY = bounds.yMin; maxY = bounds.yMax;
+    }
+
+    public void RefreshAppearance(Sprite sprite)
+    {
+        if (!sprite) return;
+        if (inputLocked) { pendingFieldSprite = sprite; return; }
+        pendingFieldSprite = null;
+        if (!imageUI) imageUI = GetComponent<Image>() ?? GetComponentInChildren<Image>();
+        if (imageUI) { imageUI.sprite = sprite; imageUI.preserveAspect = true; }
+    }
+
     void StartJump()
     {
         if (IsFinal) return;
+
+        RefreshMovementBounds();
 
         isJumping = true;
 
@@ -273,7 +298,8 @@ public class GirlCharacter : MonoBehaviour,
         if (jumpTween != null && jumpTween.IsActive()) jumpTween.Kill();
         
         // 점프 애니메이션 개선: 더 자연스러운 곡선과 타이밍
-        jumpTween = rectT.DOLocalJump(targetPosition, jumpPower, 1, jumpDuration)
+        float visibleJumpPower = Mathf.Min(jumpPower, Mathf.Max(0, maxY - Mathf.Max(curY, newY)));
+        jumpTween = rectT.DOLocalJump(targetPosition, visibleJumpPower, 1, jumpDuration)
                      .SetEase(Ease.OutCubic)  // OutQuad -> OutCubic으로 변경하여 더 부드럽게
                      .OnComplete(() => 
                      { 
@@ -287,6 +313,7 @@ public class GirlCharacter : MonoBehaviour,
     public void SetInputLocked(bool locked)
     {
         inputLocked = locked;
+        if (!locked && pendingFieldSprite) RefreshAppearance(pendingFieldSprite);
     }
 
     public bool IsInputLocked => inputLocked;
@@ -347,7 +374,11 @@ public class GirlCharacter : MonoBehaviour,
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             rectT.parent as RectTransform, eventData.position, eventData.pressEventCamera, out localPoint);
-        rectT.localPosition = (Vector3)localPoint - dragOffset;
+        RefreshMovementBounds();
+        Vector3 position = (Vector3)localPoint - dragOffset;
+        position.x = Mathf.Clamp(position.x, minX, maxX);
+        position.y = Mathf.Clamp(position.y, minY, maxY);
+        rectT.localPosition = position;
         mergeManager?.UpdateMergeHighlight(this);
     }
 

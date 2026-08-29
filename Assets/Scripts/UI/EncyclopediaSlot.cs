@@ -13,18 +13,27 @@ public class EncyclopediaSlot : MonoBehaviour
     [SerializeField] private Image backgroundImage;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private GameObject lockedOverlay;
+    [SerializeField] private TMP_Text lockedLabel;
     [SerializeField] private Button button;
     
     private int level;
     private bool isUnlocked;
     private Action onClick;
+    public void SetCaption(string caption)
+    {
+        if (!levelText) return;
+        levelText.text = caption;
+        levelText.enableAutoSizing = true;
+        levelText.fontSizeMin = 34;
+        levelText.fontSizeMax = 42;
+    }
     
     void Awake()
     {
         if (button == null) button = GetComponent<Button>();
     }
     
-    public void Setup(int level, string name, Sprite sprite, bool isUnlocked, Action onClick)
+    public void Setup(int level, string name, Sprite sprite, bool isUnlocked, Action onClick, bool inspectLocked = false)
     {
         this.level = level;
         this.isUnlocked = isUnlocked;
@@ -34,6 +43,8 @@ public class EncyclopediaSlot : MonoBehaviour
         if (iconImage != null)
         {
             iconImage.sprite = sprite;
+            iconImage.preserveAspect = true;
+            iconImage.color = !sprite ? Color.clear : isUnlocked ? Color.white : new Color(0.18f,0.22f,0.30f,1);
         }
         
         // 레벨 텍스트
@@ -47,13 +58,15 @@ public class EncyclopediaSlot : MonoBehaviour
         {
             lockedOverlay.SetActive(!isUnlocked);
         }
+        if (lockedLabel) lockedLabel.text = LocalizationManager.GetText("미해금", "LOCKED");
         
         // 버튼 상호작용 및 클릭 리스너 설정
         if (button != null)
         {
             button.interactable = isUnlocked;
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => onClick?.Invoke());
+            // Guard the callback too: a stale/programmatic UnityEvent must not open locked art.
+            button.onClick.AddListener(() => { if (this.isUnlocked) this.onClick?.Invoke(); });
         }
     }
 }

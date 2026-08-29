@@ -1,0 +1,3 @@
+41 new UI atlas sprites; 8 skin sprites; 0 serialized Sprite references replaced.
+Applied 2026-08-28T17:18:22.0131410+09:00
+No player saves changed.

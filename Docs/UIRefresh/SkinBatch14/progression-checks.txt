@@ -1,0 +1,980 @@
+PASS: 979 checks
+First mythic = 2500 points
+Mythic stack progression
+Lower tiers counted; final not double counted
+Upgrade points and multiplier agree
+Empty field reward
+Large prestige values saturate instead of overflowing
+Point balance saturates
+Gem purchase works with zero gold: ManualSpawnMax
+No gold charged: ManualSpawnMax
+Permanent purchase has no repeat reward: ManualSpawnMax
+Survives prestige: ManualSpawnMax
+Save round trip: ManualSpawnMax
+Gem purchase works with zero gold: ManualSpawnSpeed
+No gold charged: ManualSpawnSpeed
+Permanent purchase has no repeat reward: ManualSpawnSpeed
+Survives prestige: ManualSpawnSpeed
+Save round trip: ManualSpawnSpeed
+Gem purchase works with zero gold: FieldMax
+No gold charged: FieldMax
+Permanent purchase has no repeat reward: FieldMax
+Survives prestige: FieldMax
+Save round trip: FieldMax
+Gem purchase works with zero gold: ClickBonus
+No gold charged: ClickBonus
+Permanent purchase has no repeat reward: ClickBonus
+Survives prestige: ClickBonus
+Save round trip: ClickBonus
+Gem purchase works with zero gold: OfflineReward
+No gold charged: OfflineReward
+Permanent purchase has no repeat reward: OfflineReward
+Survives prestige: OfflineReward
+Save round trip: OfflineReward
+Gem purchase works with zero gold: OfflineMaxTime
+No gold charged: OfflineMaxTime
+Permanent purchase has no repeat reward: OfflineMaxTime
+Survives prestige: OfflineMaxTime
+Save round trip: OfflineMaxTime
+Gem purchase works with zero gold: AutoMerge
+No gold charged: AutoMerge
+Permanent purchase has no repeat reward: AutoMerge
+Survives prestige: AutoMerge
+Save round trip: AutoMerge
+Gem purchase works with zero gold: AutoSpawn
+No gold charged: AutoSpawn
+Permanent purchase has no repeat reward: AutoSpawn
+Survives prestige: AutoSpawn
+Save round trip: AutoSpawn
+Mixed currency upgrades tracked separately
+Only consumed gold upgrade is reset
+Legacy currency-unknown entitlements are protected
+Capped gem purchase rejected
+Permanent automation keeps its toggle
+Preview includes gold upgrades before reset
+Auto merge respects lifetime discovery
+Final girls cannot auto merge
+Actual payout equals the preview
+Prestige ends exactly once
+Gold upgrades reset after payout snapshot
+Old field and mythic stack cleared
+Encyclopedia survives prestige
+Summon charges refilled
+World reset is immediate
+Repeated confirm cannot duplicate rewards
+Existing 25-level progression preserved
+Level 8 does not unlock the second world
+Level 9 unlocks only world two
+Level 17 unlocks world three
+World navigation cycle: 0
+World navigation cycle: 1
+World navigation cycle: 2
+World navigation cycle: 3
+Saved world unlocks restored
+SD still has exactly 25 registered sprites
+SD level key remains unique and resolves: 1
+SD runtime sprite-name key agrees with address: 1
+SD level key remains unique and resolves: 2
+SD runtime sprite-name key agrees with address: 2
+SD level key remains unique and resolves: 3
+SD runtime sprite-name key agrees with address: 3
+SD level key remains unique and resolves: 4
+SD runtime sprite-name key agrees with address: 4
+SD level key remains unique and resolves: 5
+SD runtime sprite-name key agrees with address: 5
+SD level key remains unique and resolves: 6
+SD runtime sprite-name key agrees with address: 6
+SD level key remains unique and resolves: 7
+SD runtime sprite-name key agrees with address: 7
+SD level key remains unique and resolves: 8
+SD runtime sprite-name key agrees with address: 8
+SD level key remains unique and resolves: 9
+SD runtime sprite-name key agrees with address: 9
+SD level key remains unique and resolves: 10
+SD runtime sprite-name key agrees with address: 10
+SD level key remains unique and resolves: 11
+SD runtime sprite-name key agrees with address: 11
+SD level key remains unique and resolves: 12
+SD runtime sprite-name key agrees with address: 12
+SD level key remains unique and resolves: 13
+SD runtime sprite-name key agrees with address: 13
+SD level key remains unique and resolves: 14
+SD runtime sprite-name key agrees with address: 14
+SD level key remains unique and resolves: 15
+SD runtime sprite-name key agrees with address: 15
+SD level key remains unique and resolves: 16
+SD runtime sprite-name key agrees with address: 16
+SD level key remains unique and resolves: 17
+SD runtime sprite-name key agrees with address: 17
+SD level key remains unique and resolves: 18
+SD runtime sprite-name key agrees with address: 18
+SD level key remains unique and resolves: 19
+SD runtime sprite-name key agrees with address: 19
+SD level key remains unique and resolves: 20
+SD runtime sprite-name key agrees with address: 20
+SD level key remains unique and resolves: 21
+SD runtime sprite-name key agrees with address: 21
+SD level key remains unique and resolves: 22
+SD runtime sprite-name key agrees with address: 22
+SD level key remains unique and resolves: 23
+SD runtime sprite-name key agrees with address: 23
+SD level key remains unique and resolves: 24
+SD runtime sprite-name key agrees with address: 24
+SD level key remains unique and resolves: 25
+SD runtime sprite-name key agrees with address: 25
+LD still has exactly 25 registered sprites
+LD level key remains unique and resolves: 1
+LD runtime sprite-name key agrees with address: 1
+LD level key remains unique and resolves: 2
+LD runtime sprite-name key agrees with address: 2
+LD level key remains unique and resolves: 3
+LD runtime sprite-name key agrees with address: 3
+LD level key remains unique and resolves: 4
+LD runtime sprite-name key agrees with address: 4
+LD level key remains unique and resolves: 5
+LD runtime sprite-name key agrees with address: 5
+LD level key remains unique and resolves: 6
+LD runtime sprite-name key agrees with address: 6
+LD level key remains unique and resolves: 7
+LD runtime sprite-name key agrees with address: 7
+LD level key remains unique and resolves: 8
+LD runtime sprite-name key agrees with address: 8
+LD level key remains unique and resolves: 9
+LD runtime sprite-name key agrees with address: 9
+LD level key remains unique and resolves: 10
+LD runtime sprite-name key agrees with address: 10
+LD level key remains unique and resolves: 11
+LD runtime sprite-name key agrees with address: 11
+LD level key remains unique and resolves: 12
+LD runtime sprite-name key agrees with address: 12
+LD level key remains unique and resolves: 13
+LD runtime sprite-name key agrees with address: 13
+LD level key remains unique and resolves: 14
+LD runtime sprite-name key agrees with address: 14
+LD level key remains unique and resolves: 15
+LD runtime sprite-name key agrees with address: 15
+LD level key remains unique and resolves: 16
+LD runtime sprite-name key agrees with address: 16
+LD level key remains unique and resolves: 17
+LD runtime sprite-name key agrees with address: 17
+LD level key remains unique and resolves: 18
+LD runtime sprite-name key agrees with address: 18
+LD level key remains unique and resolves: 19
+LD runtime sprite-name key agrees with address: 19
+LD level key remains unique and resolves: 20
+LD runtime sprite-name key agrees with address: 20
+LD level key remains unique and resolves: 21
+LD runtime sprite-name key agrees with address: 21
+LD level key remains unique and resolves: 22
+LD runtime sprite-name key agrees with address: 22
+LD level key remains unique and resolves: 23
+LD runtime sprite-name key agrees with address: 23
+LD level key remains unique and resolves: 24
+LD runtime sprite-name key agrees with address: 24
+LD level key remains unique and resolves: 25
+LD runtime sprite-name key agrees with address: 25
+Retouched sprite uses the unchanged saved level: 6
+Retouched sprite imported with alpha: 6
+Retouched sprite uses the unchanged saved level: 14
+Retouched sprite imported with alpha: 14
+Rounded panel produces bounded corner geometry
+Square outer corner vertices removed
+Original panel UV mapping preserved
+Rounding preserves original art, input and mask behavior
+Zero-radius option preserves unmodified geometry
+New collection starts empty at original form
+Final form collected once; stacking does not duplicate it
+Prestige reveals the next goal without granting it
+Three runs collect three distinct final forms
+Form rotation returns safely after the catalog ends
+Form IDs and discoveries survive save round trip
+Legacy progress grants only the original earned form
+Sustained character taps fill and activate fever
+Fever decays after tapping stops
+One burst or resume gap cannot instantly grant fever
+Focus or prestige reset clears click history
+Opted-in ad request starts without granting a reward
+No bonus before the ad reward callback
+Concurrent ad request rejected
+Skipped or failed ad releases button without reward
+Duplicate ad callback cannot stack or extend bonus
+Earned ad bonus is 2x and cannot be stacked
+Ad 2x and fever +50 percent combine to 3x
+Only earned timed boost persists, never fever
+Expired ad bonus returns to base income
+Ad removal receives the same timed benefit without an ad request
+Online bonus display never changes offline reward estimate
+Income percentage is display-only: 1
+Income percentage is display-only: 1.5
+Income percentage is display-only: 2
+Income percentage is display-only: 1.125
+Character top edge clears the fever panel
+Character bottom edge clears the ad button
+Reserved HUD still leaves a usable merge area
+Unconfigured scenes keep their old movement bounds
+Level 8 rainbow kimono matches CSV and LD
+Level 9 black scroll matches CSV and LD
+SD image content matches reviewed original, not only its address: 8
+SD image content matches reviewed original, not only its address: 9
+Unrequested goal and world strip removed from the mobile HUD
+Fever bar is thick enough to read at phone scale
+Primary mobile labels cannot shrink to tiny text
+Ad button fits narrow/tall phone width: (320.00, 568.00)
+Ad button has at least 48 logical pixels of height: (320.00, 568.00)
+Reward headline remains readable: (320.00, 568.00)
+Ad button fits narrow/tall phone width: (360.00, 800.00)
+Ad button has at least 48 logical pixels of height: (360.00, 800.00)
+Reward headline remains readable: (360.00, 800.00)
+Ad button fits narrow/tall phone width: (390.00, 844.00)
+Ad button has at least 48 logical pixels of height: (390.00, 844.00)
+Reward headline remains readable: (390.00, 844.00)
+Ad button fits narrow/tall phone width: (320.00, 740.00)
+Ad button has at least 48 logical pixels of height: (320.00, 740.00)
+Reward headline remains readable: (320.00, 740.00)
+Early summon unlock remains level one
+Summon unlock keeps the two-level merge lead
+Full field disables both summon actions
+Summon actions respect independent readiness
+Freed field restores summon actions
+Cash tab renamed Products
+Income reward exists only inside the product shop
+Three optional ad rewards lead the catalog
+Gem and gold ads precede paid products
+Ad removal product matches the IAP catalog ID
+Product ad actions have mobile-sized targets
+Moved shop button no longer shrinks the playfield
+Summon capacity and next unlock are visible
+Both summon currency buttons meet small-phone height
+Reviewed LD address connected: 2
+Reviewed LD has real alpha and clear borders: 2
+Detail uses reviewed LD while field retains SD: 2
+Reviewed LD address connected: 6
+Reviewed LD has real alpha and clear borders: 6
+Detail uses reviewed LD while field retains SD: 6
+Reviewed LD address connected: 7
+Reviewed LD has real alpha and clear borders: 7
+Detail uses reviewed LD while field retains SD: 7
+Reviewed LD address connected: 10
+Reviewed LD has real alpha and clear borders: 10
+Detail uses reviewed LD while field retains SD: 10
+Reviewed LD address connected: 11
+Reviewed LD has real alpha and clear borders: 11
+Detail uses reviewed LD while field retains SD: 11
+Reviewed LD address connected: 12
+Reviewed LD has real alpha and clear borders: 12
+Detail uses reviewed LD while field retains SD: 12
+Reviewed LD address connected: 13
+Reviewed LD has real alpha and clear borders: 13
+Detail uses reviewed LD while field retains SD: 13
+Reviewed LD address connected: 14
+Reviewed LD has real alpha and clear borders: 14
+Detail uses reviewed LD while field retains SD: 14
+Reviewed LD address connected: 15
+Reviewed LD has real alpha and clear borders: 15
+Detail uses reviewed LD while field retains SD: 15
+Reviewed LD address connected: 16
+Reviewed LD has real alpha and clear borders: 16
+Detail uses reviewed LD while field retains SD: 16
+Reviewed LD address connected: 17
+Reviewed LD has real alpha and clear borders: 17
+Detail uses reviewed LD while field retains SD: 17
+Reviewed LD address connected: 19
+Reviewed LD has real alpha and clear borders: 19
+Detail uses reviewed LD while field retains SD: 19
+Reviewed LD address connected: 20
+Reviewed LD has real alpha and clear borders: 20
+Detail uses reviewed LD while field retains SD: 20
+Reviewed LD address connected: 23
+Reviewed LD has real alpha and clear borders: 23
+Detail uses reviewed LD while field retains SD: 23
+Reviewed LD address connected: 24
+Reviewed LD has real alpha and clear borders: 24
+Detail uses reviewed LD while field retains SD: 24
+Level 25 LD preserved as requested
+Fresh codex starts empty
+Skin progress alone does not skip base discovery
+Discovery and progress unlock matching skins
+Base and owned skin bonuses add once: Income
+Base and owned skin bonuses add once: ClickIncome
+Base and owned skin bonuses add once: MergeSpeed
+Base and owned skin bonuses add once: SpawnSpeed
+Repeated observations never duplicate collection bonuses
+Owned correct-level skin equips
+Equipped skin has separate SD and LD routing
+Wrong level and mythic skin equips rejected
+Equipping does not add collection rewards again
+Owned skins and equipment survive JSON save roundtrip
+Default appearance can be restored
+Legacy saves migrate discoveries without granting unfinished skins
+Unknown future skin IDs are preserved without invalid sprite routing
+Fresh reset clears all codex state
+Main control has a physical 48px+ phone target: 소환
+Main control has a physical 48px+ phone target: 자동소환
+Main control has a physical 48px+ phone target: 소환버튼
+Main control has a physical 48px+ phone target: 자동합성
+Main control has a physical 48px+ phone target: 상점
+Main control has a physical 48px+ phone target: 도감
+Main control has a physical 48px+ phone target: 옵션
+Bottom control keeps its original size and bottom pivot: 소환
+Bottom control keeps its original size and bottom pivot: 자동소환
+Bottom control keeps its original size and bottom pivot: 소환버튼
+Bottom control keeps its original size and bottom pivot: 자동합성
+Bottom control keeps its original size and bottom pivot: 상점
+Bottom control keeps its original size and bottom pivot: fill
+Automatic button art is not shrunk inside a replacement rectangle: 자동소환
+Automatic button art is not shrunk inside a replacement rectangle: 자동합성
+Scroll background and charge fill render the same original geometry
+Familiar labelled navigation restored: 소환
+Familiar labelled navigation restored: 상점
+Familiar labelled navigation restored: 도감
+Automatic control uses only its baked-in label: 자동소환
+Original automatic-control artwork is preserved: 자동소환
+Automatic control uses only its baked-in label: 자동합성
+Original automatic-control artwork is preserved: 자동합성
+Original income coin icon is visible
+Income icon and live amount share one row without overlap: +0 G/s (×100%)
+Income icon and amount remain centered together: +0 G/s (×100%)
+Income icon and live amount share one row without overlap: +999.9 aG/s (×112.5%)
+Income icon and amount remain centered together: +999.9 aG/s (×112.5%)
+Fever remains simple with no instruction text
+Fever empty track has a visible solid background
+Population is visible on the left
+Rejected experimental UI icons are not shown in the scene
+Wide income reward is not squeezed into a square texture
+Scroll backing images do not obscure the original panel art
+Transparent card hit area cannot cover portraits and captions
+Codex caption font includes Korean UI glyphs
+Original rounded panel uses nine-slicing to preserve its corners
+Saved scene contains no codex preview captions
+Settings controller stays active while its dialog is closed
+Active codex tab has distinct visual emphasis
+Tab emphasis follows the selected collection category
+Locked codex entry rejects even direct UnityEvent invocation
+Unlocked codex entry opens once
+Reused locked slot cannot retain its old click action
+Fever fill follows each frame without 100ms batching: 1
+Fever fill follows each frame without 100ms batching: 2
+Fever fill follows each frame without 100ms batching: 3
+Fever fill follows each frame without 100ms batching: 4
+Fever fill follows each frame without 100ms batching: 5
+Shop runtime state keeps original button artwork: 골드/ManualSpawnMax
+Shop runtime state keeps original button artwork: 골드/ManualSpawnSpeed
+Shop runtime state keeps original button artwork: 골드/FieldMax
+Shop runtime state keeps original button artwork: 골드/ClickBonus
+Shop runtime state keeps original button artwork: 골드/OfflineReward
+Shop runtime state keeps original button artwork: 골드/OfflineMaxTime
+Shop runtime state keeps original button artwork: 보석/ManualSpawnMax
+Shop runtime state keeps original button artwork: 보석/ManualSpawnSpeed
+Shop runtime state keeps original button artwork: 보석/FieldMax
+Shop runtime state keeps original button artwork: 보석/ClickBonus
+Shop runtime state keeps original button artwork: 보석/OfflineReward
+Shop runtime state keeps original button artwork: 보석/OfflineMaxTime
+Rebirth shop state keeps original button artwork: AutoSpawnSpeedPlus
+Rebirth shop state keeps original button artwork: AutoMergeSpeedPlus
+Rebirth shop state keeps original button artwork: ManualSpawnMaxPlus
+Rebirth shop state keeps original button artwork: ManualSpawnSpeedPlus
+Rebirth shop state keeps original button artwork: FieldMaxPlus
+Rebirth shop state keeps original button artwork: ClickBonusPlus
+Rebirth shop state keeps original button artwork: OfflineRewardPlus
+Rebirth shop state keeps original button artwork: OfflineMaxTimePlus
+Rebirth shop state keeps original button artwork: IncomeMultiplier
+Rebirth shop state keeps original button artwork: TwoStepChance
+Rebirth shop state keeps original button artwork: StartGoldMultiplier
+Rebirth shop state keeps original button artwork: PrestigePointGain
+Both main-screen automation controllers are included in shop validation
+Automation purchase states keep original artwork: AutoSpawn
+Automation shop label and price are populated: AutoSpawn
+Automation purchase states keep original artwork: AutoMerge
+Automation shop label and price are populated: AutoMerge
+Detail is visible on first open and renders above codex tabs
+Detail regions do not overlap: 0/1
+Detail regions do not overlap: 0/2
+Detail regions do not overlap: 0/3
+Detail regions do not overlap: 0/4
+Detail regions do not overlap: 0/5
+Detail regions do not overlap: 0/6
+Detail regions do not overlap: 1/2
+Detail regions do not overlap: 1/3
+Detail regions do not overlap: 1/4
+Detail regions do not overlap: 1/5
+Detail regions do not overlap: 1/6
+Detail regions do not overlap: 2/3
+Detail regions do not overlap: 2/4
+Detail regions do not overlap: 2/5
+Detail regions do not overlap: 2/6
+Detail regions do not overlap: 3/4
+Detail regions do not overlap: 3/5
+Detail regions do not overlap: 3/6
+Detail regions do not overlap: 4/5
+Detail regions do not overlap: 4/6
+Detail regions do not overlap: 5/6
+Detail region stays inside panel: Image
+Detail region stays inside panel: Text (TMP)
+Detail region stays inside panel: Text (TMP) (1)
+Detail region stays inside panel: Text (TMP) (2)
+Detail region stays inside panel: Collection Requirement
+Detail region stays inside panel: Equip Skin
+Detail region stays inside panel: Close Detail
+Obsolete detail close control is hidden
+Detail rejects a locked entry even if called directly
+Closing codex also closes its detail overlay
+Panel has rectangular content clipping: SpwanPanel/Scroll View
+Panel content grows down from the top: SpwanPanel/Scroll View
+Panel has rectangular content clipping: Shop/골드
+Panel content grows down from the top: Shop/골드
+Panel has rectangular content clipping: Shop/환생
+Panel content grows down from the top: Shop/환생
+Panel has rectangular content clipping: Shop/보석
+Panel content grows down from the top: Shop/보석
+Panel has rectangular content clipping: Shop/상품
+Panel content grows down from the top: Shop/상품
+Panel has rectangular content clipping: 도감/Scroll View
+Panel content grows down from the top: 도감/Scroll View
+Every approved or existing skin pair is registered, not only the first four
+Installed skin IDs are unique
+Locked skin condition fits its card without truncation: lv01-a
+Locked skin condition fits its card without truncation: lv01-b
+Locked skin condition fits its card without truncation: lv01-c
+Locked skin condition fits its card without truncation: lv01-d
+Locked skin condition fits its card without truncation: lv02-a
+Locked skin condition fits its card without truncation: lv02-b
+Locked skin condition fits its card without truncation: lv02-c
+Locked skin condition fits its card without truncation: lv02-d
+Locked skin condition fits its card without truncation: lv03-a
+Locked skin condition fits its card without truncation: lv03-b
+Locked skin condition fits its card without truncation: lv03-c
+Locked skin condition fits its card without truncation: lv03-d
+Locked skin condition fits its card without truncation: lv04-a
+Locked skin condition fits its card without truncation: lv04-b
+Locked skin condition fits its card without truncation: lv04-c
+Locked skin condition fits its card without truncation: lv04-d
+Locked skin condition fits its card without truncation: lv05-a
+Locked skin condition fits its card without truncation: lv05-b
+Locked skin condition fits its card without truncation: lv05-c
+Locked skin condition fits its card without truncation: lv05-d
+Locked skin condition fits its card without truncation: violet-festival
+Locked skin condition fits its card without truncation: lv06-b
+Locked skin condition fits its card without truncation: lv06-c
+Locked skin condition fits its card without truncation: lv06-d
+Locked skin condition fits its card without truncation: lv07-a
+Locked skin condition fits its card without truncation: lv07-b
+Locked skin condition fits its card without truncation: lv07-c
+Locked skin condition fits its card without truncation: lv07-d
+Locked skin condition fits its card without truncation: lv08-a
+Locked skin condition fits its card without truncation: lv08-b
+Locked skin condition fits its card without truncation: lv08-c
+Locked skin condition fits its card without truncation: lv08-d
+Locked skin condition fits its card without truncation: lv09-a
+Locked skin condition fits its card without truncation: lv09-b
+Locked skin condition fits its card without truncation: lv09-c
+Locked skin condition fits its card without truncation: lv09-d
+Locked skin condition fits its card without truncation: lv10-a
+Locked skin condition fits its card without truncation: lv10-b
+Locked skin condition fits its card without truncation: lv10-c
+Locked skin condition fits its card without truncation: lv10-d
+Locked skin condition fits its card without truncation: lv11-a
+Locked skin condition fits its card without truncation: lv11-b
+Locked skin condition fits its card without truncation: lv11-c
+Locked skin condition fits its card without truncation: lv11-d
+Locked skin condition fits its card without truncation: jade-garden
+Locked skin condition fits its card without truncation: lv12-b
+Locked skin condition fits its card without truncation: lv12-c
+Locked skin condition fits its card without truncation: lv12-d
+Locked skin condition fits its card without truncation: lv13-a
+Locked skin condition fits its card without truncation: lv13-b
+Locked skin condition fits its card without truncation: lv13-c
+Locked skin condition fits its card without truncation: lv13-d
+Locked skin condition fits its card without truncation: lv14-a
+Locked skin condition fits its card without truncation: lv14-b
+Locked skin condition fits its card without truncation: lv14-c
+Locked skin condition fits its card without truncation: lv14-d
+Locked skin condition fits its card without truncation: lv15-a
+Locked skin condition fits its card without truncation: lv15-b
+Locked skin condition fits its card without truncation: lv15-c
+Locked skin condition fits its card without truncation: lv15-d
+Locked skin condition fits its card without truncation: lv16-a
+Locked skin condition fits its card without truncation: lv16-b
+Locked skin condition fits its card without truncation: lv16-c
+Locked skin condition fits its card without truncation: lv16-d
+Locked skin condition fits its card without truncation: moon-patrol
+Locked skin condition fits its card without truncation: lv17-b
+Locked skin condition fits its card without truncation: lv17-c
+Locked skin condition fits its card without truncation: lv17-d
+Locked skin condition fits its card without truncation: lv18-a
+Locked skin condition fits its card without truncation: lv18-b
+Locked skin condition fits its card without truncation: lv18-c
+Locked skin condition fits its card without truncation: lv18-d
+Locked skin condition fits its card without truncation: lv19-a
+Locked skin condition fits its card without truncation: lv19-b
+Locked skin condition fits its card without truncation: lv19-c
+Locked skin condition fits its card without truncation: lv19-d
+Locked skin condition fits its card without truncation: lv20-a
+Locked skin condition fits its card without truncation: lv20-b
+Locked skin condition fits its card without truncation: lv20-c
+Locked skin condition fits its card without truncation: lv20-d
+Locked skin condition fits its card without truncation: lv21-a
+Locked skin condition fits its card without truncation: lv21-b
+Locked skin condition fits its card without truncation: lv21-c
+Locked skin condition fits its card without truncation: lv21-d
+Locked skin condition fits its card without truncation: rose-oath
+Installed skins cannot unlock before their base ninja is discovered
+Distinct SD and LD sprites registered: lv01-a
+Installed pair has real alpha and clear borders: lv01-a
+Unlocked pair routes to field and detail correctly: lv01-a
+Distinct SD and LD sprites registered: lv01-b
+Installed pair has real alpha and clear borders: lv01-b
+Unlocked pair routes to field and detail correctly: lv01-b
+Distinct SD and LD sprites registered: lv01-c
+Installed pair has real alpha and clear borders: lv01-c
+Unlocked pair routes to field and detail correctly: lv01-c
+Distinct SD and LD sprites registered: lv01-d
+Installed pair has real alpha and clear borders: lv01-d
+Unlocked pair routes to field and detail correctly: lv01-d
+Distinct SD and LD sprites registered: lv02-a
+Installed pair has real alpha and clear borders: lv02-a
+Unlocked pair routes to field and detail correctly: lv02-a
+Distinct SD and LD sprites registered: lv02-b
+Installed pair has real alpha and clear borders: lv02-b
+Unlocked pair routes to field and detail correctly: lv02-b
+Distinct SD and LD sprites registered: lv02-c
+Installed pair has real alpha and clear borders: lv02-c
+Unlocked pair routes to field and detail correctly: lv02-c
+Distinct SD and LD sprites registered: lv02-d
+Installed pair has real alpha and clear borders: lv02-d
+Unlocked pair routes to field and detail correctly: lv02-d
+Distinct SD and LD sprites registered: lv03-a
+Installed pair has real alpha and clear borders: lv03-a
+Unlocked pair routes to field and detail correctly: lv03-a
+Distinct SD and LD sprites registered: lv03-b
+Installed pair has real alpha and clear borders: lv03-b
+Unlocked pair routes to field and detail correctly: lv03-b
+Distinct SD and LD sprites registered: lv03-c
+Installed pair has real alpha and clear borders: lv03-c
+Unlocked pair routes to field and detail correctly: lv03-c
+Distinct SD and LD sprites registered: lv03-d
+Installed pair has real alpha and clear borders: lv03-d
+Unlocked pair routes to field and detail correctly: lv03-d
+Distinct SD and LD sprites registered: lv04-a
+Installed pair has real alpha and clear borders: lv04-a
+Unlocked pair routes to field and detail correctly: lv04-a
+Distinct SD and LD sprites registered: lv04-b
+Installed pair has real alpha and clear borders: lv04-b
+Unlocked pair routes to field and detail correctly: lv04-b
+Distinct SD and LD sprites registered: lv04-c
+Installed pair has real alpha and clear borders: lv04-c
+Unlocked pair routes to field and detail correctly: lv04-c
+Distinct SD and LD sprites registered: lv04-d
+Installed pair has real alpha and clear borders: lv04-d
+Unlocked pair routes to field and detail correctly: lv04-d
+Distinct SD and LD sprites registered: lv05-a
+Installed pair has real alpha and clear borders: lv05-a
+Unlocked pair routes to field and detail correctly: lv05-a
+Distinct SD and LD sprites registered: lv05-b
+Installed pair has real alpha and clear borders: lv05-b
+Unlocked pair routes to field and detail correctly: lv05-b
+Distinct SD and LD sprites registered: lv05-c
+Installed pair has real alpha and clear borders: lv05-c
+Unlocked pair routes to field and detail correctly: lv05-c
+Distinct SD and LD sprites registered: lv05-d
+Installed pair has real alpha and clear borders: lv05-d
+Unlocked pair routes to field and detail correctly: lv05-d
+Distinct SD and LD sprites registered: violet-festival
+Installed pair has real alpha and clear borders: violet-festival
+Unlocked pair routes to field and detail correctly: violet-festival
+Distinct SD and LD sprites registered: lv06-b
+Installed pair has real alpha and clear borders: lv06-b
+Unlocked pair routes to field and detail correctly: lv06-b
+Distinct SD and LD sprites registered: lv06-c
+Installed pair has real alpha and clear borders: lv06-c
+Unlocked pair routes to field and detail correctly: lv06-c
+Distinct SD and LD sprites registered: lv06-d
+Installed pair has real alpha and clear borders: lv06-d
+Unlocked pair routes to field and detail correctly: lv06-d
+Distinct SD and LD sprites registered: lv07-a
+Installed pair has real alpha and clear borders: lv07-a
+Unlocked pair routes to field and detail correctly: lv07-a
+Distinct SD and LD sprites registered: lv07-b
+Installed pair has real alpha and clear borders: lv07-b
+Unlocked pair routes to field and detail correctly: lv07-b
+Distinct SD and LD sprites registered: lv07-c
+Installed pair has real alpha and clear borders: lv07-c
+Unlocked pair routes to field and detail correctly: lv07-c
+Distinct SD and LD sprites registered: lv07-d
+Installed pair has real alpha and clear borders: lv07-d
+Unlocked pair routes to field and detail correctly: lv07-d
+Distinct SD and LD sprites registered: lv08-a
+Installed pair has real alpha and clear borders: lv08-a
+Unlocked pair routes to field and detail correctly: lv08-a
+Distinct SD and LD sprites registered: lv08-b
+Installed pair has real alpha and clear borders: lv08-b
+Unlocked pair routes to field and detail correctly: lv08-b
+Distinct SD and LD sprites registered: lv08-c
+Installed pair has real alpha and clear borders: lv08-c
+Unlocked pair routes to field and detail correctly: lv08-c
+Distinct SD and LD sprites registered: lv08-d
+Installed pair has real alpha and clear borders: lv08-d
+Unlocked pair routes to field and detail correctly: lv08-d
+Distinct SD and LD sprites registered: lv09-a
+Installed pair has real alpha and clear borders: lv09-a
+Unlocked pair routes to field and detail correctly: lv09-a
+Distinct SD and LD sprites registered: lv09-b
+Installed pair has real alpha and clear borders: lv09-b
+Unlocked pair routes to field and detail correctly: lv09-b
+Distinct SD and LD sprites registered: lv09-c
+Installed pair has real alpha and clear borders: lv09-c
+Unlocked pair routes to field and detail correctly: lv09-c
+Distinct SD and LD sprites registered: lv09-d
+Installed pair has real alpha and clear borders: lv09-d
+Unlocked pair routes to field and detail correctly: lv09-d
+Distinct SD and LD sprites registered: lv10-a
+Installed pair has real alpha and clear borders: lv10-a
+Unlocked pair routes to field and detail correctly: lv10-a
+Distinct SD and LD sprites registered: lv10-b
+Installed pair has real alpha and clear borders: lv10-b
+Unlocked pair routes to field and detail correctly: lv10-b
+Distinct SD and LD sprites registered: lv10-c
+Installed pair has real alpha and clear borders: lv10-c
+Unlocked pair routes to field and detail correctly: lv10-c
+Distinct SD and LD sprites registered: lv10-d
+Installed pair has real alpha and clear borders: lv10-d
+Unlocked pair routes to field and detail correctly: lv10-d
+Distinct SD and LD sprites registered: lv11-a
+Installed pair has real alpha and clear borders: lv11-a
+Unlocked pair routes to field and detail correctly: lv11-a
+Distinct SD and LD sprites registered: lv11-b
+Installed pair has real alpha and clear borders: lv11-b
+Unlocked pair routes to field and detail correctly: lv11-b
+Distinct SD and LD sprites registered: lv11-c
+Installed pair has real alpha and clear borders: lv11-c
+Unlocked pair routes to field and detail correctly: lv11-c
+Distinct SD and LD sprites registered: lv11-d
+Installed pair has real alpha and clear borders: lv11-d
+Unlocked pair routes to field and detail correctly: lv11-d
+Distinct SD and LD sprites registered: jade-garden
+Installed pair has real alpha and clear borders: jade-garden
+Unlocked pair routes to field and detail correctly: jade-garden
+Distinct SD and LD sprites registered: lv12-b
+Installed pair has real alpha and clear borders: lv12-b
+Unlocked pair routes to field and detail correctly: lv12-b
+Distinct SD and LD sprites registered: lv12-c
+Installed pair has real alpha and clear borders: lv12-c
+Unlocked pair routes to field and detail correctly: lv12-c
+Distinct SD and LD sprites registered: lv12-d
+Installed pair has real alpha and clear borders: lv12-d
+Unlocked pair routes to field and detail correctly: lv12-d
+Distinct SD and LD sprites registered: lv13-a
+Installed pair has real alpha and clear borders: lv13-a
+Unlocked pair routes to field and detail correctly: lv13-a
+Distinct SD and LD sprites registered: lv13-b
+Installed pair has real alpha and clear borders: lv13-b
+Unlocked pair routes to field and detail correctly: lv13-b
+Distinct SD and LD sprites registered: lv13-c
+Installed pair has real alpha and clear borders: lv13-c
+Unlocked pair routes to field and detail correctly: lv13-c
+Distinct SD and LD sprites registered: lv13-d
+Installed pair has real alpha and clear borders: lv13-d
+Unlocked pair routes to field and detail correctly: lv13-d
+Distinct SD and LD sprites registered: lv14-a
+Installed pair has real alpha and clear borders: lv14-a
+Unlocked pair routes to field and detail correctly: lv14-a
+Distinct SD and LD sprites registered: lv14-b
+Installed pair has real alpha and clear borders: lv14-b
+Unlocked pair routes to field and detail correctly: lv14-b
+Distinct SD and LD sprites registered: lv14-c
+Installed pair has real alpha and clear borders: lv14-c
+Unlocked pair routes to field and detail correctly: lv14-c
+Distinct SD and LD sprites registered: lv14-d
+Installed pair has real alpha and clear borders: lv14-d
+Unlocked pair routes to field and detail correctly: lv14-d
+Distinct SD and LD sprites registered: lv15-a
+Installed pair has real alpha and clear borders: lv15-a
+Unlocked pair routes to field and detail correctly: lv15-a
+Distinct SD and LD sprites registered: lv15-b
+Installed pair has real alpha and clear borders: lv15-b
+Unlocked pair routes to field and detail correctly: lv15-b
+Distinct SD and LD sprites registered: lv15-c
+Installed pair has real alpha and clear borders: lv15-c
+Unlocked pair routes to field and detail correctly: lv15-c
+Distinct SD and LD sprites registered: lv15-d
+Installed pair has real alpha and clear borders: lv15-d
+Unlocked pair routes to field and detail correctly: lv15-d
+Distinct SD and LD sprites registered: lv16-a
+Installed pair has real alpha and clear borders: lv16-a
+Unlocked pair routes to field and detail correctly: lv16-a
+Distinct SD and LD sprites registered: lv16-b
+Installed pair has real alpha and clear borders: lv16-b
+Unlocked pair routes to field and detail correctly: lv16-b
+Distinct SD and LD sprites registered: lv16-c
+Installed pair has real alpha and clear borders: lv16-c
+Unlocked pair routes to field and detail correctly: lv16-c
+Distinct SD and LD sprites registered: lv16-d
+Installed pair has real alpha and clear borders: lv16-d
+Unlocked pair routes to field and detail correctly: lv16-d
+Distinct SD and LD sprites registered: moon-patrol
+Installed pair has real alpha and clear borders: moon-patrol
+Unlocked pair routes to field and detail correctly: moon-patrol
+Distinct SD and LD sprites registered: lv17-b
+Installed pair has real alpha and clear borders: lv17-b
+Unlocked pair routes to field and detail correctly: lv17-b
+Distinct SD and LD sprites registered: lv17-c
+Installed pair has real alpha and clear borders: lv17-c
+Unlocked pair routes to field and detail correctly: lv17-c
+Distinct SD and LD sprites registered: lv17-d
+Installed pair has real alpha and clear borders: lv17-d
+Unlocked pair routes to field and detail correctly: lv17-d
+Distinct SD and LD sprites registered: lv18-a
+Installed pair has real alpha and clear borders: lv18-a
+Unlocked pair routes to field and detail correctly: lv18-a
+Distinct SD and LD sprites registered: lv18-b
+Installed pair has real alpha and clear borders: lv18-b
+Unlocked pair routes to field and detail correctly: lv18-b
+Distinct SD and LD sprites registered: lv18-c
+Installed pair has real alpha and clear borders: lv18-c
+Unlocked pair routes to field and detail correctly: lv18-c
+Distinct SD and LD sprites registered: lv18-d
+Installed pair has real alpha and clear borders: lv18-d
+Unlocked pair routes to field and detail correctly: lv18-d
+Distinct SD and LD sprites registered: lv19-a
+Installed pair has real alpha and clear borders: lv19-a
+Unlocked pair routes to field and detail correctly: lv19-a
+Distinct SD and LD sprites registered: lv19-b
+Installed pair has real alpha and clear borders: lv19-b
+Unlocked pair routes to field and detail correctly: lv19-b
+Distinct SD and LD sprites registered: lv19-c
+Installed pair has real alpha and clear borders: lv19-c
+Unlocked pair routes to field and detail correctly: lv19-c
+Distinct SD and LD sprites registered: lv19-d
+Installed pair has real alpha and clear borders: lv19-d
+Unlocked pair routes to field and detail correctly: lv19-d
+Distinct SD and LD sprites registered: lv20-a
+Installed pair has real alpha and clear borders: lv20-a
+Unlocked pair routes to field and detail correctly: lv20-a
+Distinct SD and LD sprites registered: lv20-b
+Installed pair has real alpha and clear borders: lv20-b
+Unlocked pair routes to field and detail correctly: lv20-b
+Distinct SD and LD sprites registered: lv20-c
+Installed pair has real alpha and clear borders: lv20-c
+Unlocked pair routes to field and detail correctly: lv20-c
+Distinct SD and LD sprites registered: lv20-d
+Installed pair has real alpha and clear borders: lv20-d
+Unlocked pair routes to field and detail correctly: lv20-d
+Distinct SD and LD sprites registered: lv21-a
+Installed pair has real alpha and clear borders: lv21-a
+Unlocked pair routes to field and detail correctly: lv21-a
+Distinct SD and LD sprites registered: lv21-b
+Installed pair has real alpha and clear borders: lv21-b
+Unlocked pair routes to field and detail correctly: lv21-b
+Distinct SD and LD sprites registered: lv21-c
+Installed pair has real alpha and clear borders: lv21-c
+Unlocked pair routes to field and detail correctly: lv21-c
+Distinct SD and LD sprites registered: lv21-d
+Installed pair has real alpha and clear borders: lv21-d
+Unlocked pair routes to field and detail correctly: lv21-d
+Distinct SD and LD sprites registered: rose-oath
+Installed pair has real alpha and clear borders: rose-oath
+Unlocked pair routes to field and detail correctly: rose-oath
+All installed skin discoveries survive save roundtrip
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv01-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv01-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv01-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv01-d
+Switching all four skins preserves ownership and collection bonuses: level 1
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv02-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv02-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv02-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv02-d
+Switching all four skins preserves ownership and collection bonuses: level 2
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv03-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv03-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv03-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv03-d
+Switching all four skins preserves ownership and collection bonuses: level 3
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv04-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv04-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv04-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv04-d
+Switching all four skins preserves ownership and collection bonuses: level 4
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv05-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv05-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv05-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv05-d
+Switching all four skins preserves ownership and collection bonuses: level 5
+Every same-level skin slot survives equip/save/load with its own SD and LD: violet-festival
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv06-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv06-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv06-d
+Switching all four skins preserves ownership and collection bonuses: level 6
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv07-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv07-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv07-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv07-d
+Switching all four skins preserves ownership and collection bonuses: level 7
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv08-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv08-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv08-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv08-d
+Switching all four skins preserves ownership and collection bonuses: level 8
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv09-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv09-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv09-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv09-d
+Switching all four skins preserves ownership and collection bonuses: level 9
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv10-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv10-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv10-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv10-d
+Switching all four skins preserves ownership and collection bonuses: level 10
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv11-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv11-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv11-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv11-d
+Switching all four skins preserves ownership and collection bonuses: level 11
+Every same-level skin slot survives equip/save/load with its own SD and LD: jade-garden
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv12-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv12-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv12-d
+Switching all four skins preserves ownership and collection bonuses: level 12
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv13-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv13-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv13-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv13-d
+Switching all four skins preserves ownership and collection bonuses: level 13
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv14-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv14-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv14-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv14-d
+Switching all four skins preserves ownership and collection bonuses: level 14
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv15-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv15-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv15-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv15-d
+Switching all four skins preserves ownership and collection bonuses: level 15
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv16-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv16-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv16-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv16-d
+Switching all four skins preserves ownership and collection bonuses: level 16
+Every same-level skin slot survives equip/save/load with its own SD and LD: moon-patrol
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv17-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv17-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv17-d
+Switching all four skins preserves ownership and collection bonuses: level 17
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv18-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv18-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv18-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv18-d
+Switching all four skins preserves ownership and collection bonuses: level 18
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv19-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv19-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv19-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv19-d
+Switching all four skins preserves ownership and collection bonuses: level 19
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv20-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv20-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv20-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv20-d
+Switching all four skins preserves ownership and collection bonuses: level 20
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv21-a
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv21-b
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv21-c
+Every same-level skin slot survives equip/save/load with its own SD and LD: lv21-d
+Switching all four skins preserves ownership and collection bonuses: level 21
+Original earned skin ID and benefit preserved: violet-festival
+Original earned skin ID and benefit preserved: jade-garden
+Original earned skin ID and benefit preserved: moon-patrol
+Original earned skin ID and benefit preserved: rose-oath
+Base levels 1-24 have distinct non-empty display names
+Confirmed skin target is four per level, 96 pairs / 192 images excluding base appearances
+A missing planned skin cannot silently reduce the confirmed target
+Duplicate per-level skin slots are rejected even when IDs are unique
+File presence alone cannot install an unreviewed new skin
+Quality reinspection does not remove an already installed player skin
+A complete approved pair can be installed
+Approval cannot install a missing SD/LD file pair
+Planned skin display names are populated and unique in both languages
+Renaming existing skins preserves identity, stage, unlock requirement and earned benefit
+Installed skin uses current reviewed display names: lv01-a
+Installed skin uses current reviewed display names: lv01-b
+Installed skin uses current reviewed display names: lv01-c
+Installed skin uses current reviewed display names: lv01-d
+Installed skin uses current reviewed display names: lv02-a
+Installed skin uses current reviewed display names: lv02-b
+Installed skin uses current reviewed display names: lv02-c
+Installed skin uses current reviewed display names: lv02-d
+Installed skin uses current reviewed display names: lv03-a
+Installed skin uses current reviewed display names: lv03-b
+Installed skin uses current reviewed display names: lv03-c
+Installed skin uses current reviewed display names: lv03-d
+Installed skin uses current reviewed display names: lv04-a
+Installed skin uses current reviewed display names: lv04-b
+Installed skin uses current reviewed display names: lv04-c
+Installed skin uses current reviewed display names: lv04-d
+Installed skin uses current reviewed display names: lv05-a
+Installed skin uses current reviewed display names: lv05-b
+Installed skin uses current reviewed display names: lv05-c
+Installed skin uses current reviewed display names: lv05-d
+Installed skin uses current reviewed display names: violet-festival
+Installed skin uses current reviewed display names: lv06-b
+Installed skin uses current reviewed display names: lv06-c
+Installed skin uses current reviewed display names: lv06-d
+Installed skin uses current reviewed display names: lv07-a
+Installed skin uses current reviewed display names: lv07-b
+Installed skin uses current reviewed display names: lv07-c
+Installed skin uses current reviewed display names: lv07-d
+Installed skin uses current reviewed display names: lv08-a
+Installed skin uses current reviewed display names: lv08-b
+Installed skin uses current reviewed display names: lv08-c
+Installed skin uses current reviewed display names: lv08-d
+Installed skin uses current reviewed display names: lv09-a
+Installed skin uses current reviewed display names: lv09-b
+Installed skin uses current reviewed display names: lv09-c
+Installed skin uses current reviewed display names: lv09-d
+Installed skin uses current reviewed display names: lv10-a
+Installed skin uses current reviewed display names: lv10-b
+Installed skin uses current reviewed display names: lv10-c
+Installed skin uses current reviewed display names: lv10-d
+Installed skin uses current reviewed display names: lv11-a
+Installed skin uses current reviewed display names: lv11-b
+Installed skin uses current reviewed display names: lv11-c
+Installed skin uses current reviewed display names: lv11-d
+Installed skin uses current reviewed display names: jade-garden
+Installed skin uses current reviewed display names: lv12-b
+Installed skin uses current reviewed display names: lv12-c
+Installed skin uses current reviewed display names: lv12-d
+Installed skin uses current reviewed display names: lv13-a
+Installed skin uses current reviewed display names: lv13-b
+Installed skin uses current reviewed display names: lv13-c
+Installed skin uses current reviewed display names: lv13-d
+Installed skin uses current reviewed display names: lv14-a
+Installed skin uses current reviewed display names: lv14-b
+Installed skin uses current reviewed display names: lv14-c
+Installed skin uses current reviewed display names: lv14-d
+Installed skin uses current reviewed display names: lv15-a
+Installed skin uses current reviewed display names: lv15-b
+Installed skin uses current reviewed display names: lv15-c
+Installed skin uses current reviewed display names: lv15-d
+Installed skin uses current reviewed display names: lv16-a
+Installed skin uses current reviewed display names: lv16-b
+Installed skin uses current reviewed display names: lv16-c
+Installed skin uses current reviewed display names: lv16-d
+Installed skin uses current reviewed display names: moon-patrol
+Installed skin uses current reviewed display names: lv17-b
+Installed skin uses current reviewed display names: lv17-c
+Installed skin uses current reviewed display names: lv17-d
+Installed skin uses current reviewed display names: lv18-a
+Installed skin uses current reviewed display names: lv18-b
+Installed skin uses current reviewed display names: lv18-c
+Installed skin uses current reviewed display names: lv18-d
+Installed skin uses current reviewed display names: lv19-a
+Installed skin uses current reviewed display names: lv19-b
+Installed skin uses current reviewed display names: lv19-c
+Installed skin uses current reviewed display names: lv19-d
+Installed skin uses current reviewed display names: lv20-a
+Installed skin uses current reviewed display names: lv20-b
+Installed skin uses current reviewed display names: lv20-c
+Installed skin uses current reviewed display names: lv20-d
+Installed skin uses current reviewed display names: lv21-a
+Installed skin uses current reviewed display names: lv21-b
+Installed skin uses current reviewed display names: lv21-c
+Installed skin uses current reviewed display names: lv21-d
+Installed skin uses current reviewed display names: rose-oath

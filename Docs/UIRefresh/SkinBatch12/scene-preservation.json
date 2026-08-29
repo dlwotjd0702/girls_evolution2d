@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "registeredPairs": 73,
+  "newIds": [
+    "lv17-d",
+    "lv18-a",
+    "lv18-b",
+    "lv18-c",
+    "lv18-d"
+  ],
+  "levelsWithFourSlots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "sceneChangesLimitedTo": "Five skin definitions and collection count 0/68 to 0/73",
+  "previewFixtures": 0
+}

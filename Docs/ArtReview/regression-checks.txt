@@ -1,0 +1,289 @@
+PASS: 288 checks
+First mythic = 2500 points
+Mythic stack progression
+Lower tiers counted; final not double counted
+Upgrade points and multiplier agree
+Empty field reward
+Large prestige values saturate instead of overflowing
+Point balance saturates
+Gem purchase works with zero gold: ManualSpawnMax
+No gold charged: ManualSpawnMax
+Permanent purchase has no repeat reward: ManualSpawnMax
+Survives prestige: ManualSpawnMax
+Save round trip: ManualSpawnMax
+Gem purchase works with zero gold: ManualSpawnSpeed
+No gold charged: ManualSpawnSpeed
+Permanent purchase has no repeat reward: ManualSpawnSpeed
+Survives prestige: ManualSpawnSpeed
+Save round trip: ManualSpawnSpeed
+Gem purchase works with zero gold: FieldMax
+No gold charged: FieldMax
+Permanent purchase has no repeat reward: FieldMax
+Survives prestige: FieldMax
+Save round trip: FieldMax
+Gem purchase works with zero gold: ClickBonus
+No gold charged: ClickBonus
+Permanent purchase has no repeat reward: ClickBonus
+Survives prestige: ClickBonus
+Save round trip: ClickBonus
+Gem purchase works with zero gold: OfflineReward
+No gold charged: OfflineReward
+Permanent purchase has no repeat reward: OfflineReward
+Survives prestige: OfflineReward
+Save round trip: OfflineReward
+Gem purchase works with zero gold: OfflineMaxTime
+No gold charged: OfflineMaxTime
+Permanent purchase has no repeat reward: OfflineMaxTime
+Survives prestige: OfflineMaxTime
+Save round trip: OfflineMaxTime
+Gem purchase works with zero gold: AutoMerge
+No gold charged: AutoMerge
+Permanent purchase has no repeat reward: AutoMerge
+Survives prestige: AutoMerge
+Save round trip: AutoMerge
+Gem purchase works with zero gold: AutoSpawn
+No gold charged: AutoSpawn
+Permanent purchase has no repeat reward: AutoSpawn
+Survives prestige: AutoSpawn
+Save round trip: AutoSpawn
+Mixed currency upgrades tracked separately
+Only consumed gold upgrade is reset
+Legacy currency-unknown entitlements are protected
+Capped gem purchase rejected
+Permanent automation keeps its toggle
+Preview includes gold upgrades before reset
+Auto merge respects lifetime discovery
+Final girls cannot auto merge
+Actual payout equals the preview
+Prestige ends exactly once
+Gold upgrades reset after payout snapshot
+Old field and mythic stack cleared
+Encyclopedia survives prestige
+Summon charges refilled
+World reset is immediate
+Repeated confirm cannot duplicate rewards
+Existing 25-level progression preserved
+Level 8 does not unlock the second world
+Level 9 unlocks only world two
+Level 17 unlocks world three
+World navigation cycle: 0
+World navigation cycle: 1
+World navigation cycle: 2
+World navigation cycle: 3
+Saved world unlocks restored
+SD still has exactly 25 registered sprites
+SD level key remains unique and resolves: 1
+SD runtime sprite-name key agrees with address: 1
+SD level key remains unique and resolves: 2
+SD runtime sprite-name key agrees with address: 2
+SD level key remains unique and resolves: 3
+SD runtime sprite-name key agrees with address: 3
+SD level key remains unique and resolves: 4
+SD runtime sprite-name key agrees with address: 4
+SD level key remains unique and resolves: 5
+SD runtime sprite-name key agrees with address: 5
+SD level key remains unique and resolves: 6
+SD runtime sprite-name key agrees with address: 6
+SD level key remains unique and resolves: 7
+SD runtime sprite-name key agrees with address: 7
+SD level key remains unique and resolves: 8
+SD runtime sprite-name key agrees with address: 8
+SD level key remains unique and resolves: 9
+SD runtime sprite-name key agrees with address: 9
+SD level key remains unique and resolves: 10
+SD runtime sprite-name key agrees with address: 10
+SD level key remains unique and resolves: 11
+SD runtime sprite-name key agrees with address: 11
+SD level key remains unique and resolves: 12
+SD runtime sprite-name key agrees with address: 12
+SD level key remains unique and resolves: 13
+SD runtime sprite-name key agrees with address: 13
+SD level key remains unique and resolves: 14
+SD runtime sprite-name key agrees with address: 14
+SD level key remains unique and resolves: 15
+SD runtime sprite-name key agrees with address: 15
+SD level key remains unique and resolves: 16
+SD runtime sprite-name key agrees with address: 16
+SD level key remains unique and resolves: 17
+SD runtime sprite-name key agrees with address: 17
+SD level key remains unique and resolves: 18
+SD runtime sprite-name key agrees with address: 18
+SD level key remains unique and resolves: 19
+SD runtime sprite-name key agrees with address: 19
+SD level key remains unique and resolves: 20
+SD runtime sprite-name key agrees with address: 20
+SD level key remains unique and resolves: 21
+SD runtime sprite-name key agrees with address: 21
+SD level key remains unique and resolves: 22
+SD runtime sprite-name key agrees with address: 22
+SD level key remains unique and resolves: 23
+SD runtime sprite-name key agrees with address: 23
+SD level key remains unique and resolves: 24
+SD runtime sprite-name key agrees with address: 24
+SD level key remains unique and resolves: 25
+SD runtime sprite-name key agrees with address: 25
+LD still has exactly 25 registered sprites
+LD level key remains unique and resolves: 1
+LD runtime sprite-name key agrees with address: 1
+LD level key remains unique and resolves: 2
+LD runtime sprite-name key agrees with address: 2
+LD level key remains unique and resolves: 3
+LD runtime sprite-name key agrees with address: 3
+LD level key remains unique and resolves: 4
+LD runtime sprite-name key agrees with address: 4
+LD level key remains unique and resolves: 5
+LD runtime sprite-name key agrees with address: 5
+LD level key remains unique and resolves: 6
+LD runtime sprite-name key agrees with address: 6
+LD level key remains unique and resolves: 7
+LD runtime sprite-name key agrees with address: 7
+LD level key remains unique and resolves: 8
+LD runtime sprite-name key agrees with address: 8
+LD level key remains unique and resolves: 9
+LD runtime sprite-name key agrees with address: 9
+LD level key remains unique and resolves: 10
+LD runtime sprite-name key agrees with address: 10
+LD level key remains unique and resolves: 11
+LD runtime sprite-name key agrees with address: 11
+LD level key remains unique and resolves: 12
+LD runtime sprite-name key agrees with address: 12
+LD level key remains unique and resolves: 13
+LD runtime sprite-name key agrees with address: 13
+LD level key remains unique and resolves: 14
+LD runtime sprite-name key agrees with address: 14
+LD level key remains unique and resolves: 15
+LD runtime sprite-name key agrees with address: 15
+LD level key remains unique and resolves: 16
+LD runtime sprite-name key agrees with address: 16
+LD level key remains unique and resolves: 17
+LD runtime sprite-name key agrees with address: 17
+LD level key remains unique and resolves: 18
+LD runtime sprite-name key agrees with address: 18
+LD level key remains unique and resolves: 19
+LD runtime sprite-name key agrees with address: 19
+LD level key remains unique and resolves: 20
+LD runtime sprite-name key agrees with address: 20
+LD level key remains unique and resolves: 21
+LD runtime sprite-name key agrees with address: 21
+LD level key remains unique and resolves: 22
+LD runtime sprite-name key agrees with address: 22
+LD level key remains unique and resolves: 23
+LD runtime sprite-name key agrees with address: 23
+LD level key remains unique and resolves: 24
+LD runtime sprite-name key agrees with address: 24
+LD level key remains unique and resolves: 25
+LD runtime sprite-name key agrees with address: 25
+Retouched sprite uses the unchanged saved level: 6
+Retouched sprite imported with alpha: 6
+Retouched sprite uses the unchanged saved level: 14
+Retouched sprite imported with alpha: 14
+Rounded panel produces bounded corner geometry
+Square outer corner vertices removed
+Original panel UV mapping preserved
+Rounding preserves original art, input and mask behavior
+Zero-radius option preserves unmodified geometry
+New collection starts empty at original form
+Final form collected once; stacking does not duplicate it
+Prestige reveals the next goal without granting it
+Three runs collect three distinct final forms
+Form rotation returns safely after the catalog ends
+Form IDs and discoveries survive save round trip
+Legacy progress grants only the original earned form
+Sustained character taps fill and activate fever
+Fever decays after tapping stops
+One burst or resume gap cannot instantly grant fever
+Focus or prestige reset clears click history
+Opted-in ad request starts without granting a reward
+No bonus before the ad reward callback
+Concurrent ad request rejected
+Skipped or failed ad releases button without reward
+Duplicate ad callback cannot stack or extend bonus
+Earned ad bonus is 2x and cannot be stacked
+Ad 2x and fever +50 percent combine to 3x
+Only earned timed boost persists, never fever
+Expired ad bonus returns to base income
+Ad removal receives the same timed benefit without an ad request
+Online bonus display never changes offline reward estimate
+Character top edge clears the fever panel
+Character bottom edge clears the ad button
+Reserved HUD still leaves a usable merge area
+Unconfigured scenes keep their old movement bounds
+Level 8 rainbow kimono matches CSV and LD
+Level 9 black scroll matches CSV and LD
+SD image content matches reviewed original, not only its address: 8
+SD image content matches reviewed original, not only its address: 9
+Unrequested goal and world strip removed from the mobile HUD
+Fever bar is thick enough to read at phone scale
+Primary mobile labels cannot shrink to tiny text
+Ad button fits narrow/tall phone width: (320.00, 568.00)
+Ad button has at least 48 logical pixels of height: (320.00, 568.00)
+Reward headline remains readable: (320.00, 568.00)
+Ad button fits narrow/tall phone width: (360.00, 800.00)
+Ad button has at least 48 logical pixels of height: (360.00, 800.00)
+Reward headline remains readable: (360.00, 800.00)
+Ad button fits narrow/tall phone width: (390.00, 844.00)
+Ad button has at least 48 logical pixels of height: (390.00, 844.00)
+Reward headline remains readable: (390.00, 844.00)
+Ad button fits narrow/tall phone width: (320.00, 740.00)
+Ad button has at least 48 logical pixels of height: (320.00, 740.00)
+Reward headline remains readable: (320.00, 740.00)
+Early summon unlock remains level one
+Summon unlock keeps the two-level merge lead
+Full field disables both summon actions
+Summon actions respect independent readiness
+Freed field restores summon actions
+Cash tab renamed Products
+Income reward exists only inside the product shop
+Three optional ad rewards lead the catalog
+Gem and gold ads precede paid products
+Ad removal product matches the IAP catalog ID
+Product ad actions have mobile-sized targets
+Moved shop button no longer shrinks the playfield
+Summon capacity and next unlock are visible
+Both summon currency buttons meet small-phone height
+Reviewed LD address connected: 2
+Reviewed LD has real alpha and clear borders: 2
+Detail uses reviewed LD while field retains SD: 2
+Reviewed LD address connected: 6
+Reviewed LD has real alpha and clear borders: 6
+Detail uses reviewed LD while field retains SD: 6
+Reviewed LD address connected: 7
+Reviewed LD has real alpha and clear borders: 7
+Detail uses reviewed LD while field retains SD: 7
+Reviewed LD address connected: 10
+Reviewed LD has real alpha and clear borders: 10
+Detail uses reviewed LD while field retains SD: 10
+Reviewed LD address connected: 11
+Reviewed LD has real alpha and clear borders: 11
+Detail uses reviewed LD while field retains SD: 11
+Reviewed LD address connected: 12
+Reviewed LD has real alpha and clear borders: 12
+Detail uses reviewed LD while field retains SD: 12
+Reviewed LD address connected: 13
+Reviewed LD has real alpha and clear borders: 13
+Detail uses reviewed LD while field retains SD: 13
+Reviewed LD address connected: 14
+Reviewed LD has real alpha and clear borders: 14
+Detail uses reviewed LD while field retains SD: 14
+Reviewed LD address connected: 15
+Reviewed LD has real alpha and clear borders: 15
+Detail uses reviewed LD while field retains SD: 15
+Reviewed LD address connected: 16
+Reviewed LD has real alpha and clear borders: 16
+Detail uses reviewed LD while field retains SD: 16
+Reviewed LD address connected: 17
+Reviewed LD has real alpha and clear borders: 17
+Detail uses reviewed LD while field retains SD: 17
+Reviewed LD address connected: 19
+Reviewed LD has real alpha and clear borders: 19
+Detail uses reviewed LD while field retains SD: 19
+Reviewed LD address connected: 20
+Reviewed LD has real alpha and clear borders: 20
+Detail uses reviewed LD while field retains SD: 20
+Reviewed LD address connected: 23
+Reviewed LD has real alpha and clear borders: 23
+Detail uses reviewed LD while field retains SD: 23
+Reviewed LD address connected: 24
+Reviewed LD has real alpha and clear borders: 24
+Detail uses reviewed LD while field retains SD: 24
+Level 25 LD preserved as requested

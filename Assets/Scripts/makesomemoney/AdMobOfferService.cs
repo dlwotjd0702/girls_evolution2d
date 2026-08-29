@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AdMobOfferService : MonoBehaviour, IAdOfferService
+public class AdMobOfferService : MonoBehaviour, IAdOfferWithCompletion
 {
     public event Action<bool> OnRewardedReadyChanged;
 
@@ -125,6 +125,19 @@ public class AdMobOfferService : MonoBehaviour, IAdOfferService
         }
         
         RewardedAdsManager_AdMob.Instance.Show(onReward);
+        OnRewardedReadyChanged?.Invoke(false);
+    }
+
+    public void ShowRewarded(Action onReward, Action onFinished)
+    {
+        if (PremiumCurrencyManager.Instance != null && PremiumCurrencyManager.Instance.AdsRemoved)
+        {
+            try { onReward?.Invoke(); } finally { onFinished?.Invoke(); }
+            return;
+        }
+        var ads = RewardedAdsManager_AdMob.Instance;
+        if (ads == null || !ads.IsInitialized || !ads.IsReady) { onFinished?.Invoke(); return; }
+        ads.Show(onReward, onFinished);
         OnRewardedReadyChanged?.Invoke(false);
     }
 }

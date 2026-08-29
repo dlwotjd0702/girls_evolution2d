@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "registeredPairs": 60,
+  "newIds": [
+    "lv14-c",
+    "lv14-d",
+    "lv15-a",
+    "lv15-b"
+  ],
+  "levelsWithFourSlots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "sceneChangesLimitedTo": "Four skin definitions and collection count 0/56 to 0/60",
+  "previewFixtures": 0
+}

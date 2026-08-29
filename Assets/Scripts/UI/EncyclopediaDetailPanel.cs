@@ -16,6 +16,9 @@ public class EncyclopediaDetailPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI incomeText;
     [SerializeField] private Button closeButton;
+    public TextMeshProUGUI collectionText;
+    public Button equipButton;
+    public TextMeshProUGUI equipLabel;
     
 
     void Awake()
@@ -26,12 +29,15 @@ public class EncyclopediaDetailPanel : MonoBehaviour
             closeButton.onClick.AddListener(Hide);
         }
         
-        Hide();
+        // Initial visibility belongs to the scene. Hiding here cancels the first Show
+        // when this component lives on the previously inactive popup itself.
     }
     
     public void Show(string name, int level, double income, Sprite ldSprite)
     {
-        if (panelRoot != null) panelRoot.SetActive(true);
+        if (collectionText) collectionText.text = "";
+        if (equipButton) equipButton.gameObject.SetActive(false);
+        if (panelRoot != null) { panelRoot.transform.SetAsLastSibling(); panelRoot.SetActive(true); }
         
         // LD 일러스트
         if (ldIllustrationImage != null)
@@ -61,6 +67,24 @@ public class EncyclopediaDetailPanel : MonoBehaviour
             string formattedIncome = EconomyManager.FormatAbbrev(income, 1, ""); // 단위 없이 숫자만
             incomeText.text = string.Format(format, formattedIncome) + "/s";
         }
+    }
+
+    public void ShowCollection(string name, int level, double income, Sprite sprite, string description,
+        bool unlocked, string actionLabel = null, System.Action action = null)
+    {
+        if (!unlocked) { Hide(); return; }
+        Show(name,level,income,sprite);
+        if (ldIllustrationImage && !unlocked) ldIllustrationImage.color = new Color(0.13f,0.17f,0.24f,1);
+        if (incomeText && !unlocked) incomeText.text = LocalizationManager.GetText("미해금", "LOCKED");
+        if (collectionText) collectionText.text = description;
+        if (equipButton)
+        {
+            equipButton.gameObject.SetActive(!string.IsNullOrEmpty(actionLabel));
+            equipButton.interactable = unlocked && action != null;
+            equipButton.onClick.RemoveAllListeners();
+            if (action != null) equipButton.onClick.AddListener(() => action());
+        }
+        if (equipLabel) equipLabel.text = actionLabel ?? "";
     }
     
     public void Hide()

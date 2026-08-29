@@ -1,0 +1,38 @@
+[
+  {
+    "id": "lv16-c",
+    "kind": "LD",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-0316b174-c905-4c44-a54a-6514bc4df443.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 approved SD costume defines exact garment construction, colors, boots, jewelry, accessories and weapon placement; copy precisely. Image2 original BASE LD defines face, natural mature anatomy, proportions, age and hairstyle. Costume only: Blue Flame Twin Daggers: navy fitted battle jacket with cyan flame embroidery and short split waist panels, dark fitted shorts, navy thigh stockings, navy/cyan strapped boots. Preserve long dark brown twin ponytails with pointed orange-red ribbon ornaments, amber-red eyes and confident expression. Exactly two original curved serrated silver daggers, one held out in each hand. Keep waist utility canisters, NO additional knife near canisters.  Do NOT use chibi SD proportions. Match outfit from image1, preserve base LD pose and correct grips. Crisp clean anime lines, cel shading. All hair, long blade tips and boots within generous margin. Actual RGBA transparent background and internal gaps. No opaque backdrop, painted checkerboard, floor shadow, text, watermark, extra weapon or figure."
+  },
+  {
+    "id": "lv16-d",
+    "kind": "LD",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1d7fd09a-a72c-4a08-b7d7-73395ca313fc.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/16.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 approved SD costume defines exact garment construction, colors, boots, jewelry, accessories and weapon placement; copy precisely. Image2 original BASE LD defines face, natural mature anatomy, proportions, age and hairstyle. Costume only: Red Plum Rush: crimson short riding jacket, ivory plum blossom patterns, purple fitted inner uniform and shorts, purple thigh stockings, crimson/black strapped boots. Preserve long dark brown twin ponytails with pointed orange-red ribbon ornaments, amber-red eyes and confident expression. Exactly two original curved serrated silver daggers, one held out in each hand. Keep waist utility canisters, NO additional knife near canisters.  Do NOT use chibi SD proportions. Match outfit from image1, preserve base LD pose and correct grips. Crisp clean anime lines, cel shading. All hair, long blade tips and boots within generous margin. Actual RGBA transparent background and internal gaps. No opaque backdrop, painted checkerboard, floor shadow, text, watermark, extra weapon or figure."
+  },
+  {
+    "id": "lv17-b",
+    "kind": "LD",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-bd5c1a6f-6870-4fd8-ab20-775a61556ccf.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/17.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 approved SD costume defines exact garment construction, colors, boots, jewelry, accessories and weapon placement; copy precisely. Image2 original BASE LD defines face, natural mature anatomy, proportions, age and hairstyle. Costume only: Sapphire Knight: royal blue and ivory short armored coat with sapphire clasps, silver shoulder plates, fitted navy shorts, ivory-edged blue leg guards and blue boots. Preserve short turquoise bob with straight bangs, cyan-teal eyes matching BASE LD, calm serious expression. Keep cyan glowing sword in the hand at canvas RIGHT pointing down and outward; canvas LEFT hand rests on hip. Keep diagonal back-mounted sheathed katana and horizontal empty waist scabbard in original positions.  Do NOT use chibi SD proportions. Match outfit from image1, preserve base LD pose and correct grips. Crisp clean anime lines, cel shading. All hair, long blade tips and boots within generous margin. Actual RGBA transparent background and internal gaps. No opaque backdrop, painted checkerboard, floor shadow, text, watermark, extra weapon or figure."
+  },
+  {
+    "id": "lv17-c",
+    "kind": "LD",
+    "refs": [
+      "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-2f694ac4-533b-434e-9c65-0de4cfed6a3e.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/17.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body LD portrait game sprite. Image1 approved SD costume defines exact garment construction, colors, boots, jewelry, accessories and weapon placement; copy precisely. Image2 original BASE LD defines face, natural mature anatomy, proportions, age and hairstyle. Costume only: Sea Mist Patrol: slate-blue short maritime ninja coat, sea-mist-pattern flowing waist sash, silver fittings, slate shorts and leg guards, dark blue strapped boots. Preserve short turquoise bob with straight bangs, cyan-teal eyes matching BASE LD, calm serious expression. Keep cyan glowing sword in the hand at canvas RIGHT pointing down and outward; canvas LEFT hand rests on hip. Keep diagonal back-mounted sheathed katana and horizontal empty waist scabbard in original positions.  Do NOT use chibi SD proportions. Match outfit from image1, preserve base LD pose and correct grips. Crisp clean anime lines, cel shading. All hair, long blade tips and boots within generous margin. Actual RGBA transparent background and internal gaps. No opaque backdrop, painted checkerboard, floor shadow, text, watermark, extra weapon or figure."
+  }
+]

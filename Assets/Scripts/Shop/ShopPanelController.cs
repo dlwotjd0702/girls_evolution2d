@@ -189,17 +189,7 @@ public class ShopPanelController : MonoBehaviour
             return;
         }
 
-        // 보석 차감 성공 시 골드 구매 메서드 호출
-        bool ok = false;
-        switch (e.type)
-        {
-            case ShopItemType.ManualSpawnMax:   ok = economy.TryBuySpawnMaxUpgrade();       break;
-            case ShopItemType.ManualSpawnSpeed: ok = economy.TryBuySpawnSpeedUpgrade();     break;
-            case ShopItemType.FieldMax:         ok = economy.TryBuyFieldMaxUpgrade();       break;
-            case ShopItemType.ClickBonus:       ok = economy.TryBuyClickBonusUpgrade();     break;
-            case ShopItemType.OfflineReward:    ok = economy.TryBuyOfflineRewardUpgrade();  break;
-            case ShopItemType.OfflineMaxTime:   ok = economy.TryBuyOfflineMaxTimeUpgrade(); break;
-        }
+        bool ok = economy.TryBuyUpgradeWithGems((EconomyManager.UpgradeKind)e.type);
 
         if (!ok)
         {
@@ -209,6 +199,7 @@ public class ShopPanelController : MonoBehaviour
             return;
         }
 
+        SaveManager.Instance?.SaveGame();
         RefreshEntry(e);
         HideReasonImmediate();
     }
@@ -245,7 +236,7 @@ public class ShopPanelController : MonoBehaviour
             {
                 double goldCost = GetNextGoldCost(e.type);
                 string value = ComposeValueGoldEconomy(e.type);
-                e.costText.text = (isMax || double.IsInfinity(goldCost)) ? value : $"{value}\n{goldCost:N0} G";
+                e.costText.text = (isMax || double.IsInfinity(goldCost)) ? value : $"{value}\n{EconomyManager.FormatAbbrev(goldCost)}";
             }
         }
 

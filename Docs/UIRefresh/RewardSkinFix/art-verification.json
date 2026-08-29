@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "imageAssets": 192,
+  "unchangedImages": 190,
+  "unchangedMetaFiles": 192,
+  "transparentRGBAWithClearBorder": 192,
+  "validatedRevisionRecords": 32,
+  "replacedImages": [
+    {
+      "path": "Assets/Art/Characters/Skins/lv01-a-SD.png",
+      "beforeSha256": "21b150b9a767e93fe3306a7a79ad16e5fd54c14fcf39d102dd2586d7f8d387a5",
+      "afterSha256": "0f21dd05f0679e57327934fb0b83371c566d6ba5c07d766aa91b0fb85e079eb2"
+    },
+    {
+      "path": "Assets/Art/Characters/Skins/lv01-b-SD.png",
+      "beforeSha256": "7701d70f9f730ad7ed50d7ce5a15754192b79f1f4e053ccb616b258354fda589",
+      "afterSha256": "f988aaaaace3bb1129cf6d01840ae6042a06fd7a8ef12ebb7bb4747598274390"
+    }
+  ]
+}

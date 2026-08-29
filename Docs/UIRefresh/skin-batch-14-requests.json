@@ -1,0 +1,68 @@
+[
+  {
+    "id": "lv20-c",
+    "kind": "SD",
+    "level": 20,
+    "costume": "Crystal Snow Blossom: ice-blue layered light armor, crystal-shaped clasps, ivory waist panels, dark fitted leggings and ice-blue armored boots",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/20.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/20.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Crystal Snow Blossom: ice-blue layered light armor, crystal-shaped clasps, ivory waist panels, dark fitted leggings and ice-blue armored boots. Keep long flowing pale-blue hair, white hair ribbon, pointed elf ears and golden amber eyes. ONE cyan flame orb hovering above open canvas LEFT palm, other hand on hip. No additional weapon. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure."
+  },
+  {
+    "id": "lv20-d",
+    "kind": "SD",
+    "level": 20,
+    "costume": "Dawn Nebula: dawn-peach and midnight-blue light armor, gold star clasps, short cape, midnight leggings and peach-gold armored boots",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/20.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/20.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Dawn Nebula: dawn-peach and midnight-blue light armor, gold star clasps, short cape, midnight leggings and peach-gold armored boots. Keep long flowing pale-blue hair, white hair ribbon, pointed elf ears and golden amber eyes. ONE cyan flame orb hovering above open canvas LEFT palm, other hand on hip. No additional weapon. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure."
+  },
+  {
+    "id": "lv21-a",
+    "kind": "SD",
+    "level": 21,
+    "costume": "Crimson Veil: crimson and ivory ritual combat jacket, gold cords, fitted black pants and black boots",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/21.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/21.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Crimson Veil: crimson and ivory ritual combat jacket, gold cords, fitted black pants and black boots. Keep long dark charcoal high ponytail, original red tie and fluttering red ribbon, golden amber eyes, serious original face, red neck scarf. Preserve original SD pose: one forearm bent across chest toward scarf, other arm lowered at side. Hands empty. A short sword stays SHEATHED at waist. Natural articulated fingers and joints. Cape follows original silhouette but new costume construction. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure."
+  },
+  {
+    "id": "lv21-b",
+    "kind": "SD",
+    "level": 21,
+    "costume": "Platinum Sentinel: pale platinum and midnight military coat, simple geometric silver shoulder/forearm armor, fitted navy pants and armored boots",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/21.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/21.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Platinum Sentinel: pale platinum and midnight military coat, simple geometric silver shoulder/forearm armor, fitted navy pants and armored boots. Keep long dark charcoal high ponytail, original red tie and fluttering red ribbon, golden amber eyes, serious original face, red neck scarf. Preserve original SD pose: one forearm bent across chest toward scarf, other arm lowered at side. Hands empty. A short sword stays SHEATHED at waist. Natural articulated fingers and joints. Cape follows original silhouette but new costume construction. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure."
+  },
+  {
+    "id": "lv21-c",
+    "kind": "SD",
+    "level": 21,
+    "costume": "Black Gold Veil: black and gold fitted battle armor, short red-lined cape, narrow waist sash, dark pants and black-gold armored boots",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/21.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/21.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Black Gold Veil: black and gold fitted battle armor, short red-lined cape, narrow waist sash, dark pants and black-gold armored boots. Keep long dark charcoal high ponytail, original red tie and fluttering red ribbon, golden amber eyes, serious original face, red neck scarf. Preserve original SD pose: one forearm bent across chest toward scarf, other arm lowered at side. Hands empty. A short sword stays SHEATHED at waist. Natural articulated fingers and joints. Cape follows original silhouette but new costume construction. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure."
+  },
+  {
+    "id": "lv21-d",
+    "kind": "SD",
+    "level": 21,
+    "costume": "Azure Flame: deep blue and teal fitted battle armor, short flame-pattern cape, navy pants and teal-edged armored boots",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/21.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자2/21.png"
+    ],
+    "prompt": "Use case: identity-preserve. Create ONLY one full-body SD female ninja game sprite. Image1 original BASE SD defines exact facial identity, original natural SD proportions, age presentation and pose. Image2 BASE LD confirms identity. Change costume only: Azure Flame: deep blue and teal fitted battle armor, short flame-pattern cape, navy pants and teal-edged armored boots. Keep long dark charcoal high ponytail, original red tie and fluttering red ribbon, golden amber eyes, serious original face, red neck scarf. Preserve original SD pose: one forearm bent across chest toward scarf, other arm lowered at side. Hands empty. A short sword stays SHEATHED at waist. Natural articulated fingers and joints. Cape follows original silhouette but new costume construction. Crisp anime cel shading and clean dark outlines. Preserve recognizable face, no generic doll or baby chibi. Full hair and cloth tails and every toe and prop inside generous margin. Actual transparent RGBA including internal gaps; no painted checkerboard, white backdrop, floor shadow, text or extra figure."
+  }
+]

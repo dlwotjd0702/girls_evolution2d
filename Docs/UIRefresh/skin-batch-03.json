@@ -1,0 +1,435 @@
+{
+  "batch": "2026-08-28-03",
+  "method": "Built-in imagegen; user-authorized Python alpha extraction; all new output staged for visual review before registration.",
+  "items": [
+    {
+      "id": "lv04-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-f45e0305-fb1e-4675-9001-cab42b300c02.png",
+      "half": null,
+      "holes": [
+        11
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Asset: ONE full-body SD skin sprite for level 4 female ninja. Image 1 is the edit target: preserve its exact chibi head/body proportions, red eyes, straight black bangs, high black ponytail, black face mask, original standing stance, hands, short sword and black open-toe sandals. Image 2 is base LD for identity context only, not proportions. Costume 'Teal Shadow / 청록 그림자': change clothing only to a fitted deep teal crossover stealth jacket with a split knee-length hem and two small charcoal shoulder guards, charcoal fitted under-sleeves, dark waist sash with two straight tails, original charcoal gathered ninja trousers and calf wraps. Restrained turquoise piping, no stars, leaves or emblems, no cape. Keep one original short sword held at the same position as image 1. Keep the original base game's dark outlines and simple matte cel shading, not glossy rendered dolls. One character centered on a square canvas with full ponytail, ribbon ends, sword and feet inside a clear 5 percent margin. Background must be genuinely transparent RGBA including hair/arm/sword gaps. Do not paint a checkerboard or white backdrop. No ground shadow, text, logos, extra props or second figure.",
+      "correctionPrompt": null,
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            412,
+            381
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            400
+          ],
+          [
+            540,
+            560
+          ]
+        ]
+      },
+      "visualReview": "Reviewed SD/LD identity, outfit and props, full-body margins, actual alpha on dark/light backgrounds, internal gaps, white cloth and blade/eye highlights. New skins do not overwrite base art."
+    },
+    {
+      "id": "lv04-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-a6a8e313-61ff-42cc-80f6-e0b24a3111d6.png",
+      "half": null,
+      "holes": [
+        4,
+        35,
+        38
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. Asset: ONE full-body LD skin sprite, 'Teal Shadow / 청록 그림자', for the female ninja in image 1. Image 1 is the base LD edit target: preserve her black high ponytail, straight bangs and thin loose ribbon tails, red eyes, black face mask, original LD proportions, age presentation, relaxed original stance and hands, one short sheathed sword at the original lowered hand, original black wrapped calves and open-toe sandals. Image 2 is the SD costume reference only; reproduce this exact outfit on the LD body: deep teal crossover fitted jacket with long split side panels, narrow turquoise edging on lapels and hem, two small charcoal shoulder guards, teal elbow-length sleeves over dark fitted forearm wraps, dark cloth sash with two straight tails, charcoal gathered trousers. Same palette, same construction; no extra cape, hood, stars, jewelry or new weapon. Original clean dark outlines and restrained matte cel shading, not glossy or doll-like, no altered facial expression. One full-body LD centered in a square image with all ponytail tips, loose ribbons, sword and feet within a clear 5 percent margin. Genuine transparent RGBA background including narrow hair and arm gaps. No painted checkerboard, opaque white backdrop, ground shadow, text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            680,
+            218
+          ],
+          [
+            553,
+            234
+          ],
+          [
+            658,
+            434
+          ]
+        ],
+        "opaque": [
+          [
+            580,
+            210
+          ],
+          [
+            580,
+            360
+          ]
+        ]
+      },
+      "visualReview": "Reviewed SD/LD identity, outfit and props, full-body margins, actual alpha on dark/light backgrounds, internal gaps, white cloth and blade/eye highlights. New skins do not overwrite base art."
+    },
+    {
+      "id": "lv04-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-a65b4cc5-bc8b-4c26-9551-3b4d4385da6d.png",
+      "half": null,
+      "holes": [
+        10,
+        16,
+        41
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE SD costume sprite for the level 4 female ninja. Image 1 is the exact base SD edit target. Image 2 is base LD for identity context only. Costume 'Magenta Knot / 자홍 매듭': short plum-purple haori jacket ending at upper thigh, open over original charcoal crossover ninja uniform, fitted dark sleeves and forearm wraps, a clearly readable magenta braided cord tied in a decorative flat knot at center waist with two short tasseled ends. Plum collar and narrow magenta edge piping; charcoal gathered trousers, calf wraps and original open-toe sandals. Practical ninja costume; no dress, armor, flower, extra weapons or cape. Preserve image 1's stern red eyes, straight dark bangs, high black ponytail, black mouth/nose mask, original SD proportions, standing pose, hands, one short sword held at the same place, and clean dark cel-shaded art style. Change outfit only, never redesign face or hairstyle. One full-body figure in a square image, all ponytail/ribbons, sword and toes within a generous clear margin. Genuine transparent RGBA background, also transparent in all enclosed hair/arm/weapon gaps. No fake checkerboard pixels, white backdrop, floor shadow, text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            441,
+            361
+          ],
+          [
+            740,
+            403
+          ],
+          [
+            759,
+            718
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            400
+          ],
+          [
+            740,
+            610
+          ]
+        ]
+      },
+      "visualReview": "Reviewed SD/LD identity, outfit and props, full-body margins, actual alpha on dark/light backgrounds, internal gaps, white cloth and blade/eye highlights. New skins do not overwrite base art."
+    },
+    {
+      "id": "lv04-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-c0a74ab4-b3ac-4989-8cb1-90549cdaf22e.png",
+      "half": null,
+      "holes": [
+        8,
+        25,
+        28,
+        5,
+        7,
+        26
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE LD full-body skin 'Magenta Knot / 자홍 매듭'. Image 1 is the exact base LD female ninja to preserve; image 2 is the SD costume to reproduce. Preserve image 1's red eyes, black mask covering nose and mouth, straight dark bangs, high black ponytail with flowing ribbon strands, original LD proportions and natural standing pose, hands and one short sheathed sword held at the original lowered hand. Change clothing only: plum-purple short haori ending at upper thigh with narrow magenta edge piping, open front over charcoal crossover ninja top, fitted dark forearm wraps, broad dark waist sash carrying a flat symmetrical magenta braided knot at the center front and exactly two short tassels. Same design, palette and knot as image 2, adapted to base LD. Charcoal gathered trousers, dark calf wraps and original open-toe sandals. No long coat tails, cape, new armor, flowers, extra sword, jewelry or new facial expression. Preserve base cel-shaded dark linework and restrained colors, no glossy 3D or doll anatomy. Centered full-body LD on square canvas with all ponytail/ribbon tips, sword and feet inside generous clear margin. Genuine transparent RGBA background with clear enclosed hair/arm gaps. Do not paint a checkerboard, white background or ground shadow. No text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            488,
+            190
+          ],
+          [
+            546,
+            248
+          ],
+          [
+            702,
+            524
+          ],
+          [
+            783,
+            145
+          ],
+          [
+            782,
+            155
+          ],
+          [
+            521,
+            229
+          ]
+        ],
+        "opaque": [
+          [
+            580,
+            220
+          ],
+          [
+            600,
+            540
+          ]
+        ]
+      },
+      "visualReview": "Reviewed SD/LD identity, outfit and props, full-body margins, actual alpha on dark/light backgrounds, internal gaps, white cloth and blade/eye highlights. New skins do not overwrite base art."
+    },
+    {
+      "id": "lv05-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-cf13057a-1f06-48ec-8ce8-106d6948cdc1.png",
+      "half": null,
+      "holes": [
+        99
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE full-body SD skin sprite 'White Plum Escort / 백매 호위' for level 5 female ninja. Image 1 is base SD edit target; keep its original face shape and expression, side-swept black fringe, compact black high ponytail, SD proportions, standing pose and hands, one short blade held in the lowered hand, charcoal trousers and original ninja sandals. Image 2 is base LD identity reference; keep eye color a subdued olive green consistent with that LD and the character's existing skins, not bright neon. Outfit only: short ivory shoulder mantle ending just above the elbows, with a restrained small plum-blossom branch pattern along the hem and a single small dark-green clasp, over a fitted dark forest-green protective vest/armored crossover tunic, dark forearm wraps and black ninja leggings/gathered trousers. Ivory mantle must stay fully opaque as clothing, do not turn it into transparent holes. Simple cel shading and the base SD's dark outline style; no generic doll redraw, no face mask, hood, long coat, giant pauldrons or new weapons. One SD centered in square canvas, entire ponytail, mantle, blade tip and feet contained with 5 percent margin. Real transparent RGBA background including gaps between hair/neck/arms/blade and legs. Remove the base floor oval/shadow. No painted checkerboard, white backdrop, text or watermark.",
+      "correctionPrompt": "Use case: precise-object-edit. Image 1 is the SD skin edit target; change ONLY the colored irises of both eyes from yellow-hazel to subdued green, matching the exact character's green eyes in image 2 LD. Keep image 1's eye shape, pupils, catchlights, lashes, face, expression, hairstyle, ponytail, ivory mantle and its branch pattern, green toggle clasp, vest, belt, blade, hands, feet, pose, proportions and linework unchanged. Image 2 supplies iris color only, not body or face proportions. No other creative changes. Keep full-body SD on the same square canvas with no crop. Prefer actual transparent RGBA background. No new text, props, effects or shadows.",
+      "approved": true,
+      "rejectedDraft": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-89d3d1e8-4373-41d0-a2a1-a490bcfa391e.png",
+      "alphaProbes": {
+        "clear": [
+          [
+            714,
+            657
+          ]
+        ],
+        "opaque": [
+          [
+            600,
+            365
+          ],
+          [
+            640,
+            475
+          ],
+          [
+            260,
+            838
+          ]
+        ]
+      },
+      "visualReview": "Reviewed SD/LD identity, outfit and props, full-body margins, actual alpha on dark/light backgrounds, internal gaps, white cloth and blade/eye highlights. New skins do not overwrite base art."
+    },
+    {
+      "id": "lv05-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-4ab77c6e-52bb-4360-b188-4c00fcbddfc9.png",
+      "half": null,
+      "holes": [
+        4,
+        11,
+        14,
+        84,
+        85
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE LD full-body skin 'White Plum Escort / 백매 호위'. Image 1 is the exact base LD female ninja edit target; preserve her face, green eyes, side-swept black hair and compact high ponytail, original LD anatomy/age/stance and hand positions, original single katana with its scabbard arrangement, wrapped calves and open-toe sandals. Image 2 is the SD outfit reference only: transfer this exact costume to the LD body, not its chibi proportions. Short ivory shoulder mantle ends above elbows, dark olive-green small toggle clasp, sparse taupe plum blossom/branch pattern along mantle hem. Mantle open at front over a fitted dark olive/forest-green protective crossover tunic with subtle horizontal panel lines and green waist sash with short tails. Dark charcoal sleeves, forearm wraps, gathered trousers. Preserve opaque ivory fabric and plum motifs, no translucent clothing. No base long green scarf, no new military coat, giant pauldrons, additional weapons, jewelry, hair flower or hood. Simple clean dark outlines and restrained base cel shading, not glossy or photoreal. One centered full-body LD on a square canvas with clear margin around all hair, blade/scabbard and toes. Actual transparent RGBA background, including negative spaces between ponytail and head, mantle and arms and legs. No painted checkerboard, white backdrop, oval floor shadow, text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "matteRegions": [
+        [
+          703,
+          115,
+          734,
+          180,
+          125,
+          55
+        ],
+        [
+          694,
+          177,
+          714,
+          203,
+          125,
+          55
+        ]
+      ],
+      "matteReview": "Gray-white background fragments behind the ear, bounded away from the outer ponytail and face.",
+      "removeIslands": [
+        2
+      ],
+      "islandReview": "Two-pixel detached matte fragment behind ear at (700,186), outside the hair and face.",
+      "alphaProbes": {
+        "clear": [
+          [
+            705,
+            149
+          ],
+          [
+            677,
+            202
+          ],
+          [
+            683,
+            211
+          ],
+          [
+            730,
+            503
+          ],
+          [
+            754,
+            591
+          ]
+        ],
+        "opaque": [
+          [
+            610,
+            183
+          ],
+          [
+            625,
+            310
+          ]
+        ]
+      },
+      "visualReview": "Reviewed SD/LD identity, outfit and props, full-body margins, actual alpha on dark/light backgrounds, internal gaps, white cloth and blade/eye highlights. New skins do not overwrite base art."
+    },
+    {
+      "id": "lv05-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-1b7a04c2-3344-43d3-8abf-e585c6edff1d.png",
+      "half": null,
+      "holes": [
+        12,
+        16,
+        17,
+        20
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE SD costume sprite 'Breeze Forest Path / 청풍 숲길' for the exact level 5 female ninja in image 1. Image 1 is base SD edit target; image 2 is LD identity context. Preserve image 1's face shape, calm focused expression, side-swept black fringe and compact black high ponytail, SD head/body proportions, original standing stance, hands, one short curved ninja blade in the original lowered hand and black open-toe sandals. Muted olive-green eyes consistent with LD and existing skins, not neon. Costume only: a deep forest-green layered tunic with asymmetrical overlapping short skirt panels, dark charcoal long fitted sleeves and forearm wraps, a muted sage-green neck scarf with subtle darker leaf-vein motifs and two flowing scarf tails following the original scarf's direction, and a braided moss-green rope belt tied in a practical small knot with two short ends. Charcoal gathered trousers and dark calf wraps. Clearly distinguish from an ivory cape or military coat: no cape, white fabric, gold trim, big armor or additional weapons. Keep original dark outlined matte cel shading, never generic doll style or glossy 3D. One full-body SD centered on square canvas, ponytail, both scarf tips, blade tip and toes inside generous clear margin. Real transparent RGBA background, including hair/arm/scarf gaps. No painted checkerboard pixels, white backdrop, floor shadow/oval, text or watermark.",
+      "correctionPrompt": "Use case: precise-object-edit. Edit image 1 ONLY in the colored iris regions of BOTH eyes. Change the brown irises to subdued olive green that matches the green eyes of the same ninja in image 2. Image 2 is color reference only. Preserve image 1's pupil shapes, white catchlights, eye outline shape, eyelashes, eyebrows, expression, face, skin, hair, ponytail, scarf leaf pattern, tunic, braided belt, sword, pose, anatomy and every other detail exactly. Do not redraw or beautify face, do not alter outlines or shading. Keep the complete full-body SD sprite on the same square canvas with no cropping. Prefer genuine transparent RGBA background; no new text, effects, props or shadows. Only the irises should change.",
+      "approved": true,
+      "rejectedDraft": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-52af9372-3e4f-46c4-8d00-dd5700d6034b.png",
+      "alphaProbes": {
+        "clear": [
+          [
+            498,
+            354
+          ],
+          [
+            773,
+            362
+          ],
+          [
+            794,
+            364
+          ],
+          [
+            746,
+            644
+          ]
+        ],
+        "opaque": [
+          [
+            620,
+            350
+          ],
+          [
+            600,
+            420
+          ],
+          [
+            640,
+            690
+          ]
+        ]
+      },
+      "visualReview": "Reviewed SD/LD identity, outfit and props, full-body margins, actual alpha on dark/light backgrounds, internal gaps, white cloth and blade/eye highlights. New skins do not overwrite base art."
+    },
+    {
+      "id": "lv05-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-3f6cd38f-72de-4a76-b66b-2ac7fb329630.png",
+      "half": null,
+      "holes": [
+        3,
+        5,
+        16,
+        27,
+        29,
+        32,
+        33,
+        15,
+        37
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "edgeInsetPixels": 0.8,
+      "prompt": "Use case: identity-preserve. ONE LD full-body skin 'Breeze Forest Path / 청풍 숲길'. Image 1 is exact base LD edit target: keep her green eyes, face and focused expression, side-swept black fringe, compact black ponytail, LD proportions, original standing pose and hands, one katana with scabbard in the original arrangement, wrapped calves and open-toe sandals. Image 2 is approved SD costume reference, transfer its clothing faithfully onto LD body. Deep forest-green crossover layered tunic with asymmetric short overlapping hem panels, charcoal sleeves/forearm wraps/trousers, muted sage-green neck scarf with subtle dark leaf-vein motifs and two flowing tails, braided moss-green belt with small practical knot and two short rope ends. Same greens and leaf pattern as SD. Keep the original LD scarf tail flow, no new extra scarves or cape. No ivory mantle, gold details, large armor, extra weapons or jewelry. Base-game matte cel shading and dark clean linework. Keep natural pose/proportions and face, not generic doll render. One full-body centered LD on square canvas, entire ponytail, both scarf tails, katana/scabbard and feet inside clear margin. Real transparent RGBA background including hair, arm and scarf gaps. No fake checkerboard, opaque white backdrop, floor shadow, text or watermark.",
+      "correctionPrompt": null,
+      "approved": true,
+      "alphaProbes": {
+        "clear": [
+          [
+            516,
+            101
+          ],
+          [
+            734,
+            105
+          ],
+          [
+            737,
+            179
+          ],
+          [
+            694,
+            198
+          ],
+          [
+            575,
+            218
+          ],
+          [
+            722,
+            426
+          ],
+          [
+            770,
+            585
+          ],
+          [
+            798,
+            126
+          ],
+          [
+            1145,
+            665
+          ]
+        ],
+        "opaque": [
+          [
+            610,
+            180
+          ],
+          [
+            650,
+            255
+          ],
+          [
+            600,
+            550
+          ]
+        ]
+      },
+      "visualReview": "Reviewed SD/LD identity, outfit and props, full-body margins, actual alpha on dark/light backgrounds, internal gaps, white cloth and blade/eye highlights. New skins do not overwrite base art."
+    }
+  ]
+}

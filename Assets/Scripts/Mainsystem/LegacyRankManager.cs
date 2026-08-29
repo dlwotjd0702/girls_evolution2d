@@ -23,7 +23,7 @@ public class LegacyRankManager : MonoBehaviour, ISaveable
     public void AddXp(int amount)
     {
         if (amount <= 0) return;
-        legacyXp = Mathf.Clamp(legacyXp + amount, 0, int.MaxValue);
+        legacyXp = PrestigeReward.ClampPoints((double)LegacyXp + amount);
         OnLegacyChanged?.Invoke();
     }
 

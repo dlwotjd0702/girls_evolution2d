@@ -1,0 +1,432 @@
+{
+  "method": "User-authorized alpha-only cleanup; inspect original installed sprites; no RGB or dimension changes",
+  "items": [
+    {
+      "key": "lv02-b-SD",
+      "path": "Assets/Art/Characters/Skins/lv02-b-SD.png",
+      "beforeSha256": "33c1f409769d99e7c72ec94a5ecf604f807d7bbccec3fd6cc98a67f971625139",
+      "components": [
+        22,
+        24,
+        25,
+        47
+      ],
+      "edgeRegions": [
+        [
+          140,
+          20,
+          345,
+          205
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "alphaProbes": {
+        "clear": [
+          [
+            334,
+            148
+          ],
+          [
+            150,
+            138
+          ],
+          [
+            147,
+            142
+          ],
+          [
+            157,
+            200
+          ]
+        ],
+        "opaque": [
+          [
+            237,
+            175
+          ],
+          [
+            184,
+            299
+          ],
+          [
+            193,
+            473
+          ]
+        ]
+      },
+      "reviewRecord": "Docs/UIRefresh/SkinBatch10/ExistingAlpha/",
+      "reviewNotes": "Confirmed negative spaces and outer matte only. Preserved intentional head/hair highlights, white cape/collar, flowers, face and costume. No RGB or dimension changes."
+    },
+    {
+      "key": "lv02-b-LD",
+      "path": "Assets/Art/Characters/Skins/lv02-b-LD.png",
+      "beforeSha256": "6314cfa377f7b398d6b62cae0500552b3e3fe10b000d1e174a47bceb9bfc4fc1",
+      "components": [
+        17,
+        23
+      ],
+      "edgeRegions": [
+        [
+          405,
+          20,
+          650,
+          205
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "alphaProbes": {
+        "clear": [
+          [
+            601,
+            161
+          ],
+          [
+            576,
+            152
+          ]
+        ],
+        "opaque": [
+          [
+            497,
+            181
+          ],
+          [
+            430,
+            326
+          ],
+          [
+            622,
+            963
+          ]
+        ]
+      },
+      "reviewRecord": "Docs/UIRefresh/SkinBatch10/ExistingAlpha/",
+      "reviewNotes": "Confirmed negative spaces and outer matte only. Preserved intentional head/hair highlights, white cape/collar, flowers, face and costume. No RGB or dimension changes."
+    },
+    {
+      "key": "lv06-b-SD",
+      "path": "Assets/Art/Characters/Skins/lv06-b-SD.png",
+      "beforeSha256": "327a2384657a4cad568df078aa4105cae38b98f563a065eb1c52523f9c540d46",
+      "components": [
+        36,
+        37,
+        94,
+        95,
+        118,
+        121
+      ],
+      "edgeRegions": [
+        [
+          190,
+          20,
+          397,
+          195
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "alphaProbes": {
+        "clear": [
+          [
+            197,
+            146
+          ],
+          [
+            389,
+            149
+          ],
+          [
+            205,
+            173
+          ],
+          [
+            379,
+            168
+          ],
+          [
+            251,
+            210
+          ]
+        ],
+        "opaque": [
+          [
+            283,
+            187
+          ],
+          [
+            337,
+            273
+          ],
+          [
+            177,
+            249
+          ]
+        ]
+      },
+      "reviewRecord": "Docs/UIRefresh/SkinBatch10/ExistingAlpha/",
+      "reviewNotes": "Confirmed negative spaces and outer matte only. Preserved intentional head/hair highlights, white cape/collar, flowers, face and costume. No RGB or dimension changes."
+    },
+    {
+      "key": "lv08-a-SD",
+      "path": "Assets/Art/Characters/Skins/lv08-a-SD.png",
+      "beforeSha256": "7e1441b22b229662676cd33f4366c8a6bcc945735749397432cca9c3baabdaba",
+      "components": [
+        25
+      ],
+      "edgeRegions": [
+        [
+          90,
+          20,
+          370,
+          180
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "alphaProbes": {
+        "clear": [
+          [
+            129,
+            111
+          ]
+        ],
+        "opaque": [
+          [
+            263,
+            165
+          ],
+          [
+            177,
+            257
+          ],
+          [
+            203,
+            367
+          ]
+        ]
+      },
+      "reviewRecord": "Docs/UIRefresh/SkinBatch10/ExistingAlpha/",
+      "reviewNotes": "Confirmed negative spaces and outer matte only. Preserved intentional head/hair highlights, white cape/collar, flowers, face and costume. No RGB or dimension changes."
+    },
+    {
+      "key": "lv08-a-LD",
+      "path": "Assets/Art/Characters/Skins/lv08-a-LD.png",
+      "beforeSha256": "49868c6247a074ff1cbb5ecd3ac83e53666650898b53849940061678bed2b43f",
+      "components": [
+        12,
+        20,
+        27,
+        33
+      ],
+      "edgeRegions": [
+        [
+          340,
+          30,
+          600,
+          180
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "alphaProbes": {
+        "clear": [
+          [
+            381,
+            194
+          ],
+          [
+            385,
+            119
+          ],
+          [
+            377,
+            162
+          ],
+          [
+            360,
+            150
+          ]
+        ],
+        "opaque": [
+          [
+            506,
+            167
+          ],
+          [
+            349,
+            338
+          ],
+          [
+            365,
+            913
+          ]
+        ]
+      },
+      "reviewRecord": "Docs/UIRefresh/SkinBatch10/ExistingAlpha/",
+      "reviewNotes": "Confirmed negative spaces and outer matte only. Preserved intentional head/hair highlights, white cape/collar, flowers, face and costume. No RGB or dimension changes."
+    },
+    {
+      "key": "lv08-b-SD",
+      "path": "Assets/Art/Characters/Skins/lv08-b-SD.png",
+      "beforeSha256": "2e4c6e8d5f65a93e374b87e3661927d386b996e3aa7cc45505e5c2c7ee7285c7",
+      "components": [
+        38,
+        55,
+        200
+      ],
+      "edgeRegions": [
+        [
+          80,
+          20,
+          405,
+          206
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "alphaProbes": {
+        "clear": [
+          [
+            243,
+            289
+          ],
+          [
+            131,
+            118
+          ],
+          [
+            100,
+            146
+          ]
+        ],
+        "opaque": [
+          [
+            292,
+            180
+          ],
+          [
+            204,
+            78
+          ],
+          [
+            210,
+            357
+          ]
+        ]
+      },
+      "reviewRecord": "Docs/UIRefresh/SkinBatch10/ExistingAlpha/",
+      "reviewNotes": "Confirmed negative spaces and outer matte only. Preserved intentional head/hair highlights, white cape/collar, flowers, face and costume. No RGB or dimension changes."
+    },
+    {
+      "key": "lv08-b-LD",
+      "path": "Assets/Art/Characters/Skins/lv08-b-LD.png",
+      "beforeSha256": "cabfe89cc38b244f4b1f392a6dd54068adab3be09c4fa020baf355b880a658f6",
+      "components": [
+        9,
+        21,
+        67,
+        86
+      ],
+      "edgeRegions": [
+        [
+          320,
+          30,
+          550,
+          170
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "alphaProbes": {
+        "clear": [
+          [
+            419,
+            327
+          ],
+          [
+            297,
+            644
+          ],
+          [
+            361,
+            108
+          ],
+          [
+            335,
+            134
+          ]
+        ],
+        "opaque": [
+          [
+            468,
+            151
+          ],
+          [
+            413,
+            77
+          ],
+          [
+            657,
+            559
+          ]
+        ]
+      },
+      "reviewRecord": "Docs/UIRefresh/SkinBatch10/ExistingAlpha/",
+      "reviewNotes": "Confirmed negative spaces and outer matte only. Preserved intentional head/hair highlights, white cape/collar, flowers, face and costume. No RGB or dimension changes."
+    },
+    {
+      "key": "lv09-a-SD",
+      "path": "Assets/Art/Characters/Skins/lv09-a-SD.png",
+      "beforeSha256": "114f2ae1e62a18191011b509c4094469e3ef97d0bd33ed1e878a534570964a2a",
+      "components": [
+        48,
+        55,
+        56
+      ],
+      "edgeRegions": [
+        [
+          155,
+          20,
+          345,
+          198
+        ]
+      ],
+      "approved": true,
+      "edgeInsetPixels": 0.25,
+      "alphaProbes": {
+        "clear": [
+          [
+            219,
+            181
+          ],
+          [
+            181,
+            154
+          ],
+          [
+            270,
+            178
+          ]
+        ],
+        "opaque": [
+          [
+            244,
+            173
+          ],
+          [
+            281,
+            226
+          ],
+          [
+            356,
+            349
+          ]
+        ]
+      },
+      "reviewRecord": "Docs/UIRefresh/SkinBatch10/ExistingAlpha/",
+      "reviewNotes": "Confirmed negative spaces and outer matte only. Preserved intentional head/hair highlights, white cape/collar, flowers, face and costume. No RGB or dimension changes."
+    }
+  ]
+}

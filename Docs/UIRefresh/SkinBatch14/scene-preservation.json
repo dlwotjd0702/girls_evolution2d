@@ -1,0 +1,37 @@
+{
+  "previousPairs": 79,
+  "registeredPairs": 85,
+  "addedIds": [
+    "lv20-c",
+    "lv20-d",
+    "lv21-a",
+    "lv21-b",
+    "lv21-c",
+    "lv21-d"
+  ],
+  "otherSceneContentUnchanged": true,
+  "completeLevels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21
+  ],
+  "previewFixtures": 0
+}

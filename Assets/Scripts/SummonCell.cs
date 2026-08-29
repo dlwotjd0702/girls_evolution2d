@@ -43,7 +43,7 @@ public class SummonCell : MonoBehaviour
         _hasGemAction = onGemClick != null;
 
         if (nameLabel) nameLabel.text = nameText;
-        if (costLabel) costLabel.text = EconomyManager.FormatAbbrev(cost);
+        UpdateCost(cost);
         if (iconImage) iconImage.sprite = icon;
 
         // 보석 비용 표시
@@ -51,7 +51,7 @@ public class SummonCell : MonoBehaviour
         {
             if (gemCost > 0 && onGemClick != null)
             {
-                gemCostLabel.text = $"{gemCost:N0} Gem";
+                gemCostLabel.text = LocalizationManager.GetText($"보석 소환\n{gemCost:N0}개", $"SUMMON\n{gemCost:N0} Gems");
                 gemCostLabel.gameObject.SetActive(true);
             }
             else
@@ -68,7 +68,7 @@ public class SummonCell : MonoBehaviour
     // 비용 라벨 갱신용
     public void UpdateCost(double newCost)
     {
-        if (costLabel) costLabel.text = EconomyManager.FormatAbbrev(newCost);
+        if (costLabel) costLabel.text = LocalizationManager.GetText("골드 소환\n", "SUMMON\n") + EconomyManager.FormatAbbrev(newCost);
     }
     
     // 보석 비용 및 버튼 상태 갱신
@@ -79,7 +79,7 @@ public class SummonCell : MonoBehaviour
         {
             if (gemCost > 0)
             {
-                gemCostLabel.text = $"{gemCost:N0} Gem";
+                gemCostLabel.text = LocalizationManager.GetText($"보석 소환\n{gemCost:N0}개", $"SUMMON\n{gemCost:N0} Gems");
                 gemCostLabel.gameObject.SetActive(true);
             }
             else
@@ -97,8 +97,8 @@ public class SummonCell : MonoBehaviour
     // 버튼 상호작용 가능 여부 업데이트 (필드 가득 참 등)
     public void SetButtonsInteractable(bool goldInteractable, bool gemInteractable)
     {
-        if (summonButton != null) summonButton.interactable = _hasGoldAction;
-        if (gemSummonButton != null) gemSummonButton.interactable = _hasGemAction;
+        if (summonButton != null) summonButton.interactable = _hasGoldAction && goldInteractable;
+        if (gemSummonButton != null) gemSummonButton.interactable = _hasGemAction && gemInteractable;
     }
 
     // (패널에서 ReasonLabel 직접 관리하므로 현재 미사용)

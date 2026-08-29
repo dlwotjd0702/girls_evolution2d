@@ -1,0 +1,652 @@
+{
+  "LD8": {
+    "path": "Assets/닌자2/8.png",
+    "guid": "01fda4bd21478b34b99006c527728096",
+    "sha256": "585591566da258ec6a10e2cad608a1c69129fefbf70a26e025f831d1a568d0bc",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD20": {
+    "path": "Assets/Art/Characters/LD/20.png",
+    "guid": "046e735fd36b4ca89982004b5c55f9d5",
+    "sha256": "be0537371d988a9fb45a645b64e9c94ad880ceed32e8b5faf0b1da5c8fafc915",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD21": {
+    "path": "Assets/닌자SD2/21.png",
+    "guid": "079cccaa62a29a3469a1d214f8774904",
+    "sha256": "1c854e62737df120c9039ea6f042f9434b29b28ea4c08e46b3f60e185e73d201",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD9": {
+    "path": "Assets/닌자2/9.png",
+    "guid": "08b76df47fa64924e8fb2ccb861b0023",
+    "sha256": "021dc5d55d66b1975e25b2f54341314c8c6afe248ef87fab6fc2885fb0d4ac44",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD20": {
+    "path": "Assets/닌자SD2/20.png",
+    "guid": "08b785501fd5b6349938adb3de6f6a62",
+    "sha256": "a8a8161dbc7cd269fac6a2782ca15a1a55b92aa16f40a59dc1c9916db1b9bd69",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD5": {
+    "path": "Assets/닌자2/5.png",
+    "guid": "117a919f5ffe29846bfe857d849e67b1",
+    "sha256": "58ab2f3d8fe4f00c8b92cc3fb89de4e79373d5ffd673a2374d1e4661ce91a560",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD4": {
+    "path": "Assets/닌자2/4.png",
+    "guid": "12587dea6683fdb42b1450246f2dc9ad",
+    "sha256": "19b81dd81fbb8d48fab974d1114d1a3b32c57bc6ededf054ac734c605980f3a1",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD14": {
+    "path": "Assets/Art/Characters/SD/14.png",
+    "guid": "125dd373c1394edfba8d8f1585bc9ca5",
+    "sha256": "394f85aba2b13e6bd82fe47e7f17d5726c96c8abc1030e2c4f836069c52959ec",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD2": {
+    "path": "Assets/닌자SD2/2.png",
+    "guid": "1a374d43e17228d4cb062c5368c3f19d",
+    "sha256": "c962fd27ea0cd94c465f900f792b2280f1a92c93c969b2f1cc01f79e3b299d97",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD3": {
+    "path": "Assets/닌자SD2/3.png",
+    "guid": "3d1e9eefc2dda57488102ad00a2852de",
+    "sha256": "06d2acc7a2317f1d4f157ee92e4551e9fc4da747adf1544a2a8062faa055594b",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD15": {
+    "path": "Assets/닌자SD2/15.png",
+    "guid": "3ddd5e032fc86444fb4580745f7aae42",
+    "sha256": "ce24bf7bba4b3e99dfb9c8e869fe466278b5fcea1747320018a8c10eb0fe3870",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD6": {
+    "path": "Assets/Art/Characters/LD/6.png",
+    "guid": "413c1db832bc01f48a95a15cd6d0cbf5",
+    "sha256": "8cb205c29851181f25e352777fa76b5244bd8ec023e27b73ebc6f3653a3286ab",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD19": {
+    "path": "Assets/Art/Characters/LD/19.png",
+    "guid": "4145d435cbaa7a547b7846c3d6e81b52",
+    "sha256": "0bbb40ffd9b3863a2cb0a825dc67729c937e52b3036f43ca8814f8c3bd70768c",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD25": {
+    "path": "Assets/닌자2/25.png",
+    "guid": "4225ace12a84a0e489f633cda6ff80db",
+    "sha256": "88381d6a8f18bdf6c165a8f69c48f1b87b1aeabc7a0fd7997737dc3018c540f6",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD14": {
+    "path": "Assets/Art/Characters/LD/14.png",
+    "guid": "48f3e0a9059641709924c1d15d0057d6",
+    "sha256": "deeb4893965ed27312b233fddf5c16f1fd7f68946dbd463284e59153aeb62f66",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD11": {
+    "path": "Assets/닌자SD2/11.png",
+    "guid": "49cd7fee2114d8f428c0c7a6f4ff152a",
+    "sha256": "29a77913e9ebf04f1f1259acf917ea431022d4d0f8e773115af0d7cdb855a59d",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD22": {
+    "path": "Assets/닌자2/22.png",
+    "guid": "508acb2301c3d9744adbde542a680d8b",
+    "sha256": "d5e113d51283da1cc8698d580d644b4960059295271e564ba14c5c51827310ab",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD10": {
+    "path": "Assets/Art/Characters/LD/10.png",
+    "guid": "530c2aa2f27f40c2b8a29ef0af0228bb",
+    "sha256": "fd3f54bb72b0ff919064cd88ae322070b7b4bfac8436ecf834e1a77bc4924a77",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD13": {
+    "path": "Assets/Art/Characters/LD/13.png",
+    "guid": "617be306000e429ca7c3cc3c2970bff5",
+    "sha256": "963ef98517852c3028631ace462440b282a944fb81f2cd104ad8d208742d9081",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD4": {
+    "path": "Assets/닌자SD2/4.png",
+    "guid": "6d90caf3569605f49b9447d7e0de4523",
+    "sha256": "aa1d741f72a3951c1d58d4239dcc9cc029024719bd326a388a1eb8ec65385c1e",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD16": {
+    "path": "Assets/Art/Characters/LD/16.png",
+    "guid": "6d92e4035cdf47a2a4e19f919ae4584a",
+    "sha256": "bda30a7d1806b4fd5221997e19e3bb7052122022d72a770146a53520a69ef7d8",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD18": {
+    "path": "Assets/닌자SD2/18.png",
+    "guid": "70627d11c9423f9478f1f8c642261f93",
+    "sha256": "6c5cbe4387f3192465653bcc2a4484607cf09854c53087fb069f7ed84632dfbd",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD3": {
+    "path": "Assets/닌자2/3.png",
+    "guid": "70c429ab05965ac43b1544b3040f9d09",
+    "sha256": "1cb34b26d9ef2a701baa71b4e03fab1ee41b85fd96c0206c9fa7a2869a604325",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD25": {
+    "path": "Assets/닌자SD2/25.png",
+    "guid": "7e94e9a735fc55f4ab77fd3bf09bced1",
+    "sha256": "20b805fd5e1f162bf96fd4b8b37a97bafcfcd85c36164efd0e7f26493906371b",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD12": {
+    "path": "Assets/닌자SD2/12.png",
+    "guid": "833ede10b9b8d8a4188e326a71817866",
+    "sha256": "98d35a27aae44e61a36bd53e5760a560b4ecad23b7dffc4f72e48a2b60c885bb",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD23": {
+    "path": "Assets/닌자SD2/23.png",
+    "guid": "8579e1905abff2147b44e7eb7b3f68c0",
+    "sha256": "29317e6e13f6d2a0dbb3a73c390bf49f599e0b69999d50b1bca259df9c160b59",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD24": {
+    "path": "Assets/Art/Characters/LD/24.png",
+    "guid": "88265401f8c2cba42b934c52d9ed7541",
+    "sha256": "b01510fecb7697f679a09be5efa50b9ed46f5428203639d21f0c803253308a83",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD24": {
+    "path": "Assets/닌자SD2/24.png",
+    "guid": "8ba69fa3534b021459ed9788a45e8656",
+    "sha256": "47a970da683e3df4d52f6dcd2501adc2d5a15456f0169ae83595e37058c1f2c8",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD1": {
+    "path": "Assets/닌자SD2/1.png",
+    "guid": "9498c44b631c7fd4db75292073cf21ce",
+    "sha256": "c49a8556c68dc6e71356668eda4335e99071472990f2039964369f4684df3eaa",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD5": {
+    "path": "Assets/닌자SD2/5.png",
+    "guid": "94c3362ad9505c940a58f0540a048a05",
+    "sha256": "d990cca1aa23d6f45df054225d28169db54cb461138653c23c96c01a132d8fa5",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD1": {
+    "path": "Assets/닌자2/1.png",
+    "guid": "9619bae30bb7be34496c53414c74c9f6",
+    "sha256": "68b31c2a9bac16dc751fe42fb0434a8d42351004612aa437a15c2610a52ebd5f",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD13": {
+    "path": "Assets/닌자SD2/13.png",
+    "guid": "9dda72c749143494e957294375286dc6",
+    "sha256": "47c38eca79f12e21a790d25117b14504a6ec18442466ee4d1a1cfe17079c8d3e",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD6": {
+    "path": "Assets/Art/Characters/SD/6.png",
+    "guid": "9f584caca309440dbc8a991792de2e13",
+    "sha256": "c2369e5a0d51e1fceafc692320daa1d596dccdc15e07fbe498f1be7538286ba9",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD7": {
+    "path": "Assets/닌자SD2/7.png",
+    "guid": "a1d707add3ea5a743a0566b81aa1f12d",
+    "sha256": "9b08810e6c99def4a2c5f6dcb087fe4fe1ec39501f1ee46246e98e96ab849870",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD17": {
+    "path": "Assets/닌자SD2/17.png",
+    "guid": "ba7dd68317671f24ab2a3223819f8049",
+    "sha256": "d604edb3aec36ad7971392463e4a652d093cc31db18eb43af336226a296f0366",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD11": {
+    "path": "Assets/Art/Characters/LD/11.png",
+    "guid": "c21233e64b09ce1409eb577b6352bc1e",
+    "sha256": "f8d95a4b1a8295343a25975c76ad418d6c4433e025303c02cab45371b8fd9a2f",
+    "size": [
+      935,
+      1682
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD16": {
+    "path": "Assets/닌자SD2/16.png",
+    "guid": "c41720d7b1f5de342a641a020c63f59d",
+    "sha256": "e4be5b8ce48ee143c449c7b828f5e763b2429b34ed43bfa6b99ee8967827f085",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD9": {
+    "path": "Assets/Art/Characters/SD/9.png",
+    "guid": "c5bf56f2c9394e04abd8444e9a2a3797",
+    "sha256": "93dc843fde9830f7fc1292158f6d1f143462ef7d090468eb4812c76409578b4a",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD22": {
+    "path": "Assets/닌자SD2/22.png",
+    "guid": "c913ccd216f0e4b4d98924766cf0ce7e",
+    "sha256": "7dbb5842af2627c6de29a3e358b6d123cbfa6c6caae7a973dc8074c7eb54145f",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD18": {
+    "path": "Assets/닌자2/18.png",
+    "guid": "caa6878888bdcea4dbae9c87e9e7a6b6",
+    "sha256": "b80082d76ccb5d16d5c1c96867a403a56b9d3c7f812bea166a38891c3bb88006",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD15": {
+    "path": "Assets/Art/Characters/LD/15.png",
+    "guid": "d13031e3500644df9fa7719c6bf0cfe9",
+    "sha256": "23dc7589864027dc98b9c8cac5b729cc0627fbdc65ac33d58c72465a2bcb2fcc",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD12": {
+    "path": "Assets/Art/Characters/LD/12.png",
+    "guid": "d7a65b88bc548a04b829426f7b1039a0",
+    "sha256": "2a71f3a1717ea0ad02ecdf1455a4486003883dec923cbee71a44cead357578fe",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD8": {
+    "path": "Assets/Art/Characters/SD/8.png",
+    "guid": "df7e48d611564e93ae331f2399613224",
+    "sha256": "0dbeb255c2f8b23c6cb8d94f75453f281a87c89acfce1608bf48ec4754bf2a48",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD23": {
+    "path": "Assets/Art/Characters/LD/23.png",
+    "guid": "ecffab6bbb793e1488bf69b622cf4106",
+    "sha256": "d92d50a61311117d7462c29c5ecc4fa026364456a40dcd300ec32a4abd7a5626",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD2": {
+    "path": "Assets/Art/Characters/LD/2.png",
+    "guid": "ee71f863e382466b8695563a4e9333ba",
+    "sha256": "8410f525624daf3a832643fadf4a9686a708dc740d0cbda3a031d58eb2f18aa6",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD21": {
+    "path": "Assets/닌자2/21.png",
+    "guid": "f0f307701b3cedb4bb01ddfe528f60fd",
+    "sha256": "0e07b00701c9a5665e124cf97e217623c6aaa0a6b17704edc385e435521d12c7",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD19": {
+    "path": "Assets/닌자SD2/19.png",
+    "guid": "f1a8f4edbb92d1f4886d5bf960dca662",
+    "sha256": "a9259c9691c4c5aed2da07681f08643024b52b419eea757765d95c2e13b84479",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD7": {
+    "path": "Assets/Art/Characters/LD/7.png",
+    "guid": "f9cda003bdabb25448d5e13372830c39",
+    "sha256": "9250dae2161e6d774b03307ec8106da10ae6a658a039817586ba0d9b4f493566",
+    "size": [
+      930,
+      1692
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "SD10": {
+    "path": "Assets/닌자SD2/10.png",
+    "guid": "fb49daea3632f604ea6ddafcde96fd03",
+    "sha256": "b5fae7240ab6cfe9ee6a97b18e6e9e1f4d5c2532f37dcde1dd64df7629857a5a",
+    "size": [
+      500,
+      500
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  },
+  "LD17": {
+    "path": "Assets/Art/Characters/LD/17.png",
+    "guid": "fe15c3ea344bfae4e83e944d2605d480",
+    "sha256": "e4022bf34341e4a39ccfc88d953736582ac96c4db0180e941c618e608c656cc1",
+    "size": [
+      1024,
+      1536
+    ],
+    "alpha": [
+      0,
+      255
+    ]
+  }
+}

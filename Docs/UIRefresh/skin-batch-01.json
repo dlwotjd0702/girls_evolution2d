@@ -1,0 +1,157 @@
+{
+  "batch": "2026-08-28-01",
+  "method": "Built-in imagegen; user-authorized local alpha extraction; base art is not overwritten.",
+  "items": [
+    {
+      "id": "lv01-c",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-98b549db-5cc8-480c-a688-b583dd67809b.png",
+      "half": null,
+      "holes": [
+        23,
+        25,
+        26
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. Asset type: a single SD cosmetic sprite for a Korean female-ninja merge game. Input image 1 is the exact base SD to preserve; input image 2 is the same character's base LD for identity context only. Create the 'Bamboo Training / 대숲 수련' costume for level 1. Change ONLY clothes: a bamboo-green layered training jacket with a small bamboo-leaf clasp, charcoal narrow ninja trousers, dark fabric sash, matching green wrist bindings. Keep exactly the SD's short black bob with blunt bangs, dark violet eyes, reserved face, natural head/body proportions, restrained cel shading and dark outlines. Keep the same stance, short limbs, sandal footwear, weapons and hands as image 1. The single SD character must look like the existing sprite wearing a new outfit, not a different generic chibi. No new long hair, no hair ornaments, no giant smile, no new weapon, no anatomical exaggeration. Produce only ONE full-body SD character centered on a square canvas, all weapon tips and feet visible with clear margin. Actual transparent RGBA background required, no white background substitute, no checkerboard pixels, no floor oval/shadow, no labels/watermark. Natural silhouette, clear green-vs-charcoal costume blocks readable on a phone.",
+      "approved": true,
+      "review": "SD/LD identity, costume, hands, weapons and framing compared to references; isolated holes and dark/light backgrounds inspected; no installed base sprite overwritten."
+    },
+    {
+      "id": "lv01-c",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-f893429a-5408-4194-b5db-90d29fe49003.png",
+      "half": null,
+      "holes": [
+        7,
+        11,
+        14,
+        16,
+        18,
+        20,
+        21,
+        28
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. Asset type: ONE LD full-body cosmetic sprite for the same Korean female-ninja merge game. Image 1 is the exact base LD: keep its character face, eye shape/color, short black bob and hairband, age presentation, head/body ratio, stance, limbs, hands, two swords, sandals, and restrained cel-shaded line art. Image 2 is the newly designed SD costume: transfer this exact costume to image 1's LD body. Image 3 is the base SD for context only; DO NOT make another chibi. Costume is 'Bamboo Training / 대숲 수련': moss/bamboo green crossover training jacket, small bamboo-leaf clasp on the same breast as image 2, long dark cloth waist sash with two hanging tails, charcoal ninja trousers, green wrist and calf bindings, dark sandals. LD and SD must be clearly the same outfit; no extra shoulder armor, accessories or decoration. Keep the original LD natural compact proportions rather than an elongated fashion-doll body. Character face and body remain faithful to input 1; change only clothing and remove ground oval. Only one LD sprite on a square canvas with clear margin around all sword tips and feet. Actual transparent RGBA background, no checkerboard pixels, no opaque white backdrop, no ground/shadow, no text/watermark.",
+      "approved": true,
+      "review": "SD/LD identity, costume, hands, weapons and framing compared to references; isolated holes and dark/light backgrounds inspected; no installed base sprite overwritten."
+    },
+    {
+      "id": "lv01-d",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-78b017d1-c4eb-4e22-9b64-e6af490d6aaf.png",
+      "half": null,
+      "holes": [
+        42,
+        47,
+        65
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. Make ONE SD cosmetic sprite for level 1 female ninja in image 1. Image 2 is the corresponding base LD for identity only. New costume 'Dawn Practice / 새벽 수행': short ivory practice haori with open front over a rust-red crossover ninja training shirt, muted rust-red woven sash tied with two short tails, charcoal ninja trousers, rust-red wrist and calf wraps, original dark sandals. Haori sleeves should end at elbows over red close-fitting under-sleeves, so the silhouette is distinct from a basic recolor. Otherwise preserve image 1's exact short black bob with blunt bangs and small rear tied section, dark violet eyes, reserved expression, chibi proportions, natural stance, hands and original sword/scabbard placement. Preserve game sprite dark outlines and simple restrained cel shading, not glossy rendering. Do not make a new generic doll face or alter the body. Output exactly ONE full-body SD, no companion or inset, centered with generous clear margin around the weapons and feet. Real transparent RGBA background, never draw checkerboard or white backdrop; no floor/shadow, no text/watermarks.",
+      "approved": true,
+      "review": "SD/LD identity, costume, hands, weapons and framing compared to references; isolated holes and dark/light backgrounds inspected; no installed base sprite overwritten."
+    },
+    {
+      "id": "lv01-d",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-9fe3dc05-a5c7-4617-801e-143b4b2da3d5.png",
+      "half": null,
+      "holes": [
+        13,
+        15,
+        16,
+        17,
+        68,
+        69,
+        87
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": "Use case: identity-preserve. ONE LD cosmetic sprite for the female ninja in input 1. Input 1 is base LD and governs the exact face, eye shape/color, age presentation, black bob hair and black hairband, compact natural body/head proportions, pose, two swords, hands and feet. Input 2 is the final SD 'Dawn Practice / 새벽 수행' costume reference. Transfer precisely that costume to input 1: open ivory elbow-sleeve practice haori over rust-red crossover training shirt with slim red under-sleeves, muted rust-red woven waist sash tied in a simple small knot with two SHORT tails, charcoal trousers, red wrist and calf bindings, dark sandals. Keep LD proportions rather than SD/chibi. Same outfit palette and construction as input 2; don't add patterns, badges, jewelry, armor or long scarf. Preserve base LD subtle cel-shading and black linework, reserved expression, natural balanced stance, original sword sizes/angles. Change only clothes, remove original floor oval. ONE full-body LD centered on square canvas with visible sword tips and feet inside clear margin. Require real transparent RGBA background, not painted checkerboard or white background. No shadow, no labels, no watermark.",
+      "approved": true,
+      "review": "SD/LD identity, costume, hands, weapons and framing compared to references; isolated holes and dark/light backgrounds inspected; no installed base sprite overwritten."
+    },
+    {
+      "id": "lv09-b",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e7ccde9b-3068-4563-a833-c4544989a639.png",
+      "half": 0,
+      "holes": [
+        19
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": null,
+      "approved": true,
+      "review": "SD/LD identity, costume, hands, weapons and framing compared to references; isolated holes and dark/light backgrounds inspected; no installed base sprite overwritten."
+    },
+    {
+      "id": "lv09-b",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-e7ccde9b-3068-4563-a833-c4544989a639.png",
+      "half": 1,
+      "holes": [
+        16
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": null,
+      "approved": true,
+      "review": "SD/LD identity, costume, hands, weapons and framing compared to references; isolated holes and dark/light backgrounds inspected; no installed base sprite overwritten."
+    },
+    {
+      "id": "lv10-a",
+      "kind": "SD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-130b5cd0-0381-48ba-8399-0a6aaee5b506.png",
+      "half": 0,
+      "holes": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        10,
+        12,
+        13,
+        30,
+        31,
+        33,
+        36,
+        40,
+        51,
+        81
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": null,
+      "approved": true,
+      "review": "SD/LD identity, costume, hands, weapons and framing compared to references; isolated holes and dark/light backgrounds inspected; no installed base sprite overwritten."
+    },
+    {
+      "id": "lv10-a",
+      "kind": "LD",
+      "source": "C:/Users/user/.codex/generated_images/01a044e4-89f3-7ba2-9267-efb2e89f6a90/exec-130b5cd0-0381-48ba-8399-0a6aaee5b506.png",
+      "half": 1,
+      "holes": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        12,
+        17,
+        22,
+        39
+      ],
+      "threshold": 232,
+      "spread": 10,
+      "prompt": null,
+      "approved": true,
+      "review": "SD/LD identity, costume, hands, weapons and framing compared to references; isolated holes and dark/light backgrounds inspected; no installed base sprite overwritten."
+    }
+  ]
+}

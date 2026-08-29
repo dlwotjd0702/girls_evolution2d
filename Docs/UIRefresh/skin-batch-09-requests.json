@@ -1,0 +1,38 @@
+[
+  {
+    "id": "lv14-c",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/SD/14.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/14.png"
+    ],
+    "prompt": "Use case: identity-preserve. Produce ONLY one full-body SD game sprite. Image1 is the exact BASE SD face, natural anatomy, proportions, age presentation and pose reference. Image2 base LD confirms identity. Costume only: Black Gold Twin Moons: black fitted armor with gold edges and layered shoulder guards, black high collar, short split waist panels, gold moon-shaped belt clasp, dark loose ninja trousers, black/gold shin guards and boots. Preserve Dark high ponytail with teal ends, red eyes, hairpin/tassel, serious expression. Exactly TWO curved black katanas with silver zigzag blade edge, one in each hand, same blade angles as base. Do not make generic baby chibi or change face. Correct fingers and prop count, clean anime cel shading and dark outlines. All hair, long blade tips and boots comfortably inside generous canvas margin. Actual transparent RGBA background and internal gaps. No white backdrop, checkerboard, ground shadow, text, watermark or extra figure."
+  },
+  {
+    "id": "lv14-d",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/SD/14.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/14.png"
+    ],
+    "prompt": "Use case: identity-preserve. Produce ONLY one full-body SD game sprite. Image1 is the exact BASE SD face, natural anatomy, proportions, age presentation and pose reference. Image2 base LD confirms identity. Costume only: White Lotus Twin Blades: ivory short battle haori over teal fitted armor, white lotus-pattern teal waist sash with silver clasp, short ivory/teal split waist panels, dark loose ninja trousers, teal shin guards and ivory-edged boots. Preserve Dark high ponytail with teal ends, red eyes, hairpin/tassel, serious expression. Exactly TWO curved black katanas with silver zigzag blade edge, one in each hand, same blade angles as base. Do not make generic baby chibi or change face. Correct fingers and prop count, clean anime cel shading and dark outlines. All hair, long blade tips and boots comfortably inside generous canvas margin. Actual transparent RGBA background and internal gaps. No white backdrop, checkerboard, ground shadow, text, watermark or extra figure."
+  },
+  {
+    "id": "lv15-a",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/15.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/15.png"
+    ],
+    "prompt": "Use case: identity-preserve. Produce ONLY one full-body SD game sprite. Image1 is the exact BASE SD face, natural anatomy, proportions, age presentation and pose reference. Image2 base LD confirms identity. Costume only: Golden Dawn: ivory and warm gold ceremonial ninja tunic with subtle dawn-ray motifs, gold shoulder guards, warm gold rope belt, charcoal fitted trousers, ivory/gold forearm armor and shin guards, dark boots. Preserve Long dark brown high ponytail fading to muted rose-red tips, red eyes, black hair bow, calm expression. Original long silver sword pointed down toward canvas LEFT in lowered left-side hand; other hand rests on hip beside original one sheathed sword at waist. Do not make generic baby chibi or change face. Correct fingers and prop count, clean anime cel shading and dark outlines. All hair, long blade tips and boots comfortably inside generous canvas margin. Actual transparent RGBA background and internal gaps. No white backdrop, checkerboard, ground shadow, text, watermark or extra figure."
+  },
+  {
+    "id": "lv15-b",
+    "kind": "SD",
+    "refs": [
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/닌자SD2/15.png",
+      "C:/Users/user/Documents/GitHub/girls_evolution2d/Assets/Art/Characters/LD/15.png"
+    ],
+    "prompt": "Use case: identity-preserve. Produce ONLY one full-body SD game sprite. Image1 is the exact BASE SD face, natural anatomy, proportions, age presentation and pose reference. Image2 base LD confirms identity. Costume only: Black Rose: black and burgundy military-style fitted coat with short split tails, rose-shaped silver collar clasp and double-row silver buttons, burgundy waist belt, charcoal fitted trousers, black/burgundy forearm guards and black boots. Preserve Long dark brown high ponytail fading to muted rose-red tips, red eyes, black hair bow, calm expression. Original long silver sword pointed down toward canvas LEFT in lowered left-side hand; other hand rests on hip beside original one sheathed sword at waist. Do not make generic baby chibi or change face. Correct fingers and prop count, clean anime cel shading and dark outlines. All hair, long blade tips and boots comfortably inside generous canvas margin. Actual transparent RGBA background and internal gaps. No white backdrop, checkerboard, ground shadow, text, watermark or extra figure."
+  }
+]

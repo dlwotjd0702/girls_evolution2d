@@ -269,22 +269,31 @@ public static class UIReadabilityRefresh
     }
     static void Shop(Canvas canvas)
     {
-        var shop=canvas.transform.Find("Shop");var product=shop.GetComponentsInChildren<Button>(true).First(b=>b.transform.parent==shop&&b.name=="상품");
-        product.image.sprite=AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/UI/products-tab.png");product.image.type=Image.Type.Simple;product.image.preserveAspect=true;
+        var shop=canvas.transform.Find("Shop");
         var hud=canvas.GetComponentInChildren<IncomeActivityHUD>(true);hud.boostButton.image.sprite=Old("도감배경");hud.boostButton.image.type=Image.Type.Simple;hud.boostButton.image.preserveAspect=false;hud.boostLabel.color=Light;
         var store=canvas.GetComponentInChildren<GemStorePanelController>(true);
         // The original painted sign has wide transparent margins; size its art, not its empty pixels.
         Place((RectTransform)shop,new Vector2(.5f,.5f),new Vector2(1420,2220),Vector2.zero);shop.GetComponent<Image>().preserveAspect=false;
         string[] tabs={"골드","환생","보석","상품"};
-        for(int n=0;n<tabs.Length;n++){var b=shop.GetComponentsInChildren<Button>(true).First(x=>x.transform.parent==shop&&x.name==tabs[n]);Place((RectTransform)b.transform,new Vector2(.5f,.5f),new Vector2(205,164),new Vector2(-324+216*n,620));}
+        var tabFrame=ShopPresentationRefresh.GetShopButtonFrame();
+        for(int n=0;n<tabs.Length;n++)
+        {
+            var b=shop.GetComponentsInChildren<Button>(true).First(x=>x.transform.parent==shop&&x.name==tabs[n]);
+            var localized=b.GetComponent<LocalizedTextureLabel>();if(localized)localized.enabled=false;
+            b.image.sprite=tabFrame;b.image.type=Image.Type.Simple;b.image.preserveAspect=false;b.image.color=Color.white;
+            Place((RectTransform)b.transform,new Vector2(.5f,.5f),new Vector2(220,136),new Vector2(-300+200*n,608));
+            var label=b.GetComponentInChildren<TextMeshProUGUI>(true);
+            if(!label){label=new GameObject("Label",typeof(RectTransform),typeof(CanvasRenderer),typeof(TextMeshProUGUI)).GetComponent<TextMeshProUGUI>();label.transform.SetParent(b.transform,false);label.font=canvas.GetComponentInChildren<TextMeshProUGUI>(true).font;}
+            if(label){label.gameObject.SetActive(true);label.enabled=true;Stretch(label.rectTransform);label.rectTransform.offsetMin=new Vector2(20,12);label.rectTransform.offsetMax=new Vector2(-20,-12);label.transform.SetAsLastSibling();label.text=tabs[n];label.color=Light;label.fontSize=44;label.enableAutoSizing=true;label.fontSizeMin=38;label.fontSizeMax=44;label.alignment=TextAlignmentOptions.Center;}
+        }
         foreach(var scroll in shop.GetComponentsInChildren<ScrollRect>(true).Where(s=>s.transform.parent==shop))
         {
-            Place((RectTransform)scroll.transform,new Vector2(.5f,.5f),new Vector2(840,1240),new Vector2(0,-100));
+            Place((RectTransform)scroll.transform,new Vector2(.5f,.5f),new Vector2(820,1240),new Vector2(0,-100));
             if(scroll.GetComponent<Image>())scroll.GetComponent<Image>().color=Color.clear;
             Stretch(scroll.viewport);var mask=scroll.viewport.GetComponent<Mask>();if(mask)mask.showMaskGraphic=false;
         }
-        var close=shop.Find("Close") as RectTransform;if(close)Place(close,new Vector2(.5f,.5f),new Vector2(164,164),new Vector2(450,820));
-        foreach(var e in store.entries){e.buyButton.image.sprite=Old("도감배경");e.buyButton.image.type=Image.Type.Simple;e.buyButton.image.preserveAspect=false;e.priceText.color=Light;e.titleText.color=Light;e.priceText.fontSize=44;e.titleText.fontSize=46;}
+        var close=shop.Find("Close") as RectTransform;if(close)Place(close,new Vector2(.5f,.5f),new Vector2(112,112),new Vector2(300,750));
+        foreach(var e in store.entries){e.buyButton.image.sprite=tabFrame;e.buyButton.image.type=Image.Type.Simple;e.buyButton.image.preserveAspect=false;e.buyButton.image.color=Color.white;e.priceText.color=Light;e.titleText.color=Light;e.priceText.fontSize=44;e.titleText.fontSize=46;}
         foreach(var bg in store.GetComponentsInChildren<Image>(true).Where(i=>i.name.StartsWith("cellbg")))bg.preserveAspect=false;
     }
     static void Settings(Canvas canvas)

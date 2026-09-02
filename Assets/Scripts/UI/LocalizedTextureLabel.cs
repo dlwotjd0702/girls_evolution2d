@@ -9,11 +9,41 @@ public class LocalizedTextureLabel : MonoBehaviour
     public string korean, english;
     public Image stateImage;
     public Sprite purchaseSprite, upgradeSprite, maxSprite;
-    void OnEnable() { Refresh(); }
-    void Update() { Refresh(); }
+    [Tooltip("Use for artwork that already contains Korean lettering. Korean keeps the original art; only non-Korean languages show this label.")]
+    public bool englishOnly;
+    public Graphic backdrop;
+
+    bool hasSnapshot;
+    bool lastKorean;
+    Sprite lastStateSprite;
+
+    void OnEnable()
+    {
+        hasSnapshot = false;
+        Refresh();
+    }
+
+    void LateUpdate()
+    {
+        bool koreanNow = LocalizationManager.IsKorean;
+        Sprite stateNow = stateImage ? stateImage.sprite : null;
+        if (!hasSnapshot || koreanNow != lastKorean || stateNow != lastStateSprite)
+            Refresh();
+    }
+
     public void Refresh()
     {
         if (!label) return;
+        bool koreanNow = LocalizationManager.IsKorean;
+        bool visible = !englishOnly || !koreanNow;
+        if (label.gameObject.activeSelf != visible) label.gameObject.SetActive(visible);
+        if (backdrop && backdrop.gameObject.activeSelf != visible) backdrop.gameObject.SetActive(visible);
+
+        lastKorean = koreanNow;
+        lastStateSprite = stateImage ? stateImage.sprite : null;
+        hasSnapshot = true;
+        if (!visible) return;
+
         string ko=korean,en=english;
         if (stateImage && maxSprite)
         {

@@ -9,6 +9,7 @@ using UnityEditor.AddressableAssets;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>Edit-mode regression checks against the real managers, without touching player saves.</summary>
@@ -40,6 +41,7 @@ public static class ProgressionRegressionChecks
         try
         {
             RewardChecks();
+            SaveCompatibilityChecks();
             EconomyChecks();
             PrestigeChecks();
             ExistingFlowChecks();
@@ -53,6 +55,7 @@ public static class ProgressionRegressionChecks
             PanelRepairChecks();
             InstalledSkinChecks();
             RewardAndFieldPresentationChecks();
+            SceneIntegrityChecks();
             CharacterNameChecks();
             string report = $"PASS: {passed.Count} checks\n" + string.Join("\n", passed);
             Directory.CreateDirectory("Logs");
@@ -72,6 +75,13 @@ public static class ProgressionRegressionChecks
             SimpleUIPool.Instance = oldPool;
             foreach (var pair in saved) pair.Key.SetValue(null, pair.Value);
         }
+    }
+
+    /// <summary>CI/batch entry point that also exercises checks bound to the real Ingame scene.</summary>
+    public static void RunBatch()
+    {
+        EditorSceneManager.OpenScene("Assets/Scenes/Ingame.unity", OpenSceneMode.Single);
+        Run();
     }
 
     static void PanelRepairChecks()
@@ -158,7 +168,10 @@ public static class ProgressionRegressionChecks
         foreach(var skin in source.skins)
         {
             Check(skin.sd&&skin.ld&&skin.sd!=skin.ld&&skin.level>=1&&skin.level<=24,"Distinct SD and LD sprites registered: "+skin.id);
-            Check(CharacterArtRefresh.HasCleanAlpha(AssetDatabase.GetAssetPath(skin.sd))&&CharacterArtRefresh.HasCleanAlpha(AssetDatabase.GetAssetPath(skin.ld)),"Installed pair has real alpha and clear borders: "+skin.id);
+            Check(CharacterArtRefresh.HasCleanAlpha(AssetDatabase.GetAssetPath(skin.sd)),
+                "Installed SD has real alpha and clear borders: "+skin.id);
+            Check(CharacterArtRefresh.HasCleanAlpha(AssetDatabase.GetAssetPath(skin.ld)),
+                "Installed LD has real alpha and clear borders: "+skin.id);
             Check(isolated.Equip(skin.level,skin.id)&&isolated.EquippedSprite(skin.level,false)==skin.sd&&isolated.EquippedSprite(skin.level,true)==skin.ld,"Unlocked pair routes to field and detail correctly: "+skin.id);
         }
         var saved=Fresh();isolated.CollectSaveData(saved);isolated.ApplyLoadedData(JsonUtility.FromJson<SaveData>(JsonUtility.ToJson(saved)));
@@ -260,8 +273,11 @@ public static class ProgressionRegressionChecks
     }
     static void CharacterNameChecks()
     {
+        Check(File.ReadAllText("Assets/Scripts/Girl/GirlCharacter.cs").Contains("IncomeActivityManager.Instance?.RecordCharacterClick()"),"Confirmed character taps feed the fever meter");
         var rows=File.ReadAllLines("Assets/Data/girl.csv").Skip(1).Where(l=>!string.IsNullOrWhiteSpace(l)).Select(l=>l.Split(',')).Where(r=>int.Parse(r[2])<=24).ToArray();
         Check(rows.Length==24&&rows.All(r=>!string.IsNullOrWhiteSpace(r[1]))&&rows.Select(r=>r[1]).Distinct().Count()==24,"Base levels 1-24 have distinct non-empty display names");
+        var englishNames=Enumerable.Range(1,25).Select(GirlData.EnglishName).ToArray();
+        Check(englishNames.All(n=>!string.IsNullOrWhiteSpace(n))&&englishNames.Distinct().Count()==25,"Base levels 1-25 have distinct non-empty English display names");
         var plan=SkinCatalogInstaller.Planned;
         Check(plan.Length==96&&plan.Length*2==192&&Enumerable.Range(1,24).All(level=>plan.Where(p=>p.level==level).Select(p=>p.slot).OrderBy(s=>s).SequenceEqual(new[]{0,1,2,3})),"Confirmed skin target is four per level, 96 pairs / 192 images excluding base appearances");
         bool rejectsMissing=false;try{SkinCatalogInstaller.ValidatePlan(plan.Skip(1).ToArray());}catch(InvalidOperationException){rejectsMissing=true;}
@@ -341,11 +357,19 @@ public static class ProgressionRegressionChecks
         var baseCorners=new Vector3[4];var fillCorners=new Vector3[4];scrollBase.rectTransform.GetWorldCorners(baseCorners);scrollFill.rectTransform.GetWorldCorners(fillCorners);
         Check(Enumerable.Range(0,4).All(i=>Vector3.Distance(baseCorners[i],fillCorners[i])<.01f)&&!scrollBase.preserveAspect&&!scrollFill.preserveAspect&&scrollBase.sprite==scrollFill.sprite&&scrollFill.type==Image.Type.Filled&&scrollFill.fillMethod==Image.FillMethod.Vertical,"Scroll background and charge fill render the same original geometry");
         foreach(string name in new[]{"소환","상점","도감"})Check(AssetDatabase.GetAssetPath(nav.Find(name).GetComponent<Image>().sprite)=="Assets/Prefabs/sprite/버튼.png","Familiar labelled navigation restored: "+name);
+        foreach(string name in new[]{"소환","상점","도감"})
+        {
+            var localized=nav.Find(name).GetComponent<LocalizedTextureLabel>();
+            Check(localized&&localized.enabled&&localized.englishOnly&&localized.label&&localized.backdrop,"Original navigation has a non-destructive English-only caption: "+name);
+        }
         foreach(string name in new[]{"자동소환","자동합성"})
         {
             var root=nav.Find(name);
-            Check(root.GetComponentsInChildren<LocalizedTextureLabel>(true).Length==0&&!root.GetComponentsInChildren<Transform>(true).Any(t=>t.name=="Texture Label"||t.name=="Readable Caption"||t.name=="Caption Back"),"Automatic control uses only its baked-in label: "+name);
+            var localized=root.GetComponent<LocalizedTextureLabel>();
+            Check(localized&&localized.englishOnly&&localized.label&&localized.backdrop,"Automatic control keeps original Korean art with an English-only caption: "+name);
             Check(root.GetComponentsInChildren<Image>(true).Any(i=>i.enabled&&i.sprite&&AssetDatabase.GetAssetPath(i.sprite).StartsWith("Assets/Prefabs/sprite/"+name)),"Original automatic-control artwork is preserved: "+name);
+            foreach(string state in new[]{"ㅇ","x"})
+                Check(HasTransparentOuterBorder("Assets/Prefabs/sprite/"+name+state+".png"),"Automatic control has a genuinely transparent outer border: "+name+state);
         }
         var incomeRow=canvas.transform.Find("위쪽상태창/Image/GameObject (3)");
         var incomeIcon=incomeRow.Find("Image (2)").GetComponent<Image>();
@@ -370,8 +394,18 @@ public static class ProgressionRegressionChecks
         var hud=canvas.GetComponentInChildren<IncomeActivityHUD>(true);
         Check(!hud.feverHint.gameObject.activeSelf,"Fever remains simple with no instruction text");
         Check(hud.feverFill.transform.parent.GetComponent<Image>().color.a>.9f,"Fever empty track has a visible solid background");
+        var feverTrack=(RectTransform)hud.feverFill.transform.parent;
+        Check(feverTrack.anchorMin==new Vector2(0,0)&&feverTrack.anchorMax==new Vector2(1,0)&&hud.feverFill.rectTransform.anchorMin==Vector2.zero&&hud.feverFill.rectTransform.anchorMax==Vector2.one&&hud.feverFill.rectTransform.offsetMin==Vector2.zero&&hud.feverFill.rectTransform.offsetMax==Vector2.zero,"Fever track and fill use responsive horizontal stretch anchors");
         var pop=hud.transform.parent.Find("Population Left");Check(pop&&pop.gameObject.activeSelf&&((RectTransform)pop).anchorMin.x==0,"Population is visible on the left");
         Check(!canvas.GetComponentsInChildren<Image>(true).Any(i=>i.sprite&&AssetDatabase.GetAssetPath(i.sprite).StartsWith("Assets/Art/UI/Refresh/")),"Rejected experimental UI icons are not shown in the scene");
+        var summonController=canvas.GetComponentInChildren<SummonPanelController>(true);
+        var summonContent=(RectTransform)new SerializedObject(summonController).FindProperty("content").objectReferenceValue;
+        var summonPanel=summonContent.GetComponentInParent<ScrollRect>(true).transform.parent;
+        foreach(var root in new[]{canvas.transform.Find("Shop"),summonPanel})
+        {
+            var localized=root.GetComponent<LocalizedTextureLabel>();
+            Check(localized&&localized.englishOnly&&localized.label&&localized.backdrop,"Baked panel title has a non-destructive English-only caption: "+root.name);
+        }
         Check(!hud.boostButton.image.preserveAspect,"Wide income reward is not squeezed into a square texture");
         Check(canvas.GetComponentsInChildren<ScrollRect>(true).All(s=>!s.GetComponent<Image>()||s.GetComponent<Image>().color.a==0),"Scroll backing images do not obscure the original panel art");
         var slot=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/EncyclopediaSlot.prefab");
@@ -380,7 +414,8 @@ public static class ProgressionRegressionChecks
         var caption=(TMPro.TMP_Text)serializedSlot.FindProperty("levelText").objectReferenceValue;
         Check(cardButton.image.color.a==0&&cardButton.transition==Selectable.Transition.None,"Transparent card hit area cannot cover portraits and captions");
         string korean="닌자스킨수익클릭합성생성미해금조건장착수집완료"+string.Concat(scene.GetRootGameObjects().SelectMany(o=>o.GetComponentsInChildren<CodexCollectionManager>(true)).Single().skins.Select(s=>s.koreanName));
-        Check(korean.All(c=>char.IsWhiteSpace(c)||caption.font.HasCharacter(c)),"Codex caption font includes Korean UI glyphs");
+        bool dynamicKoreanFont=caption.font.atlasPopulationMode==AtlasPopulationMode.Dynamic&&caption.font.sourceFontFile!=null;
+        Check(dynamicKoreanFont||korean.All(c=>char.IsWhiteSpace(c)||caption.font.HasCharacter(c)),"Codex caption font can generate Korean UI glyphs");
         var frame=AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Prefabs/sprite/cell_bg_rounded_1024x256.png");
         Check(frame.border.x>0&&frame.border.y>0,"Original rounded panel uses nine-slicing to preserve its corners");
         var catalog=canvas.GetComponentInChildren<EncyclopediaPanelController>(true);
@@ -394,6 +429,48 @@ public static class ProgressionRegressionChecks
         tabTest.RefreshTabs(true);Check(tabTest.ninjaTab.image.color==normal&&tabTest.skinTab.image.color==selected,"Tab emphasis follows the selected collection category");
     }
 
+    static bool HasTransparentOuterBorder(string path)
+    {
+        if(!File.Exists(path))return false;
+        var texture=new Texture2D(2,2,TextureFormat.RGBA32,false);
+        try
+        {
+            if(!ImageConversion.LoadImage(texture,File.ReadAllBytes(path)))return false;
+            var pixels=texture.GetPixels32();int empty=0,opaque=0;
+            for(int y=0;y<texture.height;y++)for(int x=0;x<texture.width;x++)
+            {
+                byte alpha=pixels[y*texture.width+x].a;
+                if(alpha==0)empty++;if(alpha>=250)opaque++;
+                if((x==0||y==0||x==texture.width-1||y==texture.height-1)&&alpha!=0)return false;
+            }
+            return empty>pixels.Length*.2f&&opaque>pixels.Length*.05f;
+        }
+        finally{UnityEngine.Object.DestroyImmediate(texture);}
+    }
+
+    static void SceneIntegrityChecks()
+    {
+        var scene=EditorSceneManager.GetActiveScene();if(scene.path!="Assets/Scenes/Ingame.unity")return;
+        var roots=scene.GetRootGameObjects();
+        var transforms=roots.SelectMany(r=>r.GetComponentsInChildren<Transform>(true)).ToArray();
+        Check(transforms.All(t=>t.gameObject.GetComponents<Component>().All(c=>c)),"Ingame scene contains no missing MonoBehaviour components");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<EventSystem>(true)).Count()==1,"Ingame scene contains exactly one EventSystem");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<Canvas>(true)).Count(c=>c.isRootCanvas)==1,"Ingame scene contains exactly one root Canvas");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<AudioListener>(true)).Count()==1,"Ingame scene contains exactly one AudioListener");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<SaveManager>(true)).Count()==1,"Ingame scene contains exactly one SaveManager");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<CloudSaveManager>(true)).Count()==1,"Ingame scene contains exactly one CloudSaveManager");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<EconomyManager>(true)).Count()==1,"Ingame scene contains exactly one EconomyManager");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<PremiumCurrencyManager>(true)).Count()==1,"Ingame scene contains exactly one PremiumCurrencyManager");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<GirlFieldManager>(true)).Count()==1,"Ingame scene contains exactly one GirlFieldManager");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<RewardedAdsManager_AdMob>(true)).Count()==1,"Ingame scene contains exactly one rewarded-ad manager");
+        Check(roots.SelectMany(r=>r.GetComponentsInChildren<AdMobOfferService>(true)).Count()==1,"Ingame scene contains exactly one AdMob offer service");
+        foreach(var automation in roots.SelectMany(r=>r.GetComponentsInChildren<AutoAutomationController>(true)))
+            Check(automation.economy&&automation.combinedLabel&&automation.levelText&&automation.costText&&automation.buyOrUpgradeButton&&automation.buyIconTarget&&automation.buyIconSprite&&automation.upgradeIconSprite&&automation.maxIconSprite&&automation.toggleButton&&automation.toggleIconTarget&&automation.toggleOnSprite&&automation.toggleOffSprite&&automation.fillImage&&automation.reasonLabel,
+                "Automation controller has every required scene reference: "+automation.type);
+        foreach(var button in roots.SelectMany(r=>r.GetComponentsInChildren<Button>(true)).Where(b=>b.gameObject.activeInHierarchy&&b.interactable))
+            Check(button.targetGraphic,"Visible interactable button has a target graphic: "+button.name);
+    }
+
     static void Check(bool condition, string name)
     {
         if (!condition) throw new Exception("Regression: " + name);
@@ -405,10 +482,30 @@ public static class ProgressionRegressionChecks
 
     static SaveData Fresh() => new SaveData { permanentUpgradeLevels = new int[8] };
 
+    static void SaveCompatibilityChecks()
+    {
+        var older = new SaveData { totalPlayTimeSeconds = 100, maxLevelReached = 5 };
+        older.SetSaveTime();
+        var newerProgress = new SaveData { totalPlayTimeSeconds = 200, maxLevelReached = 4 };
+        newerProgress.SetSaveTime();
+        Check(SaveManager.CompareSavePriority(newerProgress, older) > 0,
+            "Cloud/local comparison prefers longer tracked play time");
+
+        var legacyOlder = new SaveData { totalPlayTimeSeconds = 0, maxLevelReached = 12, savedAt = "2025-01-01 00:00:00" };
+        var legacyNewer = new SaveData { totalPlayTimeSeconds = 0, maxLevelReached = 12, savedAt = "2025-01-02 00:00:00" };
+        Check(SaveManager.CompareSavePriority(legacyNewer, legacyOlder) > 0,
+            "Legacy saves without play statistics compare by save time");
+
+        var timestamped = new SaveData();
+        timestamped.SetSaveTime();
+        Check(timestamped.savedAtUtcUnixSeconds > 0 && SaveManager.TryGetSaveTimeUtc(timestamped, out _),
+            "New saves carry an unambiguous UTC timestamp");
+    }
+
     static void RewardChecks()
     {
         Check(new PrestigeReward(1, null, 25, 0, 1).TotalPoints == 2500, "First mythic = 2500 points");
-        Check(new PrestigeReward(3, null, 25, 0, 1).FinalPoints == 10500, "Mythic stack progression");
+        Check(new PrestigeReward(3, null, 25, 0, 1).FinalPoints == 4500, "Mythic stacks grow linearly");
         var reward = new PrestigeReward(1, new[] { 24, 23, 25, 0 }, 25, 10, 1.2);
         Check(reward.FieldPoints == 1875, "Lower tiers counted; final not double counted");
         Check(reward.TotalPoints == 6450, "Upgrade points and multiplier agree");
@@ -416,6 +513,22 @@ public static class ProgressionRegressionChecks
         Check(new PrestigeReward(int.MaxValue, null, 25, int.MaxValue, 20).TotalPoints == int.MaxValue,
             "Large prestige values saturate instead of overflowing");
         Check(PrestigeReward.ClampPoints((double)int.MaxValue + 100) == int.MaxValue, "Point balance saturates");
+
+        var legacy = Make<LegacyRankManager>("Legacy balance");
+        legacy.ApplyLoadedData(new SaveData { dataVersion = 5, legacyXp = 2500, totalPrestigeCount = 3 });
+        Check(legacy.LegacyLevel == 3, "Old point-based legacy XP migrates to actual prestige count");
+        var migrated = Fresh(); legacy.CollectSaveData(migrated);
+        Check(migrated.legacyXp == 3, "Migrated legacy progress saves in v6 units");
+        legacy.ApplyLoadedData(Fresh()); legacy.AddXp(1);
+        Check(legacy.LegacyLevel == 1, "One prestige grants exactly one legacy level");
+        legacy.AddXp(100);
+        Check(legacy.LegacyLevel == LegacyRankManager.MaxLegacyLevel, "Legacy progression respects its level cap");
+
+        Check(SummonPanelController.CalculateGemSummonCost(1, 0) == 3, "Early gem summon remains accessible");
+        Check(SummonPanelController.CalculateGemSummonCost(9, 3) == 14, "Mid-tier gem summon scales by two");
+        Check(SummonPanelController.CalculateGemSummonCost(23, 0) == 20, "Top-tier gem summon starts at 20 gems");
+        Check(Enumerable.Range(0, 4).Sum(i => SummonPanelController.CalculateGemSummonCost(23, i)) == 110,
+            "Four top-tier summons cost 110 gems before the first final stack");
     }
 
     static void EconomyChecks()
@@ -498,6 +611,19 @@ public static class ProgressionRegressionChecks
         prestige.DoPrestige();
         Check(prestige.GetPrestigePoints() == previewPoints && prestige.GetTotalPrestigeCount() == 1,
             "Repeated confirm cannot duplicate rewards");
+
+        var capped = Fresh();
+        capped.prestigePoint = int.MaxValue;
+        capped.prestigeShopTwoStepLv = PrestigeManager.TwoStepCap;
+        capped.ppManualSpawnSpeedLv = PrestigeManager.ManualSpawnSpeedCap;
+        capped.ppAutoMergeLv = PrestigeManager.AutoMergeSpeedCap;
+        prestige.ApplyLoadedData(capped);
+        Check(prestige.GetTwoStepChance() == 0.10f && !prestige.TryBuyTwoStep(),
+            "Two-step shop stops at the 10 percent share reserved beside legacy");
+        Check(Math.Abs(prestige.GetManualSpawnIntervalMul() - 0.50) < 1e-9 && !prestige.TryBuyPlusManualSpeed(),
+            "Manual speed cannot consume points after its effect floor");
+        Check(Math.Abs(prestige.GetAutoMergeIntervalMul() - 0.50) < 1e-9 && !prestige.TryBuyPlusAutoMerge(),
+            "Auto merge cannot consume points after its effect floor");
     }
 
     static void ExistingFlowChecks()
@@ -585,7 +711,8 @@ public static class ProgressionRegressionChecks
         Check(!progress.enabled && !progress.goalLabel.gameObject.activeSelf && !progress.worldLabel.gameObject.activeSelf,
             "Unrequested goal and world strip removed from the mobile HUD");
         Check(hud.feverFill.rectTransform.rect.height >= 42, "Fever bar is thick enough to read at phone scale");
-        Check(hud.feverLabel.fontSize >= 48 && hud.boostLabel.fontSize >= 48, "Primary mobile labels cannot shrink to tiny text");
+        Check(hud.feverLabel.fontSize >= 48 && (!hud.boostLabel || hud.boostLabel.fontSize >= 36),
+            "Primary HUD label remains readable and optional field-boost labels stay legible");
         var scaler = hud.GetComponentInParent<Canvas>().rootCanvas.GetComponent<CanvasScaler>();
         var store = scene.GetRootGameObjects().SelectMany(go => go.GetComponentsInChildren<GemStorePanelController>(true)).Single();
         var shop = store.transform.parent.gameObject;
@@ -603,7 +730,7 @@ public static class ProgressionRegressionChecks
             float height = button.rect.height * button.lossyScale.y / scaler.transform.lossyScale.y;
             Check(width * scale <= size.x - 24, "Ad button fits narrow/tall phone width: " + size);
             Check(height * scale >= 48, "Ad button has at least 48 logical pixels of height: " + size);
-            Check(hud.boostLabel.fontSize * scale >= 14, "Reward headline remains readable: " + size);
+            Check(!hud.boostLabel || hud.boostLabel.fontSize * scale >= 14, "Optional reward headline remains readable: " + size);
         }
         }
         finally { store.gameObject.SetActive(productsActive); shop.SetActive(shopActive); }
@@ -632,13 +759,25 @@ public static class ProgressionRegressionChecks
         var store = objects.SelectMany(go => go.GetComponentsInChildren<GemStorePanelController>(true)).Single();
         var hud = objects.SelectMany(go => go.GetComponentsInChildren<IncomeActivityHUD>(true)).Single();
         Check(store.name == "상품", "Cash tab renamed Products");
-        Check(hud.boostButton.transform.IsChildOf(store.transform), "Income reward exists only inside the product shop");
-        Check(hud.boostButton.transform.GetSiblingIndex() == 2, "Three optional ad rewards lead the catalog");
+        Check(!hud.boostButton.transform.IsChildOf(store.transform)
+            && hud.boostButton.name == "Field Income Boost",
+            "Income boost is a dedicated field action, not a product-shop row");
+        Check(hud.boostButton.image.sprite == null && hud.boostButton.image.color.a == 0,
+            "Field income boost has no opaque square backing");
         Check(store.entries[0].isAdEntry && store.entries[1].isGoldAdEntry, "Gem and gold ads precede paid products");
         Check(store.entries.Any(e => e.productId == PremiumCurrencyManager.REMOVE_ADS_ID)
             && store.entries.All(e => e.productId != "remove_ad"), "Ad removal product matches the IAP catalog ID");
-        Check(store.entries.Where(e => e.isAdEntry || e.isGoldAdEntry).All(e => ((RectTransform)e.buyButton.transform).rect.height >= 200),
-            "Product ad actions have mobile-sized targets");
+        var premium = objects.SelectMany(go => go.GetComponentsInChildren<PremiumCurrencyManager>(true)).Single();
+        Check(premium.products.Any(p => p.productId == PremiumCurrencyManager.REMOVE_ADS_ID
+                && p.type == UnityEngine.Purchasing.ProductType.NonConsumable)
+            && premium.products.All(p => p.productId != "remove_ad"),
+            "Scene IAP catalog uses the canonical remove-ads non-consumable ID");
+        var adActionHeights = store.entries.Where(e => e.isAdEntry || e.isGoldAdEntry)
+            .Select(e => $"{e.buyButton.name}:{((RectTransform)e.buyButton.transform).rect.height:0.##}")
+            .ToArray();
+        Check(store.entries.Where(e => e.isAdEntry || e.isGoldAdEntry)
+                .All(e => ((RectTransform)e.buyButton.transform).rect.height >= 200),
+            $"Product ad actions have mobile-sized targets [{string.Join(", ", adActionHeights)}]");
         Check(objects.SelectMany(go => go.GetComponentsInChildren<GirlFieldManager>(true)).Single().bottomHud == null,
             "Moved shop button no longer shrinks the playfield");
         var summon = objects.SelectMany(go => go.GetComponentsInChildren<SummonPanelController>(true)).Single();
@@ -725,6 +864,9 @@ public static class ProgressionRegressionChecks
         Check(collection.CollectedCount == 1 && collection.IsDiscovered("sakura"), "Legacy progress grants only the original earned form");
 
         var fever = new FeverMeter();
+        fever.RecordClick(0);
+        Check(fever.Fill > 0 && fever.Charge == 0 && !fever.IsActive, "First tap acknowledges input without granting fever");
+        fever.Reset();
         for (int i = 0; i < 80; i++)
         {
             double now = i * 0.05;

@@ -78,8 +78,7 @@ public static class PanelLayoutRepair
                 Put(name.rectTransform,row,320,100,-65,65);Text(name,42,TextAlignmentOptions.MidlineLeft);
                 Put(cost.rectTransform,row,340,132,-55,-56);Text(cost,40,TextAlignmentOptions.MidlineLeft);
                 Put((RectTransform)buy.transform,row,250,180,272,0);buy.image.preserveAspect=true;
-                // Original purchase/upgrade/MAX artwork already contains its own lettering.
-                foreach(var label in buy.GetComponentsInChildren<LocalizedTextureLabel>(true)){label.enabled=false;if(label.label)label.label.gameObject.SetActive(false);}
+                // Korean keeps the original artwork; English receives a small matching overlay.
             }
         }
         var store=root.GetComponentInChildren<GemStorePanelController>(true);
@@ -96,6 +95,7 @@ public static class PanelLayoutRepair
         foreach(var controller in root.GetComponentsInChildren<ShopPanelController>(true))controller.RefreshAll();
         foreach(var controller in root.GetComponentsInChildren<PrestigeShopPanelController>(true))controller.RefreshAll();
         foreach(var controller in ShopAutomations(root))controller.Refresh();
+        GlobalPresentationPolish.ConfigureShopLabels(root,Font);
     }
     static void RepairSummon(Canvas canvas)
     {

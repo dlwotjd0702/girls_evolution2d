@@ -129,9 +129,12 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
         storeController.OnProductsFetched     += OnProductsFetched;
         storeController.OnProductsFetchFailed += OnProductsFetchFailed;
+        storeController.OnPurchasesFetched    += OnPurchasesFetched;
+        storeController.OnPurchasesFetchFailed += OnPurchasesFetchFailed;
         storeController.OnPurchasePending     += OnPurchasePending;
         storeController.OnPurchaseConfirmed   += OnPurchaseConfirmed;
         storeController.OnPurchaseFailed      += HandlePurchaseFailed;
+        storeController.OnStoreDisconnected   += OnStoreDisconnected;
 
         try { await storeController.Connect(); }
         catch (Exception ex)
@@ -142,9 +145,18 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
         }
 
         var definitions = new List<ProductDefinition>();
+        var seenProductIds = new HashSet<string>();
         foreach (var gp in products)
-            if (!string.IsNullOrEmpty(gp.productId))
+        {
+            // Older scene data used the singular ID. Normalize it at runtime so an
+            // already-open scene or an upgraded install cannot silently omit the
+            // non-consumable product from the fetched catalog.
+            if (gp != null && gp.productId == "remove_ad")
+                gp.productId = REMOVE_ADS_ID;
+
+            if (gp != null && !string.IsNullOrEmpty(gp.productId) && seenProductIds.Add(gp.productId))
                 definitions.Add(new ProductDefinition(gp.productId, gp.type));
+        }
 
         if (definitions.Count > 0) storeController.FetchProducts(definitions);
         else OnCatalogReady?.Invoke();
@@ -177,11 +189,33 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
 
     void OnPurchasePending(PendingOrder pendingOrder)
     {
-        if (storeController != null && pendingOrder != null)
-            storeController.ConfirmPurchase(pendingOrder);
+        if (storeController == null || pendingOrder == null) return;
+
+        // Unity IAP 5 requires the entitlement to be granted and persisted before
+        // acknowledging the order. Confirming first can lose a paid entitlement if
+        // the app closes before OnPurchaseConfirmed is delivered.
+        GrantEntitlements(pendingOrder);
+        storeController.ConfirmPurchase(pendingOrder);
     }
 
     void OnPurchaseConfirmed(Order order)
+    {
+        if (order is FailedOrder failedOrder)
+        {
+            Debug.LogWarning($"[IAP] Purchase confirmation failed: {failedOrder.FailureReason} - {failedOrder.Details}");
+            return;
+        }
+
+        if (order is ConfirmedOrder confirmedOrder)
+        {
+            var ids = confirmedOrder.CartOrdered?.Items()?
+                .Select(item => item?.Product?.definition?.id)
+                .Where(id => !string.IsNullOrEmpty(id));
+            Debug.Log("[IAP] Purchase confirmed: " + (ids != null ? string.Join(", ", ids) : "unknown"));
+        }
+    }
+
+    void GrantEntitlements(Order order)
     {
         if (order == null) return;
         var items = order.CartOrdered?.Items();
@@ -219,6 +253,35 @@ public class PremiumCurrencyManager : MonoBehaviour, ISaveable
                 Debug.LogWarning("[IAP] Unknown product id: " + productId);
             }
         }
+    }
+
+    void OnPurchasesFetched(Orders orders)
+    {
+        if (orders?.ConfirmedOrders == null) return;
+
+        // Confirmed consumables must never be granted again during restoration.
+        // Only restore durable non-consumable entitlements from the store receipt.
+        foreach (var order in orders.ConfirmedOrders)
+        {
+            var items = order?.CartOrdered?.Items();
+            if (items == null) continue;
+
+            foreach (var item in items)
+            {
+                if (item?.Product?.definition?.id == REMOVE_ADS_ID)
+                    SetAdsRemoved(true);
+            }
+        }
+    }
+
+    void OnPurchasesFetchFailed(PurchasesFetchFailureDescription failure)
+    {
+        Debug.LogWarning("[IAP] Existing purchases fetch failed: " + failure?.Message);
+    }
+
+    void OnStoreDisconnected(StoreConnectionFailureDescription failure)
+    {
+        Debug.LogWarning("[IAP] Store disconnected: " + failure?.Message);
     }
 
     void HandlePurchaseFailed(FailedOrder failedOrder)

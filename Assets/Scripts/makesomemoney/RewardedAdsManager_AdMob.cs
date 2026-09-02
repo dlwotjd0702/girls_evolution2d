@@ -14,7 +14,7 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
              "테스트용: Android - ca-app-pub-3940256099942544/5224354917\n" +
              "테스트용: iOS - ca-app-pub-3940256099942544/1712485313")]
 #if UNITY_ANDROID
-    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544/5224354917"; // 테스트용 Rewarded Ad Unit ID
+    [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3859743300335240/8641404741"; // 미소녀닌자 합성 Android 보상형 광고 단위 ID
 #elif UNITY_IOS
     [SerializeField] private string rewardedAdUnitId = "ca-app-pub-3940256099942544/1712485313"; // 테스트용 Rewarded Ad Unit ID
 #else
@@ -80,18 +80,10 @@ public class RewardedAdsManager_AdMob : MonoBehaviour
 
         // 최소 로드 간격 체크 (너무 자주 로드 시도 방지)
         if (Time.time - _lastLoadAttemptTime < MIN_LOAD_INTERVAL)
-        {
-            if (enableDebugLogs)
-                Debug.LogWarning($"[RewardedAdsManager] Load request ignored: too soon after last attempt.");
             return;
-        }
 
         if (_isLoading)
-        {
-            if (enableDebugLogs)
-                Debug.LogWarning("[RewardedAdsManager] Load request ignored: already loading.");
             return;
-        }
 
         if (string.IsNullOrEmpty(rewardedAdUnitId))
         {

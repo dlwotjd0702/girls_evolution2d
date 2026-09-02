@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public class SaveData
 {
-    public int dataVersion = 5;
+    public int dataVersion = 6;
     public int codexDiscoveredMask;
     public List<string> ownedSkinIds;
     public List<EquippedSkinSave> equippedSkins;
@@ -57,7 +57,7 @@ public class SaveData
     public int[] gemSummonPurchaseCounts = new int[25]; // 보석 소환 횟수
 
     // ── 추가: 계승/상점 (기본 0 → 구세이브 호환) ──
-    public int legacyXp;                    // 계승 경험치
+    public int legacyXp;                    // v6+: 환생 1회당 1 계승 진행도(최대 25)
     public int prestigeShopIncomeLv;        // 환생 상점: 수익 배수
     public int prestigeShopTwoStepLv;       // 환생 상점: +2단 확률
     public int prestigeShopStartGoldLv;     // 환생 상점: 시작 자금
@@ -75,7 +75,14 @@ public class SaveData
 
     // 메타
     public string savedAt;
-    public void SetSaveTime(){ savedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); }
+    public long savedAtUtcUnixSeconds;
+    public void SetSaveTime()
+    {
+        var now = DateTimeOffset.UtcNow;
+        savedAtUtcUnixSeconds = now.ToUnixTimeSeconds();
+        // 기존 버전 UI와 구세이브 호환을 위해 사람이 읽는 필드도 유지한다.
+        savedAt = now.LocalDateTime.ToString("yyyy-MM-dd HH:mm:ss");
+    }
     
     // 언어 설정 (0=시스템 언어 미설정, 1=한국어, 2=영어)
     // 0이면 최초 실행으로 간주하여 시스템 언어 사용

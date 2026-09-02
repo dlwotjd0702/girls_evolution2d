@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+  <androidPackages>
+    <!-- Keep the Play Games transitive Fragment dependency above Play Console's 1.2.1 minimum. -->
+    <androidPackage spec="androidx.fragment:fragment:1.6.2" />
+  </androidPackages>
+</dependencies>

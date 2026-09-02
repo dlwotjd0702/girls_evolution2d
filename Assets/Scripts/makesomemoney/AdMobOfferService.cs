@@ -14,33 +14,11 @@ public class AdMobOfferService : MonoBehaviour, IAdOfferWithCompletion
 
     void Start()
     {
-        // 광고 초기 로딩 (Instance가 준비되고 초기화 완료된 후에만)
-        StartCoroutine(WaitAndLoad());
-        
+        // RewardedAdsManager가 SDK 초기화 직후 첫 로드를 담당한다.
+        // 서비스는 초기 로드와 경쟁하지 않고 이후 실패 복구만 담당한다.
+        _lastRetryTime = Time.unscaledTime;
         // 준비 상태 모니터링 (UI 업데이트용)
         InvokeRepeating(nameof(CheckReadyState), 1f, 1f);
-    }
-    
-    System.Collections.IEnumerator WaitAndLoad()
-    {
-        // 최대 5초 동안 대기 (초기화 완료까지)
-        float elapsed = 0f;
-        while ((RewardedAdsManager_AdMob.Instance == null || !RewardedAdsManager_AdMob.Instance.IsInitialized) && elapsed < 5f)
-        {
-            yield return null;
-            elapsed += Time.deltaTime;
-        }
-        
-        if (RewardedAdsManager_AdMob.Instance != null && RewardedAdsManager_AdMob.Instance.IsInitialized)
-        {
-            if (enableDebugLogs)
-                Debug.Log("[AdMobOfferService] AdMob initialized. Loading rewarded ad...");
-            RewardedAdsManager_AdMob.Instance.Load();
-        }
-        else
-        {
-            Debug.LogError("[AdMobOfferService] RewardedAdsManager_AdMob.Instance is null or not initialized after delay. Check if RewardedAdsManager_AdMob is in the scene.");
-        }
     }
 
     void CheckReadyState()
@@ -68,18 +46,10 @@ public class AdMobOfferService : MonoBehaviour, IAdOfferWithCompletion
         
         // Check if RewardedAdsManager_AdMob is initialized
         if (RewardedAdsManager_AdMob.Instance == null)
-        {
-            if (enableDebugLogs)
-                Debug.LogWarning("[AdMobOfferService] RewardedAdsManager_AdMob.Instance is null.");
             return false;
-        }
 
         if (!RewardedAdsManager_AdMob.Instance.IsInitialized)
-        {
-            if (enableDebugLogs)
-                Debug.LogWarning("[AdMobOfferService] RewardedAdsManager_AdMob is not initialized yet.");
             return false;
-        }
         
         return RewardedAdsManager_AdMob.Instance.IsReady;
     }
@@ -87,16 +57,10 @@ public class AdMobOfferService : MonoBehaviour, IAdOfferWithCompletion
     public void LoadRewarded()
     {
         if (RewardedAdsManager_AdMob.Instance == null)
-        {
-            Debug.LogWarning("[AdMobOfferService] Cannot load: RewardedAdsManager_AdMob.Instance is null.");
             return;
-        }
 
         if (!RewardedAdsManager_AdMob.Instance.IsInitialized)
-        {
-            Debug.LogWarning("[AdMobOfferService] Cannot load: AdMob SDK not initialized yet.");
             return;
-        }
 
         RewardedAdsManager_AdMob.Instance.Load();
     }

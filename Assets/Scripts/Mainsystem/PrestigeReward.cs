@@ -15,7 +15,10 @@ public readonly struct PrestigeReward
         int consumedUpgradeLevels, double multiplier)
     {
         double n = Math.Max(0, stacks);
-        FinalPoints = ClampPoints(n * 2500.0 + 1000.0 * (n - 1.0) * n / 2.0);
+        // 첫 신화는 환생을 열어주는 핵심 보상(2,500)을 유지한다.
+        // 추가 스택은 스택당 1,000으로 선형화해 보석 소환과 결합한
+        // 환생 포인트의 이차 폭증을 막는다.
+        FinalPoints = n <= 0 ? 0 : ClampPoints(2500.0 + (n - 1.0) * 1000.0);
         double field = 0;
         if (levels != null)
             foreach (int level in levels)

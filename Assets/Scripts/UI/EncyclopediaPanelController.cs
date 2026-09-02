@@ -112,8 +112,11 @@ public class EncyclopediaPanelController : MonoBehaviour
             slot.gameObject.SetActive(!showingSkins);
             if (showingSkins) continue;
             int captured=level; bool unlocked=Discovered(level);
-            slot.Setup(level,data.name,BaseSprite(level,true),unlocked,()=>OpenNinja(captured));
-            slot.SetCaption(unlocked ? $"{level} · {data.name}\n{CodexCollectionManager.EffectName(CodexCollectionManager.LevelEffect(level))} +1%" : LocalizationManager.GetText($"{level}단계 · 미해금\n{level}단계 닌자 발견",$"Lv.{level} · LOCKED\nDiscover Lv.{level}"));
+            slot.Setup(level,data.LocalizedName,BaseSprite(level,true),unlocked,()=>OpenNinja(captured));
+            slot.SetCaption(unlocked ? LocalizationManager.GetText(
+                $"{level} · {data.name}\n{CodexCollectionManager.EffectName(CodexCollectionManager.LevelEffect(level))} +1%",
+                $"Lv.{level} · {data.LocalizedName}\n{CodexCollectionManager.EffectName(CodexCollectionManager.LevelEffect(level))} +1%")
+                : LocalizationManager.GetText($"{level}단계 · 미해금\n{level}단계 닌자 발견",$"Lv.{level} · LOCKED\nDiscover Lv.{level}"));
         }
         BuildMythics();
         if (!collection) return;
@@ -155,7 +158,7 @@ public class EncyclopediaPanelController : MonoBehaviour
         string effect=$"{CodexCollectionManager.EffectName(CodexCollectionManager.LevelEffect(level))} +1%";
         var collection=CodexCollectionManager.Instance;
         bool hasSkin=collection && !string.IsNullOrEmpty(collection.EquippedId(level));
-        detailPanel.ShowCollection(data.name,level,fieldManager && fieldManager.economy ? fieldManager.economy.GetLevelIncomePerSec(level) : 0,BaseSprite(level,true),
+        detailPanel.ShowCollection(data.LocalizedName,level,fieldManager && fieldManager.economy ? fieldManager.economy.GetLevelIncomePerSec(level) : 0,BaseSprite(level,true),
             condition+"\n"+effect,unlocked,hasSkin ? LocalizationManager.GetText("기본 외형 사용","USE DEFAULT") : null,
             hasSkin ? (System.Action)(()=>{ collection.Equip(level,null); OpenNinja(level); Refresh(); }) : null);
     }

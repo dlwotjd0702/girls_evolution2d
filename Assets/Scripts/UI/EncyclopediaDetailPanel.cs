@@ -46,6 +46,8 @@ public class EncyclopediaDetailPanel : MonoBehaviour
             ldIllustrationImage.color = ldSprite != null ? Color.white : new Color(1, 1, 1, 0);
             if (ldIllustrationImage.preserveAspect == false)
                 ldIllustrationImage.preserveAspect = true;
+            ldIllustrationImage.type = Image.Type.Simple;
+            ldIllustrationImage.useSpriteMesh = false;
         }
         
         // 이름

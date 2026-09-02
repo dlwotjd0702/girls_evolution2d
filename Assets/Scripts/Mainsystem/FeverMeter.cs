@@ -11,7 +11,12 @@ public sealed class FeverMeter
     public double Charge { get; private set; }
     public bool IsActive { get; private set; }
     public int ClicksPerSecond => clicks.Count;
-    public float Fill => (float)Math.Min(1, Charge / Math.Max(0.1, ChargeSeconds));
+    public float ChargeFill => (float)Math.Min(1, Charge / Math.Max(0.1, ChargeSeconds));
+    // Taps give a small immediate visual acknowledgement. This never grants fever;
+    // the actual bonus still requires Charge to reach ChargeSeconds.
+    public float TapPreviewFill => IsActive ? 1f : (float)Math.Min(0.15,
+        clicks.Count / (double)Math.Max(1, RequiredClicksPerSecond) * 0.15);
+    public float Fill => Math.Max(ChargeFill, TapPreviewFill);
 
     public void RecordClick(double now)
     {

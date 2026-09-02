@@ -4,6 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Globalization;
+using System.Text;
+using System.Threading;
 // using BackEnd; // 실제 프로젝트에 뒤끝 SDK 네임스페이스 추가
 
 [DefaultExecutionOrder(-200)] // GameSystem(-100)보다 먼저 실행
@@ -56,6 +58,10 @@ public class SaveManager : MonoBehaviour
     
     private float autoSaveTimer = 0f;
     private double pendingOfflineSeconds = 0f;
+    private bool saveInProgress;
+    private bool cloudReconciliationComplete;
+    private const int LOCAL_SAVE_RETRY_COUNT = 4;
+    private const int CLOUD_LOAD_RETRY_COUNT = 3;
     private static readonly string[] SaveTimeFormats = { "yyyy-MM-dd HH:mm:ss", "yyyy/MM/dd HH:mm:ss" };
 
     private void Awake()
@@ -71,6 +77,8 @@ public class SaveManager : MonoBehaviour
 
     void Start()
     {
+        cloudReconciliationComplete = !enableCloudSave || !syncOnStart;
+
         if (resetSaveOnStart)
         {
             Debug.LogWarning("[SaveManager] resetSaveOnStart가 활성화되어 세이브 데이터를 삭제합니다.");
@@ -80,25 +88,7 @@ public class SaveManager : MonoBehaviour
         // 로컬 저장 우선 로드, 없으면 클라우드에서 복구
         StartCoroutine(LoadGameWithCloudRecovery());
         
-        // 클라우드 동기화 설정 (로컬 저장이 있을 때만)
-        if (enableCloudSave && syncOnStart)
-        {
-            // CloudSaveManager가 준비되면 동기화
-            StartCoroutine(DelayedCloudSync());
-        }
-        
         autoSaveTimer = 0f;
-    }
-
-    private System.Collections.IEnumerator DelayedCloudSync()
-    {
-        // CloudSaveManager 초기화 대기
-        yield return new WaitForSeconds(2f);
-        
-        if (CloudSaveManager.Instance != null && CloudSaveManager.Instance.IsAuthenticated)
-        {
-            CloudSaveManager.Instance.SyncWithCloud();
-        }
     }
     
     void Update()
@@ -125,6 +115,9 @@ public class SaveManager : MonoBehaviour
     // 게임 데이터 저장
     public void SaveGame()
     {
+        if (saveInProgress) return;
+        saveInProgress = true;
+
         SaveData data = new SaveData();
         data.SetSaveTime();
         
@@ -147,25 +140,21 @@ public class SaveManager : MonoBehaviour
 
         try
         {
-            // 백업 파일이 있으면 백업으로 복사
-            if (File.Exists(SaveFilePath))
-            {
-                File.Copy(SaveFilePath, BackupFilePath, true);
-            }
-
-            // 새 세이브 파일 저장
-            File.WriteAllText(SaveFilePath, saveJson);
+            WriteLocalSaveAtomically(saveJson);
 
             // PlayerPrefs도 병행 저장 (호환성 유지)
             PlayerPrefs.SetString("SaveData", saveJson);
             PlayerPrefs.Save();
-            
-            // 클라우드 저장은 GooglePlayStorePanel에서 수동으로 처리
-            // 자동 저장에서는 클라우드 저장하지 않음
+
+            TryAutoSaveToCloud(data);
         }
         catch (System.Exception e)
         {
             Debug.LogError($"[SaveManager] 저장 실패: {e.Message}");
+        }
+        finally
+        {
+            saveInProgress = false;
         }
     }
 
@@ -243,14 +232,16 @@ public class SaveManager : MonoBehaviour
     /// 로컬 저장 우선 로드, 없으면 클라우드에서 복구
     /// 클라우드 저장의 플레이 시간이 더 길면 선택 패널 표시
     /// </summary>
-    private System.Collections.IEnumerator LoadGameWithCloudRecovery()
+    private System.Collections.IEnumerator LoadGameWithCloudRecovery(bool applyLocalData = true)
     {
         // 1. 로컬 저장 시도
         SaveData localData = null;
-        bool localLoadSuccess = LoadGame(out localData);
+        bool localLoadSuccess = applyLocalData
+            ? LoadGame(out localData)
+            : TryReadLocalSnapshot(out localData);
         
         // 2. 클라우드 저장 확인 (로컬 저장이 있든 없든 확인)
-        if (enableCloudSave && CloudSaveManager.Instance != null)
+        if (enableCloudSave && syncOnStart)
         {
             // CloudSaveManager 초기화 대기
             float waitTime = 0f;
@@ -263,6 +254,7 @@ public class SaveManager : MonoBehaviour
             if (CloudSaveManager.Instance == null)
             {
                 // CloudSaveManager가 없으면 로컬 저장만 사용
+                cloudReconciliationComplete = true;
                 if (!localLoadSuccess)
                 {
                     Debug.LogWarning("[SaveManager] CloudSaveManager를 찾을 수 없습니다. 새 게임을 시작합니다.");
@@ -278,23 +270,74 @@ public class SaveManager : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 waitTime += 0.5f;
             }
+
+            if (!CloudSaveManager.Instance.IsAuthenticated)
+            {
+                // 자동 로그인/네트워크 복구가 늦게 끝나더라도 기존 클라우드 저장을
+                // 이번 실행에서 다시 확인한다. 재시도 때는 로컬 데이터를 재적용하지 않는다.
+                CloudSaveManager.Instance.OnLoginStatusChanged -= OnLateCloudLoginStatusChanged;
+                CloudSaveManager.Instance.OnLoginStatusChanged += OnLateCloudLoginStatusChanged;
+                if (!localLoadSuccess) InitializeLocalizationManagerForNewGame();
+                yield break;
+            }
+
+            CloudSaveManager.Instance.OnLoginStatusChanged -= OnLateCloudLoginStatusChanged;
+            var cloudManager = CloudSaveManager.Instance;
             
-            // 클라우드에서 로드 시도
+            // 클라우드에서 로드 시도. 일시적인 네트워크 오류를 '빈 클라우드'로
+            // 오인해 새 로컬 게임을 업로드하지 않도록 성공 여부도 별도로 추적한다.
             bool cloudLoadComplete = false;
+            bool cloudLoadSucceeded = false;
             SaveData cloudData = null;
-            
-            CloudSaveManager.Instance.LoadFromCloud((cloudSaveData) =>
+
+            for (int attempt = 0; attempt < CLOUD_LOAD_RETRY_COUNT && !cloudLoadSucceeded; attempt++)
             {
-                cloudData = cloudSaveData;
-                cloudLoadComplete = true;
-            });
-            
-            // 클라우드 로드 완료 대기
-            waitTime = 0f;
-            while (!cloudLoadComplete && waitTime < 10f)
+                cloudLoadComplete = false;
+                System.Action<bool, SaveData> loadStatus = null;
+                loadStatus = (success, _) =>
+                {
+                    cloudLoadSucceeded = success;
+                    cloudManager.OnCloudLoadComplete -= loadStatus;
+                };
+                cloudManager.OnCloudLoadComplete += loadStatus;
+                cloudManager.LoadFromCloud((cloudSaveData) =>
+                {
+                    cloudData = cloudSaveData;
+                    cloudLoadComplete = true;
+                });
+
+                waitTime = 0f;
+                while (!cloudLoadComplete && waitTime < 10f)
+                {
+                    yield return new WaitForSeconds(0.5f);
+                    waitTime += 0.5f;
+                }
+                cloudManager.OnCloudLoadComplete -= loadStatus;
+
+                if (!cloudLoadSucceeded && attempt + 1 < CLOUD_LOAD_RETRY_COUNT)
+                    yield return new WaitForSeconds(1f + attempt);
+            }
+
+            if (!cloudLoadSucceeded)
             {
-                yield return new WaitForSeconds(0.5f);
-                waitTime += 0.5f;
+                Debug.LogWarning("[SaveManager] 클라우드 읽기에 실패해 자동 업로드를 잠급니다. 다음 실행에서 다시 동기화합니다.");
+                if (!localLoadSuccess) InitializeLocalizationManagerForNewGame();
+                yield break;
+            }
+
+            cloudReconciliationComplete = true;
+
+            if (localLoadSuccess && cloudData == null)
+            {
+                Debug.Log("[SaveManager] 클라우드 저장이 없어 확인된 로컬 데이터를 업로드합니다.");
+                TryAutoSaveToCloud(localData);
+                yield break;
+            }
+
+            if (!localLoadSuccess && cloudData == null)
+            {
+                InitializeLocalizationManagerForNewGame();
+                yield break;
             }
             
             // 로컬 저장이 없고 클라우드 저장이 있으면 클라우드에서 복구
@@ -314,8 +357,9 @@ public class SaveManager : MonoBehaviour
                 double cloudPlayTime = cloudData != null && cloudData.totalPlayTimeSeconds > 0 ? 
                     cloudData.totalPlayTimeSeconds / 3600.0 : 0.0;
                 
-                // 클라우드 플레이 시간이 더 길면 선택 패널 표시
-                if (cloudPlayTime > localPlayTime)
+                // 현행 저장은 플레이 시간을 우선하고, 구세이브처럼 플레이 시간이
+                // 없는 경우에는 UTC 저장 시각과 진행도를 차례로 비교한다.
+                if (CompareSavePriority(cloudData, localData) > 0)
                 {
                     Debug.Log($"[SaveManager] 클라우드 저장의 플레이 시간이 더 깁니다. (로컬: {localPlayTime:F2}시간, 클라우드: {cloudPlayTime:F2}시간)");
                     
@@ -377,6 +421,8 @@ public class SaveManager : MonoBehaviour
                 {
                     // 로컬이 더 길거나 같으면 로컬 사용 (이미 로드됨)
                     Debug.Log($"[SaveManager] 로컬 저장의 플레이 시간이 더 깁니다. (로컬: {localPlayTime:F2}시간, 클라우드: {cloudPlayTime:F2}시간)");
+                    if (CompareSavePriority(localData, cloudData) > 0)
+                        TryAutoSaveToCloud(localData);
                 }
             }
         }
@@ -423,7 +469,7 @@ public class SaveManager : MonoBehaviour
         string saveJson = JsonUtility.ToJson(data, true);
         try
         {
-            File.WriteAllText(SaveFilePath, saveJson);
+            WriteLocalSaveAtomically(saveJson);
             PlayerPrefs.SetString("SaveData", saveJson);
             PlayerPrefs.Save();
             Debug.Log("[SaveManager] 로컬에 저장 완료");
@@ -432,6 +478,146 @@ public class SaveManager : MonoBehaviour
         {
             Debug.LogError($"[SaveManager] 로컬 저장 실패: {e.Message}");
         }
+    }
+
+    private void TryAutoSaveToCloud(SaveData data)
+    {
+        var cloud = CloudSaveManager.Instance;
+        if (!autoCloudSave || !enableCloudSave || !cloudReconciliationComplete || data == null
+            || cloud == null || !cloud.IsAuthenticated || cloud.IsSaving)
+            return;
+
+        cloud.SaveToCloud(data);
+    }
+
+    private void OnLateCloudLoginStatusChanged(bool authenticated)
+    {
+        if (!authenticated || CloudSaveManager.Instance == null) return;
+        CloudSaveManager.Instance.OnLoginStatusChanged -= OnLateCloudLoginStatusChanged;
+        StartCoroutine(LoadGameWithCloudRecovery(false));
+    }
+
+    private bool TryReadLocalSnapshot(out SaveData data)
+    {
+        data = null;
+        try
+        {
+            string json = null;
+            if (File.Exists(SaveFilePath)) json = File.ReadAllText(SaveFilePath);
+            else if (PlayerPrefs.HasKey("SaveData")) json = PlayerPrefs.GetString("SaveData");
+            else if (File.Exists(BackupFilePath)) json = File.ReadAllText(BackupFilePath);
+            if (string.IsNullOrWhiteSpace(json)) return false;
+            data = JsonUtility.FromJson<SaveData>(json);
+            return data != null;
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"[SaveManager] 로컬 스냅샷 비교용 읽기 실패: {e.Message}");
+            return false;
+        }
+    }
+
+    public static int CompareSavePriority(SaveData left, SaveData right)
+    {
+        if (ReferenceEquals(left, right)) return 0;
+        if (left == null) return -1;
+        if (right == null) return 1;
+
+        bool leftHasPlayTime = left.totalPlayTimeSeconds > 0.5;
+        bool rightHasPlayTime = right.totalPlayTimeSeconds > 0.5;
+        if (leftHasPlayTime && rightHasPlayTime)
+        {
+            int playTimeOrder = left.totalPlayTimeSeconds.CompareTo(right.totalPlayTimeSeconds);
+            if (playTimeOrder != 0) return playTimeOrder;
+        }
+
+        bool leftHasTime = TryGetSaveTimeUtc(left, out var leftTime);
+        bool rightHasTime = TryGetSaveTimeUtc(right, out var rightTime);
+        if (leftHasTime && rightHasTime)
+        {
+            int timeOrder = leftTime.CompareTo(rightTime);
+            if (timeOrder != 0) return timeOrder;
+        }
+        else if (leftHasTime != rightHasTime)
+        {
+            return leftHasTime ? 1 : -1;
+        }
+
+        int levelOrder = left.maxLevelReached.CompareTo(right.maxLevelReached);
+        if (levelOrder != 0) return levelOrder;
+        return left.gold.CompareTo(right.gold);
+    }
+
+    public static bool TryGetSaveTimeUtc(SaveData data, out DateTime utc)
+    {
+        utc = DateTime.MinValue;
+        if (data == null) return false;
+        if (data.savedAtUtcUnixSeconds > 0)
+        {
+            try
+            {
+                utc = DateTimeOffset.FromUnixTimeSeconds(data.savedAtUtcUnixSeconds).UtcDateTime;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException) { }
+        }
+
+        if (string.IsNullOrWhiteSpace(data.savedAt)) return false;
+        if (!DateTime.TryParseExact(data.savedAt, SaveTimeFormats, CultureInfo.InvariantCulture,
+                DateTimeStyles.AssumeLocal | DateTimeStyles.AllowWhiteSpaces, out var localTime)) return false;
+        utc = localTime.ToUniversalTime();
+        return true;
+    }
+
+    /// <summary>
+    /// 완성된 임시 파일을 같은 볼륨에서 교체해 저장 파일이 반쯤 쓰인 상태로 노출되지 않게 한다.
+    /// OneDrive/백신/에디터가 잠깐 파일을 잡은 경우에는 짧게 재시도한다.
+    /// </summary>
+    private void WriteLocalSaveAtomically(string json)
+    {
+        Directory.CreateDirectory(SaveDirectory);
+        string tempPath = Path.Combine(SaveDirectory, SAVE_FILE_NAME + ".tmp");
+        Exception lastError = null;
+
+        for (int attempt = 0; attempt < LOCAL_SAVE_RETRY_COUNT; attempt++)
+        {
+            try
+            {
+                using (var stream = new FileStream(tempPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (var writer = new StreamWriter(stream, new UTF8Encoding(false)))
+                {
+                    writer.Write(json);
+                    writer.Flush();
+                    stream.Flush(true);
+                }
+
+                if (File.Exists(SaveFilePath))
+                {
+                    File.Replace(tempPath, SaveFilePath, BackupFilePath, true);
+                }
+                else
+                {
+                    File.Move(tempPath, SaveFilePath);
+                }
+                return;
+            }
+            catch (IOException error)
+            {
+                lastError = error;
+                if (attempt + 1 < LOCAL_SAVE_RETRY_COUNT)
+                    Thread.Sleep(40 * (attempt + 1));
+            }
+            catch (UnauthorizedAccessException error)
+            {
+                lastError = error;
+                if (attempt + 1 < LOCAL_SAVE_RETRY_COUNT)
+                    Thread.Sleep(40 * (attempt + 1));
+            }
+        }
+
+        try { if (File.Exists(tempPath)) File.Delete(tempPath); }
+        catch (Exception) { }
+        throw new IOException($"로컬 저장 파일을 {LOCAL_SAVE_RETRY_COUNT}회 시도했지만 교체하지 못했습니다. 경로: {SaveFilePath}", lastError);
     }
 
     // 게임 데이터 불러오기 (로컬 저장만 시도)
@@ -504,6 +690,7 @@ public class SaveManager : MonoBehaviour
                 {
                     saveJson = File.ReadAllText(BackupFilePath);
                     loadedData = JsonUtility.FromJson<SaveData>(saveJson);
+                    CaptureOfflineDuration(loadedData);
 
                     var saveables = FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveable>().ToList();
                     foreach (var s in saveables)
@@ -599,6 +786,11 @@ public class SaveManager : MonoBehaviour
     {
         pendingOfflineSeconds = 0f;
         if (data == null) return;
+        if (TryGetSaveTimeUtc(data, out var savedUtc))
+        {
+            pendingOfflineSeconds = Math.Max(0.0, (DateTime.UtcNow - savedUtc).TotalSeconds);
+            return;
+        }
         string stamp = data.savedAt;
         if (string.IsNullOrEmpty(stamp)) return;
 

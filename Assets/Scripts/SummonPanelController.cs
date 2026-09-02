@@ -117,7 +117,9 @@ public class SummonPanelController : MonoBehaviour
             long gemCost = GetGemCostForLevel(lv);
             
             // 이름을 짧고 간결하게: "Lv.X 이름" -> "X. 이름"
-            string shortName = $"{data.level}단계 \n {data.name}";
+            string shortName = LocalizationManager.GetText(
+                $"{data.level}단계 \n {data.name}",
+                $"Lv.{data.level}\n{data.LocalizedName}");
             
             cell.Setup(
                 level: lv,
@@ -159,12 +161,12 @@ public class SummonPanelController : MonoBehaviour
     void OnClickSummon(int level)
     {
         if (!ValidateSummon(level)) return;
-        if (fieldManager == null) { ShowReasonTemp("필드가 없습니다."); return; }
+        if (fieldManager == null) { ShowReasonTemp(LocalizationManager.GetText("필드가 없습니다.", "Field is unavailable.")); return; }
 
         int fieldCap = (economy != null) ? economy.GetMaxFieldCount() : 8;
         if (fieldManager.girlList.Count >= fieldCap)
         {
-            ShowReasonTemp("필드가 가득 찼습니다.");
+            ShowReasonTemp(LocalizationManager.GetText("필드가 가득 찼습니다.", "The field is full."));
             return;
         }
 
@@ -173,7 +175,7 @@ public class SummonPanelController : MonoBehaviour
         
         if (economy == null)
         {
-            ShowReasonTemp("골드 정보를 불러오지 못했습니다.");
+            ShowReasonTemp(LocalizationManager.GetText("골드 정보를 불러오지 못했습니다.", "Could not load gold data."));
             return;
         }
         
@@ -184,7 +186,7 @@ public class SummonPanelController : MonoBehaviour
                 insufficientFundsPanel.ShowForGoldShortage(cost, currentGold);
             }
             
-            ShowReasonTemp("골드가 부족합니다.");
+            ShowReasonTemp(LocalizationManager.GetText("골드가 부족합니다.", "Not enough gold."));
             return;
         }
 
@@ -244,46 +246,42 @@ public class SummonPanelController : MonoBehaviour
     
     long GetGemCostForLevel(int level)
     {
-        level = Mathf.Clamp(level, 1, TierRules.MaxLevel);
-        
-        // 티어별 기본 보석 비용
-        int baseGemCost = GetBaseGemCostByTier(level);
-        
-        // 소환 횟수에 따른 증가 (1씩 증가)
         int purchaseCount = economy != null ? economy.GetGemSummonPurchaseCount(level) : 0;
-        int totalCost = baseGemCost + (purchaseCount * gemSummonIncrement);
-        
-        return Math.Max(1, totalCost);
+        return CalculateGemSummonCost(level, purchaseCount, gemSummonIncrement);
     }
-    
-    int GetBaseGemCostByTier(int level)
+
+    public static long CalculateGemSummonCost(int level, int purchaseCount, int configuredIncrement = 1)
     {
+        level = Mathf.Clamp(level, 1, TierRules.MaxLevel);
         int tier = TierRules.TierIndexFromLevel(level);
-        return tier switch
+        int baseCost = tier switch
         {
             0 => 3,  // 1티어 (1-8레벨): 3개
-            1 => 5,  // 2티어 (9-16레벨): 5개
-            2 => 7,  // 3티어 (17-24레벨): 7개
-            _ => 7   // 4티어 (25레벨): 7개 (기본값)
+            1 => 8,  // 2티어 (9-16레벨)
+            2 => 20, // 3티어 (17-24레벨): 최종 스택 직행 억제
+            _ => 20
         };
+        int tierIncrement = tier switch { 0 => 1, 1 => 2, _ => 5 };
+        long step = Math.Max(1, configuredIncrement) * tierIncrement;
+        return Math.Max(1, baseCost + Math.Max(0, purchaseCount) * step);
     }
     
     void OnClickGemSummon(int level)
     {
         if (!ValidateSummon(level) || !economy) return;
-        if (fieldManager == null) { ShowReasonTemp("필드가 없습니다."); return; }
+        if (fieldManager == null) { ShowReasonTemp(LocalizationManager.GetText("필드가 없습니다.", "Field is unavailable.")); return; }
 
         int fieldCap = (economy != null) ? economy.GetMaxFieldCount() : 8;
         if (fieldManager.girlList.Count >= fieldCap)
         {
-            ShowReasonTemp("필드가 가득 찼습니다.");
+            ShowReasonTemp(LocalizationManager.GetText("필드가 가득 찼습니다.", "The field is full."));
             return;
         }
 
         long gemCost = GetGemCostForLevel(level);
         if (premiumCurrency == null)
         {
-            ShowReasonTemp("보석 정보를 불러오지 못했습니다.");
+            ShowReasonTemp(LocalizationManager.GetText("보석 정보를 불러오지 못했습니다.", "Could not load gem data."));
             return;
         }
 
@@ -293,11 +291,11 @@ public class SummonPanelController : MonoBehaviour
             if (insufficientFundsPanel != null)
             {
                 insufficientFundsPanel.ShowGemShortage(gemCost, have);
-                ShowReasonTemp("보석이 부족합니다.");
+                ShowReasonTemp(LocalizationManager.GetText("보석이 부족합니다.", "Not enough gems."));
             }
             else
             {
-                ShowReasonTemp($"보석이 부족합니다.\n{GemAdHint}");
+                ShowReasonTemp(LocalizationManager.GetText($"보석이 부족합니다.\n{GemAdHint}", "Not enough gems.\nWatch an ad to earn 5 Gems."));
             }
             return;
         }

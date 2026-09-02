@@ -6,6 +6,7 @@
 // ============================================================================
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -17,6 +18,16 @@ using GooglePlayGames.BasicApi.SavedGame;
 
 public class CloudSaveManager : MonoBehaviour
 {
+    public enum LoginResult
+    {
+        LoginRequired,
+        InProgress,
+        Success,
+        Canceled,
+        InternalError,
+        Unavailable
+    }
+
     public static CloudSaveManager Instance { get; private set; }
 
     // ── 이벤트 ──
@@ -30,9 +41,12 @@ public class CloudSaveManager : MonoBehaviour
     public bool IsSaving { get; private set; } = false;
     public bool IsLoading { get; private set; } = false;
     public bool IsLoginInProgress { get; private set; } = false;
+    public LoginResult LastLoginResult { get; private set; } = LoginResult.LoginRequired;
+    public string LastLoginStatusCode { get; private set; } = string.Empty;
 
     private const string CLOUD_SAVE_FILENAME = "girls_evolution_save";
     private const string FIRST_RUN_KEY = "CloudSaveManager_FirstRun";
+    private readonly List<Action<SaveData>> pendingLoadCallbacks = new List<Action<SaveData>>();
 
     [Header("Login Retry")]
     [SerializeField] private bool enableAutoRetryLogin = true;
@@ -82,6 +96,8 @@ public class CloudSaveManager : MonoBehaviour
                 if (PlayGamesPlatform.Instance != null && PlayGamesPlatform.Instance.IsAuthenticated())
                 {
                     IsAuthenticated = true;
+                    LastLoginResult = LoginResult.Success;
+                    LastLoginStatusCode = SignInStatus.Success.ToString();
                     savedGameClient = PlayGamesPlatform.Instance.SavedGame;
                     Debug.Log("[CloudSaveManager] 이미 로그인되어 있습니다.");
                     OnLoginStatusChanged?.Invoke(true);
@@ -89,6 +105,8 @@ public class CloudSaveManager : MonoBehaviour
                 else
                 {
                     IsAuthenticated = false;
+                    LastLoginResult = LoginResult.LoginRequired;
+                    LastLoginStatusCode = string.Empty;
                     OnLoginStatusChanged?.Invoke(false);
                 }
             }
@@ -96,6 +114,9 @@ public class CloudSaveManager : MonoBehaviour
             {
                 Debug.LogError($"[CloudSaveManager] SDK 활성화 실패: {e.Message}");
                 IsAuthenticated = false;
+                IsLoginInProgress = false;
+                LastLoginResult = LoginResult.Unavailable;
+                LastLoginStatusCode = e.GetType().Name;
                 OnLoginStatusChanged?.Invoke(false);
             }
             return;
@@ -105,11 +126,13 @@ public class CloudSaveManager : MonoBehaviour
         try
         {
             PlayGamesPlatform.Activate();
-            
+
+            IsLoginInProgress = true;
+            LastLoginResult = LoginResult.InProgress;
+            LastLoginStatusCode = string.Empty;
             PlayGamesPlatform.Instance.Authenticate((status) =>
             {
-                bool success = (status == SignInStatus.Success);
-                IsAuthenticated = success;
+                bool success = ApplyLoginResult(status);
                 
                 // 최초 실행 플래그 저장 (로그인 시도 완료 후 저장)
                 PlayerPrefs.SetInt(FIRST_RUN_KEY, 1);
@@ -146,11 +169,17 @@ public class CloudSaveManager : MonoBehaviour
         {
             Debug.LogError($"[CloudSaveManager] 초기화 실패: {e.Message}");
             IsAuthenticated = false;
+            IsLoginInProgress = false;
+            LastLoginResult = LoginResult.Unavailable;
+            LastLoginStatusCode = e.GetType().Name;
             OnLoginStatusChanged?.Invoke(false);
         }
 #else
         Debug.Log("[CloudSaveManager] 에디터 또는 비 Android 플랫폼에서는 클라우드 저장이 비활성화됩니다.");
         IsAuthenticated = false;
+        IsLoginInProgress = false;
+        LastLoginResult = LoginResult.Unavailable;
+        LastLoginStatusCode = "UnsupportedPlatform";
         OnLoginStatusChanged?.Invoke(false);
 #endif
     }
@@ -174,11 +203,11 @@ public class CloudSaveManager : MonoBehaviour
         }
 
         IsLoginInProgress = true;
+        LastLoginResult = LoginResult.InProgress;
+        LastLoginStatusCode = string.Empty;
         PlayGamesPlatform.Instance.Authenticate((status) =>
         {
-            bool success = (status == SignInStatus.Success);
-            IsAuthenticated = success;
-            IsLoginInProgress = false;
+            bool success = ApplyLoginResult(status);
             
             // 더 자세한 로깅
             string statusMessage = status switch
@@ -222,9 +251,42 @@ public class CloudSaveManager : MonoBehaviour
         });
 #else
         Debug.Log("[CloudSaveManager] 에디터에서는 로그인할 수 없습니다.");
+        IsAuthenticated = false;
+        IsLoginInProgress = false;
+        LastLoginResult = LoginResult.Unavailable;
+        LastLoginStatusCode = "UnsupportedPlatform";
         callback?.Invoke(false);
 #endif
     }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+    private bool ApplyLoginResult(SignInStatus status)
+    {
+        bool success = status == SignInStatus.Success;
+        IsAuthenticated = success;
+        IsLoginInProgress = false;
+        LastLoginStatusCode = status.ToString();
+
+        switch (status)
+        {
+            case SignInStatus.Success:
+                LastLoginResult = LoginResult.Success;
+                savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+                break;
+            case SignInStatus.Canceled:
+                LastLoginResult = LoginResult.Canceled;
+                break;
+            case SignInStatus.InternalError:
+                LastLoginResult = LoginResult.InternalError;
+                break;
+            default:
+                LastLoginResult = LoginResult.InternalError;
+                break;
+        }
+
+        return success;
+    }
+#endif
 
     /// <summary>
     /// 플랫폼 로그인 상태를 다시 확인하고 필요 시 내부 상태를 동기화
@@ -251,7 +313,14 @@ public class CloudSaveManager : MonoBehaviour
             IsAuthenticated = platformAuth;
             if (platformAuth && PlayGamesPlatform.Instance != null)
             {
+                LastLoginResult = LoginResult.Success;
+                LastLoginStatusCode = SignInStatus.Success.ToString();
                 savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+            }
+            else if (!platformAuth)
+            {
+                LastLoginResult = LoginResult.LoginRequired;
+                LastLoginStatusCode = string.Empty;
             }
             if (notifyIfChanged)
             {
@@ -263,6 +332,8 @@ public class CloudSaveManager : MonoBehaviour
         if (IsAuthenticated)
         {
             IsAuthenticated = false;
+            LastLoginResult = LoginResult.Unavailable;
+            LastLoginStatusCode = "UnsupportedPlatform";
             if (notifyIfChanged)
             {
                 OnLoginStatusChanged?.Invoke(false);
@@ -300,6 +371,9 @@ public class CloudSaveManager : MonoBehaviour
         // Google Play Games SDK v2.1.0 이상에서는 SignOut 메서드가 제거됨
         // 사용자는 시스템 설정에서 Google 계정 로그아웃을 해야 함
         IsAuthenticated = false;
+        IsLoginInProgress = false;
+        LastLoginResult = LoginResult.LoginRequired;
+        LastLoginStatusCode = string.Empty;
         savedGameClient = null;
         Debug.Log("[CloudSaveManager] 로그아웃 상태로 초기화 완료 (실제 로그아웃은 시스템 설정에서 처리 필요)");
         OnLoginStatusChanged?.Invoke(false);
@@ -343,7 +417,11 @@ public class CloudSaveManager : MonoBehaviour
             savedGameClient.OpenWithAutomaticConflictResolution(
                 CLOUD_SAVE_FILENAME,
                 DataSource.ReadCacheOrNetwork, // 오프라인에서도 캐시 사용 가능
-                forceOverwrite ? ConflictResolutionStrategy.UseLongestPlaytime : ConflictResolutionStrategy.UseManual,
+                // Automatic open cannot use UseManual: the Android SDK treats that
+                // combination as an unhandled strategy when a real conflict occurs.
+                // CommitUpdate below always writes saveBytes, so choosing a valid
+                // snapshot here still makes the caller's data the final revision.
+                forceOverwrite ? ConflictResolutionStrategy.UseUnmerged : ConflictResolutionStrategy.UseMostRecentlySaved,
                 (status, game) =>
                 {
                     try
@@ -404,17 +482,21 @@ public class CloudSaveManager : MonoBehaviour
     /// </summary>
     public void LoadFromCloud(Action<SaveData> onComplete = null)
     {
+        if (onComplete != null)
+        {
+            pendingLoadCallbacks.Add(onComplete);
+        }
+
         if (!IsAuthenticated)
         {
             Debug.LogWarning("[CloudSaveManager] 로그인되지 않아 클라우드 로드를 건너뜁니다.");
-            OnCloudLoadComplete?.Invoke(false, null);
-            onComplete?.Invoke(null);
+            CompleteCloudLoad(false, null);
             return;
         }
 
         if (IsLoading)
         {
-            Debug.LogWarning("[CloudSaveManager] 이미 로드 중입니다.");
+            Debug.Log("[CloudSaveManager] 이미 로드 중이므로 완료 콜백을 기존 요청에 합칩니다.");
             return;
         }
 
@@ -423,8 +505,7 @@ public class CloudSaveManager : MonoBehaviour
         if (savedGameClient == null)
         {
             Debug.LogWarning("[CloudSaveManager] savedGameClient가 초기화되지 않았습니다. 잠시 후 다시 시도하세요.");
-            OnCloudLoadComplete?.Invoke(false, null);
-            onComplete?.Invoke(null);
+            CompleteCloudLoad(false, null);
             return;
         }
 
@@ -446,7 +527,6 @@ public class CloudSaveManager : MonoBehaviour
                                 game,
                                 (readStatus, data) =>
                                 {
-                                    IsLoading = false;
                                     if (readStatus == SavedGameRequestStatus.Success && data != null)
                                     {
                                         try
@@ -454,56 +534,60 @@ public class CloudSaveManager : MonoBehaviour
                                             string saveJson = Encoding.UTF8.GetString(data);
                                             SaveData saveData = JsonUtility.FromJson<SaveData>(saveJson);
                                             Debug.Log("[CloudSaveManager] 클라우드 로드 성공");
-                                            OnCloudLoadComplete?.Invoke(true, saveData);
-                                            onComplete?.Invoke(saveData);
+                                            CompleteCloudLoad(true, saveData);
                                         }
                                         catch (Exception e)
                                         {
                                             Debug.LogError($"[CloudSaveManager] 클라우드 데이터 파싱 실패: {e.Message}");
-                                            OnCloudLoadComplete?.Invoke(false, null);
-                                            onComplete?.Invoke(null);
+                                            CompleteCloudLoad(false, null);
                                         }
                                     }
                                     else
                                     {
                                         // 네트워크 오류 등으로 실패해도 예외 발생하지 않음
                                         Debug.LogWarning($"[CloudSaveManager] 클라우드 저장 파일이 없거나 오프라인: {readStatus}");
-                                        OnCloudLoadComplete?.Invoke(false, null);
-                                        onComplete?.Invoke(null);
+                                        CompleteCloudLoad(false, null);
                                     }
                                 });
                         }
                         else
                         {
-                            IsLoading = false;
                             // 네트워크 오류 등으로 실패해도 예외 발생하지 않음
                             Debug.LogWarning($"[CloudSaveManager] 클라우드 파일 열기 실패 (오프라인 가능): {status}");
-                            OnCloudLoadComplete?.Invoke(false, null);
-                            onComplete?.Invoke(null);
+                            CompleteCloudLoad(false, null);
                         }
                     }
                     catch (Exception e)
                     {
-                        IsLoading = false;
                         Debug.LogError($"[CloudSaveManager] 클라우드 로드 중 예외 발생: {e.Message}");
-                        OnCloudLoadComplete?.Invoke(false, null);
-                        onComplete?.Invoke(null);
+                        CompleteCloudLoad(false, null);
                     }
                 });
         }
         catch (Exception e)
         {
-            IsLoading = false;
             Debug.LogError($"[CloudSaveManager] 클라우드 로드 초기화 중 예외 발생: {e.Message}");
-            OnCloudLoadComplete?.Invoke(false, null);
-            onComplete?.Invoke(null);
+            CompleteCloudLoad(false, null);
         }
 #else
-        IsLoading = false;
         Debug.Log("[CloudSaveManager] 에디터에서는 클라우드 로드를 건너뜁니다.");
-        OnCloudLoadComplete?.Invoke(false, null);
-        onComplete?.Invoke(null);
+        CompleteCloudLoad(false, null);
 #endif
+    }
+
+    private void CompleteCloudLoad(bool success, SaveData data)
+    {
+        IsLoading = false;
+        OnCloudLoadComplete?.Invoke(success, data);
+
+        if (pendingLoadCallbacks.Count == 0) return;
+        var callbacks = pendingLoadCallbacks.ToArray();
+        pendingLoadCallbacks.Clear();
+        foreach (var callback in callbacks)
+        {
+            try { callback?.Invoke(success ? data : null); }
+            catch (Exception e) { Debug.LogException(e); }
+        }
     }
 
     /// <summary>
@@ -579,13 +663,8 @@ public class CloudSaveManager : MonoBehaviour
 
             if (localData != null)
             {
-                DateTime localTime = DateTime.MinValue;
-                DateTime cloudTime = DateTime.MinValue;
-                
-                bool localTimeValid = !string.IsNullOrEmpty(localData.savedAt) && 
-                                      DateTime.TryParse(localData.savedAt, out localTime);
-                bool cloudTimeValid = !string.IsNullOrEmpty(cloudData.savedAt) && 
-                                      DateTime.TryParse(cloudData.savedAt, out cloudTime);
+                bool localTimeValid = SaveManager.TryGetSaveTimeUtc(localData, out DateTime localTime);
+                bool cloudTimeValid = SaveManager.TryGetSaveTimeUtc(cloudData, out DateTime cloudTime);
 
                 if (cloudTimeValid && localTimeValid)
                 {

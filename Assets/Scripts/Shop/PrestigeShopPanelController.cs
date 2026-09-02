@@ -91,12 +91,8 @@ public class PrestigeShopPanelController : MonoBehaviour
         if (prestige == null) { ShowReasonTemp(LocalizationManager.GetText("시스템 미준비", "System not ready")); return; }
 
         int lv  = GetLevel(e.type);
-        int cap = e.levelCap;
+        int cap = GetEffectiveCap(e);
         if (cap >= 0 && lv >= cap) { ShowReasonTemp(LocalizationManager.GetText("최대 레벨입니다.", "Max level reached")); return; }
-
-        // TwoStep 확률 상한(50%p)
-        if (e.type == ShopItemType.TwoStepChance && prestige.GetTwoStepChance() >= 0.5f - 1e-6f)
-        { ShowReasonTemp(LocalizationManager.GetText("최대치에 도달했습니다.", "Maximum value reached")); return; }
 
         int need = GetNextCost(e.type);
         int have = prestige.GetPrestigePoints();
@@ -123,12 +119,11 @@ public class PrestigeShopPanelController : MonoBehaviour
         if (e.combinedLabel) e.combinedLabel.text = ComposeName(e.type);
 
         int lv = GetLevel(e.type);
-        int cap = e.levelCap;
+        int cap = GetEffectiveCap(e);
         int cost = GetNextCost(e.type);
 
         bool isMaxByCap     = (cap >= 0 && lv >= cap);
-        bool isMaxByEffect  = (e.type == ShopItemType.TwoStepChance) && (prestige.GetTwoStepChance() >= 0.5f - 1e-6f);
-        bool isMax = isMaxByCap || isMaxByEffect;
+        bool isMax = isMaxByCap || cost <= 0;
 
         if (e.levelText) e.levelText.text = (cap < 0) ? $"Lv. {Mathf.Max(0, lv)}" : $"Lv. {Mathf.Clamp(lv,0,cap)} / {cap}";
         if (e.costText)
@@ -210,6 +205,28 @@ public class PrestigeShopPanelController : MonoBehaviour
         ShopItemType.OfflineMaxTimePlus    => prestige.GetPlusOfflineMaxTimeLevel(),
         _ => 0
     };
+
+    int GetEffectiveCap(EntryUI e)
+    {
+        if (prestige == null || e == null) return e != null ? e.levelCap : -1;
+        int balanceCap = e.type switch
+        {
+            ShopItemType.IncomeMultiplier => prestige.GetIncomeCap(),
+            ShopItemType.TwoStepChance => prestige.GetTwoStepCap(),
+            ShopItemType.StartGoldMultiplier => prestige.GetStartGoldCap(),
+            ShopItemType.PrestigePointGain => prestige.GetPrestigeGainCap(),
+            ShopItemType.ManualSpawnMaxPlus => prestige.GetPlusManualSpawnMaxCap(),
+            ShopItemType.ManualSpawnSpeedPlus => prestige.GetPlusManualSpeedCap(),
+            ShopItemType.AutoMergeSpeedPlus => prestige.GetPlusAutoMergeCap(),
+            ShopItemType.AutoSpawnSpeedPlus => prestige.GetPlusAutoSpawnCap(),
+            ShopItemType.FieldMaxPlus => prestige.GetPlusFieldMaxCap(),
+            ShopItemType.ClickBonusPlus => prestige.GetPlusClickBonusCap(),
+            ShopItemType.OfflineRewardPlus => prestige.GetPlusOfflineRewardCap(),
+            ShopItemType.OfflineMaxTimePlus => prestige.GetPlusOfflineMaxTimeCap(),
+            _ => -1
+        };
+        return e.levelCap < 0 ? balanceCap : Mathf.Min(e.levelCap, balanceCap);
+    }
 
     int GetNextCost(ShopItemType t) => t switch
     {

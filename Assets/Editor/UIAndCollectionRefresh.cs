@@ -222,7 +222,7 @@ public static class UIAndCollectionRefresh
     static void ConfigureDetail(EncyclopediaDetailPanel detail)
     {
         var root=(RectTransform)Ref<GameObject>(detail,"panelRoot").transform;SetRect(root,new Vector2(970,1650),Vector2.zero);Surface(root,0);
-        var image=Ref<Image>(detail,"ldIllustrationImage");SetRect(image.rectTransform,new Vector2(840,900),new Vector2(0,220));image.preserveAspect=true;
+        var image=Ref<Image>(detail,"ldIllustrationImage");SetRect(image.rectTransform,new Vector2(760,820),new Vector2(0,180));image.preserveAspect=true;image.type=Image.Type.Simple;image.useSpriteMesh=false;
         var name=Ref<TextMeshProUGUI>(detail,"nameText");SetRect(name.rectTransform,new Vector2(740,85),new Vector2(0,735));name.fontSize=58;name.color=Ink;
         var level=Ref<TextMeshProUGUI>(detail,"levelText");SetRect(level.rectTransform,new Vector2(370,68),new Vector2(-210,-265));level.fontSize=42;level.color=Ink;
         var income=Ref<TextMeshProUGUI>(detail,"incomeText");SetRect(income.rectTransform,new Vector2(440,68),new Vector2(175,-265));income.fontSize=42;income.color=Ink;

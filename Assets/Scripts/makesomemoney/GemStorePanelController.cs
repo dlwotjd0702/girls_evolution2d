@@ -113,8 +113,10 @@ public class GemStorePanelController : MonoBehaviour
                 double goldAmount = CalculateGoldReward();
                 e.titleText.text = LocalizationManager.GetText($"골드 {goldRewardMinutes}분치\n{FormatGoldAmount(goldAmount)}", $"{goldRewardMinutes} min gold\n{FormatGoldAmount(goldAmount)}");
             }
-            else if (e.useTitleOverride || isRemoveAds)
-                e.titleText.text = string.IsNullOrWhiteSpace(e.customTitle) ? LocalizationManager.GetText("광고 제거", "Remove Ads") : e.customTitle;
+            else if (isRemoveAds)
+                e.titleText.text = LocalizationManager.GetText("광고 제거", "Remove Ads");
+            else if (e.useTitleOverride)
+                e.titleText.text = e.customTitle;
             else
                 e.titleText.text = LocalizationManager.GetText($"보석 {e.grantGems:N0}개", $"{e.grantGems:N0} Gems");
         }

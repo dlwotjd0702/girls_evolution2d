@@ -7,7 +7,9 @@ public class LegacyRankManager : MonoBehaviour, ISaveable
 {
     public static LegacyRankManager Instance { get; private set; }
 
-    [SerializeField] private int legacyXp = 0;  // SaveData에 없으면 0 유지(리플렉션 저장)
+    public const int MaxLegacyLevel = 25;
+
+    [SerializeField] private int legacyXp = 0;  // v6부터 환생 1회당 1 진행도
     public int LegacyXp => Mathf.Max(0, legacyXp);
     public int LegacyLevel => XpToLevel(legacyXp);
 
@@ -23,16 +25,15 @@ public class LegacyRankManager : MonoBehaviour, ISaveable
     public void AddXp(int amount)
     {
         if (amount <= 0) return;
-        legacyXp = PrestigeReward.ClampPoints((double)LegacyXp + amount);
+        legacyXp = Mathf.Clamp(LegacyXp + amount, 0, MaxLegacyLevel);
         OnLegacyChanged?.Invoke();
     }
 
-    // 누적 XP → 레벨 (L*(L+1)/2)
+    // v6부터 환생 1회가 계승 1레벨이다. 첫 환생 보상 포인트를 그대로 XP로
+    // 사용해 한 번에 모든 계승 보너스가 열리던 문제를 막는다.
     public static int XpToLevel(int xp)
     {
-        if (xp <= 0) return 0;
-        double lv = (Math.Sqrt(1.0 + 8.0 * xp) - 1.0) * 0.5;
-        return Mathf.Max(0, (int)Math.Floor(lv));
+        return Mathf.Clamp(xp, 0, MaxLegacyLevel);
     }
 
     // ── 자동 보너스(구간 누적) ──
@@ -67,7 +68,11 @@ public class LegacyRankManager : MonoBehaviour, ISaveable
     public void CollectSaveData(SaveData d) => TrySetInt(d, "legacyXp", legacyXp);
     public void ApplyLoadedData(SaveData d)
     {
-        legacyXp = TryGetInt(d, "legacyXp", legacyXp);
+        int saved = TryGetInt(d, "legacyXp", legacyXp);
+        // v5 이하는 환생 보상 포인트를 XP로 누적해 첫 환생에 Lv.70이 됐다.
+        // 총 환생 횟수는 별도 저장되어 있으므로 실제 횟수로 안전하게 환산한다.
+        legacyXp = d.dataVersion < 6 ? d.totalPrestigeCount : saved;
+        legacyXp = Mathf.Clamp(legacyXp, 0, MaxLegacyLevel);
         OnLegacyChanged?.Invoke();
     }
 

@@ -1,0 +1,41 @@
+{
+  "status": "APPLIED_DRAFT",
+  "appliedAt": "2026-08-29T13:49:32.165127+09:00",
+  "sourceConcept": "C:\\Users\\user\\.codex\\generated_images\\01a044e4-89f3-7ba2-9267-efb2e89f6a90\\exec-2042225d-affa-4bfa-a359-84d764180e0a.png",
+  "sourceSha256": "acd89275d7c4a448ffaf38740ac968a070c03506ffee8595d388fb1e98266507",
+  "assets": [
+    {
+      "path": "Assets/Prefabs/sprite/자동소환ㅇ.png",
+      "backup": "Docs/UIRefresh/AutomationToggleDraft/Originals/자동소환ㅇ.png",
+      "draft": "Docs/UIRefresh/AutomationToggleDraft/Ready/자동소환ㅇ.png",
+      "beforeSha256": "159a3e3e92aea62fb5904abfe347a65eeaeeddf1e7d5a7e7c613380cd30af4ce",
+      "afterSha256": "ef513f1ee8709b521fd5ae1f93d75ab48dd148e838d5ca0005059cb0e1ef4cf1",
+      "metaSha256": "e949112f70d983ba2d2dbc4bfbc170e2712a7f0cd03852d5466bfab852974baa"
+    },
+    {
+      "path": "Assets/Prefabs/sprite/자동소환x.png",
+      "backup": "Docs/UIRefresh/AutomationToggleDraft/Originals/자동소환x.png",
+      "draft": "Docs/UIRefresh/AutomationToggleDraft/Ready/자동소환x.png",
+      "beforeSha256": "d5f7323eff9b89be460e9dc0cbe6f0e128aa87a0c645724df4f2087a546c12ab",
+      "afterSha256": "ccfdaf741459e15fc3584b520600b89edbdf86db689292717b8e50e1c26db93b",
+      "metaSha256": "2c38e4d9fef7f89e1aabfbe0b74085a304039cdfabfb9407635af86c60aa0052"
+    },
+    {
+      "path": "Assets/Prefabs/sprite/자동합성ㅇ.png",
+      "backup": "Docs/UIRefresh/AutomationToggleDraft/Originals/자동합성ㅇ.png",
+      "draft": "Docs/UIRefresh/AutomationToggleDraft/Ready/자동합성ㅇ.png",
+      "beforeSha256": "a66d5d8dfb7a96c92b5efedc8d4458fb44a154332cf5aa3bba57f561a4bff217",
+      "afterSha256": "5c58ab2fa7d96c624f07c92d33fbd523cdd71ea82c664aa1088504a96c8a3dd6",
+      "metaSha256": "d44a07f0c4d4d9f559479b204ed3ae1bf7578add25b8046c0b9d2c104a53137d"
+    },
+    {
+      "path": "Assets/Prefabs/sprite/자동합성x.png",
+      "backup": "Docs/UIRefresh/AutomationToggleDraft/Originals/자동합성x.png",
+      "draft": "Docs/UIRefresh/AutomationToggleDraft/Ready/자동합성x.png",
+      "beforeSha256": "c44628c7414b1563269519912d3a0729e225f613efd1acb109d99db772fd498a",
+      "afterSha256": "19b721d699674adbe2b7fa28a18c547fabfe80202a4b18d68d5c16fcd8277c6b",
+      "metaSha256": "b80e4fbb830c229e53a47a942a2500cbd259def3470325406026ded004282d39"
+    }
+  ],
+  "note": "Only four PNG contents replaced; Unity .meta files and GUIDs preserved. Original files retained for rollback."
+}

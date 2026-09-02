@@ -29,7 +29,9 @@ public static class CharacterArtRefresh
             {
                 byte alpha = pixels[y * texture.width + x].a;
                 if (alpha == 0) empty++;
-                if (alpha == 255) opaque++;
+                // PNG encoders commonly quantize visually opaque pixels to 250-254.
+                // Treat that range as solid while still requiring a fully clear border.
+                if (alpha >= 250) opaque++;
                 if ((x == 0 || y == 0 || x == texture.width - 1 || y == texture.height - 1) && alpha != 0) return false;
             }
             return empty > pixels.Length * 0.3 && opaque > pixels.Length * 0.05;

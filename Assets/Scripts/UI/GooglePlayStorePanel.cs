@@ -46,6 +46,8 @@ public class GooglePlayStorePanel : MonoBehaviour
 
     private void Awake()
     {
+        ConfigureResponsiveLayout();
+
         if (panelRoot != null) panelRoot.SetActive(false);
 
         // 버튼 이벤트 연결
@@ -88,6 +90,8 @@ public class GooglePlayStorePanel : MonoBehaviour
 
     private void OnEnable()
     {
+        ConfigureResponsiveLayout();
+
         // 패널이 활성화될 때마다 최신 로그인 상태 확인 및 UI 갱신
         // CloudSaveManager가 아직 초기화되지 않았을 수 있으므로 이벤트 구독도 확인
         SubscribeToCloudSaveManager();
@@ -206,13 +210,13 @@ public class GooglePlayStorePanel : MonoBehaviour
     {
         if (CloudSaveManager.Instance == null)
         {
-            UpdateLoginStatus(false, "클라우드 저장을 사용할 수 없습니다.");
+            UpdateLoginStatus(false);
             return;
         }
 
         CloudSaveManager.Instance.RefreshAuthenticationState(false);
         bool isAuthenticated = CloudSaveManager.Instance.IsAuthenticated;
-        UpdateLoginStatus(isAuthenticated, isAuthenticated ? "로그인됨" : "로그인 필요");
+        UpdateLoginStatus(isAuthenticated);
 
         // 로그인되어 있으면 클라우드 데이터 섹션 표시
         if (cloudDataSection != null)
@@ -238,16 +242,21 @@ public class GooglePlayStorePanel : MonoBehaviour
     /// <summary>
     /// 로그인 상태 업데이트
     /// </summary>
-    private void UpdateLoginStatus(bool isAuthenticated, string statusText)
+    private void UpdateLoginStatus(bool isAuthenticated)
     {
+        CloudSaveManager cloudManager = CloudSaveManager.Instance;
+        bool isLoginInProgress = cloudManager != null && cloudManager.IsLoginInProgress;
+
         // 로그인 버튼 표시/숨김
         if (loginButton != null)
         {
             loginButton.gameObject.SetActive(!isAuthenticated);
+            loginButton.interactable = !isLoginInProgress;
         }
         if (loginStatusText != null)
         {
-            loginStatusText.gameObject.SetActive(!isAuthenticated);
+            // 연결 성공 여부와 실패 원인을 같은 위치에 계속 표시한다.
+            loginStatusText.gameObject.SetActive(true);
         }
 
         // 저장 버튼 표시/숨김 (로그인되어 있을 때만 표시)
@@ -259,10 +268,86 @@ public class GooglePlayStorePanel : MonoBehaviour
         // 로그인 상태 텍스트
         if (loginStatusText != null)
         {
-            loginStatusText.text = LocalizationManager.GetText(statusText, statusText);
+            loginStatusText.text = GetLoginStatusText(cloudManager, isAuthenticated);
+        }
+    }
+
+    private string GetLoginStatusText(CloudSaveManager cloudManager, bool isAuthenticated)
+    {
+        if (isAuthenticated)
+        {
+            return LocalizationManager.GetText(
+                "Google Play Games 연결됨",
+                "Google Play Games connected");
         }
 
-      
+        if (cloudManager == null)
+        {
+            return LocalizationManager.GetText(
+                "클라우드 저장을 사용할 수 없습니다.",
+                "Cloud save is unavailable.");
+        }
+
+        switch (cloudManager.LastLoginResult)
+        {
+            case CloudSaveManager.LoginResult.InProgress:
+                return LocalizationManager.GetText(
+                    "Google Play Games 로그인 중…",
+                    "Signing in to Google Play Games…");
+            case CloudSaveManager.LoginResult.Canceled:
+                return LocalizationManager.GetText(
+                    "로그인 취소 또는 Play Games 프로필 미설정\n프로필과 테스터 계정을 확인해주세요.",
+                    "Sign-in canceled or Play Games profile not set\nCheck the profile and tester account.");
+            case CloudSaveManager.LoginResult.InternalError:
+                return LocalizationManager.GetText(
+                    "Play Games 연결 오류\n네트워크·앱 서명·게임 서비스 설정을 확인해주세요.",
+                    "Play Games connection error\nCheck network, app signing, and game-service settings.");
+            case CloudSaveManager.LoginResult.Unavailable:
+                return LocalizationManager.GetText(
+                    "이 기기에서 Play Games를 사용할 수 없습니다.",
+                    "Play Games is unavailable on this device.");
+            default:
+                return LocalizationManager.GetText(
+                    "Google Play Games 로그인이 필요합니다.",
+                    "Google Play Games sign-in required.");
+        }
+    }
+
+    private void ConfigureResponsiveLayout()
+    {
+        if (loginStatusText != null)
+        {
+            RectTransform statusRect = loginStatusText.rectTransform;
+            statusRect.sizeDelta = new Vector2(760f, 150f);
+            ConfigureResponsiveText(loginStatusText, 26f, 50f);
+        }
+
+        if (feedbackText != null)
+        {
+            RectTransform feedbackRect = feedbackText.rectTransform;
+            if (panelRoot != null && feedbackRect.parent != panelRoot.transform)
+            {
+                feedbackRect.SetParent(panelRoot.transform, false);
+            }
+
+            feedbackRect.anchorMin = new Vector2(0.5f, 0.5f);
+            feedbackRect.anchorMax = new Vector2(0.5f, 0.5f);
+            feedbackRect.pivot = new Vector2(0.5f, 0.5f);
+            feedbackRect.anchoredPosition = new Vector2(0f, -420f);
+            feedbackRect.sizeDelta = new Vector2(820f, 150f);
+            ConfigureResponsiveText(feedbackText, 24f, 40f);
+        }
+    }
+
+    private static void ConfigureResponsiveText(TextMeshProUGUI text, float minSize, float maxSize)
+    {
+        text.enableAutoSizing = true;
+        text.fontSizeMin = minSize;
+        text.fontSizeMax = maxSize;
+        text.enableWordWrapping = true;
+        text.overflowMode = TextOverflowModes.Ellipsis;
+        text.alignment = TextAlignmentOptions.Center;
+        text.margin = new Vector4(24f, 10f, 24f, 10f);
     }
 
     /// <summary>
@@ -342,21 +427,30 @@ public class GooglePlayStorePanel : MonoBehaviour
     /// </summary>
     private void OnClickLogin()
     {
-        if (CloudSaveManager.Instance == null)
+        CloudSaveManager cloudManager = CloudSaveManager.Instance;
+        if (cloudManager == null)
         {
             ShowFeedback(LocalizationManager.GetText("클라우드 저장을 사용할 수 없습니다.", "Cloud save is not available."));
+            RefreshUI();
             return;
         }
 
-        if (CloudSaveManager.Instance.IsAuthenticated)
+        if (cloudManager.IsAuthenticated)
         {
             ShowFeedback(LocalizationManager.GetText("이미 로그인되어 있습니다.", "Already logged in."));
             return;
         }
 
-        ShowFeedback(LocalizationManager.GetText("로그인 시도 중...", "Attempting to sign in..."));
+        if (cloudManager.IsLoginInProgress)
+        {
+            ShowFeedback(LocalizationManager.GetText("로그인 진행 중…", "Sign-in in progress…"));
+            RefreshUI();
+            return;
+        }
 
-        CloudSaveManager.Instance.SignIn((success) =>
+        ShowFeedback(LocalizationManager.GetText("로그인 시도 중…", "Attempting to sign in…"));
+
+        cloudManager.SignIn((success) =>
         {
             if (success)
             {
@@ -367,10 +461,11 @@ public class GooglePlayStorePanel : MonoBehaviour
             }
             else
             {
+                // 상세 원인은 위의 고정 상태 영역에 표시하고, 일시 알림은 짧게 유지한다.
+                RefreshUI();
                 ShowFeedback(LocalizationManager.GetText(
-                    "로그인 실패. Google Play Games가 설치되어 있고 Google 계정이 로그인되어 있는지 확인해주세요.",
-                    "Login failed. Please make sure Google Play Games is installed and you are signed in with a Google account."
-                ));
+                    "로그인 실패 — 위 안내를 확인해주세요.",
+                    "Sign-in failed — see the status above."));
             }
         });
     }
@@ -551,9 +646,16 @@ public class GooglePlayStorePanel : MonoBehaviour
     /// </summary>
     private void OnClickSaveToCloud()
     {
-        if (CloudSaveManager.Instance == null || !CloudSaveManager.Instance.IsAuthenticated)
+        var cloudManager = CloudSaveManager.Instance;
+        if (cloudManager == null || !cloudManager.IsAuthenticated)
         {
             ShowFeedback(LocalizationManager.GetText("로그인이 필요합니다.", "Login required."));
+            return;
+        }
+
+        if (cloudManager.IsSaving)
+        {
+            ShowFeedback(LocalizationManager.GetText("이미 클라우드에 저장 중입니다.", "A cloud save is already in progress."));
             return;
         }
 
@@ -574,13 +676,11 @@ public class GooglePlayStorePanel : MonoBehaviour
 
         ShowFeedback(LocalizationManager.GetText("클라우드에 저장 중...", "Saving to cloud..."));
 
-        CloudSaveManager.Instance.SaveToCloud(localData);
-
-        // 저장 완료 이벤트 구독
+        // 로그인 해제 같은 동기 실패 경로도 놓치지 않도록 요청 전에 구독한다.
         System.Action<bool, string> onSaveComplete = null;
         onSaveComplete = (success, error) =>
         {
-            CloudSaveManager.Instance.OnCloudSaveComplete -= onSaveComplete;
+            cloudManager.OnCloudSaveComplete -= onSaveComplete;
 
             if (success)
             {
@@ -594,7 +694,8 @@ public class GooglePlayStorePanel : MonoBehaviour
             }
         };
 
-        CloudSaveManager.Instance.OnCloudSaveComplete += onSaveComplete;
+        cloudManager.OnCloudSaveComplete += onSaveComplete;
+        cloudManager.SaveToCloud(localData);
     }
 
 
@@ -671,6 +772,8 @@ public class GooglePlayStorePanel : MonoBehaviour
     private void ShowFeedback(string message)
     {
         if (feedbackText == null) return;
+
+        ConfigureResponsiveLayout();
 
         if (feedbackRoutine != null)
         {

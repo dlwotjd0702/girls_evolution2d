@@ -48,6 +48,20 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     [SerializeField] private int plusOfflineRewardLv = 0;
     [SerializeField] private int plusOfflineMaxTimeLv = 0;
 
+    // 효과가 멈춘 뒤에도 포인트를 소비할 수 없도록 매니저 API에서 강제한다.
+    public const int IncomeCap = 25;
+    public const int TwoStepCap = 4; // 상점 10%p + 계승 최대 10%p = 전체 cap 20%p
+    public const int StartGoldCap = 10;
+    public const int PrestigeGainCap = 20;
+    public const int ManualSpawnMaxCap = 5;
+    public const int ManualSpawnSpeedCap = 10;
+    public const int AutoMergeSpeedCap = 17;
+    public const int AutoSpawnSpeedCap = 17;
+    public const int FieldMaxCap = 5;
+    public const int ClickBonusCap = 20;
+    public const int OfflineRewardCap = 20;
+    public const int OfflineMaxTimeCap = 12;
+
     // ───────── 비용 곡선 ─────────
     // 리밸런싱: 25단계 기본 환생 포인트 2500 기준으로 비용 재조정
     // 골드 강화와 환생 업그레이드를 함께 고려하여 적절한 레벨 캡 설정
@@ -269,7 +283,7 @@ public class PrestigeManager : MonoBehaviour, ISaveable
             MythicCollectionManager.Instance?.AdvanceAfterPrestige();
             IncomeActivityManager.Instance?.Fever.Reset();
             var legacy = LegacyRankManager.Instance;
-            if (legacy) legacy.AddXp(reward.BasePoints);
+            if (legacy) legacy.AddXp(1);
 
             double startGold = economy.GetLevelIncomePerSec(1) * 60.0
                 * (legacy ? legacy.GetStartGoldMultiplier() : 1.0) * GetStartGoldMultiplier();
@@ -311,20 +325,23 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     }
 
     // 비용 조회 (핵심)
-    public int GetIncomeNextCost()         => GrowthCost(incomeBase,              incomeGrow,              incomeLv);
-    public int GetTwoStepNextCost()        => GrowthCost(twoStepBase,             twoStepGrow,             twoStepLv);
-    public int GetStartGoldNextCost()      => GrowthCost(startBase,               startGrow,               startGoldLv);
-    public int GetPrestigeGainNextCost()   => GrowthCost(ppgBase,                 ppgGrow,                 prestigeGainLv);
+    static int CappedCost(int level, int cap, int baseCost, float growth) =>
+        level >= cap ? 0 : GrowthCost(baseCost, growth, level);
+
+    public int GetIncomeNextCost()         => CappedCost(incomeLv,       IncomeCap,       incomeBase,  incomeGrow);
+    public int GetTwoStepNextCost()        => CappedCost(twoStepLv,      TwoStepCap,      twoStepBase, twoStepGrow);
+    public int GetStartGoldNextCost()      => CappedCost(startGoldLv,    StartGoldCap,    startBase,   startGrow);
+    public int GetPrestigeGainNextCost()   => CappedCost(prestigeGainLv, PrestigeGainCap, ppgBase,     ppgGrow);
 
     // 비용 조회 (Plus)
-    public int GetPlusManualSpawnMaxCost() => GrowthCost(plusManualSpawnMaxBase,  plusManualSpawnMaxGrow,  plusManualSpawnMaxLv);
-    public int GetPlusManualSpeedCost()    => GrowthCost(plusManualSpawnSpeedBase,plusManualSpawnSpeedGrow,plusManualSpawnSpeedLv);
-    public int GetPlusAutoMergeCost()      => GrowthCost(plusAutoMergeSpeedBase,  plusAutoMergeSpeedGrow,  plusAutoMergeSpeedLv);
-    public int GetPlusAutoSpawnCost()      => GrowthCost(plusAutoSpawnSpeedBase,  plusAutoSpawnSpeedGrow,  plusAutoSpawnSpeedLv);
-    public int GetPlusFieldMaxCost()       => GrowthCost(plusFieldMaxBase,        plusFieldMaxGrow,        plusFieldMaxLv);
-    public int GetPlusClickBonusCost()     => GrowthCost(plusClickBonusBase,      plusClickBonusGrow,      plusClickBonusLv);
-    public int GetPlusOfflineRewardCost()  => GrowthCost(plusOfflineRewardBase,   plusOfflineRewardGrow,   plusOfflineRewardLv);
-    public int GetPlusOfflineMaxTimeCost() => GrowthCost(plusOfflineMaxTimeBase,  plusOfflineMaxTimeGrow,  plusOfflineMaxTimeLv);
+    public int GetPlusManualSpawnMaxCost() => CappedCost(plusManualSpawnMaxLv,   ManualSpawnMaxCap,   plusManualSpawnMaxBase,   plusManualSpawnMaxGrow);
+    public int GetPlusManualSpeedCost()    => CappedCost(plusManualSpawnSpeedLv, ManualSpawnSpeedCap, plusManualSpawnSpeedBase, plusManualSpawnSpeedGrow);
+    public int GetPlusAutoMergeCost()      => CappedCost(plusAutoMergeSpeedLv,   AutoMergeSpeedCap,   plusAutoMergeSpeedBase,   plusAutoMergeSpeedGrow);
+    public int GetPlusAutoSpawnCost()      => CappedCost(plusAutoSpawnSpeedLv,   AutoSpawnSpeedCap,   plusAutoSpawnSpeedBase,   plusAutoSpawnSpeedGrow);
+    public int GetPlusFieldMaxCost()       => CappedCost(plusFieldMaxLv,         FieldMaxCap,         plusFieldMaxBase,         plusFieldMaxGrow);
+    public int GetPlusClickBonusCost()     => CappedCost(plusClickBonusLv,       ClickBonusCap,       plusClickBonusBase,       plusClickBonusGrow);
+    public int GetPlusOfflineRewardCost()  => CappedCost(plusOfflineRewardLv,    OfflineRewardCap,    plusOfflineRewardBase,    plusOfflineRewardGrow);
+    public int GetPlusOfflineMaxTimeCost() => CappedCost(plusOfflineMaxTimeLv,   OfflineMaxTimeCap,   plusOfflineMaxTimeBase,   plusOfflineMaxTimeGrow);
 
     // 구매 (핵심)
     public bool TryBuyIncome()            => TrySpendAnd(ref incomeLv,           GetIncomeNextCost());
@@ -365,6 +382,19 @@ public class PrestigeManager : MonoBehaviour, ISaveable
     public int GetPlusOfflineRewardLevel()   => plusOfflineRewardLv;
     public int GetPlusOfflineMaxTimeLevel()  => plusOfflineMaxTimeLv;
 
+    public int GetIncomeCap()              => IncomeCap;
+    public int GetTwoStepCap()             => TwoStepCap;
+    public int GetStartGoldCap()           => StartGoldCap;
+    public int GetPrestigeGainCap()        => PrestigeGainCap;
+    public int GetPlusManualSpawnMaxCap()  => ManualSpawnMaxCap;
+    public int GetPlusManualSpeedCap()     => ManualSpawnSpeedCap;
+    public int GetPlusAutoMergeCap()       => AutoMergeSpeedCap;
+    public int GetPlusAutoSpawnCap()       => AutoSpawnSpeedCap;
+    public int GetPlusFieldMaxCap()        => FieldMaxCap;
+    public int GetPlusClickBonusCap()      => ClickBonusCap;
+    public int GetPlusOfflineRewardCap()   => OfflineRewardCap;
+    public int GetPlusOfflineMaxTimeCap()  => OfflineMaxTimeCap;
+
     // ───────── Save ─────────
     public void CollectSaveData(SaveData d)
     {
@@ -391,19 +421,19 @@ public class PrestigeManager : MonoBehaviour, ISaveable
         prestigePoint      = Mathf.Max(0, d.prestigePoint);
         totalPrestigeCount = Mathf.Max(0, d.totalPrestigeCount);
 
-        incomeLv              = TryGetInt(d, "prestigeShopIncomeLv",        incomeLv);
-        twoStepLv             = TryGetInt(d, "prestigeShopTwoStepLv",       twoStepLv);
-        startGoldLv           = TryGetInt(d, "prestigeShopStartGoldLv",     startGoldLv);
-        prestigeGainLv        = TryGetInt(d, "prestigeShopPrestigeGainLv",  prestigeGainLv);
+        incomeLv              = Mathf.Clamp(TryGetInt(d, "prestigeShopIncomeLv",       incomeLv),       0, IncomeCap);
+        twoStepLv             = Mathf.Clamp(TryGetInt(d, "prestigeShopTwoStepLv",      twoStepLv),      0, TwoStepCap);
+        startGoldLv           = Mathf.Clamp(TryGetInt(d, "prestigeShopStartGoldLv",    startGoldLv),    0, StartGoldCap);
+        prestigeGainLv        = Mathf.Clamp(TryGetInt(d, "prestigeShopPrestigeGainLv", prestigeGainLv), 0, PrestigeGainCap);
 
-        plusManualSpawnMaxLv  = TryGetInt(d, "ppManualSpawnMaxLv",          plusManualSpawnMaxLv);
-        plusManualSpawnSpeedLv= TryGetInt(d, "ppManualSpawnSpeedLv",        plusManualSpawnSpeedLv);
-        plusAutoMergeSpeedLv  = TryGetInt(d, "ppAutoMergeLv",               plusAutoMergeSpeedLv);
-        plusAutoSpawnSpeedLv  = TryGetInt(d, "ppAutoSpawnLv",               plusAutoSpawnSpeedLv);
-        plusFieldMaxLv        = TryGetInt(d, "ppMaxFieldCountLv",           plusFieldMaxLv);
-        plusClickBonusLv      = TryGetInt(d, "ppClickBonusLv",              plusClickBonusLv);
-        plusOfflineRewardLv   = TryGetInt(d, "ppOfflineRewardLv",           plusOfflineRewardLv);
-        plusOfflineMaxTimeLv  = TryGetInt(d, "ppOfflineMaxTimeLv",          plusOfflineMaxTimeLv);
+        plusManualSpawnMaxLv  = Mathf.Clamp(TryGetInt(d, "ppManualSpawnMaxLv", plusManualSpawnMaxLv), 0, ManualSpawnMaxCap);
+        plusManualSpawnSpeedLv= Mathf.Clamp(TryGetInt(d, "ppManualSpawnSpeedLv", plusManualSpawnSpeedLv), 0, ManualSpawnSpeedCap);
+        plusAutoMergeSpeedLv  = Mathf.Clamp(TryGetInt(d, "ppAutoMergeLv", plusAutoMergeSpeedLv), 0, AutoMergeSpeedCap);
+        plusAutoSpawnSpeedLv  = Mathf.Clamp(TryGetInt(d, "ppAutoSpawnLv", plusAutoSpawnSpeedLv), 0, AutoSpawnSpeedCap);
+        plusFieldMaxLv        = Mathf.Clamp(TryGetInt(d, "ppMaxFieldCountLv", plusFieldMaxLv), 0, FieldMaxCap);
+        plusClickBonusLv      = Mathf.Clamp(TryGetInt(d, "ppClickBonusLv", plusClickBonusLv), 0, ClickBonusCap);
+        plusOfflineRewardLv   = Mathf.Clamp(TryGetInt(d, "ppOfflineRewardLv", plusOfflineRewardLv), 0, OfflineRewardCap);
+        plusOfflineMaxTimeLv  = Mathf.Clamp(TryGetInt(d, "ppOfflineMaxTimeLv", plusOfflineMaxTimeLv), 0, OfflineMaxTimeCap);
 
         NotifyPointsChanged();
         RefreshPrestigeButton(true);

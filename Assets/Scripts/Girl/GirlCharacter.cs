@@ -128,7 +128,7 @@ public class GirlCharacter : MonoBehaviour,
         pendingFieldSprite = null;
         this.data = data;
         this.Level = data.level;
-        this.displayName = data.name;
+        this.displayName = data.LocalizedName;
         if (imageUI && sprite) imageUI.sprite = sprite;
         Highlight(false);
 
@@ -411,6 +411,10 @@ public class GirlCharacter : MonoBehaviour,
         // 드래그 여부와 상관없이 항상 클릭 수익 및 연출 처리 (25단계 포함)
         mergeManager?.AddIncomeGold(this, true);
         Pulse();
+
+        // Feed the same confirmed character tap into the fever meter.  Keeping this
+        // beside the click-income path prevents drags or empty-field taps from charging it.
+        IncomeActivityManager.Instance?.RecordCharacterClick();
         
         // 통계 기록: 클릭
         if (PlayStatsTracker.Instance != null)

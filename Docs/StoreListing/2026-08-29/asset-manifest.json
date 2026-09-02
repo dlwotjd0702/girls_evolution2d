@@ -1,0 +1,101 @@
+[
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\app-icon-512.png",
+    "size": [
+      512,
+      512
+    ],
+    "mode": "RGB",
+    "bytes": 475591
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\feature-graphic-1024x500.png",
+    "size": [
+      1024,
+      500
+    ],
+    "mode": "RGB",
+    "bytes": 608923
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\phone\\01-merge-evolve-1080x1920.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGB",
+    "bytes": 1855156
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\phone\\02-fever-automation-1080x1920.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGB",
+    "bytes": 1980346
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\phone\\03-skins-collection-1080x1920.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGB",
+    "bytes": 1195841
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\phone\\04-ld-detail-1080x1920.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGB",
+    "bytes": 964631
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\phone\\05-prestige-1080x1920.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGB",
+    "bytes": 2035022
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\phone\\06-summon-1080x1920.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGB",
+    "bytes": 1133166
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\phone\\07-offline-reward-1080x1920.png",
+    "size": [
+      1080,
+      1920
+    ],
+    "mode": "RGB",
+    "bytes": 1163588
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\preview-overview.jpg",
+    "size": [
+      1260,
+      1040
+    ],
+    "mode": "RGB",
+    "bytes": 307322
+  },
+  {
+    "file": "Docs\\StoreListing\\2026-08-29\\preview-mobile.jpg",
+    "size": [
+      840,
+      1110
+    ],
+    "mode": "RGB",
+    "bytes": 187244
+  }
+]

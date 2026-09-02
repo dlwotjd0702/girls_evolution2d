@@ -9,7 +9,6 @@ using UnityEngine;
 public class LocalizationManager : MonoBehaviour, ISaveable
 {
     public static LocalizationManager Instance { get; private set; }
-    
     private static bool _isKorean = false;
     private static bool _isInitialized = false;
     
@@ -102,8 +101,7 @@ public class LocalizationManager : MonoBehaviour, ISaveable
             _isInitialized = true;
             return;
         }
-        
-        // languageCode가 0이면 최초 실행으로 간주하여 시스템 언어 사용
+
         if (data.languageCode == 0)
         {
             _isKorean = Application.systemLanguage == SystemLanguage.Korean;

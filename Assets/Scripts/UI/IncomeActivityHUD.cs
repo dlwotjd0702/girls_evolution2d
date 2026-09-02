@@ -10,15 +10,38 @@ public class IncomeActivityHUD : MonoBehaviour
     public Image feverFill;
     public Button boostButton;
     public TextMeshProUGUI boostLabel;
+    public IncomeBoostOfferPopup boostPopup;
+    public Sprite popupFrameSprite;
     float refreshTimer;
-
+    void Awake() => NormalizeFeverLayout();
     void OnEnable()
     {
+        NormalizeFeverLayout();
         if (boostButton) boostButton.onClick.AddListener(RequestBoost);
         Refresh();
     }
     void OnDisable() { if (boostButton) boostButton.onClick.RemoveListener(RequestBoost); }
-    void RequestBoost() { if (activity) activity.RequestBoost(); Refresh(); }
+    void RequestBoost()
+    {
+        if (!activity) return;
+        EnsurePopup();
+        boostPopup.Show();
+        Refresh();
+    }
+
+    void EnsurePopup()
+    {
+        if (boostPopup) return;
+        boostPopup = FindObjectOfType<IncomeBoostOfferPopup>(true);
+        if (!boostPopup)
+        {
+            var canvas = GetComponentInParent<Canvas>() ?? FindObjectOfType<Canvas>();
+            var popup = new GameObject("Income Boost Offer Popup", typeof(RectTransform));
+            popup.transform.SetParent(canvas.transform, false);
+            boostPopup = popup.AddComponent<IncomeBoostOfferPopup>();
+        }
+        boostPopup.Initialize(activity, boostLabel ? boostLabel.font : null, popupFrameSprite);
+    }
     void Update()
     {
         refreshTimer += Time.unscaledDeltaTime;
@@ -33,6 +56,34 @@ public class IncomeActivityHUD : MonoBehaviour
         RefreshFever();
         RefreshBoost();
     }
+
+    public void NormalizeFeverLayout()
+    {
+        if (!feverFill) return;
+        var fillRect = feverFill.rectTransform;
+        fillRect.anchorMin = Vector2.zero;
+        fillRect.anchorMax = Vector2.one;
+        fillRect.pivot = new Vector2(0.5f, 0.5f);
+        fillRect.offsetMin = Vector2.zero;
+        fillRect.offsetMax = Vector2.zero;
+        fillRect.localScale = Vector3.one;
+        feverFill.type = Image.Type.Filled;
+        feverFill.fillMethod = Image.FillMethod.Horizontal;
+        feverFill.fillOrigin = 0;
+        feverFill.preserveAspect = false;
+
+        var track = fillRect.parent as RectTransform;
+        if (!track) return;
+        float y = track.anchoredPosition.y;
+        float height = track.sizeDelta.y;
+        track.anchorMin = new Vector2(0, 0);
+        track.anchorMax = new Vector2(1, 0);
+        track.pivot = new Vector2(0.5f, 0.5f);
+        track.sizeDelta = new Vector2(0, height);
+        track.anchoredPosition = new Vector2(0, y);
+        track.localScale = Vector3.one;
+    }
+
     public void RefreshFever()
     {
         if (!activity) return;
@@ -48,12 +99,12 @@ public class IncomeActivityHUD : MonoBehaviour
     {
         if (!activity) return;
         long remaining = activity.BoostSecondsRemaining;
-        if (boostButton) boostButton.interactable = Application.isPlaying && activity.CanRequestBoost;
+        if (boostButton) boostButton.interactable = Application.isPlaying;
         if (!boostLabel) return;
         bool adFree = PremiumCurrencyManager.Instance && PremiumCurrencyManager.Instance.AdsRemoved;
         boostLabel.text = remaining > 0
-            ? LocalizationManager.GetText($"수익 {activity.adMultiplier:0.#}배 적용 중\n<size=80%>남은 시간 {remaining / 60:00}:{remaining % 60:00}</size>", $"INCOME ×{activity.adMultiplier:0.#} ACTIVE\n<size=80%>{remaining / 60:00}:{remaining % 60:00} remaining</size>")
-            : activity.RequestPending ? LocalizationManager.GetText("광고 진행 중", "AD IN PROGRESS")
-            : LocalizationManager.GetText($"수익 {activity.adMultiplier:0.#}배 · {activity.boostSeconds / 60}분\n<size=80%>{(adFree ? "광고 없이 받기" : "광고 보고 받기")}</size>", $"INCOME ×{activity.adMultiplier:0.#} · {activity.boostSeconds / 60} MIN\n<size=80%>{(adFree ? "CLAIM WITHOUT AD" : "WATCH AD TO CLAIM")}</size>");
+            ? $"<b>{activity.adMultiplier:0.#}×</b>\n<size=65%>{remaining / 60:00}:{remaining % 60:00}</size>"
+            : activity.RequestPending ? "<b>2×</b>\n<size=60%>…</size>"
+            : $"<b>{activity.adMultiplier:0.#}×</b>\n<size=60%>{activity.boostSeconds / 60} MIN</size>";
     }
 }
